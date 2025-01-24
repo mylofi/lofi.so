@@ -10,13 +10,13 @@
       <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
         Local-first Software
       </h1>
-      <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
-        Own your data, work offline, and collaborate seamlessly. Build apps that put users first.
-      </p>
-      <p class="mt-12 text-lg text-gray-300 max-w-2xl mx-auto">
+      <p class="mt-7 text-lg text-gray-300 max-w-2xl mx-auto">
         So, you want to build an app that has its data co-located with its UI? That works offline? That synchronizes between clients? And that lets its users own their data?
       </p>
-      <div class="mt-10 flex justify-center gap-4">
+      <p class="mt-7 font-bold text-lg text-gray-300 max-w-2xl mx-auto">
+        Welcome to the world of local-first web development.
+      </p>
+      <div class="mt-14 flex justify-center gap-4">
         <a href="#start-here" class="rounded-md bg-[#ff3e00] px-6 py-3 text-lg font-semibold hover:bg-[#ff3e00]/90 transition">
           Start Here
         </a>
