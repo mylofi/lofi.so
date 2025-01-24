@@ -5,8 +5,8 @@
 
 <!-- Right Sidebar - Sponsors -->
 <div class="hidden xl:block">
-  <div class="absolute z-20 top-10 bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] px-8">
-    <div class="sticky top-10 overflow-y-auto" style="max-height: calc(100vh - 5rem);">
+  <div class="absolute z-20 top-24 bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] px-8">
+    <div class="sticky top-24 overflow-y-auto" style="max-height: calc(100vh - 6rem);">
       <!-- Next Event -->
       <div class="mb-4 rounded-lg bg-gradient-to-b from-[#ff3e00]/10 to-gray-800/50 backdrop-blur-sm overflow-hidden">
         <a href={nextEvent.url} class="block group">

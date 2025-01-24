@@ -14,7 +14,7 @@
   <NavBar />
   <Hero />
 
-  <div class="relative">
+  <div class="relative py-16">
     <SponsorsRail {nextEvent} {sponsors} />
 
     <div class="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
