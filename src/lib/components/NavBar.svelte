@@ -35,8 +35,8 @@
 
 <div class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 transition-transform duration-300" 
      class:translate-y-[-100%]={!isVisible}>
-  <nav class="w-full max-w-7xl my-4 bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl">
-    <div class="px-4 sm:px-6 lg:px-8">
+  <nav class="w-full max-w-2xl my-2 bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl">
+    <div class="px-4 sm:px-6">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <a href="/" class="flex items-center">
