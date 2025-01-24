@@ -10,12 +10,12 @@
   <!-- Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
     <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-b from-[#ff3e00]/30 via-[#ff3e00]/5 to-transparent" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);"></div>
+      <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[40rem] h-[35rem] bg-[#ff3e00] opacity-20 blur-[8rem] rounded-full"></div>
       <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(circle_at_center,white,transparent_75%)]"></div>
     </div>
     <div class="max-w-7xl mx-auto relative">
       <div class="text-center">
-        <img src="/images/logo.svg" alt="Local First Software" class="h-32 sm:h-40 mx-auto mb-12" />
+        <img src="/images/logo.svg" alt="Local First Software" class="h-32 sm:h-40 mx-auto mb-2" />
         <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
           Local-first Software
         </h1>
@@ -239,6 +239,30 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+    <div class="absolute left-1/2 bottom-16 -translate-x-1/2 w-[30rem] h-[15rem] bg-[#ff3e00] opacity-30 blur-[8rem] rounded-full"></div>
+    <div class="max-w-7xl mx-auto text-center relative">
+      <div class="space-y-4">
+        <p class="text-lg text-gray-300">
+          We started a blog! Read our origin story in 
+          <a href="/blog/first-post" class="text-white underline hover:text-gray-300 transition">the first post</a>.
+        </p>
+        <p class="text-lg text-gray-300">
+          Something missing? 
+          <a href="https://github.com/username/repo/edit/main/content" class="text-white underline hover:text-gray-300 transition">
+            <span class="inline-block">✍️ Edit the lists</span>
+          </a> 
+          or 
+          <a href="https://github.com/username/repo" class="text-white underline hover:text-gray-300 transition">
+            <span class="inline-block">🎨 redesign the page!</span>
+          </a>
+        </p>
+      </div>
+      <img src="/images/logo.svg" alt="Local First Software" class="h-16 mx-auto mt-12 opacity-50" />
+    </div>
+  </footer>
 </div>
 
 <style>
