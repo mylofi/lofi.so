@@ -51,8 +51,8 @@
           </section>
 
           <!-- Recent Videos & Talks -->
-          <section class="py-16 bg-gray-800/50">
-            <h2 class="text-3xl font-bold mb-8">Recent Videos & Talks</h2>
+          <h2 class="text-3xl font-bold mb-7">Recent Videos & Talks</h2>
+          <section class="py-7 px-7 bg-gray-800/50">
             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {#each content[0].sections[1].items.slice(0, 3) as item}
                 <article class="bg-gray-800 rounded-lg overflow-hidden">
@@ -117,8 +117,8 @@
           </section>
 
           <!-- App Categories -->
-          <section id="apps" class="py-16 bg-gray-800">
-            <h2 class="text-3xl font-bold mb-12">Local-First Apps & Tools</h2>
+          <h2 class="text-3xl font-bold mb-7">Local-First Apps & Tools</h2>
+          <section id="apps" class="py-7 px-7 rounded-md bg-gray-800">
             
             <div class="grid lg:grid-cols-3 gap-12">
               <!-- Storing Data -->
