@@ -3,9 +3,12 @@
   let scrollY: number;
   let lastScrollY = 0;
   let isVisible = true;
+  let isAtTop = true;
 
   function handleScroll() {
     scrollY = window.scrollY;
+    isAtTop = scrollY < 50;
+    
     if (scrollY > lastScrollY && scrollY > 100) {
       isVisible = false;
     } else {
@@ -35,17 +38,22 @@
 
 <div class="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 transition-transform duration-300" 
      class:translate-y-[-100%]={!isVisible}>
-  <nav class="w-full max-w-2xl my-2 bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl">
+  <nav class="w-full max-w-2xl my-2 bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl transition-all duration-300"
+       class:bg-transparent={isAtTop}
+       class:border-transparent={isAtTop}>
     <div class="px-4 sm:px-6">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <a href="/" class="flex items-center">
-            <img src="/images/logo.svg" alt="Local First Software" class="h-8 w-auto" />
+            <img src="/images/logo.svg" alt="Local First Software" class="h-8 w-auto transition-transform duration-300" 
+                 class:scale-125={isAtTop} />
           </a>
         </div>
         
         <!-- Desktop Navigation -->
-        <div class="hidden md:block">
+        <div class="hidden md:block transition-opacity duration-300"
+             class:opacity-0={isAtTop}
+             class:pointer-events-none={isAtTop}>
           <div class="flex items-center space-x-4">
             <a href="#start-here" on:click={(e) => scrollToSection(e, '#start-here')} class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Start Here</a>
             <a href="#apps" on:click={(e) => scrollToSection(e, '#apps')} class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Apps</a>
@@ -54,7 +62,9 @@
         </div>
 
         <!-- Mobile menu button -->
-        <div class="md:hidden">
+        <div class="md:hidden transition-opacity duration-300"
+             class:opacity-0={isAtTop}
+             class:pointer-events-none={isAtTop}>
           <button 
             on:click={() => isMenuOpen = !isMenuOpen}
             class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
@@ -72,7 +82,7 @@
     </div>
 
     <!-- Mobile menu -->
-    {#if isMenuOpen}
+    {#if isMenuOpen && !isAtTop}
       <div class="md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
         <a href="#start-here" on:click={(e) => scrollToSection(e, '#start-here')} class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Start Here</a>
         <a href="#apps" on:click={(e) => scrollToSection(e, '#apps')} class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Apps</a>
