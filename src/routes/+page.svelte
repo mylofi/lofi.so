@@ -4,38 +4,14 @@
   const { content, heading } = data;
   import sponsorsData from '$lib/data/sponsors.json';
   const { sponsors, nextEvent } = sponsorsData;
+  import Hero from '$lib/components/Hero.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+  import NavBar from '$lib/components/NavBar.svelte';
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white">
-  <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[40rem] h-[35rem] bg-[#ff3e00] opacity-20 blur-[8rem] rounded-full"></div>
-      <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(circle_at_center,white,transparent_75%)]"></div>
-    </div>
-    <div class="max-w-7xl mx-auto relative">
-      <div class="text-center">
-        <img src="/images/logo.svg" alt="Local First Software" class="h-32 sm:h-40 mx-auto mb-2" />
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-          Local-first Software
-        </h1>
-        <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">
-          Own your data, work offline, and collaborate seamlessly. Build apps that put users first.
-        </p>
-        <p class="mt-12 text-lg text-gray-300 max-w-2xl mx-auto">
-          So, you want to build an app that has its data co-located with its UI? That works offline? That synchronizes between clients? And that lets its users own their data?
-        </p>
-        <div class="mt-10 flex justify-center gap-4">
-          <a href="#start-here" class="rounded-md bg-[#ff3e00] px-6 py-3 text-lg font-semibold hover:bg-[#ff3e00]/90 transition">
-            Start Here
-          </a>
-          <a href="#apps" class="rounded-md bg-gray-800 border border-gray-700 px-6 py-3 text-lg font-semibold hover:bg-gray-700 transition">
-            Explore Apps
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <NavBar />
+  <Hero />
 
   <div class="relative">
     <!-- Right Sidebar - Sponsors -->
@@ -240,29 +216,7 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
-    <div class="absolute left-1/2 bottom-16 -translate-x-1/2 w-[30rem] h-[15rem] bg-[#ff3e00] opacity-30 blur-[8rem] rounded-full"></div>
-    <div class="max-w-7xl mx-auto text-center relative">
-      <div class="space-y-4">
-        <p class="text-lg text-gray-300">
-          We started a blog! Read our origin story in 
-          <a href="/blog/first-post" class="text-white underline hover:text-gray-300 transition">the first post</a>.
-        </p>
-        <p class="text-lg text-gray-300">
-          Something missing? 
-          <a href="https://github.com/username/repo/edit/main/content" class="text-white underline hover:text-gray-300 transition">
-            <span class="inline-block">✍️ Edit the lists</span>
-          </a> 
-          or 
-          <a href="https://github.com/username/repo" class="text-white underline hover:text-gray-300 transition">
-            <span class="inline-block">🎨 redesign the page!</span>
-          </a>
-        </p>
-      </div>
-      <img src="/images/logo.svg" alt="Local First Software" class="h-16 mx-auto mt-12 opacity-50" />
-    </div>
-  </footer>
+  <Footer />
 </div>
 
 <style>
