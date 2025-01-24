@@ -4,8 +4,12 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				sans: ['Archivo', 'system-ui', 'sans-serif']
+			}
+		}
 	},
 
-	plugins: []
+	plugins: [require('@tailwindcss/aspect-ratio')]
 } satisfies Config;
