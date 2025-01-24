@@ -4,7 +4,6 @@
   let lastScrollY = 0;
   let isVisible = true;
 
-  // Handle scroll direction
   function handleScroll() {
     scrollY = window.scrollY;
     if (scrollY > lastScrollY && scrollY > 100) {
@@ -13,6 +12,22 @@
       isVisible = true;
     }
     lastScrollY = scrollY;
+  }
+
+  function scrollToSection(e: Event, id: string) {
+    e.preventDefault();
+    const element = document.querySelector(id);
+    if (element) {
+      const navHeight = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    isMenuOpen = false;
   }
 </script>
 
@@ -32,8 +47,8 @@
         <!-- Desktop Navigation -->
         <div class="hidden md:block">
           <div class="flex items-center space-x-4">
-            <a href="#start-here" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Start Here</a>
-            <a href="#apps" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Apps</a>
+            <a href="#start-here" on:click={(e) => scrollToSection(e, '#start-here')} class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Start Here</a>
+            <a href="#apps" on:click={(e) => scrollToSection(e, '#apps')} class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Apps</a>
             <a href="/blog/first-post" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Blog</a>
           </div>
         </div>
@@ -59,8 +74,8 @@
     <!-- Mobile menu -->
     {#if isMenuOpen}
       <div class="md:hidden px-2 pt-2 pb-3 space-y-1 sm:px-3">
-        <a href="#start-here" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Start Here</a>
-        <a href="#apps" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Apps</a>
+        <a href="#start-here" on:click={(e) => scrollToSection(e, '#start-here')} class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Start Here</a>
+        <a href="#apps" on:click={(e) => scrollToSection(e, '#apps')} class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Apps</a>
         <a href="/blog/first-post" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Blog</a>
       </div>
     {/if}
