@@ -1,0 +1,60 @@
+{
+  "nextEvent": {
+    "name": "Local First Meetup 2024",
+    "date": "January 28, 2024",
+    "time": "8:00 AM PST",
+    "image": "/images/meetup-2024.png",
+    "url": "https://discord.gg/lofi-so?event=1312983350033780807",
+    "description": "Join us for the first Local First Software meetup of 2024! We'll be discussing the latest developments in local-first software and sharing experiences from the community."
+  },
+  "sponsors": [
+    {
+      "name": "Void(0)",
+      "image": "https://void0.io/img/void0.svg",
+      "url": "https://void0.io",
+      "tier": "Platinum",
+      "amount": 2000,
+      "height": 160
+    },
+    {
+      "name": "StackBlitz",
+      "image": "https://c.staticblitz.com/assets/logo-181cc8d8cd4e2e0f0d988a354b80842874d72dcd5d5c770df421567fe5114a57.svg",
+      "url": "https://stackblitz.com",
+      "tier": "Gold",
+      "amount": 1000,
+      "height": 120
+    },
+    {
+      "name": "Astro",
+      "image": "https://astro.build/assets/press/logomark-light.svg",
+      "url": "https://astro.build",
+      "tier": "Silver",
+      "amount": 500,
+      "height": 100
+    },
+    {
+      "name": "Electric SQL",
+      "image": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
+      "url": "https://electric-sql.com",
+      "tier": "Silver",
+      "amount": 500,
+      "height": 100
+    },
+    {
+      "name": "Storyblok",
+      "image": "https://www.storyblok.com/favicon.svg",
+      "url": "https://www.storyblok.com",
+      "tier": "Bronze",
+      "amount": 200,
+      "height": 80
+    },
+    {
+      "name": "Bit",
+      "image": "https://static.bit.dev/bit-logo.svg",
+      "url": "https://bit.dev",
+      "tier": "Bronze",
+      "amount": 200,
+      "height": 80
+    }
+  ]
+} 
