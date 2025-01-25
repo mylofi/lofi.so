@@ -142,7 +142,7 @@
 					</section>
 
 					<!-- Monthly Meetup Section - For medium screens and up -->
-					<section id="monthly-meetup" class="hidden py-16 md:block">
+					<section id="monthly-meetup-desktop" class="hidden py-16 md:block">
 						<div class="max-w-xl rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
 							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 								<div class="flex-1">

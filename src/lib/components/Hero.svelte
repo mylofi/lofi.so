@@ -9,14 +9,14 @@
 		<button
 			class="animate-float group flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-[#5865F2] px-4 py-2.5 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base"
 			on:click={() => {
-				const meetupSection = document.querySelector('#monthly-meetup');
-				if (meetupSection) {
-					meetupSection.scrollIntoView({ behavior: 'smooth' });
+				const desktopSection = document.querySelector('#monthly-meetup-desktop');
+				if (desktopSection) {
+					desktopSection.scrollIntoView({ behavior: 'smooth' });
 				}
 			}}
 		>
 			<CalendarIcon class="h-4 w-4 sm:h-5 sm:w-5" />
-			<span>Join In</span>
+			<span>Join Next Meetup</span>
 			<div class="animate-pulse-ring absolute inset-0 rounded-full" />
 		</button>
 	</div>
