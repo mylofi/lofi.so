@@ -48,7 +48,7 @@
 	<!-- Monthly Meetup Section - Visible only on small screens -->
 	<div class="md:hidden">
 		<section id="monthly-meetup" class="py-8">
-			<div class="to-discord mx-4 rounded-2xl bg-gradient-to-r from-primary">
+			<div class="mx-4 rounded-2xl bg-gradient-to-r from-primary to-discord">
 				<div class="flex flex-col items-center justify-between gap-8">
 					<div class="flex-1">
 						<img
@@ -97,6 +97,23 @@
 			<div class="lg:flex">
 				<!-- Main Content -->
 				<div class="flex-1 xl:mr-[19.5rem]">
+					<!-- Start Here Guide -->
+					<section id="start-here" class="py-16">
+						<h2 class="mb-8 text-3xl font-bold">Start Here</h2>
+						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+							{#each content[0].sections[0].items.slice(0, 6) as item}
+								<a
+									href={item.url}
+									class="block rounded-lg bg-gray-800 p-6 transition hover:bg-gray-700"
+								>
+									<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
+									<h3 class="mb-2 text-xl font-semibold">{item.title}</h3>
+									<p class="text-gray-400">By {item.author}</p>
+								</a>
+							{/each}
+						</div>
+					</section>
+
 					<!-- Local-first Mentions Feed -->
 					<section class="py-16">
 						<h2 class="mb-8 text-3xl font-bold">Latest Mentions</h2>
@@ -168,7 +185,7 @@
 
 					<!-- Monthly Meetup Section - For medium screens and up -->
 					<section id="monthly-meetup-desktop" class="hidden py-16 md:block">
-						<div class="to-discord max-w-xl rounded-2xl bg-gradient-to-r from-primary">
+						<div class="max-w-xl rounded-2xl bg-gradient-to-r from-primary to-discord">
 							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 								<div class="flex-1">
 									<img
@@ -206,23 +223,6 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</section>
-
-					<!-- Start Here Guide -->
-					<section id="start-here" class="py-16">
-						<h2 class="mb-8 text-3xl font-bold">Start Here</h2>
-						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{#each content[0].sections[0].items.slice(0, 6) as item}
-								<a
-									href={item.url}
-									class="block rounded-lg bg-gray-800 p-6 transition hover:bg-gray-700"
-								>
-									<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
-									<h3 class="mb-2 text-xl font-semibold">{item.title}</h3>
-									<p class="text-gray-400">By {item.author}</p>
-								</a>
-							{/each}
 						</div>
 					</section>
 
