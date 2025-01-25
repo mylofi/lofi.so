@@ -17,10 +17,14 @@
         Welcome to the world of local-first web development.
       </p>
       <div class="mt-14 flex justify-center gap-4">
-        <a href="#start-here" class="rounded-md bg-primary px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition">
+        <a href="#start-here" class="rounded-md bg-primary px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition scroll-smooth" on:click|preventDefault={(e) => {
+          document.querySelector('#start-here')?.scrollIntoView({ behavior: 'smooth' });
+        }}>
           Start Here
         </a>
-        <a href="#apps" class="rounded-md bg-gray-800 border border-gray-700 px-6 py-3 text-lg font-semibold hover:bg-gray-700 transition">
+        <a href="#apps" class="rounded-md bg-gray-800 border border-gray-700 px-6 py-3 text-lg font-semibold hover:bg-gray-700 transition" on:click|preventDefault={(e) => {
+          document.querySelector('#apps')?.scrollIntoView({ behavior: 'smooth' });
+        }}>
           Explore Apps
         </a>
       </div>

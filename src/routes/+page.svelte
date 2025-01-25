@@ -78,7 +78,7 @@
 
           <!-- Monthly Meetup Section -->
           <section class="py-16">
-            <div class="bg-gradient-to-r from-[#ff3e00] to-[#5865F2] rounded-2xl p-8">
+            <div class="bg-gradient-to-r from-primary to-[#5865F2] rounded-2xl p-8">
               <div class="flex flex-col md:flex-row items-center justify-between gap-8">
                 <div>
                   <h2 class="text-3xl font-bold">Join our Monthly Meetup</h2>

@@ -1,8 +1,7 @@
 <script lang="ts">
   export let nextEvent: { url: string; name: string; date: string; time: string; };
-  export let sponsors: { url: string; image: string; name: string; tier: string; }[];
+  export let sponsors: { url: string; image: string; name: string; tier: 'Partner' | 'Platinum' | 'Gold'; }[];
 
-  // Group sponsors by tier
   $: sponsorsByTier = sponsors.reduce((acc, sponsor) => {
     if (!acc[sponsor.tier]) {
       acc[sponsor.tier] = [];
