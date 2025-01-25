@@ -98,7 +98,7 @@
 
 					<!-- Monthly Meetup Section -->
 					<section class="py-16">
-						<div class="rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
+						<div class="mx-auto max-w-xl rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
 							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 								<div class="flex-1">
 									<img
