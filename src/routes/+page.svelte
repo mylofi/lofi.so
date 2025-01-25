@@ -99,7 +99,7 @@
 				<div class="flex-1 xl:mr-[19.5rem]">
 					<!-- Start Here Guide -->
 					<section id="start-here" class="py-16">
-						<h2 class="mb-8 text-3xl font-bold">Start Here</h2>
+						<h2 class="mb-8 text-3xl font-bold">Learn</h2>
 						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 							{#each content[0].sections[0].items.slice(0, 6) as item}
 								<a
@@ -151,8 +151,9 @@
 					</section>
 
 					<!-- Recent Videos & Talks -->
-					<h2 class="mb-7 text-3xl font-bold">Recent Videos & Talks</h2>
 					<section class="bg-gray-800/50 px-7 py-7">
+						<h2 class="mb-7 text-3xl font-bold">Recent Videos & Talks</h2>
+						<div class="mb-7 h-px bg-gray-700"></div>
 						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 							{#each content[0].sections[1].items.slice(0, 3) as item}
 								<article class="overflow-hidden rounded-lg bg-gray-800">
