@@ -5,6 +5,9 @@ export default {
 
 	theme: {
 		extend: {
+			colors: {
+				primary: '#f8b23a'
+			},
 			fontFamily: {
 				sans: ['Archivo', 'system-ui', 'sans-serif']
 			}

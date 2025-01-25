@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="relative py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
-  <div class="absolute left-1/2 bottom-16 -translate-x-1/2 w-[30rem] h-[15rem] bg-[#ff3e00] opacity-30 blur-[8rem] rounded-full"></div>
+  <div class="absolute left-1/2 bottom-16 -translate-x-1/2 w-[30rem] h-[15rem] bg-primary opacity-30 blur-[8rem] rounded-full animate-glow"></div>
   <div class="max-w-7xl mx-auto text-center relative">
     <div class="space-y-4">
       <p class="text-lg text-gray-300">
@@ -21,3 +21,24 @@
     <img src="/images/logo.svg" alt="Local First Software" class="h-16 mx-auto mt-12 opacity-50" />
   </div>
 </footer>
+
+<style>
+  @keyframes glow {
+    0% {
+      opacity: 0.1;
+      transform: translate(-50%, 0) scale(0.8);
+    }
+    50% {
+      opacity: 0.3;
+      transform: translate(-50%, 0) scale(1.1);
+    }
+    100% {
+      opacity: 0.1;
+      transform: translate(-50%, 0) scale(0.8);
+    }
+  }
+
+  :global(.animate-glow) {
+    animation: glow 4s ease-in-out infinite;
+  }
+</style>

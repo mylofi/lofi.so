@@ -38,7 +38,7 @@
                     <h3 class="text-xl font-semibold mb-3 line-clamp-2">
                       {item.title}
                     </h3>
-                    <a href={item.url} class="text-[#ff3e00] hover:text-[#ff3e00]/80 inline-flex items-center">
+                    <a href={item.url} class="text-primary hover:text-primary/80 inline-flex items-center">
                       Read more
                       <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -64,7 +64,7 @@
                       {item.title}
                     </h3>
                     <p class="text-gray-400 mb-4">By {item.author}</p>
-                    <a href={item.url} class="text-[#5865F2] hover:text-[#5865F2]/80 inline-flex items-center">
+                    <a href={item.url} class="text-primary hover:text-primary/80 inline-flex items-center">
                       Watch now
                       <svg class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -123,7 +123,7 @@
             <div class="grid lg:grid-cols-3 gap-12">
               <!-- Storing Data -->
               <div>
-                <h3 class="text-2xl font-semibold mb-6 text-[#ff3e00]">Storing Data</h3>
+                <h3 class="text-2xl font-semibold mb-6 text-primary">Storing Data</h3>
                 <div class="space-y-4">
                   {#each content[1].sections[0].items as item}
                     <a href={item.url} class="flex items-center p-4 rounded-lg bg-gray-700 hover:bg-gray-600 transition">
@@ -155,7 +155,7 @@
 
               <!-- Development Tools -->
               <div>
-                <h3 class="text-2xl font-semibold mb-6 text-[#ff3e00]">Development Tools</h3>
+                <h3 class="text-2xl font-semibold mb-6 text-primary">Development Tools</h3>
                 <div class="space-y-4">
                   {#each content[1].sections[2]?.items || [] as item}
                     <a href={item.url} class="flex items-center p-4 rounded-lg bg-gray-700 hover:bg-gray-600 transition">

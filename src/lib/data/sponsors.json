@@ -12,49 +12,43 @@
       "name": "Void(0)",
       "image": "https://void0.io/img/void0.svg",
       "url": "https://void0.io",
-      "tier": "Platinum",
-      "amount": 2000,
-      "height": 160
+      "tier": "Partner",
+      "amount": 5000
     },
     {
       "name": "StackBlitz",
       "image": "https://c.staticblitz.com/assets/logo-181cc8d8cd4e2e0f0d988a354b80842874d72dcd5d5c770df421567fe5114a57.svg",
       "url": "https://stackblitz.com",
-      "tier": "Gold",
-      "amount": 1000,
-      "height": 120
+      "tier": "Platinum",
+      "amount": 2000
     },
     {
       "name": "Astro",
       "image": "https://astro.build/assets/press/logomark-light.svg",
       "url": "https://astro.build",
-      "tier": "Silver",
-      "amount": 500,
-      "height": 100
+      "tier": "Gold",
+      "amount": 1000
     },
     {
       "name": "Electric SQL",
       "image": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
       "url": "https://electric-sql.com",
-      "tier": "Silver",
-      "amount": 500,
-      "height": 100
+      "tier": "Gold",
+      "amount": 1000
     },
     {
       "name": "Storyblok",
       "image": "https://www.storyblok.com/favicon.svg",
       "url": "https://www.storyblok.com",
-      "tier": "Bronze",
-      "amount": 200,
-      "height": 80
+      "tier": "Gold",
+      "amount": 1000
     },
     {
       "name": "Bit",
       "image": "https://static.bit.dev/bit-logo.svg",
       "url": "https://bit.dev",
-      "tier": "Bronze",
-      "amount": 200,
-      "height": 80
+      "tier": "Gold",
+      "amount": 1000
     }
   ]
 } 

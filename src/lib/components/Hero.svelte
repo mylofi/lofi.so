@@ -1,7 +1,7 @@
 <!-- Hero Section -->
 <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
   <div class="absolute inset-0 overflow-hidden">
-    <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[40rem] h-[25rem] bg-[#ff3e00] opacity-30 blur-[6rem] rounded-full"></div>
+    <div class="absolute left-1/2 top-0 -translate-x-1/2 w-[40rem] h-[25rem] bg-primary opacity-30 blur-[6rem] rounded-full animate-glow"></div>
     <div class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(circle_at_center,white,transparent_75%)]"></div>
   </div>
   <div class="max-w-7xl mx-auto relative">
@@ -17,7 +17,7 @@
         Welcome to the world of local-first web development.
       </p>
       <div class="mt-14 flex justify-center gap-4">
-        <a href="#start-here" class="rounded-md bg-[#ff3e00] px-6 py-3 text-lg font-semibold hover:bg-[#ff3e00]/90 transition">
+        <a href="#start-here" class="rounded-md bg-primary px-6 py-3 text-lg font-semibold hover:bg-primary/90 transition">
           Start Here
         </a>
         <a href="#apps" class="rounded-md bg-gray-800 border border-gray-700 px-6 py-3 text-lg font-semibold hover:bg-gray-700 transition">
@@ -27,3 +27,24 @@
     </div>
   </div>
 </section>
+
+<style>
+  @keyframes glow {
+    0% {
+      opacity: 0.1;
+      transform: translate(-50%, 0) scale(0.8);
+    }
+    50% {
+      opacity: 0.3;
+      transform: translate(-50%, 0) scale(1.1);
+    }
+    100% {
+      opacity: 0.1;
+      transform: translate(-50%, 0) scale(0.8);
+    }
+  }
+
+  :global(.animate-glow) {
+    animation: glow 15s ease-in-out infinite;
+  }
+</style>
