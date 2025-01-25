@@ -2,21 +2,23 @@
   export let nextEvent: { url: string; name: string; date: string; time: string; };
   export let sponsors: { url: string; image: string; name: string; tier: 'Partner' | 'Platinum' | 'Gold'; }[];
 
+  type TierType = 'Partner' | 'Platinum' | 'Gold';
+
   $: sponsorsByTier = sponsors.reduce((acc, sponsor) => {
     if (!acc[sponsor.tier]) {
       acc[sponsor.tier] = [];
     }
     acc[sponsor.tier].push(sponsor);
     return acc;
-  }, {} as Record<string, typeof sponsors>);
+  }, {} as Record<TierType, typeof sponsors>);
 
-  const tierHeights = {
-    Partner: 200,
-    Platinum: 160,
-    Gold: 120
+  const tierHeights: Record<TierType, number> = {
+    Partner: 120,
+    Platinum: 100,
+    Gold: 80
   };
 
-  const tierOrder = ['Partner', 'Platinum', 'Gold'];
+  const tierOrder: TierType[] = ['Partner', 'Platinum', 'Gold'];
 </script>
 
 <!-- Right Sidebar - Sponsors -->
@@ -42,16 +44,17 @@
       </div>
 
       <!-- Sponsors Stack -->
-      <div class="space-y-6 [&_img]:transition-all [&_img]:duration-300">
+      <div class="space-y-2 [&_img]:transition-all [&_img]:duration-300">
         {#each tierOrder as tier}
           {#if sponsorsByTier[tier]?.length}
-            <div class="space-y-1.5">
-              <h4 class="text-sm font-medium text-gray-400 mb-2">{tier}</h4>
-              {#each sponsorsByTier[tier] as sponsor}
+            <div class="space-y-1">
+              {#each sponsorsByTier[tier] as sponsor, i}
                 <a 
                   href={sponsor.url}
-                  class="block rounded-lg bg-gray-800/50 hover:bg-white transition-colors overflow-hidden group"
-                  style="height: {tierHeights[sponsor.tier]}px"
+                  class="block bg-gray-800/50 hover:bg-white transition-colors overflow-hidden group"
+                  class:rounded-t-lg={i === 0 && tier === 'Partner'}
+                  class:rounded-b-lg={i === sponsorsByTier['Gold'].length - 1 && tier === 'Gold'}
+                  style="height: {tierHeights[tier]}px"
                 >
                   <div class="w-full h-full p-4 flex items-center justify-center">
                     <img 

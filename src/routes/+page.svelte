@@ -3,7 +3,8 @@
   export let data: PageData;
   const { content, heading } = data;
   import sponsorsData from '$lib/data/sponsors.json';
-  const { sponsors, nextEvent } = sponsorsData;
+  const { sponsors: rawSponsors, nextEvent } = sponsorsData;
+  const sponsors = rawSponsors as { url: string; image: string; name: string; tier: 'Partner' | 'Platinum' | 'Gold'; }[];
   import Hero from '$lib/components/Hero.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import NavBar from '$lib/components/NavBar.svelte';
