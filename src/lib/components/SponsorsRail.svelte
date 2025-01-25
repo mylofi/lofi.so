@@ -66,7 +66,6 @@
 			</div>
 
 			<!-- Sponsors Stack -->
-			<!-- Sponsors Stack -->
 			<div class="space-y-2 [&_img]:transition-all [&_img]:duration-300">
 				{#each sponsors as sponsor, i}
 					<div class="space-y-1">
