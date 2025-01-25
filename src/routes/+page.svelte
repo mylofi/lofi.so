@@ -23,7 +23,7 @@
 	<!-- Monthly Meetup Section - Visible only on small screens -->
 	<div class="md:hidden">
 		<section id="monthly-meetup" class="py-8">
-			<div class="mx-4 rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
+			<div class="to-discord mx-4 rounded-2xl bg-gradient-to-r from-primary">
 				<div class="flex flex-col items-center justify-between gap-8">
 					<div class="flex-1">
 						<img
@@ -143,7 +143,7 @@
 
 					<!-- Monthly Meetup Section - For medium screens and up -->
 					<section id="monthly-meetup-desktop" class="hidden py-16 md:block">
-						<div class="max-w-xl rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
+						<div class="to-discord max-w-xl rounded-2xl bg-gradient-to-r from-primary">
 							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 								<div class="flex-1">
 									<img

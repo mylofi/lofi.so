@@ -7,7 +7,7 @@
 	<!-- Meetup Button - Hidden on small screens -->
 	<div class="absolute bottom-12 right-4 z-10 hidden sm:right-6 md:block lg:bottom-16 lg:right-8">
 		<button
-			class="group flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-[#5865F2] px-4 py-2.5 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base"
+			class="bg-discord group flex items-center gap-2 rounded-full bg-gradient-to-r px-4 py-2.5 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base"
 			on:click={() => {
 				const desktopSection = document.querySelector('#monthly-meetup-desktop');
 				if (desktopSection) {
@@ -100,7 +100,7 @@
 	}
 
 	:global(.animate-glow) {
-		animation: glow 10s ease-in-out infinite;
+		animation: glow 7s ease-in-out infinite;
 	}
 
 	.animate-pulse-ring {
