@@ -16,8 +16,8 @@
 			}}
 		>
 			<CalendarIcon class="h-4 w-4 sm:h-5 sm:w-5" />
-			<span>Join Next Meetup</span>
-			<div class="animate-pulse-ring absolute inset-0 rounded-full" />
+			<span>Join In</span>
+			<div class="animate-pulse-ring absolute inset-0 rounded-full"></div>
 		</button>
 	</div>
 
