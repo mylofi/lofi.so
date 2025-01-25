@@ -49,6 +49,6 @@
   }
 
   :global(.animate-glow) {
-    animation: glow 15s ease-in-out infinite;
+    animation: glow 10s ease-in-out infinite;
   }
 </style>
