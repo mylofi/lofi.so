@@ -98,7 +98,7 @@
 
 					<!-- Monthly Meetup Section -->
 					<section class="py-16">
-						<div class="mx-auto max-w-xl rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
+						<div class="max-w-xl rounded-2xl bg-gradient-to-r from-primary to-[#5865F2]">
 							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 								<div class="flex-1">
 									<img
@@ -108,7 +108,7 @@
 									/>
 									<div class="m-8">
 										<h2 class="text-3xl font-bold">Join our Monthly Meetup</h2>
-										<p class="mt-4 text-lg">Tuesday 28 January 2025 @ 8AM PST</p>
+										<p class="mt-4 text-lg">{heading.meetup.date}</p>
 										<div class="mt-6 flex flex-wrap gap-4">
 											<a
 												href={heading.meetup.discord_link}
