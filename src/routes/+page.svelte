@@ -14,6 +14,31 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import SponsorsRail from '$lib/components/SponsorsRail.svelte';
+
+	// Add state for active tab
+	let activeTab = 'storage';
+
+	// Define tab categories
+	const tabs = [
+		{ id: 'storage', label: 'Storage', color: 'primary', items: content[1].sections[0].items },
+		{
+			id: 'collaboration',
+			label: 'Sync & Collaboration',
+			color: '[#5865F2]',
+			items: content[1].sections[1]?.items || []
+		},
+		{
+			id: 'development',
+			label: 'Development Tools',
+			color: 'primary',
+			items: content[1].sections[2]?.items || []
+		}
+	];
+
+	// Function to handle tab change
+	function setActiveTab(tabId: string) {
+		activeTab = tabId;
+	}
 </script>
 
 <div class="min-h-screen bg-gray-900 text-white">
@@ -202,66 +227,59 @@
 					</section>
 
 					<!-- App Categories -->
-					<h2 class="mb-7 text-3xl font-bold">Local-First Apps & Tools</h2>
-					<section id="apps" class="rounded-md bg-gray-800 px-7 py-7">
-						<div class="grid gap-12 lg:grid-cols-3">
-							<!-- Storing Data -->
-							<div>
-								<h3 class="mb-6 text-2xl font-semibold text-primary">Storing Data</h3>
-								<div class="space-y-4">
-									{#each content[1].sections[0].items as item}
-										<a
-											href={item.url}
-											class="flex items-center rounded-lg bg-gray-700 p-4 transition hover:bg-gray-600"
-										>
-											<img src={item.icon} alt={item.title} class="mr-4 h-8 w-8" />
-											<div>
-												<h4 class="font-medium">{item.title}</h4>
-												<p class="text-sm text-gray-400">{item.author}</p>
-											</div>
-										</a>
-									{/each}
-								</div>
-							</div>
-
-							<!-- Sync & Collaboration -->
-							<div>
-								<h3 class="mb-6 text-2xl font-semibold text-[#5865F2]">Sync & Collaboration</h3>
-								<div class="space-y-4">
-									{#each content[1].sections[1]?.items || [] as item}
-										<a
-											href={item.url}
-											class="flex items-center rounded-lg bg-gray-700 p-4 transition hover:bg-gray-600"
-										>
-											<img src={item.icon} alt={item.title} class="mr-4 h-8 w-8" />
-											<div>
-												<h4 class="font-medium">{item.title}</h4>
-												<p class="text-sm text-gray-400">{item.author}</p>
-											</div>
-										</a>
-									{/each}
-								</div>
-							</div>
-
-							<!-- Development Tools -->
-							<div>
-								<h3 class="mb-6 text-2xl font-semibold text-primary">Development Tools</h3>
-								<div class="space-y-4">
-									{#each content[1].sections[2]?.items || [] as item}
-										<a
-											href={item.url}
-											class="flex items-center rounded-lg bg-gray-700 p-4 transition hover:bg-gray-600"
-										>
-											<img src={item.icon} alt={item.title} class="mr-4 h-8 w-8" />
-											<div>
-												<h4 class="font-medium">{item.title}</h4>
-												<p class="text-sm text-gray-400">{item.author}</p>
-											</div>
-										</a>
-									{/each}
-								</div>
+					<section id="apps" class="py-16">
+						<div class="mb-8">
+							<h2 class="mb-8 text-3xl font-bold">Local-First Apps & Tools</h2>
+							<!-- Tabs Navigation -->
+							<div class="flex space-x-1 rounded-xl bg-gray-800/50 p-1">
+								{#each tabs as tab}
+									<button
+										class="flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 {activeTab ===
+										tab.id
+											? `bg-gray-800 text-${tab.color} shadow-sm`
+											: 'text-gray-400 hover:bg-gray-800/50 hover:text-white'}"
+										on:click={() => setActiveTab(tab.id)}
+									>
+										{tab.label}
+									</button>
+								{/each}
 							</div>
 						</div>
+
+						<!-- Tab Content -->
+						{#each tabs as tab}
+							{#if activeTab === tab.id}
+								<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+									{#each tab.items as item}
+										<a
+											href={item.url}
+											class="group relative overflow-hidden rounded-2xl bg-gray-800 p-6 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-700"
+										>
+											<div class="flex items-start gap-4">
+												<img
+													src={item.icon}
+													alt={item.title}
+													class="h-16 w-16 rounded-xl shadow-lg"
+												/>
+												<div class="flex-1">
+													<h4 class="text-lg font-semibold group-hover:text-{tab.color}">
+														{item.title}
+													</h4>
+													<p class="mt-1 text-sm text-gray-400">{item.author}</p>
+												</div>
+											</div>
+											<div class="mt-4">
+												<span
+													class="inline-flex items-center rounded-full bg-{tab.color}/10 px-3 py-1 text-xs font-medium text-{tab.color}"
+												>
+													{tab.label}
+												</span>
+											</div>
+										</a>
+									{/each}
+								</div>
+							{/if}
+						{/each}
 					</section>
 				</div>
 			</div>
