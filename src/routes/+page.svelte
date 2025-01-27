@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	const { content, heading } = data;
-	import sponsorsData from '$lib/data/sponsors.json';
+	const { content, heading, sponsorsData } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
 	const sponsors = rawSponsors as {
 		url: string;
