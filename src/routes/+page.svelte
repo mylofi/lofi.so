@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
-	const { content, heading, sponsorsData } = data;
+	const { content, heading, sponsorsData, mentions } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
 	const sponsors = rawSponsors as {
 		url: string;
@@ -16,6 +16,14 @@
 
 	// Add state for active tab
 	let activeTab = 'storage';
+	let activeLearnTab = 'read';
+
+	// Get read and watch content
+	const readContent = content[0].sections.find((s) => s.title === 'Things to read')?.items || [];
+	const watchContent = [
+		...(content[0].sections.find((s) => s.title === 'Things to watch')?.items || []),
+		...(content[0].sections.find((s) => s.title === 'Recent Videos & Talks')?.items || [])
+	];
 
 	// Define tab categories
 	const tabs = [
@@ -37,6 +45,10 @@
 	// Function to handle tab change
 	function setActiveTab(tabId: string) {
 		activeTab = tabId;
+	}
+
+	function setActiveLearnTab(tabId: string) {
+		activeLearnTab = tabId;
 	}
 </script>
 
@@ -99,17 +111,75 @@
 					<!-- Start Here Guide -->
 					<section id="start-here" class="py-16">
 						<h2 class="mb-8 text-3xl font-bold">Learn</h2>
-						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{#each content[0].sections[0].items.slice(0, 6) as item}
-								<a
-									href={item.url}
-									class="block rounded-lg bg-gray-800 p-6 transition hover:bg-gray-700"
-								>
-									<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
-									<h3 class="mb-2 text-xl font-semibold">{item.title}</h3>
-									<p class="text-gray-400">By {item.author}</p>
-								</a>
-							{/each}
+						<div class="flex gap-8">
+							<!-- Vertical Tabs -->
+							<div class="h-fit flex-shrink-0">
+								<div class="flex flex-col space-y-2">
+									<button
+										class="rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 {activeLearnTab ===
+										'read'
+											? 'bg-gray-800 text-primary shadow-sm'
+											: 'text-gray-400 hover:bg-gray-800/50 hover:text-white'}"
+										on:click={() => setActiveLearnTab('read')}
+									>
+										Read
+									</button>
+									<button
+										class="rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 {activeLearnTab ===
+										'watch'
+											? 'bg-gray-800 text-primary shadow-sm'
+											: 'text-gray-400 hover:bg-gray-800/50 hover:text-white'}"
+										on:click={() => setActiveLearnTab('watch')}
+									>
+										Watch
+									</button>
+								</div>
+							</div>
+
+							<!-- Content Grid -->
+							<div class="flex-1">
+								<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+									{#if activeLearnTab === 'read'}
+										{#each readContent as item}
+											<a
+												href={item.url}
+												class="block rounded-lg bg-gray-800 p-6 transition hover:bg-gray-700"
+											>
+												<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
+												<h3 class="mb-2 text-xl font-semibold">{item.title}</h3>
+												<p class="text-gray-400">By {item.author}</p>
+											</a>
+										{/each}
+									{:else}
+										{#each watchContent as item}
+											<article class="overflow-hidden rounded-lg bg-gray-800">
+												<div class="aspect-h-9 aspect-w-16 bg-gray-900">
+													<img src={item.icon} alt={item.title} class="object-cover" />
+												</div>
+												<div class="p-6">
+													<h3 class="mb-3 line-clamp-2 text-xl font-semibold">
+														{item.title}
+													</h3>
+													<p class="mb-4 text-gray-400">By {item.author}</p>
+													<a
+														href={item.url}
+														class="inline-flex items-center text-primary hover:text-primary/80"
+													>
+														Watch now
+														<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+															<path
+																fill-rule="evenodd"
+																d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+																clip-rule="evenodd"
+															/>
+														</svg>
+													</a>
+												</div>
+											</article>
+										{/each}
+									{/if}
+								</div>
+							</div>
 						</div>
 					</section>
 
@@ -117,58 +187,25 @@
 					<section class="py-16">
 						<h2 class="mb-8 text-3xl font-bold">Latest Mentions</h2>
 						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{#each content[0].sections[0].items.slice(0, 3) as item}
+							{#each mentions.mentions as mention}
 								<article class="overflow-hidden rounded-lg bg-gray-800">
 									<div class="p-6">
 										<div class="mb-4 flex items-center">
-											<img src={item.icon} alt={item.title} class="h-8 w-8 rounded-full" />
 											<div class="ml-3">
-												<p class="font-medium">{item.author}</p>
-												<p class="text-sm text-gray-400">Recently shared</p>
+												<p class="font-medium">{mention.author}</p>
+												<p class="text-sm text-gray-400">on {mention.platform}</p>
+												<p class="text-xs text-gray-500">{mention.date}</p>
 											</div>
 										</div>
 										<h3 class="mb-3 line-clamp-2 text-xl font-semibold">
-											{item.title}
+											{mention.title}
 										</h3>
+										<p class="mb-4 line-clamp-3 text-gray-400">{mention.excerpt}</p>
 										<a
-											href={item.url}
+											href={mention.url}
 											class="inline-flex items-center text-primary hover:text-primary/80"
 										>
 											Read more
-											<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-												<path
-													fill-rule="evenodd"
-													d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-													clip-rule="evenodd"
-												/>
-											</svg>
-										</a>
-									</div>
-								</article>
-							{/each}
-						</div>
-					</section>
-
-					<!-- Recent Videos & Talks -->
-					<section class="bg-gray-800/50 px-7 py-7">
-						<h2 class="mb-7 text-3xl font-bold">Recent Videos & Talks</h2>
-						<div class="mb-7 h-px bg-gray-700"></div>
-						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-							{#each content[0].sections[1].items.slice(0, 3) as item}
-								<article class="overflow-hidden rounded-lg bg-gray-800">
-									<div class="aspect-h-9 aspect-w-16 bg-gray-900">
-										<img src={item.icon} alt={item.title} class="object-cover" />
-									</div>
-									<div class="p-6">
-										<h3 class="mb-3 line-clamp-2 text-xl font-semibold">
-											{item.title}
-										</h3>
-										<p class="mb-4 text-gray-400">By {item.author}</p>
-										<a
-											href={item.url}
-											class="inline-flex items-center text-primary hover:text-primary/80"
-										>
-											Watch now
 											<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
 												<path
 													fill-rule="evenodd"
