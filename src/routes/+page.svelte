@@ -45,10 +45,12 @@
 	// Function to handle tab change
 	function setActiveTab(tabId: string) {
 		activeTab = tabId;
+		document.getElementById('apps')?.scrollIntoView({ behavior: 'smooth' });
 	}
 
 	function setActiveLearnTab(tabId: string) {
 		activeLearnTab = tabId;
+		document.getElementById('start-here')?.scrollIntoView({ behavior: 'smooth' });
 	}
 </script>
 
@@ -110,10 +112,12 @@
 				<div class="flex-1 xl:mr-[19.5rem]">
 					<!-- Start Here Guide -->
 					<section id="start-here" class="py-16">
-						<h2 class="mb-8 text-3xl font-bold">Learn</h2>
+						<div class="sticky top-0 z-10 -mx-4 mb-8 bg-gray-900/80 px-4 py-4 backdrop-blur-sm">
+							<h2 class="text-3xl font-bold">Learn</h2>
+						</div>
 						<div class="flex gap-8">
 							<!-- Vertical Tabs -->
-							<div class="h-fit flex-shrink-0">
+							<div class="sticky top-[5.5rem] h-fit flex-shrink-0">
 								<div class="flex flex-col space-y-2">
 									<button
 										class="rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 {activeLearnTab ===
@@ -185,7 +189,9 @@
 
 					<!-- Local-first Mentions Feed -->
 					<section class="py-16">
-						<h2 class="mb-8 text-3xl font-bold">Latest Mentions</h2>
+						<div class="sticky top-0 z-10 -mx-4 mb-8 bg-gray-900/80 px-4 py-4 backdrop-blur-sm">
+							<h2 class="text-3xl font-bold">Latest Mentions</h2>
+						</div>
 						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 							{#each mentions.mentions as mention}
 								<article class="overflow-hidden rounded-lg bg-gray-800">
@@ -265,58 +271,62 @@
 
 					<!-- App Categories -->
 					<section id="apps" class="py-16">
-						<div class="mb-8">
-							<h2 class="mb-8 text-3xl font-bold">Local-First Apps & Tools</h2>
-							<!-- Tabs Navigation -->
-							<div class="flex space-x-1 rounded-xl bg-gray-800/50 p-1">
-								{#each tabs as tab}
-									<button
-										class="flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 {activeTab ===
-										tab.id
-											? `bg-gray-800 text-${tab.color} shadow-sm`
-											: 'text-gray-400 hover:bg-gray-800/50 hover:text-white'}"
-										on:click={() => setActiveTab(tab.id)}
-									>
-										{tab.label}
-									</button>
-								{/each}
+						<div class="sticky top-0 z-10 -mx-4 bg-gray-900/80 backdrop-blur-sm">
+							<div class="px-4 py-4">
+								<h2 class="mb-4 text-3xl font-bold">Local-First Apps & Tools</h2>
+								<!-- Tabs Navigation -->
+								<div class="flex space-x-1 rounded-xl bg-gray-800/50 p-1">
+									{#each tabs as tab}
+										<button
+											class="flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 {activeTab ===
+											tab.id
+												? `bg-gray-800 text-${tab.color} shadow-sm`
+												: 'text-gray-400 hover:bg-gray-800/50 hover:text-white'}"
+											on:click={() => setActiveTab(tab.id)}
+										>
+											{tab.label}
+										</button>
+									{/each}
+								</div>
 							</div>
 						</div>
 
 						<!-- Tab Content -->
-						{#each tabs as tab}
-							{#if activeTab === tab.id}
-								<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-									{#each tab.items as item}
-										<a
-											href={item.url}
-											class="group relative overflow-hidden rounded-2xl bg-gray-800 p-6 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-700"
-										>
-											<div class="flex items-start gap-4">
-												<img
-													src={item.icon}
-													alt={item.title}
-													class="h-16 w-16 rounded-xl shadow-lg"
-												/>
-												<div class="flex-1">
-													<h4 class="text-lg font-semibold group-hover:text-{tab.color}">
-														{item.title}
-													</h4>
-													<p class="mt-1 text-sm text-gray-400">{item.author}</p>
+						<div class="mt-8">
+							{#each tabs as tab}
+								{#if activeTab === tab.id}
+									<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+										{#each tab.items as item}
+											<a
+												href={item.url}
+												class="group relative overflow-hidden rounded-2xl bg-gray-800 p-6 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-700"
+											>
+												<div class="flex items-start gap-4">
+													<img
+														src={item.icon}
+														alt={item.title}
+														class="h-16 w-16 rounded-xl shadow-lg"
+													/>
+													<div class="flex-1">
+														<h4 class="text-lg font-semibold group-hover:text-{tab.color}">
+															{item.title}
+														</h4>
+														<p class="mt-1 text-sm text-gray-400">{item.author}</p>
+													</div>
 												</div>
-											</div>
-											<div class="mt-4">
-												<span
-													class="inline-flex items-center rounded-full bg-{tab.color}/10 px-3 py-1 text-xs font-medium text-{tab.color}"
-												>
-													{tab.label}
-												</span>
-											</div>
-										</a>
-									{/each}
-								</div>
-							{/if}
-						{/each}
+												<div class="mt-4">
+													<span
+														class="inline-flex items-center rounded-full bg-{tab.color}/10 px-3 py-1 text-xs font-medium text-{tab.color}"
+													>
+														{tab.label}
+													</span>
+												</div>
+											</a>
+										{/each}
+									</div>
+								{/if}
+							{/each}
+						</div>
 					</section>
 				</div>
 			</div>
