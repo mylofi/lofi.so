@@ -1,6 +1,5 @@
 <!-- Hero Section -->
 <script>
-	import CalendarIcon from './CalendarIcon.svelte';
 </script>
 
 <section class="relative flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -15,7 +14,6 @@
 				}
 			}}
 		>
-			<CalendarIcon class="h-4 w-4 sm:h-5 sm:w-5" />
 			<span>Tune In</span>
 			<div class="animate-pulse-ring absolute inset-0 rounded-full" />
 		</button>
