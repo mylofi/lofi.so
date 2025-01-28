@@ -1,0 +1,18 @@
+{
+  "eventNumber": 23,
+  "date": "2025-01-29",
+  "time": "02:37",
+  "timezone": "PST",
+  "speakers": [
+    {
+      "name": "Dada",
+      "handle": "@daggy_yo",
+      "talk": "The fadf adiw tjwj fksjf wejiow fweifjw fwefweiofwejf wifojweif wiofjwef jweofj",
+      "image": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid"
+    }
+  ],
+  "registrationUrl": "https://localfirstweb.dev",
+  "discordUrl": "https://discord.gg/localfirst",
+  "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+  "logoUrl": "/images/logo.png"
+}

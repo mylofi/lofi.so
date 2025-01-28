@@ -1,6 +1,7 @@
 <!-- App.svelte -->
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
+	import defaultEventData from '$lib/data/event.json';
 
 	// Types and Interfaces
 	interface Speaker {
@@ -22,40 +23,27 @@
 		logoUrl: string;
 	}
 
-	// Mock Data
-	const eventData: EventData = {
-		eventNumber: 22,
-		date: 'Tuesday 28 January 2025',
-		time: '8AM',
-		timezone: 'PST',
-		speakers: [
-			{
-				name: 'Hakan Shehu',
-				handle: '@hakanshehu',
-				talk: 'Building Cojango: an open-source & local-first collaboration workspace.',
-				image:
-					'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'
-			},
-			{
-				name: 'Michiel de Jong',
-				handle: '@michielbdejong',
-				talk: 'Unhosted web apps with remoteStorage.js.',
-				image:
-					'https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png'
-			},
-			{
-				name: 'Aaron Boodman',
-				handle: '@aboodman',
-				talk: 'Introducing Arc: A Sync Engine for the Whole Web.',
-				image:
-					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLtRSV6EvF6Ob5qQw4yzETqinlvzb6uvDBHFdmPXGUkjJUWEw_K1LFmFMW8p8GBjP-5rY&usqp=CAU'
-			}
-		],
-		registrationUrl: 'https://localfirstweb.dev',
-		discordUrl: 'https://discord.gg/localfirst',
-		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-		logoUrl: '/images/logo.png'
-	};
+	export let eventData: EventData = defaultEventData;
+
+	// Format date to "Tuesday 28 January 2025"
+	function formatDate(dateStr: string): string {
+		const date = new Date(dateStr);
+		return date.toLocaleDateString('en-US', {
+			weekday: 'long',
+			day: 'numeric',
+			month: 'long',
+			year: 'numeric'
+		});
+	}
+
+	// Format time to "8AM" format
+	function formatTime(timeStr: string): string {
+		const [hours, minutes] = timeStr.split(':');
+		const hour = parseInt(hours);
+		const ampm = hour >= 12 ? 'PM' : 'AM';
+		const hour12 = hour % 12 || 12;
+		return `${hour12}${ampm}`;
+	}
 
 	// Screenshot Generation Function
 	function generate() {
@@ -99,7 +87,7 @@
 					<!-- Header with Logo -->
 					<div class="mb-3 flex items-center gap-2">
 						<img
-							src={eventData.logoUrl}
+							src={eventData.logoUrl || '/images/logo.png'}
 							alt="LoFi"
 							class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
 						/>
@@ -111,7 +99,7 @@
 					<!-- Event Details -->
 					<p class="text-sm sm:text-base">Local First Meetup #{eventData.eventNumber}</p>
 					<p class="my-2 text-base font-bold text-discord sm:text-lg">
-						{eventData.date} @ {eventData.time}
+						{formatDate(eventData.date)} @ {formatTime(eventData.time)}
 						{eventData.timezone}
 					</p>
 				</div>
@@ -121,40 +109,44 @@
 				<div class="rounded-xl bg-white p-3 shadow-xl sm:p-4">
 					<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
 					<div class="mb-2 h-0.5 border-b border-gray-500"></div>
-					{#each eventData.speakers as speaker}
-						<!-- Speaker Card -->
-						<div class="group flex items-center gap-2">
-							<a
-								href={`https://x.com/${speaker.handle.substring(1)}`}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100"
-							>
-								<!-- Speaker Avatar -->
-								<div
-									class="h-[40px] w-[40px] rounded-full bg-gray-200 sm:h-[45px] sm:w-[45px] lg:h-[80px] lg:w-[80px]"
+					{#if eventData.speakers && eventData.speakers.length > 0}
+						{#each eventData.speakers as speaker}
+							<!-- Speaker Card -->
+							<div class="group flex items-center gap-2">
+								<a
+									href={`https://x.com/${speaker.handle?.substring(1)}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100"
 								>
-									<img
-										src={speaker.image}
-										alt={speaker.name}
-										class="h-full w-full rounded-full object-cover object-center"
-									/>
-								</div>
-								<!-- Speaker Info -->
-								<div class="pr-2">
-									<h3 class="m-0 text-sm font-semibold">{speaker.name}</h3>
-									<span class="text-xs text-gray-600">{speaker.handle}</span>
-								</div>
-							</a>
-							<!-- Talk Title -->
-							<p
-								class=" text-sm font-semibold italic leading-tight transition group-hover:text-discord"
-							>
-								{speaker.talk}
-							</p>
-						</div>
-						<div class=" my-3 h-0.5 w-full border-b border-gray-100"></div>
-					{/each}
+									<!-- Speaker Avatar -->
+									<div
+										class="h-[40px] w-[40px] rounded-full bg-gray-200 sm:h-[45px] sm:w-[45px] lg:h-[90px] lg:w-[90px]"
+									>
+										<img
+											src={speaker.image || ''}
+											alt={speaker.name}
+											class="h-full w-full rounded-full object-cover object-center"
+										/>
+									</div>
+									<!-- Speaker Info -->
+									<div class="pr-2">
+										<h3 class="m-0 text-sm font-semibold">{speaker.name}</h3>
+										<span class="text-xs text-gray-600">{speaker.handle}</span>
+									</div>
+								</a>
+								<!-- Talk Title -->
+								<p
+									class=" text-sm font-semibold italic leading-tight transition group-hover:text-discord"
+								>
+									{speaker.talk}
+								</p>
+							</div>
+							<div class=" my-3 h-0.5 w-full border-b border-gray-100"></div>
+						{/each}
+					{:else}
+						<p class="text-gray-500">No speakers scheduled yet</p>
+					{/if}
 				</div>
 			</div>
 		</section>
