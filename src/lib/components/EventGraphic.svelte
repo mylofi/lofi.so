@@ -32,21 +32,21 @@
 			{
 				name: 'Hakan Shehu',
 				handle: '@hakanshehu',
-				talk: 'Building Cojango: an open-source & local-first collaboration workspace',
+				talk: 'Building Cojango: an open-source & local-first collaboration workspace.',
 				image:
 					'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'
 			},
 			{
 				name: 'Michiel de Jong',
 				handle: '@michielbdejong',
-				talk: 'Unhosted web apps with remoteStorage.js',
+				talk: 'Unhosted web apps with remoteStorage.js.',
 				image:
 					'https://static.vecteezy.com/system/resources/thumbnails/027/951/137/small_2x/stylish-spectacles-guy-3d-avatar-character-illustrations-png.png'
 			},
 			{
 				name: 'Aaron Boodman',
 				handle: '@aboodman',
-				talk: 'Introducing Arc: A Sync Engine for the Whole Web',
+				talk: 'Introducing Arc: A Sync Engine for the Whole Web.',
 				image:
 					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLtRSV6EvF6Ob5qQw4yzETqinlvzb6uvDBHFdmPXGUkjJUWEw_K1LFmFMW8p8GBjP-5rY&usqp=CAU'
 			}
@@ -95,21 +95,27 @@
 		<!-- Main Content Section -->
 		<section class="rounded-xl shadow-lg">
 			<div class="rounded-xl bg-gray-100 px-6 py-4 shadow-md">
-				<!-- Header with Logo -->
-				<div class="mb-3 flex items-center gap-2">
-					<img src={eventData.logoUrl} alt="LoFi" class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
-					<h2 class="m-0 text-xl font-bold sm:text-2xl lg:text-3xl">
-						LoFi/{eventData.eventNumber}
-					</h2>
-				</div>
+				<div class=" mb-3">
+					<!-- Header with Logo -->
+					<div class="mb-3 flex items-center gap-2">
+						<img
+							src={eventData.logoUrl}
+							alt="LoFi"
+							class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
+						/>
+						<h2 class="m-0 text-xl font-bold sm:text-2xl lg:text-3xl">
+							LoFi/{eventData.eventNumber} - Join our Monthly Meetup
+						</h2>
+					</div>
 
-				<!-- Event Details -->
-				<p class="text-sm sm:text-base">Local First Meetup #{eventData.eventNumber}</p>
-				<p class="my-2 text-base font-bold text-discord sm:text-lg">
-					{eventData.date} @ {eventData.time}
-					{eventData.timezone}
-				</p>
-				<div class="mb-3 h-1 border-b border-black"></div>
+					<!-- Event Details -->
+					<p class="text-sm sm:text-base">Local First Meetup #{eventData.eventNumber}</p>
+					<p class="my-2 text-base font-bold text-discord sm:text-lg">
+						{eventData.date} @ {eventData.time}
+						{eventData.timezone}
+					</p>
+				</div>
+				<!-- <div class="mb-3 h-1 border-b border-black"></div> -->
 
 				<!-- Speakers Section -->
 				<div class="rounded-xl bg-white p-3 shadow-xl sm:p-4">
@@ -117,12 +123,12 @@
 					<div class="mb-2 h-0.5 border-b border-gray-500"></div>
 					{#each eventData.speakers as speaker}
 						<!-- Speaker Card -->
-						<div class="mb-4 flex items-center gap-3">
+						<div class="group flex items-center gap-2">
 							<a
 								href={`https://x.com/${speaker.handle.substring(1)}`}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="flex w-[200px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100"
+								class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100"
 							>
 								<!-- Speaker Avatar -->
 								<div
@@ -141,8 +147,13 @@
 								</div>
 							</a>
 							<!-- Talk Title -->
-							<p class="text-sm font-bold leading-tight">- {speaker.talk}</p>
+							<p
+								class=" text-sm font-semibold italic leading-tight transition group-hover:text-discord"
+							>
+								{speaker.talk}
+							</p>
 						</div>
+						<div class=" my-3 h-0.5 w-full border-b border-gray-100"></div>
 					{/each}
 				</div>
 			</div>
