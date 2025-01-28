@@ -78,7 +78,7 @@
 							>Build</a
 						>
 						<a
-							href="/blog/first-post"
+							href="/blog"
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:text-white"
 							>Blog</a
 						>
@@ -133,7 +133,7 @@
 					>Apps</a
 				>
 				<a
-					href="/blog/first-post"
+					href="/blog"
 					class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:text-white"
 					>Blog</a
 				>
