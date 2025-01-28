@@ -31,6 +31,7 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
-		"@sveltejs/adapter-vercel": "^5.5.3"
+		"@sveltejs/adapter-vercel": "^5.5.3",
+		"gray-matter": "^4.0.3"
 	}
 }
