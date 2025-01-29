@@ -72,7 +72,7 @@
 
 			<!-- Main Content Section -->
 			<section class="rounded-xl shadow-lg">
-				<div class="rounded-xl bg-gray-100 px-6 py-4 shadow-md">
+				<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md">
 					<div class=" mb-3">
 						<!-- Header with Logo -->
 						<div class="mb-3 flex items-center gap-2">
@@ -97,7 +97,7 @@
 					<!-- Speakers Section -->
 					<div class="rounded-xl bg-white p-3 shadow-xl sm:p-4">
 						<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
-						<div class="mb-2 h-0.5 border-b border-gray-500"></div>
+						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
 						{#if eventData.speakers && eventData.speakers.length > 0}
 							{#each eventData.speakers as speaker}
 								<!-- Speaker Card -->
@@ -110,12 +110,12 @@
 									>
 										<!-- Speaker Avatar -->
 										<div
-											class="h-[40px] w-[40px] rounded-full bg-gray-200 sm:h-[45px] sm:w-[45px] lg:h-[80px] lg:w-[80px]"
+											class="relative h-[40px] w-[40px] rounded-full bg-gray-200 sm:h-[45px] sm:w-[45px] lg:h-[65px] lg:w-[65px]"
 										>
 											<img
 												src={speaker.image || ''}
 												alt={speaker.name}
-												class="h-full w-full rounded-full object-cover object-center"
+												class="absolute h-full w-full rounded-full object-cover object-center transition-transform duration-300 group-hover:z-50 group-hover:scale-[1.2]"
 											/>
 										</div>
 										<!-- Speaker Info -->

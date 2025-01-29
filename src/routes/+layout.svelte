@@ -2,6 +2,7 @@
 	import '../app.css';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import EventPopup from '$lib/components/EventPopup.svelte';
 	let { children } = $props();
 </script>
 
@@ -11,4 +12,5 @@
 		{@render children()}
 	</main>
 	<Footer />
+	<EventPopup />
 </div>
