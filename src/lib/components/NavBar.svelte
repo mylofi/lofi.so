@@ -9,12 +9,12 @@
 		scrollY = window.scrollY;
 		isAtTop = scrollY < 50;
 
-		if (scrollY > lastScrollY && scrollY > 100) {
-			isVisible = false;
+		if (!isAtTop) {
+			isVisible = true;
 		} else {
 			isVisible = true;
+			lastScrollY = scrollY;
 		}
-		lastScrollY = scrollY;
 	}
 
 	function scrollToSection(e: Event, id: string) {
