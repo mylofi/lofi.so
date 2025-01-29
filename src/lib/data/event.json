@@ -5,21 +5,21 @@
   "timezone": "PST",
   "speakers": [
     {
-      "name": "Dagmawi Yohannes",
-      "handle": "@daggy",
-      "talk": "Local first is just the greatest thing and its really fun to work with!",
+      "name": "Sarah Chen",
+      "handle": "@sarahchen",
+      "talk": "Building Offline-First Apps with CRDTs: A Practical Guide",
       "image": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid"
     },
     {
       "name": "Someone Great",
-      "handle": "@someone",
+      "handle": "@someone", 
       "talk": "Building apps the local first way, you own your data to the fullest.",
       "image": "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
     },
     {
-      "name": "Avatar",
+      "name": "Alex Garcia",
       "handle": "@avatar",
-      "talk": "An engineer at vella.ai is someone who loves local-first approach to things.",
+      "talk": "Building Trust in P2P Systems: Security Best Practices for Local-First Apps",
       "image": "https://static.vecteezy.com/system/resources/previews/024/183/525/non_2x/avatar-of-a-man-portrait-of-a-young-guy-illustration-of-male-character-in-modern-color-style-vector.jpg"
     }
   ],

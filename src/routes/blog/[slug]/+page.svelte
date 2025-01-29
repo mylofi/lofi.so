@@ -53,7 +53,7 @@
 <div class="min-h-screen text-white">
 	<main class="mx-auto max-w-7xl px-4 pb-16 pt-24">
 		<div class="flex justify-between gap-8">
-			<article class="prose prose-invert prose-lg max-w-4xl">
+			<article class="prose prose-lg prose-invert max-w-4xl">
 				<h1 class="mb-4 text-5xl font-bold leading-tight">{post.title}</h1>
 
 				<div class="mb-12 border-b border-gray-800 pb-4">
