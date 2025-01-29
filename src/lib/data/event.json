@@ -1,14 +1,26 @@
 {
   "eventNumber": 23,
-  "date": "2025-01-29",
-  "time": "02:37",
+  "date": "2025-02-28",
+  "time": "05:00",
   "timezone": "PST",
   "speakers": [
     {
-      "name": "Dada",
-      "handle": "@daggy_yo",
-      "talk": "The fadf adiw tjwj fksjf wejiow fweifjw fwefweiofwejf wifojweif wiofjwef jweofj",
+      "name": "Dagmawi Yohannes",
+      "handle": "@daggy",
+      "talk": "Local first is just the greatest thing and its really fun to work with!",
       "image": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid"
+    },
+    {
+      "name": "Someone Great",
+      "handle": "@someone",
+      "talk": "Building apps the local first way, you own your data to the fullest.",
+      "image": "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
+    },
+    {
+      "name": "Avatar",
+      "handle": "@avatar",
+      "talk": "An engineer at vella.ai is someone who loves local-first approach to things.",
+      "image": "https://static.vecteezy.com/system/resources/previews/024/183/525/non_2x/avatar-of-a-man-portrait-of-a-young-guy-illustration-of-male-character-in-modern-color-style-vector.jpg"
     }
   ],
   "registrationUrl": "https://localfirstweb.dev",
