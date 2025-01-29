@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	export let data: PageData;
+	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	const { content, heading, sponsorsData, mentions } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
 	const sponsors = rawSponsors as {
@@ -53,6 +54,8 @@
 </script>
 
 <Hero />
+
+<EventGraphic />
 
 <!-- Monthly Meetup Section - Visible only on small screens -->
 <div class="md:hidden">
