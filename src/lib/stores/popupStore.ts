@@ -11,7 +11,7 @@ function createPopupStore() {
 		if (!lastDismissed) return true;
 
 		const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
-		return new Date(lastDismissed) < thirtyMinutesAgo;
+		return new Date(lastDismissed) < thirtyMinutesAgo || true;
 	};
 
 	return {

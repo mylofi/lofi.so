@@ -97,7 +97,7 @@
 					<!-- Speakers Section -->
 					<div class="rounded-xl bg-white p-3 shadow-xl sm:p-4">
 						<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
-						<div class="mb-2 h-0.5 border-b border-gray-500"></div>
+						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
 						{#if eventData.speakers && eventData.speakers.length > 0}
 							{#each eventData.speakers as speaker}
 								<!-- Speaker Card -->
