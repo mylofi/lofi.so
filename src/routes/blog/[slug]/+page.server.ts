@@ -22,10 +22,14 @@ interface BlogPost {
 export async function load({ params }): Promise<{ post: BlogPost }> {
 	try {
 		const { slug } = params;
-		const blogsDirectory = join(process.cwd(), 'src/lib/data/blogs');
-		const filePath = join(blogsDirectory, `${slug}.md`);
+		const posts = import.meta.glob('/src/lib/data/blogs/*.md', { as: 'raw', eager: true });
+		const filePath = `/src/lib/data/blogs/${slug}.md`;
 
-		const fileContents = await fs.readFile(filePath, 'utf8');
+		if (!posts[filePath]) {
+			throw error(404, 'Blog post not found');
+		}
+
+		const fileContents = posts[filePath];
 		const { data, content } = matter(fileContents);
 
 		// Parse markdown content and ensure it's a string
