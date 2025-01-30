@@ -55,8 +55,6 @@
 
 <Hero />
 
-<!-- <EventGraphic /> -->
-
 <!-- Monthly Meetup Section - Visible only on small screens -->
 <div class="md:hidden">
 	<section id="monthly-meetup" class="py-8">
