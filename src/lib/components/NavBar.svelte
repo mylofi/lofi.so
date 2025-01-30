@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	let isMenuOpen = false;
 	let scrollY: number;
 	let lastScrollY = 0;
@@ -19,11 +20,18 @@
 
 	function scrollToSection(e: Event, id: string) {
 		e.preventDefault();
+		const isHomePage = $page.url.pathname === '/';
+
+		if (!isHomePage) {
+			window.location.href = `/?section=${id.replace('#', '')}`;
+			return;
+		}
+
 		const element = document.querySelector(id);
 		if (element) {
 			const navHeight = 100;
 			const elementPosition = element.getBoundingClientRect().top;
-			const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+			const offsetPosition = elementPosition + window.scrollY - navHeight;
 
 			window.scrollTo({
 				top: offsetPosition,
