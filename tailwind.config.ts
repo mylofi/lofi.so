@@ -6,8 +6,8 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#f8b23a',
-				discord: '#5865F2'
+				primary: '#5865F2',
+				discord: '#f8b23a'
 			},
 			fontFamily: {
 				sans: ['Archivo', 'system-ui', 'sans-serif']

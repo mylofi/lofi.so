@@ -10,8 +10,8 @@ function createPopupStore() {
 		const lastDismissed = localStorage.getItem('popupLastDismissed');
 		if (!lastDismissed) return true;
 
-		const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
-		return new Date(lastDismissed) < thirtyMinutesAgo || true;
+		const thirtyMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+		return new Date(lastDismissed) < thirtyMinutesAgo;
 	};
 
 	return {

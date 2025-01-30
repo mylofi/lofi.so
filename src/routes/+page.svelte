@@ -12,6 +12,8 @@
 	}[];
 	import Hero from '$lib/components/Hero.svelte';
 	import SponsorsRail from '$lib/components/SponsorsRail.svelte';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	// Add state for active tab
 	let activeTab = 'storage';
@@ -51,6 +53,23 @@
 		activeLearnTab = tabId;
 		document.getElementById('start-here')?.scrollIntoView({ behavior: 'smooth' });
 	}
+
+	onMount(() => {
+		const section = $page.url.searchParams.get('section');
+		if (section) {
+			const element = document.querySelector(`#${section}`);
+			if (element) {
+				const navHeight = 100;
+				const elementPosition = element.getBoundingClientRect().top;
+				const offsetPosition = elementPosition + window.scrollY - navHeight;
+
+				window.scrollTo({
+					top: offsetPosition,
+					behavior: 'smooth'
+				});
+			}
+		}
+	});
 </script>
 
 <Hero />
