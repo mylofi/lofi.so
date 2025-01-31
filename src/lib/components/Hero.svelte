@@ -21,29 +21,31 @@
 
 	<div class="absolute inset-0 overflow-hidden">
 		<div
-			class="animate-glow absolute left-1/2 top-0 h-[25rem] w-[40rem] -translate-x-1/2 rounded-full bg-primary opacity-30 blur-[6rem]"
+			class="animate-glow absolute left-1/2 top-0 h-[25rem] w-[40rem] -translate-x-1/2 rounded-full bg-primary opacity-30 blur-[6rem] dark:opacity-30"
 		></div>
 		<div
-			class="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:radial-gradient(circle_at_center,white,transparent_75%)]"
+			class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-50 [mask-image:radial-gradient(circle_at_center,white,transparent_75%)] dark:opacity-100"
 		></div>
 	</div>
 	<div class="relative mx-auto max-w-7xl">
 		<div class="text-center">
 			<img src="/images/logo.svg" alt="Local First Software" class="mx-auto mb-2 h-32 sm:h-40" />
-			<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+			<h1
+				class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl"
+			>
 				Local-first Software
 			</h1>
-			<p class="mx-auto mt-7 max-w-2xl text-lg text-gray-300">
+			<p class="mx-auto mt-7 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
 				So, you want to build an app that has its data co-located with its UI? That works offline?
 				That synchronizes between clients? And that lets its users own their data?
 			</p>
-			<p class="mx-auto mt-7 max-w-2xl text-lg font-bold text-gray-300">
+			<p class="mx-auto mt-7 max-w-2xl text-lg font-bold text-gray-600 dark:text-gray-300">
 				Welcome to the world of local-first web development.
 			</p>
 			<div class="mt-14 flex justify-center gap-4">
 				<a
 					href="#start-here"
-					class="scroll-smooth rounded-md bg-primary px-6 py-3 text-lg font-semibold transition hover:bg-primary/90"
+					class="scroll-smooth rounded-md bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:bg-primary/90"
 					on:click|preventDefault={(e) => {
 						document.querySelector('#start-here')?.scrollIntoView({ behavior: 'smooth' });
 					}}
@@ -52,7 +54,7 @@
 				</a>
 				<a
 					href="#apps"
-					class="rounded-md border border-gray-700 bg-gray-800 px-6 py-3 text-lg font-semibold transition hover:bg-gray-700"
+					class="rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
 					on:click|preventDefault={(e) => {
 						document.querySelector('#apps')?.scrollIntoView({ behavior: 'smooth' });
 					}}

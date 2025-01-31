@@ -20,7 +20,7 @@
 
 {#if $popupStore}
 	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+		class="fixed inset-0 z-50 flex items-center justify-center bg-gray-500/50 backdrop-blur-sm dark:bg-black/50"
 		transition:fade={{ duration: 200 }}
 	>
 		<div class="relative w-fit" transition:scale={{ duration: 200, start: 0.95 }}>
@@ -28,7 +28,7 @@
 			<div class="relative scale-75 transform">
 				<button
 					on:click={() => popupStore.dismiss()}
-					class="absolute -right-0.5 -top-0.5 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-red-400 text-xl font-bold text-gray-600 transition hover:bg-red-500"
+					class="absolute -right-0.5 -top-0.5 z-50 flex h-8 w-8 items-center justify-center rounded-full bg-red-400 text-gray-900 transition hover:bg-red-500 dark:text-gray-100"
 				>
 					×
 				</button>
