@@ -3,10 +3,23 @@
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import { onMount } from 'svelte';
 
+	function getLastTuesdayOfMonth() {
+		const today = new Date();
+		const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+		while (lastDayOfMonth.getDay() !== 2) {
+			lastDayOfMonth.setDate(lastDayOfMonth.getDate() - 1);
+		}
+
+		return lastDayOfMonth.toISOString().split('T')[0];
+	}
+
+	const lastTuesday = getLastTuesdayOfMonth();
+
 	let formData = {
 		eventNumber: 1,
-		date: '',
-		time: '',
+		date: lastTuesday,
+		time: '08:00',
 		timezone: 'PST',
 		speakers: [
 			{
@@ -21,6 +34,42 @@
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 		logoUrl: '/images/logo.png'
 	};
+
+	// Update the date when the month changes
+	function updateToLastTuesday() {
+		formData.date = getLastTuesdayOfMonth();
+		formData = { ...formData }; // Trigger reactivity
+	}
+
+	onMount(() => {
+		// Set initial date and time
+		updateToLastTuesday();
+	});
+
+	async function fetchTwitterProfile(handle: string): Promise<string | null> {
+		if (!handle) return null;
+
+		try {
+			const response = await fetch(`/api/twitter-profile?username=${encodeURIComponent(handle)}`);
+			if (!response.ok) {
+				console.error('Failed to fetch Twitter profile:', await response.text());
+				return null;
+			}
+			const data = await response.json();
+			return data.profile_image_url;
+		} catch (error) {
+			console.error('Error fetching Twitter profile:', error);
+			return null;
+		}
+	}
+
+	async function handleTwitterHandleChange(index: number, handle: string) {
+		const profileImageUrl = await fetchTwitterProfile(handle);
+		if (profileImageUrl) {
+			formData.speakers[index].image = profileImageUrl;
+			formData = { ...formData };
+		}
+	}
 
 	function addSpeaker() {
 		formData.speakers = [
@@ -228,6 +277,7 @@
 									type="text"
 									bind:value={speaker.handle}
 									placeholder="@username"
+									on:change={() => handleTwitterHandleChange(i, speaker.handle)}
 									class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 									required
 								/>
@@ -240,16 +290,6 @@
 								<input
 									type="text"
 									bind:value={speaker.talk}
-									class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-									required
-								/>
-							</div>
-
-							<div>
-								<label class="block text-sm font-medium text-gray-700">Profile Image URL</label>
-								<input
-									type="url"
-									bind:value={speaker.image}
 									class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 									required
 								/>
