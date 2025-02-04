@@ -54,7 +54,7 @@
 	class:translate-y-[-100%]={!isVisible}
 >
 	<nav
-		class=" mb-1 mt-0.5 w-full max-w-2xl rounded-2xl border transition-all duration-300 {!isAtTop
+		class=" mb-1 mt-1 w-full max-w-2xl rounded-2xl border transition-all duration-300 {!isAtTop
 			? 'border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80'
 			: 'border-transparent bg-transparent'}"
 	>

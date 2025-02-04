@@ -232,8 +232,52 @@
 					</div>
 				</section>
 
+				<!-- Apps to Try Section -->
+				<section id="apps-to-try" class="py-16">
+					<div
+						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
+					>
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Apps to Try</h2>
+						<p class="text-md mt-4 text-gray-600 dark:text-gray-300">
+							Discover apps that put you in control of your data
+						</p>
+					</div>
+					<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+						{#each content[2].sections.find((s) => s.title === 'Apps to try')?.items || [] as app}
+							<a
+								href={app.url}
+								class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10"
+							>
+								<div class="flex h-16 items-center justify-center bg-gray-100 p-4 dark:bg-gray-700">
+									<img src={app.icon} alt={app.title} class="h-8 w-8 object-contain" />
+								</div>
+								<div class="flex flex-1 flex-col justify-between p-6">
+									<div>
+										<h3
+											class="text-xl font-semibold text-gray-900 group-hover:text-primary dark:text-white"
+										>
+											{app.title}
+										</h3>
+										<p class="mt-2 text-gray-500 dark:text-gray-400">By {app.author}</p>
+									</div>
+									<div class="mt-4 flex items-center text-primary">
+										<span class="text-sm font-medium">Try it now</span>
+										<svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+											<path
+												fill-rule="evenodd"
+												d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									</div>
+								</div>
+							</a>
+						{/each}
+					</div>
+				</section>
+
 				<!-- App Categories -->
-				<section id="apps" class="py-16">
+				<section id="apps" class=" py-20">
 					<div
 						class="sticky top-[var(--navbar-height)] z-10 -mx-4 bg-white/80 backdrop-blur-sm dark:bg-gray-900/80"
 					>
