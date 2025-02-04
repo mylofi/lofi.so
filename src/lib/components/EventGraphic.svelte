@@ -49,7 +49,7 @@
 {#if eventData && eventData.eventNumber}
 	<main id="graphic" class="flex min-h-screen items-center justify-center p-4 lg:h-screen">
 		<div
-			class="relative flex h-fit w-fit origin-top scale-[0.95] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black dark:text-white sm:scale-75 md:scale-90 lg:scale-100 lg:flex-row"
+			class="lg:scale-80 relative flex h-fit w-fit origin-top scale-[0.9] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black dark:text-white sm:scale-75 md:scale-90 lg:flex-row"
 		>
 			<!-- Background Pattern -->
 			<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
@@ -59,8 +59,8 @@
 							id="dot-pattern"
 							x="0"
 							y="0"
-							width="24"
-							height="24"
+							width="30"
+							height="30"
 							patternUnits="userSpaceOnUse"
 						>
 							<circle cx="2" cy="2" r="1.2" fill="currentColor" />

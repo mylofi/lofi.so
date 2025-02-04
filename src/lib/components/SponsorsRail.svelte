@@ -35,7 +35,7 @@
 
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
-		<div class="absolute bottom-0 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
+		<div class="absolute bottom-5 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
 			<div class="sticky top-32 overflow-y-auto" style="max-height: calc(100vh - 6rem);">
 				{#if showNextEvent && nextEvent}
 					<div
@@ -64,7 +64,9 @@
 								<h3 class="mb-2 text-lg font-semibold transition group-hover:text-primary">
 									{nextEvent.name}
 								</h3>
-								<p class="text-sm text-gray-400">{nextEvent.date} • {nextEvent.time}</p>
+								<p class="text-sm text-black dark:text-white">
+									{nextEvent.date} • {nextEvent.time}
+								</p>
 							</div>
 						</a>
 					</div>
