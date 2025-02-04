@@ -36,21 +36,33 @@
 				Local-first Software
 			</h1>
 			<p class="mx-auto mt-7 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
-				So, you want to build an app that has its data co-located with its UI? That works offline?
-				That synchronizes between clients? And that lets its users own their data?
+				Experience apps that work offline, keep your data private, and sync seamlessly across your
+				devices. Your data stays with you, not locked in the cloud.
 			</p>
 			<p class="mx-auto mt-7 max-w-2xl text-lg font-bold text-gray-600 dark:text-gray-300">
-				Welcome to the world of local-first web development.
+				Welcome to a better way of using software.
 			</p>
 			<div class="mt-14 flex justify-center gap-4">
 				<a
-					href="#start-here"
+					href="#apps-to-try"
 					class="scroll-smooth rounded-md bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:bg-primary/90"
+					on:click|preventDefault={(e) => {
+						const section = document.querySelector('#apps-to-try');
+						if (section) {
+							section.scrollIntoView({ behavior: 'smooth' });
+						}
+					}}
+				>
+					Try Apps
+				</a>
+				<a
+					href="#start-here"
+					class="rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
 					on:click|preventDefault={(e) => {
 						document.querySelector('#start-here')?.scrollIntoView({ behavior: 'smooth' });
 					}}
 				>
-					Start Here
+					Learn
 				</a>
 				<a
 					href="#apps"
