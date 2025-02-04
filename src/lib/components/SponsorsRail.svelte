@@ -36,7 +36,7 @@
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
 		<div class="absolute bottom-0 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
-			<div class="sticky top-24 overflow-y-auto" style="max-height: calc(100vh - 6rem);">
+			<div class="sticky top-32 overflow-y-auto" style="max-height: calc(100vh - 6rem);">
 				{#if showNextEvent && nextEvent}
 					<div
 						class="mb-4 overflow-hidden rounded-lg bg-gradient-to-b from-[#ff3e00]/10 to-gray-800/50 backdrop-blur-sm"

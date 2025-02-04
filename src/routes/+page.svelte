@@ -80,10 +80,6 @@
 		<div class="flex flex-col items-center justify-between gap-8">
 			<div class="flex-1">
 				<EventGraphic />
-				<div class="m-8">
-					<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Join our Monthly Meetup</h2>
-					<p class="mt-4 text-lg text-gray-600 dark:text-gray-300">{heading.meetup.date}</p>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -99,13 +95,13 @@
 				<!-- Start Here Guide -->
 				<section id="start-here" class="py-16">
 					<div
-						class="sticky top-0 z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
+						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 px-4 py-4 dark:bg-transparent"
 					>
 						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Learn</h2>
 					</div>
 					<div class="flex gap-8">
 						<!-- Vertical Tabs -->
-						<div class="sticky top-[5.5rem] h-fit flex-shrink-0">
+						<div class="sticky top-[var(--vertical-tabs-offset)] h-fit flex-shrink-0">
 							<div class="flex flex-col space-y-2">
 								<button
 									class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
@@ -187,13 +183,13 @@
 				<!-- Local-first Mentions Feed -->
 				<section class="py-16">
 					<div
-						class="sticky top-0 z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
+						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
 					>
 						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Latest Mentions</h2>
 					</div>
 					<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 						{#each mentions.mentions as mention}
-							<article class="overflow-hidden rounded-lg bg-gray-200 shadow-sm dark:bg-gray-800">
+							<article class="overflow-hidden rounded-lg bg-gray-200 shadow-md dark:bg-gray-800">
 								<div class="p-6">
 									<div class="mb-4 flex items-center">
 										<div class="ml-3">
@@ -238,7 +234,9 @@
 
 				<!-- App Categories -->
 				<section id="apps" class="py-16">
-					<div class="sticky top-0 z-10 -mx-4 bg-white/80 backdrop-blur-sm dark:bg-gray-900/80">
+					<div
+						class="sticky top-[var(--navbar-height)] z-10 -mx-4 bg-white/80 backdrop-blur-sm dark:bg-gray-900/80"
+					>
 						<div class="px-4 py-4">
 							<h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
 								Local-First Apps & Tools
