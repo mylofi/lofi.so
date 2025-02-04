@@ -9,7 +9,7 @@
 
 	function handleScroll() {
 		scrollY = window.scrollY;
-		isAtTop = scrollY < 200;
+		isAtTop = scrollY < 100;
 
 		if (!isAtTop) {
 			isVisible = true;
@@ -30,7 +30,9 @@
 
 		const element = document.querySelector(id);
 		if (element) {
-			const navHeight = 100;
+			const navHeight = parseInt(
+				getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
+			);
 			const elementPosition = element.getBoundingClientRect().top;
 			const offsetPosition = elementPosition + window.scrollY - navHeight;
 
@@ -46,13 +48,13 @@
 <svelte:window on:scroll={handleScroll} />
 
 <div
-	class="fixed left-0 right-0 top-0 z-50 flex justify-center px-4 transition-transform duration-300 {!isAtTop
+	class="fixed left-0 right-0 z-40 flex justify-center px-4 transition-all duration-300 {!isAtTop
 		? 'bg-white/80 backdrop-blur-sm dark:bg-gray-900/80'
 		: ''}"
 	class:translate-y-[-100%]={!isVisible}
 >
 	<nav
-		class="my-2 w-full max-w-2xl rounded-2xl border transition-all duration-300 {!isAtTop
+		class=" mb-1 mt-0.5 w-full max-w-2xl rounded-2xl border transition-all duration-300 {!isAtTop
 			? 'border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80'
 			: 'border-transparent bg-transparent'}"
 	>

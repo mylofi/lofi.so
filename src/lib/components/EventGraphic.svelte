@@ -47,9 +47,9 @@
 </script>
 
 {#if eventData && eventData.eventNumber}
-	<main id="graphic" class="flex h-screen items-center justify-center p-4">
+	<main id="graphic" class="flex min-h-screen items-center justify-center p-4 lg:h-screen">
 		<div
-			class="relative flex h-fit w-fit origin-top scale-[0.65] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black sm:scale-75 md:scale-90 lg:scale-100 lg:flex-row"
+			class="relative flex h-fit w-fit origin-top scale-[0.95] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black dark:text-white sm:scale-75 md:scale-90 lg:scale-100 lg:flex-row"
 		>
 			<!-- Background Pattern -->
 			<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
@@ -59,11 +59,11 @@
 							id="dot-pattern"
 							x="0"
 							y="0"
-							width="20"
-							height="20"
+							width="24"
+							height="24"
 							patternUnits="userSpaceOnUse"
 						>
-							<circle cx="2" cy="2" r="1.2" fill="white" />
+							<circle cx="2" cy="2" r="1.2" fill="currentColor" />
 						</pattern>
 					</defs>
 					<rect width="100%" height="100%" fill="url(#dot-pattern)" />
@@ -72,8 +72,8 @@
 
 			<!-- Main Content Section -->
 			<section class="rounded-xl shadow-lg">
-				<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md">
-					<div class=" mb-3">
+				<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
+					<div class="mb-3">
 						<!-- Header with Logo -->
 						<div class="mb-3 flex items-center gap-2">
 							<img
@@ -92,10 +92,9 @@
 							{formattedDateTime}
 						</p>
 					</div>
-					<!-- <div class="mb-3 h-1 border-b border-black"></div> -->
 
 					<!-- Speakers Section -->
-					<div class="rounded-xl bg-white p-3 shadow-xl sm:p-4">
+					<div class="rounded-xl bg-white p-3 shadow-xl dark:bg-gray-900 sm:p-4">
 						<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
 						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
 						{#if eventData.speakers && eventData.speakers.length > 0}
@@ -106,11 +105,11 @@
 										href={`https://x.com/${speaker.handle?.substring(1)}`}
 										target="_blank"
 										rel="noopener noreferrer"
-										class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100"
+										class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
 									>
 										<!-- Speaker Avatar -->
 										<div
-											class="relative h-[40px] w-[40px] rounded-full bg-gray-200 sm:h-[45px] sm:w-[45px] lg:h-[65px] lg:w-[65px]"
+											class="relative h-[40px] w-[40px] rounded-full bg-gray-200 dark:bg-gray-700 sm:h-[45px] sm:w-[45px] lg:h-[65px] lg:w-[65px]"
 										>
 											<img
 												src={speaker.image || ''}
@@ -121,20 +120,20 @@
 										<!-- Speaker Info -->
 										<div class="pr-2">
 											<h3 class="m-0 text-sm font-semibold">{speaker.name}</h3>
-											<span class="text-xs text-gray-600">{speaker.handle}</span>
+											<span class="text-xs text-gray-600 dark:text-gray-400">{speaker.handle}</span>
 										</div>
 									</a>
 									<!-- Talk Title -->
 									<p
-										class=" text-sm font-semibold italic leading-tight transition group-hover:text-discord"
+										class="text-sm font-semibold italic leading-tight transition group-hover:text-discord"
 									>
 										{speaker.talk}
 									</p>
 								</div>
-								<div class=" my-3 h-0.5 w-full border-b border-gray-100"></div>
+								<div class="my-3 h-0.5 w-full border-b border-gray-100 dark:border-gray-700"></div>
 							{/each}
 						{:else}
-							<p class="text-gray-500">No speakers scheduled yet</p>
+							<p class="text-gray-500 dark:text-gray-400">No speakers scheduled yet</p>
 						{/if}
 					</div>
 				</div>
@@ -194,12 +193,12 @@
 {:else}
 	<div class="flex h-screen items-center justify-center">
 		<div
-			class="flex min-h-[300px] w-1/2 items-center justify-center rounded-xl bg-gray-100 p-8 text-center"
+			class="flex min-h-[300px] w-1/2 items-center justify-center rounded-xl bg-gray-100 p-8 text-center dark:bg-gray-800"
 		>
 			<div class="max-w-md">
 				<img src="/images/logo.png" alt="LoFi" class="mx-auto mb-4 h-16 w-16 opacity-50" />
-				<h2 class="mb-2 text-2xl font-bold text-gray-700">No Upcoming Event</h2>
-				<p class="text-gray-600">
+				<h2 class="mb-2 text-2xl font-bold text-gray-700 dark:text-gray-200">No Upcoming Event</h2>
+				<p class="text-gray-600 dark:text-gray-400">
 					Stay tuned! Our next Local First event is being planned. Check back soon for updates or
 					join our Discord community.
 				</p>

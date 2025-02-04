@@ -4,7 +4,7 @@
 
 <section class="relative flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
 	<!-- Meetup Button - Hidden on small screens -->
-	<div class="absolute bottom-10 z-10 hidden sm:right-6 md:block lg:right-12">
+	<!-- <div class="absolute bottom-10 z-10 hidden sm:right-6 md:block lg:right-12">
 		<button
 			class="group flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-discord px-4 py-2.5 text-sm text-white shadow-lg transition-transform hover:scale-105 sm:px-6 sm:py-3 sm:text-base"
 			on:click={() => {
@@ -17,7 +17,7 @@
 			<span>Tune In</span>
 			<div class="animate-pulse-ring absolute inset-0 rounded-full" />
 		</button>
-	</div>
+	</div> -->
 
 	<div class="absolute inset-0 overflow-hidden">
 		<div

@@ -6,6 +6,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --navbar-height: 70px;
+  --vertical-tabs-offset: 130px;
+}
+
+:root[data-banner="true"] {
+  --navbar-height: 110px;
+  --vertical-tabs-offset: 170px;
+}
+
 @font-face {
   font-family: 'Archivo';
   src: url('/fonts/archivo.woff2') format('woff2');
