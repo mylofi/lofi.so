@@ -1,7 +1,7 @@
 <!-- App.svelte -->
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
-	import defaultEventData from '$lib/data/event.json';
+	import type { EventData } from '$lib/server/kv';
 
 	interface Speaker {
 		name: string;
@@ -10,23 +10,11 @@
 		image: string;
 	}
 
-	interface EventData {
-		eventNumber: number;
-		date: string;
-		time: string;
-		timezone: string;
-		speakers: Speaker[];
-		registrationUrl: string;
-		discordUrl: string;
-		calendarUrl: string;
-		logoUrl: string;
-	}
+	export let eventData: EventData | null = null;
 
-	export let eventData: EventData = defaultEventData;
-
-	$: formattedDate = formatDate(eventData.date);
-	$: formattedTime = formatTime(eventData.time);
-	$: formattedDateTime = `${formattedDate} @ ${formattedTime} ${eventData.timezone}`;
+	$: formattedDate = eventData?.date ? formatDate(eventData.date) : '';
+	$: formattedTime = eventData?.time ? formatTime(eventData.time) : '';
+	$: formattedDateTime = eventData ? `${formattedDate} @ ${formattedTime} ${eventData.timezone}` : '';
 
 	function formatDate(dateStr: string): string {
 		const date = new Date(dateStr);

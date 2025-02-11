@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^5.5.3",
+		"@vercel/kv": "^3.0.0",
 		"gray-matter": "^4.0.3",
 		"marked": "^15.0.6",
 		"modern-screenshot": "^4.5.5"

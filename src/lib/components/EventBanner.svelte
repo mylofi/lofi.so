@@ -1,17 +1,17 @@
 <!-- EventBanner.svelte -->
 <script lang="ts">
 	import { isBannerVisible, dismissBanner } from '$lib/stores/bannerStore';
-	import defaultEventData from '$lib/data/event.json';
 	import { onMount } from 'svelte';
+	import type { EventData } from '$lib/server/kv';
 
-	export let eventData = defaultEventData;
+	export let eventData: EventData | null = null;
 
-	$: formattedDate = new Date(eventData.date).toLocaleDateString('en-US', {
+	$: formattedDate = eventData?.date ? new Date(eventData.date).toLocaleDateString('en-US', {
 		weekday: 'short',
 		day: 'numeric',
 		month: 'short'
-	});
-	$: formattedTime = eventData.time.split(':')[0] + ' ' + eventData.timezone;
+	}) : '';
+	$: formattedTime = eventData?.time ? eventData.time.split(':')[0] + ' ' + eventData.timezone : '';
 
 	onMount(() => {
 		const unsubscribe = isBannerVisible.subscribe((visible) => {

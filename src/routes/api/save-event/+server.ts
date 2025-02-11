@@ -1,15 +1,11 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs';
-import path from 'path';
 import type { RequestHandler } from './$types';
+import { saveEvent } from '$lib/server/kv';
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const eventData = await request.json();
-
-		const dataPath = path.join(process.cwd(), 'src', 'lib', 'data', 'event.json');
-		await fs.promises.writeFile(dataPath, JSON.stringify(eventData, null, 2));
-
+		await saveEvent(eventData);
 		return json({ success: true });
 	} catch (error) {
 		console.error('Error saving event data:', error);

@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
-	const { content, heading, sponsorsData, mentions } = data;
+	const { content, heading, sponsorsData, mentions, eventDataForGraphic } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
 	const sponsors = rawSponsors as {
 		url: string;
@@ -79,7 +79,7 @@
 	<section id="monthly-meetup" class="py-8">
 		<div class="flex flex-col items-center justify-between gap-8">
 			<div class="flex-1">
-				<EventGraphic />
+				<EventGraphic eventData={eventDataForGraphic} />
 			</div>
 		</div>
 	</section>
@@ -97,6 +97,7 @@
 					<div
 						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 px-4 py-6 text-center bg-white dark:bg-gray-900 backdrop-blur-sm"
 					>
+						<!-- <span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Get Started</span> -->
 						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Learn</h2>
 						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 					</div>
@@ -234,7 +235,7 @@
 				<section id="monthly-meetup-desktop" class="hidden md:block border border-gray-100 dark:border-gray-800 rounded-lg mb-8 ">
 					<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 						<div class="flex-1">
-							<EventGraphic />
+							<EventGraphic eventData={eventDataForGraphic} />
 						</div>
 					</div>
 				</section>
@@ -244,6 +245,7 @@
 					<div
 						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
 					>
+						<!-- <span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Explore</span> -->
 						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Discover Software</h2>
 						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 						<p class="text-md mt-4 text-gray-600 dark:text-gray-300">
@@ -292,6 +294,7 @@
 						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 bg-white dark:bg-gray-900 backdrop-blur-sm"
 					>
 						<div class="px-4 py-6 text-center">
+							<!-- <span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Tools</span> -->
 							<h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
 								Local-First Tools
 							</h2>
