@@ -53,7 +53,7 @@
 						}
 					}}
 				>
-					Try Apps
+					Explore
 				</a>
 				<a
 					href="#start-here"

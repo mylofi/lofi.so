@@ -48,24 +48,24 @@
 <svelte:window on:scroll={handleScroll} />
 
 <div
-	class="fixed left-0 right-0 z-40 flex justify-center px-4 transition-all duration-300 {!isAtTop
+	class="fixed left-0 right-0 z-40 transition-all duration-300 {!isAtTop
 		? 'bg-white/80 backdrop-blur-sm dark:bg-gray-900/80'
 		: ''}"
 	class:translate-y-[-100%]={!isVisible}
 >
 	<nav
-		class=" mb-1 mt-1 w-full max-w-2xl rounded-2xl border transition-all duration-300 {!isAtTop
+		class="w-full border transition-all duration-300 {!isAtTop
 			? 'border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80'
 			: 'border-transparent bg-transparent'}"
 	>
-		<div class="px-4 sm:px-6">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="flex h-16 items-center justify-between">
 				<div class="flex items-center">
 					<a href="/" class="flex items-center">
 						<img
 							src="/images/logo.svg"
 							alt="Local First Software"
-							class="h-8 w-auto transition-transform duration-300"
+							class="h-10 w-auto transition-transform duration-300"
 							class:scale-125={isAtTop}
 						/>
 					</a>
@@ -81,23 +81,23 @@
 						<a
 							href="#start-here"
 							on:click={(e) => scrollToSection(e, '#start-here')}
-							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Start Here</a
 						>
 						<a
 							href="#apps"
 							on:click={(e) => scrollToSection(e, '#apps')}
-							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Build</a
 						>
 						<a
 							href="/blog"
-							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Blog</a
 						>
 						<button
 							on:click={toggleTheme}
-							class="rounded-md p-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+							class="rounded-md p-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							aria-label="Toggle theme"
 						>
 							{#if $theme === 'dark'}
@@ -165,23 +165,23 @@
 				<a
 					href="#start-here"
 					on:click={(e) => scrollToSection(e, '#start-here')}
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 					>Start Here</a
 				>
 				<a
 					href="#apps"
 					on:click={(e) => scrollToSection(e, '#apps')}
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 					>Apps</a
 				>
 				<a
 					href="/blog"
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 					>Blog</a
 				>
 				<button
 					on:click={toggleTheme}
-					class="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+					class="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 				>
 					{$theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
 				</button>
