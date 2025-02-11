@@ -49,7 +49,7 @@
 {#if eventData && eventData.eventNumber}
 	<main id="graphic" class="flex min-h-screen items-center justify-center p-4 lg:h-screen">
 		<div
-			class="lg:scale-80 relative flex h-fit w-fit origin-top scale-[0.9] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black dark:text-white sm:scale-75 md:scale-90 lg:flex-row"
+			class="lg:scale-90 relative flex h-fit w-fit origin-top scale-[0.8] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white sm:scale-65 md:scale-75 lg:flex-row"
 		>
 			<!-- Background Pattern -->
 			<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">

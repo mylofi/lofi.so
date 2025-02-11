@@ -36,10 +36,10 @@
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
 		<div class="absolute bottom-5 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
-			<div class="sticky top-32 overflow-y-auto" style="max-height: calc(100vh - 6rem);">
+			<div class="sticky top-32 h-[calc(100vh-9rem)] overflow-y-auto">
 				{#if showNextEvent && nextEvent}
 					<div
-						class="mb-4 overflow-hidden rounded-lg bg-gradient-to-b from-[#ff3e00]/10 to-gray-800/50 backdrop-blur-sm"
+						class="mb-4 overflow-hidden rounded-lg bg-gradient-to-b from-[#ff3e00]/20 to-gray-800/50 backdrop-blur-sm"
 					>
 						<a href={nextEvent.url} class="group block">
 							<div class="p-6">
@@ -77,9 +77,9 @@
 						<div class="space-y-1">
 							<a
 								href={sponsor.url}
-								class="group block overflow-hidden bg-gray-800/50 transition-colors hover:bg-white"
+								class="group block overflow-hidden bg-gray-800/50 transition-colors hover:bg-gray-300"
 								class:rounded-t-xl={i === 0}
-								class:rounded-b-xl={i === sponsors.length - 1}
+								class:rounded-b-xl={i === sponsors.length - 1 && sponsors.length >= 4}
 								style="height: {tierHeights[sponsor.tier]}px"
 							>
 								<div class="flex h-full w-full items-center justify-center p-4">
@@ -92,6 +92,20 @@
 							</a>
 						</div>
 					{/each}
+					{#if sponsors.length < 4}
+						{#each Array(4 - sponsors.length) as _, i}
+							<div class="space-y-1">
+								<div
+									class="block overflow-hidden bg-gray-800/20 dark:bg-gray-600/20 transition-colors hover:bg-gray-700/30 dark:hover:bg-gray-500/30"
+									class:rounded-t-xl={sponsors.length === 0 && i === 0}
+									class:rounded-b-xl={i === 3 - sponsors.length}
+									style="height: 80px"
+								>
+									<div class="flex h-full w-full items-center justify-center p-4" />
+								</div>
+							</div>
+						{/each}
+					{/if}
 				</div>
 			</div>
 		</div>
@@ -111,6 +125,13 @@
 					/>
 				</a>
 			{/each}
+			{#if sponsors.length < 4}
+				{#each Array(4 - sponsors.length) as _}
+					<div
+						class="aspect-video flex items-center justify-center rounded-lg bg-gray-800/20 dark:bg-gray-600/20 transition-colors hover:bg-gray-700/30 dark:hover:bg-gray-500/30 p-4"
+					/>
+				{/each}
+			{/if}
 		</div>
 	</div>
 {:else}
@@ -128,6 +149,13 @@
 					/>
 				</a>
 			{/each}
+			{#if sponsors.length < 4}
+				{#each Array(4 - sponsors.length) as _}
+					<div
+						class="aspect-video flex items-center justify-center rounded-lg bg-gray-800/20 dark:bg-gray-600/20 transition-colors hover:bg-gray-700/30 dark:hover:bg-gray-500/30 p-3"
+					/>
+				{/each}
+			{/if}
 		</div>
 	</div>
 {/if}

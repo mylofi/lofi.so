@@ -1,10 +1,10 @@
 <!-- Footer -->
-<footer class="relative border-t border-gray-200 px-4 py-16 sm:px-6 lg:px-8 dark:border-gray-800">
+<footer class="relative border-t border-gray-200 px-4 py-8 sm:px-6 lg:px-8 dark:border-gray-800">
 	<div
-		class="animate-glow absolute bottom-16 left-1/2 h-[15rem] w-[30rem] -translate-x-1/2 rounded-full bg-primary opacity-20 blur-[8rem] dark:opacity-30"
+		class="animate-glow absolute bottom-8 left-1/2 h-[15rem] w-[30rem] -translate-x-1/2 rounded-full bg-primary opacity-20 blur-[8rem] dark:opacity-30"
 	></div>
 	<div class="relative mx-auto max-w-7xl text-center">
-		<div class="space-y-4">
+		<div class="space-y-2">
 			<p class="text-lg text-gray-600 dark:text-gray-300">
 				Something missing?
 				<a
@@ -22,7 +22,7 @@
 				</a>
 			</p>
 		</div>
-		<img src="/images/logo.svg" alt="Local First Software" class="mx-auto mt-12 h-16 opacity-50" />
+		<img src="/images/logo.svg" alt="Local First Software" class="mx-auto mt-6 h-12 opacity-50" />
 	</div>
 </footer>
 

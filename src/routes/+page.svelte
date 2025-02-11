@@ -92,139 +92,146 @@
 		<div class="lg:flex">
 			<!-- Main Content -->
 			<div class="flex-1 xl:mr-[19.5rem]">
-				<!-- Start Here Guide -->
-				<section id="start-here" class="py-16">
+				<!-- Start Here/Learn Guide -->
+				<section id="start-here" class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
 					<div
-						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 px-4 py-4 dark:bg-transparent"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 px-4 py-6 text-center bg-white dark:bg-gray-900 backdrop-blur-sm"
 					>
-						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Learn</h2>
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Learn</h2>
+						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 					</div>
-					<div class="flex gap-8">
-						<!-- Vertical Tabs -->
-						<div class="sticky top-[var(--vertical-tabs-offset)] h-fit flex-shrink-0">
-							<div class="flex flex-col space-y-2">
-								<button
-									class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
-										activeLearnTab === 'read'
-											? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
-											: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
-									}`}
-									on:click={() => setActiveLearnTab('read')}
-								>
-									Read
-								</button>
-								<button
-									class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
-										activeLearnTab === 'watch'
-											? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
-											: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
-									}`}
-									on:click={() => setActiveLearnTab('watch')}
-								>
-									Watch
-								</button>
+					<div class="relative">
+						<div class="flex gap-8">
+							<!-- Vertical Tabs -->
+							<div class="sticky top-[var(--vertical-tabs-offset)] h-fit flex-shrink-0">
+								<div class="flex flex-col space-y-2">
+									<button
+										class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
+											activeLearnTab === 'read'
+												? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
+												: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
+										}`}
+										on:click={() => setActiveLearnTab('read')}
+									>
+										Read
+									</button>
+									<button
+										class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
+											activeLearnTab === 'watch'
+												? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
+												: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
+										}`}
+										on:click={() => setActiveLearnTab('watch')}
+									>
+										Watch
+									</button>
+								</div>
 							</div>
-						</div>
 
-						<!-- Content Grid -->
-						<div class="flex-1">
-							<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-								{#if activeLearnTab === 'read'}
-									{#each readContent as item}
-										<a
-											href={item.url}
-											class="block rounded-lg bg-gray-200 p-6 shadow-sm transition hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-										>
-											<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
+							<!-- Content Grid -->
+							<div class="flex-1">
+								<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+									{#if activeLearnTab === 'read'}
+										{#each readContent as item}
+											<a
+												href={item.url}
+												class="block rounded-lg bg-gray-200 p-6 shadow-sm transition hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+											>
+												<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
 
-											<h3 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
-												{item.title}
-											</h3>
-											<p class="text-gray-500 dark:text-gray-400">By {item.author}</p>
-										</a>
-									{/each}
-								{:else}
-									{#each watchContent as item}
-										<article
-											class="overflow-hidden rounded-lg bg-gray-200 shadow-sm dark:bg-gray-800"
-										>
-											<div class="aspect-h-9 aspect-w-16 bg-gray-100 dark:bg-gray-900">
-												<img src={item.icon} alt={item.title} class="object-cover" />
-											</div>
-											<div class="p-6">
-												<h3
-													class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white"
-												>
+												<h3 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
 													{item.title}
 												</h3>
-												<p class="mb-4 text-gray-500 dark:text-gray-400">By {item.author}</p>
-												<a
-													href={item.url}
-													class="inline-flex items-center text-primary hover:text-primary/80"
-												>
-													Watch now
-													<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-														<path
-															fill-rule="evenodd"
-															d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-															clip-rule="evenodd"
-														/>
-													</svg>
-												</a>
-											</div>
-										</article>
-									{/each}
-								{/if}
+												<p class="text-gray-500 dark:text-gray-400">By {item.author}</p>
+											</a>
+										{/each}
+									{:else}
+										{#each watchContent as item}
+											<article
+												class="overflow-hidden rounded-lg bg-gray-200 shadow-sm dark:bg-gray-800"
+											>
+												<div class="aspect-h-9 aspect-w-16 bg-gray-100 dark:bg-gray-900">
+													<img src={item.icon} alt={item.title} class="object-cover" />
+												</div>
+												<div class="p-6">
+													<h3
+														class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white"
+													>
+														{item.title}
+													</h3>
+													<p class="mb-4 text-gray-500 dark:text-gray-400">By {item.author}</p>
+													<a
+														href={item.url}
+														class="inline-flex items-center text-primary hover:text-primary/80"
+													>
+														Watch now
+														<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+															<path
+																fill-rule="evenodd"
+																d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+																clip-rule="evenodd"
+															/>
+														</svg>
+													</a>
+												</div>
+											</article>
+										{/each}
+									{/if}
+								</div>
 							</div>
 						</div>
 					</div>
 				</section>
 
 				<!-- Local-first Mentions Feed -->
-				<section class="py-16">
+				<section class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
 					<div
-						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
 					>
-						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Latest Mentions</h2>
+						<span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Community</span>
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Latest Mentions</h2>
+						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 					</div>
-					<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-						{#each mentions.mentions as mention}
-							<article class="overflow-hidden rounded-lg bg-gray-200 shadow-md dark:bg-gray-800">
-								<div class="p-6">
-									<div class="mb-4 flex items-center">
-										<div class="ml-3">
-											<p class="font-medium text-gray-900 dark:text-white">{mention.author}</p>
-											<p class="text-sm text-gray-500 dark:text-gray-400">on {mention.platform}</p>
-											<p class="text-xs text-gray-400 dark:text-gray-500">{mention.date}</p>
+					<div class="relative">
+						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+							{#each mentions.mentions as mention}
+								<article class="overflow-hidden rounded-lg bg-gray-200 shadow-md dark:bg-gray-800">
+									<div class="p-6">
+										<div class="mb-4 flex items-center">
+											<div class="ml-3">
+												<p class="font-medium text-gray-900 dark:text-white">{mention.author}</p>
+												<p class="text-sm text-gray-500 dark:text-gray-400">on {mention.platform}</p>
+												<p class="text-xs text-gray-400 dark:text-gray-500">{mention.date}</p>
+											</div>
 										</div>
+										<h3 class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white">
+											{mention.title}
+										</h3>
+										<p class="mb-4 line-clamp-3 text-gray-500 dark:text-gray-400">
+											{mention.excerpt}
+										</p>
+										<a
+											href={mention.url}
+											class="inline-flex items-center text-primary hover:text-primary/80"
+										>
+											Read more
+											<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+												<path
+													fill-rule="evenodd"
+													d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										</a>
 									</div>
-									<h3 class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white">
-										{mention.title}
-									</h3>
-									<p class="mb-4 line-clamp-3 text-gray-500 dark:text-gray-400">
-										{mention.excerpt}
-									</p>
-									<a
-										href={mention.url}
-										class="inline-flex items-center text-primary hover:text-primary/80"
-									>
-										Read more
-										<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-											<path
-												fill-rule="evenodd"
-												d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-												clip-rule="evenodd"
-											/>
-										</svg>
-									</a>
-								</div>
-							</article>
-						{/each}
+								</article>
+							{/each}
+						</div>
 					</div>
 				</section>
 
 				<!-- Monthly Meetup Section - For medium screens and up -->
-				<section id="monthly-meetup-desktop" class="hidden md:block">
+				<section id="monthly-meetup-desktop" class="hidden md:block border border-gray-100 dark:border-gray-800 rounded-lg mb-8 ">
 					<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
 						<div class="flex-1">
 							<EventGraphic />
@@ -233,58 +240,62 @@
 				</section>
 
 				<!-- Apps to Try Section -->
-				<section id="apps-to-try" class="py-16">
+				<section id="apps-to-try" class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
 					<div
-						class="sticky top-[var(--navbar-height)] z-10 -mx-4 mb-8 bg-white/80 px-4 py-4 backdrop-blur-sm dark:bg-gray-900/80"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
 					>
-						<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Apps to Try</h2>
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Discover Software</h2>
+						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 						<p class="text-md mt-4 text-gray-600 dark:text-gray-300">
-							Discover apps that put you in control of your data
+							That put you in control of your data
 						</p>
 					</div>
-					<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-						{#each content[2].sections.find((s) => s.title === 'Apps to try')?.items || [] as app}
-							<a
-								href={app.url}
-								class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10"
-							>
-								<div class="flex h-16 items-center justify-center bg-gray-100 p-4 dark:bg-gray-700">
-									<img src={app.icon} alt={app.title} class="h-8 w-8 object-contain" />
-								</div>
-								<div class="flex flex-1 flex-col justify-between p-6">
-									<div>
-										<h3
-											class="text-xl font-semibold text-gray-900 group-hover:text-primary dark:text-white"
-										>
-											{app.title}
-										</h3>
-										<p class="mt-2 text-gray-500 dark:text-gray-400">By {app.author}</p>
+					<div class="relative">
+						<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+							{#each content[2].sections.find((s) => s.title === 'Apps to try')?.items || [] as app}
+								<a
+									href={app.url}
+									class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10"
+								>
+									<div class="flex h-16 items-center justify-center bg-gray-100 p-4 dark:bg-gray-700">
+										<img src={app.icon} alt={app.title} class="h-8 w-8 object-contain" />
 									</div>
-									<div class="mt-4 flex items-center text-primary">
-										<span class="text-sm font-medium">Try it now</span>
-										<svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-											<path
-												fill-rule="evenodd"
-												d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-												clip-rule="evenodd"
-											/>
-										</svg>
+									<div class="flex flex-1 flex-col justify-between p-6">
+										<div>
+											<h3
+												class="text-xl font-semibold text-gray-900 group-hover:text-primary dark:text-white"
+											>
+												{app.title}
+											</h3>
+											<p class="mt-2 text-gray-500 dark:text-gray-400">By {app.author}</p>
+										</div>
+										<div class="mt-4 flex items-center text-primary">
+											<span class="text-sm font-medium">Try it now</span>
+											<svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+												<path
+													fill-rule="evenodd"
+													d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										</div>
 									</div>
-								</div>
-							</a>
-						{/each}
+								</a>
+							{/each}
+						</div>
 					</div>
 				</section>
 
 				<!-- App Categories -->
-				<section id="apps" class=" py-20">
+				<section id="apps" class="py-20 relative border border-gray-100 dark:border-gray-800 rounded-lg p-6">
 					<div
-						class="sticky top-[var(--navbar-height)] z-10 -mx-4 bg-white/80 backdrop-blur-sm dark:bg-gray-900/80"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 bg-white dark:bg-gray-900 backdrop-blur-sm"
 					>
-						<div class="px-4 py-4">
-							<h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
-								Local-First Apps & Tools
+						<div class="px-4 py-6 text-center">
+							<h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+								Local-First Tools
 							</h2>
+							<div class="w-20 h-1 bg-primary mx-auto mb-6 rounded-full"></div>
 							<!-- Tabs Navigation -->
 							<div class="flex space-x-1 rounded-xl bg-gray-100 p-1 dark:bg-gray-800/50">
 								{#each tabs as tab}
