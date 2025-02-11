@@ -5,7 +5,9 @@
 	// import EventPopup from '$lib/components/EventPopup.svelte';
 	import EventBanner from '$lib/components/EventBanner.svelte';
 	import { theme } from '$lib/stores/themeStore';
-	let { children } = $props();
+	import type { LayoutData } from './$types';
+	
+	let { data, children } = $props<{data: LayoutData}>();
 </script>
 
 <svelte:head>
@@ -23,7 +25,7 @@
 </svelte:head>
 
 <div class="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-	<EventBanner />
+	<EventBanner eventData={data.eventData} />
 	<NavBar />
 	<main>
 		{@render children()}
