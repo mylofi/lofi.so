@@ -13,7 +13,7 @@ export interface EventData {
     timezone: string;
     speakers: Array<{
         name: string;
-        handle: string;
+        twitterHandle: string;
         talk: string;
         image: string;
     }>;

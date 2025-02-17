@@ -24,11 +24,12 @@
 		speakers: [
 			{
 				name: '',
-				twitterHandle: '',
+				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
 				talk: '',
-				image: ''
+				image: '',
+				error: ''
 			}
 		],
 		registrationUrl: 'https://localfirstweb.dev',
@@ -43,6 +44,20 @@
 		formData = { ...formData }; // Trigger reactivity
 	}
 
+	function handleTwitterHandleInput(event: Event, index: number) {
+		const input = event.target as HTMLInputElement;
+		let value = input.value;
+		
+		if (!value.startsWith('@')) {
+			value = '@' + value;
+		}
+		
+		formData.speakers[index].twitterHandle = value;
+		formData = { ...formData }; // Trigger reactivity
+		
+		handleSocialHandleChange(index);
+	}
+
 	onMount(() => {
 		updateToLastTuesday();
 	});
@@ -53,14 +68,17 @@
 		try {
 			const response = await fetch(`/api/twitter-profile?username=${encodeURIComponent(handle)}`);
 			if (!response.ok) {
-				console.error('Failed to fetch Twitter profile:', await response.text());
-				return null;
+				const errorData = await response.json();
+				if (response.status === 429) {
+					throw new Error('Twitter API rate limit exceeded. Please try again later.');
+				}
+				throw new Error(errorData.message || 'Failed to fetch Twitter profile');
 			}
 			const data = await response.json();
 			return data.profile_image_url;
 		} catch (error) {
 			console.error('Error fetching Twitter profile:', error);
-			return null;
+			throw error;
 		}
 	}
 
@@ -85,17 +103,46 @@
 		const speaker = formData.speakers[index];
 		let profileImageUrl = null;
 		
-		const handleToUse = speaker.profileImageHandle || speaker.twitterHandle;
-		if (speaker.profileImagePlatform === 'twitter') {
-			profileImageUrl = await fetchTwitterProfile(handleToUse);
-		} else if (speaker.profileImagePlatform === 'bluesky') {
-			profileImageUrl = await fetchBlueskyProfile(handleToUse);
+		formData.speakers[index].error = '';
+		
+		// Clear the image when switching platforms or clearing handles
+		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
+			formData.speakers[index].image = '';
+			formData = { ...formData };
+			return;
 		}
 
-		if (profileImageUrl) {
-			formData.speakers[index].image = profileImageUrl;
+		const handleToUse = speaker.profileImagePlatform === 'bluesky' ? 
+			speaker.profileImageHandle || speaker.twitterHandle : 
+			speaker.twitterHandle;
+
+		if (!handleToUse) {
+			formData.speakers[index].image = '';
 			formData = { ...formData };
+			return;
 		}
+
+		try {
+			if (speaker.profileImagePlatform === 'twitter') {
+				profileImageUrl = await fetchTwitterProfile(handleToUse);
+			} else if (speaker.profileImagePlatform === 'bluesky') {
+				profileImageUrl = await fetchBlueskyProfile(handleToUse);
+			}
+
+			if (profileImageUrl) {
+				formData.speakers[index].image = profileImageUrl;
+				formData.speakers[index].error = ''; // Clear any previous errors
+			} else {
+				formData.speakers[index].image = '';
+				formData.speakers[index].error = 'Could not fetch profile image';
+			}
+		} catch (error) {
+			formData.speakers[index].image = '';
+			// Use the exact error message from the API
+			formData.speakers[index].error = error instanceof Error ? error.message : 'An unexpected error occurred';
+		}
+		
+		formData = { ...formData };
 	}
 
 	function addSpeaker() {
@@ -103,11 +150,12 @@
 			...formData.speakers,
 			{
 				name: '',
-				twitterHandle: '',
+				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
 				talk: '',
-				image: ''
+				image: '',
+				error: ''
 			}
 		];
 	}
@@ -307,9 +355,13 @@
 										type="text"
 										bind:value={speaker.twitterHandle}
 										placeholder="@username"
+										on:change={(event) => handleTwitterHandleInput(event, i)}
 										class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 										required
 									/>
+									{#if speaker.error}
+										<p class="mt-1 text-sm text-red-600">{speaker.error}</p>
+									{/if}
 								</div>
 
 								<div class="space-y-4">
@@ -320,8 +372,8 @@
 											on:change={() => handleSocialHandleChange(i)}
 											class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 										>
-											<option value="twitter">Use Twitter Profile Image</option>
-											<option value="bluesky">Use Bluesky Profile Image</option>
+											<option value="twitter">Use Twitter</option>
+											<option value="bluesky">Use Bluesky</option>
 										</select>
 									</div>
 
@@ -377,7 +429,7 @@
 					...formData,
 					speakers: formData.speakers.map(s => ({
 						name: s.name,
-						handle: s.twitterHandle,
+						twitterHandle: s.twitterHandle,
 						talk: s.talk,
 						image: s.image
 					}))
