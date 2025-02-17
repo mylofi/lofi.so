@@ -5,7 +5,7 @@
 
 	interface Speaker {
 		name: string;
-		handle: string;
+		twitterHandle: string;
 		talk: string;
 		image: string;
 	}
@@ -90,7 +90,7 @@
 								<!-- Speaker Card -->
 								<div class="group flex items-center gap-2">
 									<a
-										href={`https://x.com/${speaker.handle?.substring(1)}`}
+										href={`https://x.com/${speaker.twitterHandle?.substring(1)}`}
 										target="_blank"
 										rel="noopener noreferrer"
 										class="flex w-[230px] min-w-[200px] cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700"
@@ -108,7 +108,7 @@
 										<!-- Speaker Info -->
 										<div class="pr-2">
 											<h3 class="m-0 text-sm font-semibold">{speaker.name}</h3>
-											<span class="text-xs text-gray-600 dark:text-gray-400">{speaker.handle}</span>
+											<span class="text-xs text-gray-600 dark:text-gray-400">{speaker.twitterHandle}</span>
 										</div>
 									</a>
 									<!-- Talk Title -->

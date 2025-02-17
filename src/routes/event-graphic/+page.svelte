@@ -24,7 +24,9 @@
 		speakers: [
 			{
 				name: '',
-				handle: '',
+				twitterHandle: '',
+				profileImagePlatform: 'twitter',
+				profileImageHandle: '',
 				talk: '',
 				image: ''
 			}
@@ -42,7 +44,6 @@
 	}
 
 	onMount(() => {
-		// Set initial date and time
 		updateToLastTuesday();
 	});
 
@@ -63,8 +64,34 @@
 		}
 	}
 
-	async function handleTwitterHandleChange(index: number, handle: string) {
-		const profileImageUrl = await fetchTwitterProfile(handle);
+	async function fetchBlueskyProfile(handle: string): Promise<string | null> {
+		if (!handle) return null;
+
+		try {
+			const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`);
+			if (!response.ok) {
+				console.error('Failed to fetch Bluesky profile:', await response.text());
+				return null;
+			}
+			const data = await response.json();
+			return data.avatar;
+		} catch (error) {
+			console.error('Error fetching Bluesky profile:', error);
+			return null;
+		}
+	}
+
+	async function handleSocialHandleChange(index: number) {
+		const speaker = formData.speakers[index];
+		let profileImageUrl = null;
+		
+		const handleToUse = speaker.profileImageHandle || speaker.twitterHandle;
+		if (speaker.profileImagePlatform === 'twitter') {
+			profileImageUrl = await fetchTwitterProfile(handleToUse);
+		} else if (speaker.profileImagePlatform === 'bluesky') {
+			profileImageUrl = await fetchBlueskyProfile(handleToUse);
+		}
+
 		if (profileImageUrl) {
 			formData.speakers[index].image = profileImageUrl;
 			formData = { ...formData };
@@ -76,7 +103,9 @@
 			...formData.speakers,
 			{
 				name: '',
-				handle: '',
+				twitterHandle: '',
+				profileImagePlatform: 'twitter',
+				profileImageHandle: '',
 				talk: '',
 				image: ''
 			}
@@ -271,16 +300,47 @@
 								/>
 							</div>
 
-							<div>
-								<label class="block text-sm font-medium text-gray-700">Twitter Handle</label>
-								<input
-									type="text"
-									bind:value={speaker.handle}
-									placeholder="@username"
-									on:change={() => handleTwitterHandleChange(i, speaker.handle)}
-									class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-									required
-								/>
+							<div class="space-y-4">
+								<div>
+									<label class="block text-sm font-medium text-gray-700">Twitter Handle (Required)</label>
+									<input
+										type="text"
+										bind:value={speaker.twitterHandle}
+										placeholder="@username"
+										class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+										required
+									/>
+								</div>
+
+								<div class="space-y-4">
+									<div>
+										<label class="block text-sm font-medium text-gray-700">Profile Image Source</label>
+										<select
+											bind:value={speaker.profileImagePlatform}
+											on:change={() => handleSocialHandleChange(i)}
+											class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+										>
+											<option value="twitter">Use Twitter Profile Image</option>
+											<option value="bluesky">Use Bluesky Profile Image</option>
+										</select>
+									</div>
+
+									{#if speaker.profileImagePlatform === 'bluesky'}
+										<div>
+											<label class="block text-sm font-medium text-gray-700">
+												Bluesky Handle (Optional)
+											</label>
+											<input
+												type="text"
+												bind:value={speaker.profileImageHandle}
+												placeholder="handle.bsky.social"
+												on:change={() => handleSocialHandleChange(i)}
+												class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+											/>
+											<p class="mt-1 text-xs text-gray-500">Leave empty to use Twitter handle</p>
+										</div>
+									{/if}
+								</div>
 							</div>
 						</div>
 
