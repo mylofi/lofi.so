@@ -24,13 +24,10 @@
 	});
 </script>
 
-<div
-	style="--banner-height: {$isBannerVisible && eventData?.eventNumber ? '70px' : '0px'}"
-	class="contents"
->
+<div class="contents">
 	{#if $isBannerVisible && eventData?.eventNumber}
 		<div
-			class="fixed left-0 right-0 top-0 z-50 h-10 bg-primary text-white transition-all duration-300"
+			class="fixed left-0 right-0 top-0 z-50 h-9 bg-primary text-white transition-all duration-300"
 		>
 			<div
 				class="mx-auto flex h-full max-w-7xl items-center justify-center px-4 text-center sm:px-6 lg:px-8"
@@ -99,6 +96,6 @@
 <!-- spacer div that adjusts based on banner visibility -->
 <div
 	class="transition-all duration-300"
-	class:h-10={$isBannerVisible && eventData?.eventNumber}
+	class:h-9={$isBannerVisible && eventData?.eventNumber}
 	class:h-0={!$isBannerVisible || !eventData?.eventNumber}
 ></div>

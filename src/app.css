@@ -13,7 +13,7 @@
 
 :root[data-banner="true"] {
   --navbar-height: 110px;
-  --vertical-tabs-offset: 170px;
+  --vertical-tabs-offset: 200px;
 }
 
 @font-face {

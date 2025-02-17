@@ -32,7 +32,7 @@
 			}
 		],
 		registrationUrl: 'https://localfirstweb.dev',
-		discordUrl: 'https://discord.gg/localfirst',
+		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 		logoUrl: '/images/logo.png'
 	};
@@ -373,7 +373,15 @@
 		<h2 class="mb-4 text-xl font-semibold">Preview</h2>
 		<div class="overflow-auto">
 			<div id="graphic">
-				<EventGraphic eventData={formData} />
+				<EventGraphic eventData={{
+					...formData,
+					speakers: formData.speakers.map(s => ({
+						name: s.name,
+						handle: s.twitterHandle,
+						talk: s.talk,
+						image: s.image
+					}))
+				}} />
 			</div>
 		</div>
 	</div>
