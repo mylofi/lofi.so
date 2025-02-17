@@ -131,19 +131,19 @@
 
 							<!-- Content Grid -->
 							<div class="flex-1">
-								<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+								<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 									{#if activeLearnTab === 'read'}
 										{#each readContent as item}
 											<a
 												href={item.url}
-												class="block rounded-lg bg-gray-200 p-6 shadow-sm transition hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+												class="block rounded-lg bg-gray-200 p-4 shadow-sm transition hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
 											>
-												<img src={item.icon} alt={item.title} class="mb-4 h-8 w-8" />
+												<img src={item.icon} alt={item.title} class="mb-3 h-6 w-6" />
 
-												<h3 class="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
+												<h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
 													{item.title}
 												</h3>
-												<p class="text-gray-500 dark:text-gray-400">By {item.author}</p>
+												<p class="text-sm text-gray-500 dark:text-gray-400">By {item.author}</p>
 											</a>
 										{/each}
 									{:else}
@@ -154,13 +154,13 @@
 												<div class="aspect-h-9 aspect-w-16 bg-gray-100 dark:bg-gray-900">
 													<img src={item.icon} alt={item.title} class="object-cover" />
 												</div>
-												<div class="p-6">
+												<div class="p-4">
 													<h3
-														class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white"
+														class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white"
 													>
 														{item.title}
 													</h3>
-													<p class="mb-4 text-gray-500 dark:text-gray-400">By {item.author}</p>
+													<p class="mb-3 text-sm text-gray-500 dark:text-gray-400">By {item.author}</p>
 													<a
 														href={item.url}
 														class="inline-flex items-center text-primary hover:text-primary/80"
@@ -197,18 +197,18 @@
 						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 							{#each mentions.mentions as mention}
 								<article class="overflow-hidden rounded-lg bg-gray-200 shadow-md dark:bg-gray-800">
-									<div class="p-6">
-										<div class="mb-4 flex items-center">
-											<div class="ml-3">
+									<div class="p-4">
+										<div class="mb-3 flex items-center">
+											<div>
 												<p class="font-medium text-gray-900 dark:text-white">{mention.author}</p>
-												<p class="text-sm text-gray-500 dark:text-gray-400">on {mention.platform}</p>
+												<p class="text-xs text-gray-500 dark:text-gray-400">on {mention.platform}</p>
 												<p class="text-xs text-gray-400 dark:text-gray-500">{mention.date}</p>
 											</div>
 										</div>
-										<h3 class="mb-3 line-clamp-2 text-xl font-semibold text-gray-900 dark:text-white">
+										<h3 class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white">
 											{mention.title}
 										</h3>
-										<p class="mb-4 line-clamp-3 text-gray-500 dark:text-gray-400">
+										<p class="mb-3 line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
 											{mention.excerpt}
 										</p>
 										<a
@@ -253,25 +253,25 @@
 						</p>
 					</div>
 					<div class="relative">
-						<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+						<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 							{#each content[2].sections.find((s) => s.title === 'Apps to try')?.items || [] as app}
 								<a
 									href={app.url}
-									class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10"
+									class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10 max-w-[240px] mx-auto w-full"
 								>
-									<div class="flex h-16 items-center justify-center bg-gray-100 p-4 dark:bg-gray-700">
-										<img src={app.icon} alt={app.title} class="h-8 w-8 object-contain" />
+									<div class="flex h-12 items-center justify-center bg-gray-100 p-3 dark:bg-gray-700">
+										<img src={app.icon} alt={app.title} class="h-6 w-6 object-contain" />
 									</div>
-									<div class="flex flex-1 flex-col justify-between p-6">
+									<div class="flex flex-1 flex-col justify-between p-4">
 										<div>
 											<h3
-												class="text-xl font-semibold text-gray-900 group-hover:text-primary dark:text-white"
+												class="text-lg font-semibold text-gray-900 group-hover:text-primary dark:text-white"
 											>
 												{app.title}
 											</h3>
-											<p class="mt-2 text-gray-500 dark:text-gray-400">By {app.author}</p>
+											<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">By {app.author}</p>
 										</div>
-										<div class="mt-4 flex items-center text-primary">
+										<div class="mt-3 flex items-center text-primary">
 											<span class="text-sm font-medium">Try it now</span>
 											<svg class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
 												<path
@@ -321,30 +321,30 @@
 					<div class="mt-8">
 						{#each tabs as tab}
 							{#if activeTab === tab.id}
-								<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+								<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 									{#each tab.items as item}
 										<a
 											href={item.url}
-											class="group relative overflow-hidden rounded-2xl bg-gray-200 p-6 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+											class="group relative overflow-hidden rounded-2xl bg-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
 										>
-											<div class="flex items-start gap-4">
+											<div class="flex items-start gap-3">
 												<img
 													src={item.icon}
 													alt={item.title}
-													class="h-16 w-16 rounded-xl shadow-lg"
+													class="h-12 w-12 rounded-xl shadow-lg"
 												/>
 												<div class="flex-1">
 													<h4
-														class={`text-lg font-semibold text-gray-900 group-hover:text-${tab.color} dark:text-white`}
+														class={`text-base font-semibold text-gray-900 group-hover:text-${tab.color} dark:text-white`}
 													>
 														{item.title}
 													</h4>
-													<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{item.author}</p>
+													<p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{item.author}</p>
 												</div>
 											</div>
-											<div class="mt-4">
+											<div class="mt-3">
 												<span
-													class={`inline-flex items-center rounded-full bg-${tab.color}/10 px-3 py-1 text-xs font-medium text-${tab.color}`}
+													class={`inline-flex items-center rounded-full bg-${tab.color}/10 px-2.5 py-0.5 text-xs font-medium text-${tab.color}`}
 												>
 													{tab.label}
 												</span>
