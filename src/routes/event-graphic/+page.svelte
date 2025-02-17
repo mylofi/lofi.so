@@ -67,6 +67,7 @@
 
 		try {
 			const response = await fetch(`/api/twitter-profile?username=${encodeURIComponent(handle)}`);
+			console.log({response})
 			if (!response.ok) {
 				const errorData = await response.json();
 				if (response.status === 429) {
