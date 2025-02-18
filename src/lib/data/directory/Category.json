@@ -1,0 +1,75 @@
+{
+    "records": [
+      {
+        "id": 1,
+        "fields": {
+          "Name": "Project Management",
+          "slug": "project-management-software"
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "Name": "Note-Taking",
+          "slug": "note-taking-apps"
+        }
+      },
+      {
+        "id": 12,
+        "fields": {
+          "Name": "PKM Apps",
+          "slug": "personal-knowledge-management-apps"
+        }
+      },
+      {
+        "id": 37,
+        "fields": {
+          "Name": "Open-Source",
+          "slug": "open-source"
+        }
+      },
+      {
+        "id": 38,
+        "fields": {
+          "Name": "Finance Apps",
+          "slug": "finance-apps"
+        }
+      },
+      {
+        "id": 39,
+        "fields": {
+          "Name": "Data Store",
+          "slug": "data-store"
+        }
+      },
+      {
+        "id": 40,
+        "fields": {
+          "Name": "Libraries",
+          "slug": "libraries"
+        }
+      },
+      {
+        "id": 41,
+        "fields": {
+          "Name": "Sync Engine",
+          "slug": "sync-engine"
+        }
+      },
+      {
+        "id": 42,
+        "fields": {
+          "Name": "End-To-End Encrypted",
+          "slug": "e2e-encrypted"
+        }
+      },
+      {
+        "id": 43,
+        "fields": {
+          "Name": "Task Management",
+          "slug": "task-management-software"
+        }
+      }
+    ]
+  }
+  
