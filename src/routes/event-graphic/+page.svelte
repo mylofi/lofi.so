@@ -96,7 +96,8 @@
 				return null;
 			}
 			const data = await response.json();
-			return data.avatar;
+			// Proxy the avatar URL through our endpoint
+			return data.avatar ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.avatar)}` : null;
 		} catch (error) {
 			console.error('Error fetching Bluesky profile:', error);
 			return null;
