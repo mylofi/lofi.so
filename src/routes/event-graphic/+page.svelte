@@ -188,7 +188,15 @@
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
 
-			const dataUrl = await domToPng(graphic);
+			const dataUrl = await domToPng(graphic, {
+				scale: 2,
+				quality: 1,
+				style: {
+					transform: 'scale(1)',
+					transformOrigin: 'top left'
+				}
+			});
+			
 			const link = document.createElement('a');
 			link.download = `meetup${formData.eventNumber}.png`;
 			link.href = dataUrl;
@@ -219,7 +227,15 @@
 				
 				if (!speakerCardElement) continue;
 
-				const dataUrl = await domToPng(speakerCardElement);
+				const dataUrl = await domToPng(speakerCardElement, {
+					scale: 2,
+					quality: 1,
+					style: {
+						transform: 'scale(1)',
+						transformOrigin: 'top left'
+					}
+				});
+				
 				const link = document.createElement('a');
 				link.download = `speaker-${formData.eventNumber}-${speaker.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 				link.href = dataUrl;

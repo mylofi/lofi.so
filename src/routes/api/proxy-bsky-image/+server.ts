@@ -1,4 +1,6 @@
-export async function GET({ url }) {
+import type { RequestHandler } from '@sveltejs/kit';
+
+export const GET: RequestHandler = async ({ url }) => {
 	const imageUrl = url.searchParams.get('url');
 	if (!imageUrl) {
 		return new Response('Missing url parameter', { status: 400 });
