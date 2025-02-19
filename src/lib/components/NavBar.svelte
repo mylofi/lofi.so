@@ -79,10 +79,10 @@
 						class:pointer-events-none={isAtTop}
 					>
 						<a
-							href="#start-here"
-							on:click={(e) => scrollToSection(e, '#start-here')}
+							href="#apps-to-try"
+							on:click={(e) => scrollToSection(e, '#apps-to-try')}
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-							>Start Here</a
+							>Explore</a
 						>
 						<a
 							href="#apps"
@@ -194,10 +194,10 @@
 			<div class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
 				<div class="space-y-1 px-4 py-3">
 					<a
-						href="#start-here"
-						on:click={(e) => scrollToSection(e, '#start-here')}
+						href="#apps-to-try"
+						on:click={(e) => scrollToSection(e, '#apps-to-try')}
 						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
-						>Start Here</a
+						>Explore</a
 					>
 					<a
 						href="#apps"

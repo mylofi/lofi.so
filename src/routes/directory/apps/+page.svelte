@@ -6,7 +6,7 @@
     const apps = items.filter(item => item.fields.Main_Category === 1);
 </script>
 
-<div class="max-w-7xl mx-auto">
+<div class="max-w-7xl mx-auto px-8">
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Apps

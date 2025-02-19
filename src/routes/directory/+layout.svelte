@@ -2,27 +2,35 @@
     import { page } from '$app/stores';
     import itemJson from '$lib/data/directory/Item.json';
     import mainCategoryJson from '$lib/data/directory/Main_Category.json';
+    import sponsorsData from '$lib/data/sponsors.json';
+    import SponsorsRail from '$lib/components/SponsorsRail.svelte';
     import type { DirectoryData, MainCategoryData } from '$lib/types/directory';
     
     const items = (itemJson as DirectoryData).records;
+    const sponsors = sponsorsData.sponsors as { url: string; image: string; name: string; tier: 'Partner' | 'Platinum' | 'Gold'; }[];
+    const nextEvent = sponsorsData.nextEvent;
     // const mainCategories = (mainCategoryJson as MainCategoryData).records;
     
     const apps = items.filter(item => item.fields.Main_Category === 1);
     const projects = items.filter(item => item.fields.Main_Category === 3);
     
-    // Track expanded sectionss
+    // Track expanded sections and previous path
     let expandedSections = new Set<string>();
+    let previousPath = '';
     $: currentPath = $page.url.pathname;
     
-    // Auto-expand based on current path
+    // Auto-expand based on current path only when path changes
     $: {
-        if (currentPath.includes('/apps')) {
-            expandedSections.add('apps');
+        if (currentPath !== previousPath) {
+            if (currentPath.includes('/apps') && !previousPath.includes('/apps')) {
+                expandedSections.add('apps');
+            }
+            if (currentPath.includes('/projects') && !previousPath.includes('/projects')) {
+                expandedSections.add('projects');
+            }
+            previousPath = currentPath;
+            expandedSections = expandedSections;
         }
-        if (currentPath.includes('/projects')) {
-            expandedSections.add('projects');
-        }
-        expandedSections = expandedSections;
     }
     
     function toggleSection(section: string) {
@@ -162,7 +170,14 @@
     </div>
     
     <!-- Main content -->
-    <div class="flex-1 px-8">
-        <slot />
+    <div class="flex-1">
+        <div class="relative">
+            {#if !currentPath.includes('/directory/apps/') && !currentPath.includes('/directory/projects/')}
+                <SponsorsRail {sponsors} {nextEvent} variant="sidebar" />
+            {/if}
+            <div class="xl:mr-[19.5rem]" class:xl:mr-0={currentPath.includes('/directory/apps/') || currentPath.includes('/directory/projects/')}>
+                <slot />
+            </div>
+        </div>
     </div>
 </div> 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
+	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
 	import { onMount } from 'svelte';
 
 	function getLastTuesdayOfMonth() {
@@ -28,6 +29,8 @@
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
 				talk: '',
+				bio: '',
+				talkPoints: ['', '', ''],
 				image: '',
 				error: ''
 			}
@@ -155,6 +158,8 @@
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
 				talk: '',
+				bio: '',
+				talkPoints: ['', '', ''],
 				image: '',
 				error: ''
 			}
@@ -190,6 +195,38 @@
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Failed to generate event graphic');
+		}
+	}
+
+	async function handleGenerateSpeakerCards() {
+		try {
+			// save the JSON data first
+			const response = await fetch('/api/save-event', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
+
+			if (!response.ok) throw new Error('Failed to save event data');
+
+			// generate images for each speaker
+			for (let i = 0; i < formData.speakers.length; i++) {
+				const speaker = formData.speakers[i];
+				const speakerCardElement = document.querySelector(`#speaker-card-${i}`);
+				
+				if (!speakerCardElement) continue;
+
+				const dataUrl = await domToPng(speakerCardElement);
+				const link = document.createElement('a');
+				link.download = `speaker-${formData.eventNumber}-${speaker.name.toLowerCase().replace(/\s+/g, '-')}.png`;
+				link.href = dataUrl;
+				link.click();
+			}
+		} catch (error) {
+			console.error('Error:', error);
+			alert('Failed to generate speaker cards');
 		}
 	}
 </script>
@@ -407,34 +444,94 @@
 									required
 								/>
 							</div>
+
+							<div>
+								<label class="block text-sm font-medium text-gray-700">Speaker Bio</label>
+								<textarea
+									bind:value={speaker.bio}
+									rows="3"
+									class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+									required
+								/>
+							</div>
+
+							<div class="space-y-2">
+								<label class="block text-sm font-medium text-gray-700">Talk Points</label>
+								{#each speaker.talkPoints as _, pointIndex}
+									<input
+										type="text"
+										bind:value={speaker.talkPoints[pointIndex]}
+										placeholder={`Point ${pointIndex + 1}`}
+										class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+									/>
+								{/each}
+							</div>
 						</div>
 					</div>
 				</div>
 			{/each}
 		</div>
 
-		<button
-			type="submit"
-			class="w-full rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-		>
-			Generate Event Graphic
-		</button>
+		<div class="flex gap-4">
+			<button
+				type="submit"
+				class="flex-1 rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+			>
+				Generate Event Graphic
+			</button>
+			<button
+				type="button"
+				on:click={handleGenerateSpeakerCards}
+				class="flex-1 rounded-md bg-discord px-4 py-2 text-white shadow-sm hover:bg-discord/90 focus:outline-none focus:ring-2 focus:ring-discord focus:ring-offset-2"
+			>
+				Generate Speaker Cards
+			</button>
+		</div>
 	</form>
 
 	<!-- Preview Section -->
-	<div class="mt-8">
-		<h2 class="mb-4 text-xl font-semibold">Preview</h2>
-		<div class="overflow-auto">
-			<div id="graphic">
-				<EventGraphic eventData={{
-					...formData,
-					speakers: formData.speakers.map(s => ({
-						name: s.name,
-						twitterHandle: s.twitterHandle,
-						talk: s.talk,
-						image: s.image
-					}))
-				}} />
+	<div class="mt-8 space-y-8">
+		<div>
+			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
+			<div class="overflow-auto">
+				<div id="graphic">
+					<EventGraphic eventData={{
+						...formData,
+						speakers: formData.speakers.map(s => ({
+							name: s.name,
+							twitterHandle: s.twitterHandle,
+							talk: s.talk,
+							image: s.image
+						}))
+					}} />
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
+			<div class="space-y-8">
+				{#each formData.speakers as speaker, i}
+					<div class="overflow-auto rounded-lg border border-gray-200 p-4">
+						<h3 class="mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
+						<div id="speaker-card-{i}">
+							<SpeakerCard
+								speakerData={{
+									name: speaker.name,
+									twitterHandle: speaker.twitterHandle,
+									talk: speaker.talk,
+									bio: speaker.bio,
+									talkPoints: speaker.talkPoints,
+									image: speaker.image
+								}}
+								eventNumber={formData.eventNumber}
+								date={formData.date}
+								time={formData.time}
+								timezone={formData.timezone}
+							/>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</div>
 	</div>

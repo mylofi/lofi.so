@@ -7,17 +7,17 @@
     const items = (itemJson as DirectoryData).records;
     const categories = (categoryJson as CategoryData).records;
     
-    const slug = $page.params.slug;
-    const apps = items.filter(item => item.fields.Main_Category === 1);
-    const currentIndex = apps.findIndex(app => app.fields.slug === slug);
-    const app = apps[currentIndex];
+    $: slug = $page.params.slug;
+    $: apps = items.filter(item => item.fields.Main_Category === 1);
+    $: currentIndex = apps.findIndex(app => app.fields.slug === slug);
+    $: app = apps[currentIndex];
     
     // Get next and previous apps
-    const prevApp = currentIndex > 0 ? apps[currentIndex - 1] : null;
-    const nextApp = currentIndex < apps.length - 1 ? apps[currentIndex + 1] : null;
+    $: prevApp = currentIndex > 0 ? apps[currentIndex - 1] : null;
+    $: nextApp = currentIndex < apps.length - 1 ? apps[currentIndex + 1] : null;
     
     // Get related categories
-    const appCategories = categories
+    $: appCategories = categories
         .filter(category => app?.fields.Categories?.includes(category.id))
         .map(category => category.fields.Name);
 </script>

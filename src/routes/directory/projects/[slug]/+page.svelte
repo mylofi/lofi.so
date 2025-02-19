@@ -7,22 +7,22 @@
     const items = (itemJson as DirectoryData).records;
     const categories = (categoryJson as CategoryData).records;
     
-    const slug = $page.params.slug;
-    const projects = items.filter(item => item.fields.Main_Category === 3);
-    const currentIndex = projects.findIndex(project => project.fields.slug === slug);
-    const project = projects[currentIndex];
+    $: slug = $page.params.slug;
+    $: projects = items.filter(item => item.fields.Main_Category === 3);
+    $: currentIndex = projects.findIndex(project => project.fields.slug === slug);
+    $: project = projects[currentIndex];
     
     // Get next and previous projects
-    const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
-    const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+    $: prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+    $: nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
     
     // Get related categories
-    const projectCategories = categories
+    $: projectCategories = categories
         .filter(category => project?.fields.Categories?.includes(category.id))
         .map(category => category.fields.Name);
         
     // Get apps that use this project
-    const appsUsingThis = project 
+    $: appsUsingThis = project 
         ? items.filter(
             item => Array.isArray(item.fields.Uses) && item.fields.Uses.includes(project.id)
         )
