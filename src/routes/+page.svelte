@@ -331,7 +331,7 @@
 												<img
 													src={item.icon}
 													alt={item.title}
-													class="h-12 w-12 rounded-xl shadow-lg"
+													class="h-12 w-12 rounded-xl"
 												/>
 												<div class="flex-1">
 													<h4

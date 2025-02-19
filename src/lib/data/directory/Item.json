@@ -1,0 +1,887 @@
+{
+    "records": [
+      {
+        "id": 1,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Actual",
+          "slug": "actual",
+          "author": "James Long & contributors",
+          "url": "https://actualbudget.org",
+          "icon": "https://actualbudget.org/img/actual.png",
+          "description": "Actual | Actual Budget Documentation",
+          "Categories": ["L", 37, 38],
+          "Uses": null
+        }
+      },
+      {
+        "id": 2,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Evolu",
+          "slug": "evolu",
+          "author": "Daniel Steigerwald",
+          "url": "https://www.evolu.dev",
+          "icon": "https://raw.githubusercontent.com/evoluhq/evolu/main/apps/web/public/apple-touch-icon.png",
+          "description": "Evolu - Local-First Platform Designed for Privacy, Ease of Use, and No Vendor Lock-In – Evolu",
+          "Categories": ["L", 37, 39, 40],
+          "Uses": null
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Automerge",
+          "slug": "automerge",
+          "author": "Ink & Switch and contributors",
+          "url": "https://automerge.org",
+          "icon": "https://automerge.org/img/favicon.ico",
+          "description": "Automerge is a library of data structures for building collaborative applications.",
+          "Categories": ["L", 37, 40],
+          "Uses": null
+        }
+      },
+      {
+        "id": 4,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Muse",
+          "slug": "muse",
+          "author": "Ink & Switch",
+          "url": "https://museapp.com",
+          "icon": "https://museapp.com/assets/media/muse_mono_black.svg",
+          "description": "Muse is a canvas for thinking that helps you get clarity on things that matter. Think in private or collaborate with others. Available for iPad and Mac.",
+          "Categories": ["L", 2],
+          "Uses": null
+        }
+      },
+      {
+        "id": 5,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Tweek",
+          "slug": "tweek",
+          "author": "Tweek",
+          "url": "https://tweek.so",
+          "icon": "https://tweek.so/favicon.ico",
+          "description": "Tweek is a FREE personal and shared to do list app to organize your tasks and collaborate on them online with your team or family. It provides a weekly calendar view mode and a reminder app. Tweek is an online daily and weekly planner that boosts your productivity to the best level. Instantly plan and organize your week todos!",
+          "Categories": ["L", 43],
+          "Uses": null
+        }
+      },
+      {
+        "id": 6,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "PowerSync",
+          "slug": "powersync",
+          "author": "JourneyApps",
+          "url": "https://www.powersync.com",
+          "icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png",
+          "description": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
+          "Categories": ["L", 37, 41, 40],
+          "Uses": null
+        }
+      },
+      {
+        "id": 7,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Fig",
+          "slug": "fig",
+          "author": "Fig",
+          "url": "https://figwealth.io",
+          "icon": "https://figwealth.io/assets/favicon/apple-touch-icon.png",
+          "description": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA’s, as well as expense management tools for day-to-day finances.",
+          "Categories": ["L", 38],
+          "Uses": ["L", 6]
+        }
+      },
+      {
+        "id": 8,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "TinyBase",
+          "slug": "tinybase",
+          "author": "James Pearce",
+          "url": "https://tinybase.org",
+          "icon": "https://tinybase.org/favicon.svg",
+          "description": "The reactive data store for local-first apps.",
+          "Categories": ["L", 37, 40, 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 9,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "TinyHub",
+          "slug": "tinyhub",
+          "author": "James Pearce",
+          "url": "https://github.com/tinyplex/tinyhub",
+          "icon": "https://tinyhub.org/favicon.svg",
+          "description": "A local-first GitHub client, built in public. Contribute to tinyplex/tinyhub development by creating an account on GitHub.",
+          "Categories": ["L", 37, 1],
+          "Uses": ["L", 8]
+        }
+      },
+      {
+        "id": 10,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Tangent Notes",
+          "slug": "tangent-notes",
+          "author": "suchnsuch",
+          "url": "https://www.tangentnotes.com",
+          "icon": "https://www.tangentnotes.com/favicon.svg",
+          "description": "Tangent Notes",
+          "Categories": ["L", 37, 2],
+          "Uses": null
+        }
+      },
+      {
+        "id": 11,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Obsidian",
+          "slug": "obsidian",
+          "author": "Obsidian",
+          "url": "https://obsidian.md",
+          "icon": "https://obsidian.md/apple-touch-icon.png",
+          "description": "Obsidian is the private and flexible note‑taking app that adapts to the way you think.",
+          "Categories": ["L", 2],
+          "Uses": null
+        }
+      },
+      {
+        "id": 12,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Anytype",
+          "slug": "anytype",
+          "author": "Anytype",
+          "url": "https://anytype.io",
+          "icon": "https://anytype.io/apple-touch-icon.png",
+          "description": "for those who celebrate trust & autonomy.",
+          "Categories": ["L", 2, 1, 37, 42, 43, 12],
+          "Uses": null
+        }
+      },
+      {
+        "id": 13,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "acreom",
+          "slug": "acreom",
+          "author": "Acreom",
+          "url": "https://acreom.com",
+          "icon": "https://acreom.com/favicon.ico",
+          "description": "acreom is the integrated markdown knowledge base with tasks. Your personal daily driver for your dev workflow.",
+          "Categories": ["L", 37, 2, 43, 12],
+          "Uses": null
+        }
+      },
+      {
+        "id": 14,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Logseq",
+          "slug": "logseq",
+          "author": "Logseq",
+          "url": "https://logseq.com",
+          "icon": "https://asset.logseq.com/static/img/logo.png",
+          "description": "A privacy-first, open-source platform for knowledge management and collaboration.",
+          "Categories": ["L", 37, 2, 12],
+          "Uses": null
+        }
+      },
+      {
+        "id": 15,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Onlook",
+          "slug": "onlook",
+          "author": "Onlook",
+          "url": "https://onlook.dev",
+          "icon": "https://framerusercontent.com/images/lpmCNiuYoiviK2nVja6Wt64Q.png",
+          "description": "The power of Figma for your own app. Onlook lets you edit your React app and write your changes back to code in real-time. Download the open-source, local-first desktop app today.",
+          "Categories": ["L", 37],
+          "Uses": null
+        }
+      },
+      {
+        "id": 16,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "AFFiNE",
+          "slug": "affine",
+          "author": "AFFiNE",
+          "url": "https://affine.pro",
+          "icon": "https://affine.pro/favicon-96.png",
+          "description": "The universal editor that lets you work, play, present or create just about anything.",
+          "Categories": ["L", 37, 2, 1, 43],
+          "Uses": null
+        }
+      },
+      {
+        "id": 17,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Tender",
+          "slug": "tender",
+          "author": "Tender team",
+          "url": "https://tender.run",
+          "icon": "https://tender.run/favicon.ico",
+          "description": "Tender is an inbox-zero spending tracker app that's fast, simple, and secure.",
+          "Categories": ["L", 37, 38],
+          "Uses": null
+        }
+      },
+      {
+        "id": 18,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Dexie.js",
+          "slug": "dexie.js",
+          "author": "David Fahlander",
+          "url": "https://dexie.org/",
+          "icon": "https://dexie.org/assets/images/dexie-icon-64x64.png",
+          "description": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 19,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "DXOS",
+          "slug": "dxos",
+          "author": "dxos.org",
+          "url": "https://dxos.org",
+          "icon": "https://docs.dxos.org/images/logotype/dxos-hero-white.svg",
+          "description": "The Decentralized Operating System",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 20,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Dat Stack",
+          "slug": "dat-stack",
+          "author": "hyper- core/bee/store/drive (by dat-ecosystem)",
+          "url": "https://dat-ecosystem.org/",
+          "icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg",
+          "description": "dat-ecosystem is a post-web p2p community of projects - Most projects are self funded. Some of the projects contribute maintainance and development to core pieces of the Dat ecosystem while others create high level applications built on top of p2p protocols.",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 21,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "ElectricSQL",
+          "slug": "electricsql",
+          "author": "ElectricSQL team",
+          "url": "https://electric-sql.com",
+          "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
+          "description": "Sync little subsets of your Postgres data into local apps and services.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 22,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Liveblocks",
+          "slug": "liveblocks",
+          "author": "Liveblocks team",
+          "url": "https://liveblocks.io/",
+          "icon": "https://liveblocks.io/favicon.svg",
+          "description": "Ship features like comments, notifications, a text editor, or build any collaborative experience in days, not months. Engage users, fuel creativity, and drive growth. Finally.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 23,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Fireproof",
+          "slug": "fireproof",
+          "author": "Fireproof team",
+          "url": "https://use-fireproof.com/",
+          "icon": "https://fireproof.storage/static/img/flame.svg",
+          "description": "Simplify your application state with Fireproof.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 24,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Gun",
+          "slug": "gun",
+          "author": "Mark Nadal",
+          "url": "https://gun.eco",
+          "icon": "https://gun.eco/icons/icon-48x48.png?v=dfecf3c0fa09798b200a8a8b9fa0f172",
+          "description": "Decentralized Database",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 25,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Instant",
+          "slug": "instant",
+          "author": "Stepan Parunashvili",
+          "url": "https://www.instantdb.com",
+          "icon": "https://www.instantdb.com/img/icon/apple-touch-icon-152x152.png",
+          "description": "We make you productive by giving your frontend a real-time database.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 26,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "m-ld",
+          "slug": "m-ld",
+          "author": "George Svarovsky et al.",
+          "url": "https://m-ld.org/",
+          "icon": "https://m-ld.org/m-ld.inverse.svg",
+          "description": "m-ld",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 27,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "NextGraph",
+          "slug": "nextgraph",
+          "author": "Niko Bonnieure",
+          "url": "https://nextgraph.org/",
+          "icon": "https://nextgraph.org/favicon.svg",
+          "description": "Features a social network, shared documents, productivity tools, an app store, and more! You can use NextGraph for free. It is decentralized, resilient, secure, private and encrypted. You own your data and software! Developers can build new web3.0 local-first apps with our open source framework, based on open standards, with CRDTs, E2EE, Semantic Web, RDF, SPARQL, JSON, Markdown, Svelte, React, JavaScript, Rust, etc... ActivityPub and Solid compatible",
+          "Categories": ["L", 39, 41, 42, 37],
+          "Uses": null
+        }
+      },
+      {
+        "id": 28,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "PouchDB",
+          "slug": "pouchdb",
+          "author": "PouchDB contributors",
+          "url": "https://pouchdb.com",
+          "icon": "https://pouchdb.com/static/favicon.ico",
+          "description": "PouchDB, the JavaScript Database that Syncs!",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 29,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "remoteStorage",
+          "slug": "remotestorage",
+          "author": "remoteStorage contributors",
+          "url": "https://remotestorage.io",
+          "icon": "https://remotestorage.io/logo.svg",
+          "description": "An open protocol for per-user storage on the Web",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 30,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "RxDB",
+          "slug": "rxdb",
+          "author": "Daniel Meyer",
+          "url": "https://rxdb.info",
+          "icon": "https://rxdb.info/files/logo/logo.svg",
+          "description": "RxDB is a fast, local-first NoSQL-database for JavaScript Applications like Websites, hybrid Apps, Electron-Apps, Progressive Web Apps and Node.js",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 31,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "SignalDB",
+          "slug": "signaldatabase",
+          "author": "Max Nowack",
+          "url": "https://signaldb.js.org",
+          "icon": "https://signaldb.js.org/logo.svg",
+          "description": "SignalDB is a reactive, local-first JavaScript database with real-time sync, Optimistic UI and signal-based reactivity",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 32,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Socket Runtime",
+          "slug": "socket-runtime",
+          "author": "Socket Runtime Team",
+          "url": "https://github.com/socketsupply/socket",
+          "icon": "https://socketsupply.co/images/monogram.svg",
+          "description": "A cross-platform runtime for Web developers to build desktop & mobile apps for any OS using any frontend library. - socketsupply/socket",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 33,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "SyncedStore",
+          "slug": "syncedstore",
+          "author": "Yousef El-Dardiry",
+          "url": "https://syncedstore.org",
+          "icon": "https://github.githubassets.com/favicons/favicon-dark.svg",
+          "description": "SyncedStore - Javascript CRDT based real-time sync",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 35,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Triplit",
+          "slug": "triplit",
+          "author": "Aspen Cloud",
+          "url": "https://triplit.dev",
+          "icon": "https://triplit.dev/favicon.ico",
+          "description": "Triplit is a complete solution to data persistence, state management, and realtime synchronization for web applications that want to go fast.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 36,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Verdant",
+          "slug": "verdant",
+          "author": "Grant Forrest",
+          "url": "https://verdant.dev",
+          "icon": "https://verdant.dev/favicon-32x32.png",
+          "description": "Verdant",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 37,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "VLCN",
+          "slug": "vlcn",
+          "author": "Matt Wonlaw",
+          "url": "https://vlcn.io",
+          "icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png",
+          "description": "Make collaborative, multiplayer or local-first applications",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 38,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "WatermelonDB",
+          "slug": "watermelondb",
+          "author": "Radek Pietruszewski / Nozbe",
+          "url": "https://watermelondb.dev",
+          "icon": "https://raw.githubusercontent.com/Nozbe/WatermelonDB/master/assets/icon128x128.png",
+          "description": "WatermelonDB",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 39,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Trystero",
+          "slug": "trystero",
+          "author": "Dan Motzenbecker / Dmotz",
+          "url": "https://github.com/dmotz/trystero",
+          "icon": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Font_Awesome_5_solid_handshake.svg",
+          "description": "✨🤝✨ Build instant multiplayer webapps, no server required — Magic WebRTC matchmaking over BitTorrent, Nostr, MQTT, IPFS, Supabase, and Firebase - dmotz/trystero",
+          "Categories": ["L", 39, 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 40,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Amplify DataStore",
+          "slug": "amplify-datastore",
+          "author": "Amazon Web Services",
+          "url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
+          "icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png",
+          "description": "Amplify DataStore provides a programming model for leveraging shared and distributed data without writing additional code for offline and online scenarios, which makes working with distributed, cross-user data just as simple as working with local-only data. AWS Amplify Documentation",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 41,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Collabs",
+          "slug": "collabs",
+          "author": "Composable Systems Lab @ CMU",
+          "url": "https://collabs.readthedocs.io/en/latest/",
+          "icon": "https://collabs.readthedocs.io/en/latest/_static/favicon.ico",
+          "description": "Collabs Documentation — Collabs  documentation",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 42,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Dexie Cloud",
+          "slug": "dexie-cloud",
+          "author": "Awarica AB",
+          "url": "https://dexie.org/cloud/",
+          "icon": "https://dexie.org/assets/images/dexie-icon-64x64.png",
+          "description": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 43,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Ditto",
+          "slug": "ditto",
+          "author": "Ditto Live, Inc",
+          "url": "https://ditto.live",
+          "icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg",
+          "description": "Mobile ad-hoc mesh networking and peer-to-peer data sync for your enterprise applications.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 46,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "hocuspocus",
+          "slug": "hocuspocus",
+          "author": "ueberdosis",
+          "url": "https://tiptap.dev/hocuspocus/",
+          "icon": "https://yjs.dev/images/logo/yjs.svg",
+          "description": "Tiptap is a suite of open source content editing and real-time collaboration tools for developers building apps like Notion or Google Docs.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 47,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Jamsocket",
+          "slug": "jamsocket",
+          "author": "Jamsocket team",
+          "url": "https://jamsocket.com/",
+          "icon": "https://jamsocket.com/favicon.svg",
+          "description": "The platform for scaling sync engines, based on the infra behind Figma and Google Docs. With first class support for Y-Sweet, a Yjs realtime sync engine.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 48,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Liveblocks Storage",
+          "slug": "liveblocks-storage",
+          "author": "Liveblocks team",
+          "url": "https://liveblocks.io/realtime-apis/storage",
+          "icon": "https://liveblocks.io/favicon.svg",
+          "description": "Liveblocks Storage is a realtime sync engine designed for multiplayer creative tools such as Figma, Pitch, and Spline.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 49,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Liveblocks Yjs",
+          "slug": "liveblocks-yjs",
+          "author": "Liveblocks team",
+          "url": "https://liveblocks.io/realtime-apis/yjs",
+          "icon": "https://liveblocks.io/favicon.svg",
+          "description": "Liveblocks Yjs is a realtime sync engine designed for collaborative text editors such as Notion and Google Docs.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 50,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Logux",
+          "slug": "logux",
+          "author": "Andrey Sitnik",
+          "url": "https://logux.org",
+          "icon": "https://logux.org/branding/logo-dark.svg",
+          "description": "Logux is a client-server communication tool for collaborative web applications with optimistics UI, offline first and live updates",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 51,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Loro",
+          "slug": "loro",
+          "author": "Loro",
+          "url": "https://loro.dev/",
+          "icon": "https://loro.dev/favicon.ico",
+          "description": "Loro - Reimagine state management with CRDTs | Built for local-first software.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 54,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Replicache",
+          "slug": "replicache",
+          "author": "Rocicorp",
+          "url": "https://replicache.dev",
+          "icon": "https://replicache.dev/icons/favicon-32x32.png",
+          "description": "Replicache is a client-side datastore and sync framework for building local-first web apps. It works with most backend stacks.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 55,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Sockethub",
+          "slug": "sockethub",
+          "author": "Nick Jennings",
+          "url": "https://sockethub.org",
+          "icon": "http://sockethub.org/favicon.ico",
+          "description": "The polyglot solution to the federated social web",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 58,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Yjs",
+          "slug": "yjs",
+          "author": "Kevin Jahns & contributors",
+          "url": "https://yjs.dev",
+          "icon": "https://yjs.dev/images/logo/yjs.svg",
+          "description": "Yjs Shared Editing",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 59,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Y-Sweet",
+          "slug": "y-sweet",
+          "author": "Jamsocket team",
+          "url": "https://jamsocket.com/y-sweet",
+          "icon": "https://demos.y-sweet.dev/icon.png",
+          "description": "Y-Sweet is an open source Yjs realtime sync engine with built in storage to S3. Designed for collaborative design and text editors such as Figma and Google Docs.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 61,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Legend State",
+          "slug": "legend-state",
+          "author": "Jay Meistrich",
+          "url": "https://github.com/LegendApp/legend-state",
+          "icon": "https://avatars.githubusercontent.com/u/60373862?s=192&v=4",
+          "description": "Legend-State is a super fast and powerful state library that enables fine-grained reactivity and easy automatic persistence - LegendApp/legend-state",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 63,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Agregore Browser",
+          "slug": "agregore-browser",
+          "author": "Mauve Signweaver & contributors",
+          "url": "https://agregore.mauve.moe/",
+          "icon": "https://agregore.mauve.moe/icon.svg",
+          "description": "Explore the distributed web",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 64,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Bangle.io",
+          "slug": "bangle-io",
+          "author": "Kushan Joshi",
+          "url": "https://bangle.io",
+          "icon": "https://app.bangle.io/icon-transparent_x512.png",
+          "description": "Bangle.io",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 65,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "DXOS Composer",
+          "slug": "dxos-composer",
+          "author": "dxos.org",
+          "url": "https://composer.space",
+          "icon": "https://composer.space/android-chrome-512x512.png",
+          "description": "DXOS Composer Application",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 66,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Excalidraw",
+          "slug": "excalidraw",
+          "author": "Excalidraw contributors",
+          "url": "https://excalidraw.com",
+          "icon": "https://excalidraw.com/favicon.ico",
+          "description": "Excalidraw is a virtual collaborative whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them.",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 67,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Gnocchi.club",
+          "slug": "gnocchi-club",
+          "author": "Grant Forrest",
+          "url": "https://gnocchi.club",
+          "icon": "https://gnocchi.club/android-chrome-512x512.png",
+          "description": "Your grocery list, done better",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 68,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Strut.io",
+          "slug": "strut-io",
+          "author": "Strut contributors",
+          "url": "https://strut.io",
+          "icon": "https://strut.io/favicon.ico",
+          "description": "An editor for creating web based presentations",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 69,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Textorama",
+          "slug": "textorama",
+          "author": "Jo√£o Melo",
+          "url": "https://textorama.melo.plus/",
+          "icon": "https://textorama.melo.plus/android-chrome-192x192.png",
+          "description": "Textorama is a modest text editor. It works with plain text files in your file system.",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 71,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Legend",
+          "slug": "legend",
+          "author": "Jay Meistrich",
+          "url": "https://www.legendapp.com/",
+          "icon": "https://www.legendapp.com/img/Logomark_(White).svg",
+          "description": "Legend is designed for you - to work the way you do and to be the one place for all your productivity needs.",
+          "Categories": null,
+          "Uses": null
+        }
+      },
+      {
+        "id": 72,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Nullboard",
+          "slug": "nullboard",
+          "author": "Alexander Pankratov",
+          "url": "https://github.com/apankrat/nullboard",
+          "icon": "https://nullboard.io/extras/favicon-16.png",
+          "description": "Nullboard is a minimalist take on a kanban board / a task list manager, designed to be compact, readable and quick in use.",
+          "Categories": ["L", 37, 43],
+          "Uses": null
+        }
+      },
+      {
+        "id": 73,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "TiddlyWiki",
+          "slug": "tiddlywiki",
+          "author": "TiddlyWiki",
+          "url": "https://github.com/TiddlyWiki/TiddlyWiki5",
+          "icon": "https://avatars.githubusercontent.com/u/79505?s=200&v=4",
+          "description": "TiddlyWiki is a complete interactive wiki in JavaScript. It can be used as a single HTML file in the browser or as a powerful Node.js application. It is highly customisable - the entire user interface is itself implemented in hackable WikiText.",
+          "Categories": ["L", 2, 37, 12],
+          "Uses": null
+        }
+      }
+    ]
+  }
+  

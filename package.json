@@ -20,7 +20,7 @@
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/typography": "^0.5.16",
 		"@types/marked": "^5.0.2",
-		"@types/node": "^22.10.10",
+		"@types/node": "^22.13.4",
 		"autoprefixer": "^10.4.20",
 		"mdsvex": "^0.12.3",
 		"prettier": "^3.4.2",

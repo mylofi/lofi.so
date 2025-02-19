@@ -1,0 +1,19 @@
+{
+    "records": [
+      {
+        "id": 1,
+        "fields": {
+          "Name": "Apps",
+          "Slug": "apps"
+        }
+      },
+      {
+        "id": 3,
+        "fields": {
+          "Name": "Projects",
+          "Slug": "projects"
+        }
+      }
+    ]
+  }
+  

@@ -9,7 +9,7 @@
 
 	function handleScroll() {
 		scrollY = window.scrollY;
-		isAtTop = scrollY < 100;
+		isAtTop = scrollY < 20;
 
 		if (!isAtTop) {
 			isVisible = true;
@@ -72,17 +72,17 @@
 				</div>
 
 				<!-- Desktop Navigation -->
-				<div
-					class="hidden transition-opacity duration-300 md:block"
-					class:opacity-0={isAtTop}
-					class:pointer-events-none={isAtTop}
-				>
-					<div class="flex items-center space-x-4">
+				<div class="hidden md:flex items-center space-x-4">
+					<div
+						class="flex items-center space-x-4 transition-opacity duration-300"
+						class:opacity-0={isAtTop}
+						class:pointer-events-none={isAtTop}
+					>
 						<a
-							href="#start-here"
-							on:click={(e) => scrollToSection(e, '#start-here')}
+							href="#apps-to-try"
+							on:click={(e) => scrollToSection(e, '#apps-to-try')}
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-							>Start Here</a
+							>Explore</a
 						>
 						<a
 							href="#apps"
@@ -91,48 +91,78 @@
 							>Build</a
 						>
 						<a
+							href="/directory"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+							>Directory</a
+						>
+						<a
 							href="/blog"
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Blog</a
 						>
-						<button
-							on:click={toggleTheme}
-							class="rounded-md p-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-							aria-label="Toggle theme"
-						>
-							{#if $theme === 'dark'}
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							{:else}
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5"
-									viewBox="0 0 20 20"
-									fill="currentColor"
-								>
-									<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-								</svg>
-							{/if}
-						</button>
 					</div>
+					<button
+						on:click={toggleTheme}
+						class="rounded-md p-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+						aria-label="Toggle theme"
+					>
+						{#if $theme === 'dark'}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-5 w-5"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						{:else}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-5 w-5"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+							</svg>
+						{/if}
+					</button>
 				</div>
 
-				<!-- Mobile menu button -->
-				<div
-					class="transition-opacity duration-300 md:hidden"
-					class:opacity-0={isAtTop}
-					class:pointer-events-none={isAtTop}
-				>
+				<!-- Mobile menu button and theme toggle -->
+				<div class="flex items-center space-x-2 md:hidden">
+					<button
+						on:click={toggleTheme}
+						class="p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+						aria-label="Toggle theme"
+					>
+						{#if $theme === 'dark'}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						{:else}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+							>
+								<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+							</svg>
+						{/if}
+					</button>
 					<button
 						on:click={() => (isMenuOpen = !isMenuOpen)}
 						class="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -160,31 +190,32 @@
 		</div>
 
 		<!-- Mobile menu -->
-		{#if isMenuOpen && !isAtTop}
-			<div class="space-y-1 px-2 pb-3 pt-2 sm:px-3 md:hidden">
-				<a
-					href="#start-here"
-					on:click={(e) => scrollToSection(e, '#start-here')}
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-					>Start Here</a
-				>
-				<a
-					href="#apps"
-					on:click={(e) => scrollToSection(e, '#apps')}
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-					>Apps</a
-				>
-				<a
-					href="/blog"
-					class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-					>Blog</a
-				>
-				<button
-					on:click={toggleTheme}
-					class="block w-full rounded-md px-3 py-2 text-left text-base font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-				>
-					{$theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-				</button>
+		{#if isMenuOpen}
+			<div class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+				<div class="space-y-1 px-4 py-3">
+					<a
+						href="#apps-to-try"
+						on:click={(e) => scrollToSection(e, '#apps-to-try')}
+						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+						>Explore</a
+					>
+					<a
+						href="#apps"
+						on:click={(e) => scrollToSection(e, '#apps')}
+						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+						>Build</a
+					>
+					<a
+						href="/directory"
+						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+						>Directory</a
+					>
+					<a
+						href="/blog"
+						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+						>Blog</a
+					>
+				</div>
 			</div>
 		{/if}
 	</nav>
