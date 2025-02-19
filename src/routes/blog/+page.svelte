@@ -3,7 +3,13 @@
 	import type { PageData } from './$types';
 	export let data: PageData;
 	const { posts, sponsorsData } = data;
-	const { sponsors, nextEvent } = sponsorsData;
+	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
+	const sponsors = rawSponsors as {
+		url: string;
+		image: string;
+		name: string;
+		tier: 'Partner' | 'Platinum' | 'Gold';
+	}[];
 
 	function formatDate(dateStr: string) {
 		const date = new Date(dateStr);
@@ -44,7 +50,7 @@
 				</div>
 
 				<div class="hidden w-80 lg:block">
-					<SponsorsRail {sponsors} {nextEvent} variant="sidebar" />
+					<SponsorsRail {sponsors} {nextEvent} variant="sidebar" eventData={data.eventData} />
 				</div>
 			</div>
 		</div>
