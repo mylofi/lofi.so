@@ -86,7 +86,7 @@
 </div>
 
 <div class="relative py-16">
-	<SponsorsRail {nextEvent} {sponsors} />
+	<SponsorsRail {nextEvent} {sponsors} eventData={eventDataForGraphic} />
 
 	<div class="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-8">
 		<div class="lg:flex">

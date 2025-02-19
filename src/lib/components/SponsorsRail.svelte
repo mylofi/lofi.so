@@ -10,8 +10,29 @@
 	export let nextEvent: { url: string; name: string; date: string; time: string } | undefined =
 		undefined;
 	export let className: string = '';
+	export let eventData: {
+		date: string;
+		time: string;
+		timezone: string;
+		discordUrl: string;
+		registrationUrl: string;
+	} | null = null;
 
 	type TierType = 'Partner' | 'Platinum' | 'Gold';
+
+	$: nextEventFromKV = eventData ? {
+		url: eventData.discordUrl || eventData.registrationUrl,
+		name: 'Local First Meetup',
+		date: new Date(eventData.date).toLocaleDateString('en-US', { 
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		}),
+		time: `${eventData.time} ${eventData.timezone}`
+	} : undefined;
+
+	$: activeNextEvent = nextEventFromKV || nextEvent;
 
 	$: sponsorsByTier = sponsors.reduce(
 		(acc, sponsor) => {
@@ -37,7 +58,7 @@
 	<div class="hidden xl:block {className}">
 		<div class="absolute bottom-5 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
 			<div class="sticky top-32 h-[calc(100vh-9rem)] overflow-y-auto">
-				{#if showNextEvent && nextEvent}
+				{#if showNextEvent && activeNextEvent}
 					<div
 						class="mb-4 overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200 shadow-lg dark:shadow-xl p-6 hover:bg-gray-50 dark:hover:bg-white/10 transition-colors duration-300"
 					>
@@ -60,12 +81,12 @@
 							<span class="text-sm font-medium text-primary">Next Event</span>
 						</div>
 						
-						<a href={nextEvent.url} class="group mb-4 block">
+						<a href={activeNextEvent.url} class="group mb-4 block">
 							<h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white transition group-hover:text-primary">
-								{nextEvent.name}
+								{activeNextEvent.name}
 							</h3>
 							<p class="text-sm text-gray-500 dark:text-gray-400">
-								{nextEvent.date} • {nextEvent.time}
+								{activeNextEvent.date} • {activeNextEvent.time}
 							</p>
 						</a>
 
