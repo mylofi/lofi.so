@@ -136,7 +136,7 @@
 										{#each readContent as item}
 											<a
 												href={item.url}
-												class="block rounded-lg bg-gray-200 p-4 shadow-sm transition hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+												class="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 											>
 												<img src={item.icon} alt={item.title} class="mb-3 h-6 w-6" />
 
@@ -149,12 +149,12 @@
 									{:else}
 										{#each watchContent as item}
 											<article
-												class="overflow-hidden rounded-lg bg-gray-200 shadow-sm dark:bg-gray-800"
+												class="relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 											>
 												<div class="aspect-h-9 aspect-w-16 bg-gray-100 dark:bg-gray-900">
 													<img src={item.icon} alt={item.title} class="object-cover" />
 												</div>
-												<div class="p-4">
+												<div class="p-3">
 													<h3
 														class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white"
 													>
@@ -187,28 +187,16 @@
 				<!-- Local-first Mentions Feed -->
 				<section class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
 					<div
-						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
 					>
 						<span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Community</span>
-						<div class="flex items-center justify-between">
-							<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Latest Mentions</h2>
-							<a href="/mentions" class="inline-flex items-center text-primary hover:text-primary/80">
-								See all mentions
-								<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-									<path
-										fill-rule="evenodd"
-										d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-										clip-rule="evenodd"
-									/>
-								</svg>
-							</a>
-						</div>
-						<div class="w-20 h-1 bg-primary mt-4 rounded-full"></div>
+						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Latest Mentions</h2>
+						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 					</div>
 					<div class="relative">
 						<div class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-							{#each mentions.mentions as mention}
-								<article class="relative overflow-hidden rounded-lg border border-gray-100 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
+							{#each mentions.mentions.slice(0, 3) as mention}
+								<article class="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
 									<!-- Author and Date -->
 									<div class="mb-1.5 flex items-center justify-between gap-2">
 										<span class="text-xs font-medium text-gray-900 dark:text-white">{mention.author}</span>
@@ -237,6 +225,18 @@
 								</article>
 							{/each}
 						</div>
+						<div class="mt-8 text-center">
+							<a href="/mentions" class="inline-flex items-center text-primary hover:text-primary/80">
+								See all mentions
+								<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+									<path
+										fill-rule="evenodd"
+										d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</a>
+						</div>
 					</div>
 				</section>
 
@@ -254,7 +254,7 @@
 					<div
 						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
 					>
-						<!-- <span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Explore</span> -->
+						<span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Explore</span>
 						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Discover Software</h2>
 						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
 						<p class="text-md mt-4 text-gray-600 dark:text-gray-300">
@@ -263,22 +263,22 @@
 					</div>
 					<div class="relative">
 						<div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-							{#each content[2].sections.find((s) => s.title === 'Apps to try')?.items || [] as app}
+							{#each (content[2].sections.find((s) => s.title === 'Apps to try')?.items || []).slice(0, 5) as app}
 								<a
 									href={app.url}
-									class="group flex flex-col overflow-hidden rounded-lg bg-gray-200 shadow-sm transition hover:shadow-md dark:bg-gray-800 dark:hover:shadow-white/10 max-w-[240px] mx-auto w-full"
+									class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 								>
 									<div class="flex h-12 items-center justify-center bg-gray-100 p-3 dark:bg-gray-700">
 										<img src={app.icon} alt={app.title} class="h-6 w-6 object-contain" />
 									</div>
-									<div class="flex flex-1 flex-col justify-between p-4">
+									<div class="p-3">
 										<div>
 											<h3
-												class="text-lg font-semibold text-gray-900 group-hover:text-primary dark:text-white"
+												class="mb-1 text-lg font-semibold text-gray-900 dark:text-white"
 											>
 												{app.title}
 											</h3>
-											<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">By {app.author}</p>
+											<p class="text-sm text-gray-500 dark:text-gray-400">By {app.author}</p>
 										</div>
 										<div class="mt-3 flex items-center text-primary">
 											<span class="text-sm font-medium">Try it now</span>
@@ -293,6 +293,18 @@
 									</div>
 								</a>
 							{/each}
+						</div>
+						<div class="mt-8 text-center">
+							<a href="/directory" class="inline-flex items-center text-primary hover:text-primary/80">
+								See all software
+								<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+									<path
+										fill-rule="evenodd"
+										d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</a>
 						</div>
 					</div>
 				</section>
@@ -334,7 +346,7 @@
 									{#each tab.items as item}
 										<a
 											href={item.url}
-											class="group relative overflow-hidden rounded-2xl bg-gray-200 p-4 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+											class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 										>
 											<div class="flex items-start gap-3">
 												<img
@@ -344,11 +356,11 @@
 												/>
 												<div class="flex-1">
 													<h4
-														class={`text-base font-semibold text-gray-900 group-hover:text-${tab.color} dark:text-white`}
+														class="mb-1 text-base font-semibold text-gray-900 dark:text-white"
 													>
 														{item.title}
 													</h4>
-													<p class="mt-0.5 text-sm text-gray-500 dark:text-gray-400">{item.author}</p>
+													<p class="text-sm text-gray-500 dark:text-gray-400">{item.author}</p>
 												</div>
 											</div>
 											<div class="mt-3">
