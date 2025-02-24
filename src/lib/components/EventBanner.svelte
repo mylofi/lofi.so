@@ -42,7 +42,7 @@
 
 					<div class="flex items-center gap-2">
 						<a
-							href={eventData.discordUrl}
+							href={eventData.registrationUrl}
 							class="flex items-center gap-2 rounded bg-white/20 px-3 py-1 text-xs font-medium hover:bg-white/30"
 							target="_blank"
 							rel="noopener noreferrer"

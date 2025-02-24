@@ -144,7 +144,7 @@
 				<!-- Action Buttons -->
 				<div class="flex w-full flex-col items-center gap-3">
 					<a
-						href={eventData.discordUrl}
+						href={eventData.registrationUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="flex w-full items-center justify-center gap-2 rounded-lg bg-white/20 px-6 py-3 text-white backdrop-blur-sm transition hover:bg-white/30"

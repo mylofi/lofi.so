@@ -187,44 +187,53 @@
 				<!-- Local-first Mentions Feed -->
 				<section class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
 					<div
-						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm text-center"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] -mt-4 z-20 -mx-4 mb-8 bg-white dark:bg-gray-900 px-4 py-6 backdrop-blur-sm"
 					>
 						<span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">Community</span>
-						<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Latest Mentions</h2>
-						<div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+						<div class="flex items-center justify-between">
+							<h2 class="text-3xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Latest Mentions</h2>
+							<a href="/mentions" class="inline-flex items-center text-primary hover:text-primary/80">
+								See all mentions
+								<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+									<path
+										fill-rule="evenodd"
+										d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									/>
+								</svg>
+							</a>
+						</div>
+						<div class="w-20 h-1 bg-primary mt-4 rounded-full"></div>
 					</div>
 					<div class="relative">
-						<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+						<div class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
 							{#each mentions.mentions as mention}
-								<article class="overflow-hidden rounded-lg bg-gray-200 shadow-md dark:bg-gray-800">
-									<div class="p-4">
-										<div class="mb-3 flex items-center">
-											<div>
-												<p class="font-medium text-gray-900 dark:text-white">{mention.author}</p>
-												<p class="text-xs text-gray-500 dark:text-gray-400">on {mention.platform}</p>
-												<p class="text-xs text-gray-400 dark:text-gray-500">{mention.date}</p>
-											</div>
-										</div>
-										<h3 class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white">
-											{mention.title}
-										</h3>
-										<p class="mb-3 line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
-											{mention.excerpt}
-										</p>
-										<a
-											href={mention.url}
-											class="inline-flex items-center text-primary hover:text-primary/80"
-										>
-											Read more
-											<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-												<path
-													fill-rule="evenodd"
-													d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-													clip-rule="evenodd"
-												/>
-											</svg>
-										</a>
+								<article class="relative overflow-hidden rounded-lg border border-gray-100 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
+									<!-- Author and Date -->
+									<div class="mb-1.5 flex items-center justify-between gap-2">
+										<span class="text-xs font-medium text-gray-900 dark:text-white">{mention.author}</span>
+										<time class="text-xs text-gray-400" datetime={mention.date}>
+											{new Date(mention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+										</time>
 									</div>
+
+									<!-- Content -->
+									<h3 class="mb-1 line-clamp-2 text-sm font-medium leading-snug text-gray-900 dark:text-white">
+										{mention.title}
+									</h3>
+									<p class="mb-2 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
+										{mention.excerpt}
+									</p>
+
+									<!-- Link -->
+									<a
+										href={mention.url}
+										class="text-xs font-medium text-primary hover:underline"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										Read on {mention.platform}
+									</a>
 								</article>
 							{/each}
 						</div>

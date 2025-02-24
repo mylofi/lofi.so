@@ -21,7 +21,7 @@
 	type TierType = 'Partner' | 'Platinum' | 'Gold';
 
 	$: nextEventFromKV = eventData ? {
-		url: eventData.discordUrl || eventData.registrationUrl,
+		url: eventData.registrationUrl,
 		name: 'Local First Meetup',
 		date: new Date(eventData.date).toLocaleDateString('en-US', { 
 			weekday: 'long',
