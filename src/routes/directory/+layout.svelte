@@ -28,21 +28,21 @@
     $effect(() => {
         if (currentPath !== previousPath) {
             if (currentPath.includes('/apps') && !previousPath.includes('/apps')) {
-                expandedSections.add('apps');
+                expandedSections = new Set([...expandedSections, 'apps']);
             }
             if (currentPath.includes('/projects') && !previousPath.includes('/projects')) {
-                expandedSections.add('projects');
+                expandedSections = new Set([...expandedSections, 'projects']);
             }
             previousPath = currentPath;
         }
     });
     
     function toggleSection(section: string) {
-        if (expandedSections.has(section)) {
-            expandedSections.delete(section);
-        } else {
-            expandedSections.add(section);
-        }
+        expandedSections = new Set(
+            expandedSections.has(section)
+                ? [...expandedSections].filter(s => s !== section)
+                : [...expandedSections, section]
+        );
     }
 </script>
 

@@ -1,28 +1,44 @@
 {
   "mentions": [
     {
-      "title": "Local-First Software: You Own Your Data, in spite of the Cloud",
-      "author": "Martin Kleppmann",
-      "platform": "Twitter",
-      "date": "2023-12-15",
-      "url": "https://twitter.com/example/status/1",
-      "excerpt": "Excited to see more developers embracing local-first principles for better user privacy and data ownership!"
+      "title": "Recapping the first Local-First conference in 15 minutes",
+      "author": "Andrey Sitnik",
+      "platform": "Evil Martians",
+      "date": "2024-07-08",
+      "url": "https://evilmartians.com/chronicles/recapping-the-first-local-first-conference-in-15-minutes",
+      "excerpt": "Local-first apps keep data locally, only using the cloud to synchronize data between machines. The inaugural Local-First Conference brought together the community to discuss the future of local-first software."
     },
     {
-      "title": "The Rise of Local-First Development",
-      "author": "Sarah Developer",
-      "platform": "Mastodon",
-      "date": "2024-01-20",
-      "url": "https://mastodon.social/@example/2",
-      "excerpt": "Local-first is changing how we think about data persistence and user privacy. Great to see this movement growing!"
+      "title": "Why Local-First and Offline-First Software Is the Future",
+      "author": "Bertrand Atemkeng",
+      "platform": "DEV.to",
+      "date": "2024-12-26",
+      "url": "https://dev.to/bertrand_atemkeng/why-local-first-and-offline-first-software-is-the-future-7mf",
+      "excerpt": "In an era dominated by always-online software and endless subscription models, it's time to reflect on why local-first and offline-first approaches are becoming increasingly important."
     },
     {
-      "title": "Why Local-First Matters",
-      "author": "Tech Weekly",
+      "title": "The Local-First Software Space is Actually Exploding",
+      "author": "Benjamin Patton",
       "platform": "LinkedIn",
-      "date": "2024-02-10",
-      "url": "https://linkedin.com/posts/3",
-      "excerpt": "Local-first architecture is gaining traction as users demand more control over their data."
+      "date": "2024-01-15",
+      "url": "https://www.linkedin.com/posts/benjaminapatton_the-local-first-software-space-is-actually-activity-7278128087685316609-mpML/",
+      "excerpt": "The local-first software space is seeing unprecedented growth with new tools, frameworks, and approaches emerging to support this paradigm shift in software development."
+    },
+    {
+      "title": "Local-First Software Discussion",
+      "author": "Hacker News Community",
+      "platform": "Hacker News",
+      "date": "2024-01-20",
+      "url": "https://news.ycombinator.com/item?id=40786425",
+      "excerpt": "A deep discussion on local-first software principles, challenges, and opportunities, featuring insights from developers and practitioners in the field."
+    },
+    {
+      "title": "What is Local-First Web Development?",
+      "author": "Alex OP",
+      "platform": "Personal Blog",
+      "date": "2024-01-10",
+      "url": "https://alexop.dev/posts/what-is-local-first-web-development/",
+      "excerpt": "An exploration of local-first web development principles and how they're changing the way we build modern web applications with better user experience and data ownership."
     }
   ]
 } 
