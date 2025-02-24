@@ -8,7 +8,7 @@
 
 :root {
   --navbar-height: 70px;
-  --vertical-tabs-offset: 130px;
+  --vertical-tabs-offset: 200px;
 }
 
 :root[data-banner="true"] {

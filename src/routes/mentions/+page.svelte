@@ -12,7 +12,7 @@
 	}[];
 </script>
 
-<div class="relative py-16">
+<div class="relative py-24">
 	<SponsorsRail {nextEvent} {sponsors} />
 
 	<div class="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-8">
@@ -34,7 +34,7 @@
 				<!-- Mentions Grid -->
 				<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
 					{#each mentions.mentions as mention}
-						<article class="relative overflow-hidden rounded-lg border border-gray-100 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
+						<article class="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
 							<!-- Author and Date -->
 							<div class="mb-1.5 flex items-center justify-between gap-2">
 								<span class="text-xs font-medium text-gray-900 dark:text-white">{mention.author}</span>
