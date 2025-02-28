@@ -1,0 +1,1058 @@
+[
+  {
+    "title": "Actual",
+    "url": "/directory/apps/actual",
+    "excerpt": "Actual | Actual Budget Documentation",
+    "category": "Library"
+  },
+  {
+    "title": "Evolu",
+    "url": "/directory/projects/evolu",
+    "excerpt": "Evolu - Local-First Platform Designed for Privacy, Ease of Use, and No Vendor Lock-In – Evolu",
+    "category": "Library"
+  },
+  {
+    "title": "Automerge",
+    "url": "/directory/projects/automerge",
+    "excerpt": "Automerge is a library of data structures for building collaborative applications.",
+    "category": "Library"
+  },
+  {
+    "title": "Muse",
+    "url": "/directory/apps/muse",
+    "excerpt": "Muse is a canvas for thinking that helps you get clarity on things that matter. Think in private or collaborate with others. Available for iPad and Mac.",
+    "category": "Library"
+  },
+  {
+    "title": "Tweek",
+    "url": "/directory/apps/tweek",
+    "excerpt": "Tweek is a FREE personal and shared to do list app to organize your tasks and collaborate on them online with your team or family. It provides a weekly calendar view mode and a reminder app. Tweek is an online daily and weekly planner that boosts your productivity to the best level. Instantly plan and organize your week todos!",
+    "category": "Library"
+  },
+  {
+    "title": "PowerSync",
+    "url": "/directory/projects/powersync",
+    "excerpt": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
+    "category": "Library"
+  },
+  {
+    "title": "Fig",
+    "url": "/directory/apps/fig",
+    "excerpt": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA’s, as well as expense management tools for day-to-day finances.",
+    "category": "Library"
+  },
+  {
+    "title": "TinyBase",
+    "url": "/directory/projects/tinybase",
+    "excerpt": "The reactive data store for local-first apps.",
+    "category": "Library"
+  },
+  {
+    "title": "TinyHub",
+    "url": "/directory/apps/tinyhub",
+    "excerpt": "A local-first GitHub client, built in public. Contribute to tinyplex/tinyhub development by creating an account on GitHub.",
+    "category": "Library"
+  },
+  {
+    "title": "Tangent Notes",
+    "url": "/directory/apps/tangent-notes",
+    "excerpt": "Tangent Notes",
+    "category": "Library"
+  },
+  {
+    "title": "Obsidian",
+    "url": "/directory/apps/obsidian",
+    "excerpt": "Obsidian is the private and flexible note‑taking app that adapts to the way you think.",
+    "category": "Library"
+  },
+  {
+    "title": "Anytype",
+    "url": "/directory/apps/anytype",
+    "excerpt": "for those who celebrate trust & autonomy.",
+    "category": "Library"
+  },
+  {
+    "title": "acreom",
+    "url": "/directory/apps/acreom",
+    "excerpt": "acreom is the integrated markdown knowledge base with tasks. Your personal daily driver for your dev workflow.",
+    "category": "Library"
+  },
+  {
+    "title": "Logseq",
+    "url": "/directory/apps/logseq",
+    "excerpt": "A privacy-first, open-source platform for knowledge management and collaboration.",
+    "category": "Library"
+  },
+  {
+    "title": "Onlook",
+    "url": "/directory/apps/onlook",
+    "excerpt": "The power of Figma for your own app. Onlook lets you edit your React app and write your changes back to code in real-time. Download the open-source, local-first desktop app today.",
+    "category": "Library"
+  },
+  {
+    "title": "AFFiNE",
+    "url": "/directory/apps/affine",
+    "excerpt": "The universal editor that lets you work, play, present or create just about anything.",
+    "category": "Library"
+  },
+  {
+    "title": "Tender",
+    "url": "/directory/apps/tender",
+    "excerpt": "Tender is an inbox-zero spending tracker app that's fast, simple, and secure.",
+    "category": "Library"
+  },
+  {
+    "title": "Dexie.js",
+    "url": "/directory/projects/dexie.js",
+    "excerpt": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
+    "category": "Library"
+  },
+  {
+    "title": "DXOS",
+    "url": "/directory/projects/dxos",
+    "excerpt": "The Decentralized Operating System",
+    "category": "Library"
+  },
+  {
+    "title": "Dat Stack",
+    "url": "/directory/projects/dat-stack",
+    "excerpt": "dat-ecosystem is a post-web p2p community of projects - Most projects are self funded. Some of the projects contribute maintainance and development to core pieces of the Dat ecosystem while others create high level applications built on top of p2p protocols.",
+    "category": "Library"
+  },
+  {
+    "title": "ElectricSQL",
+    "url": "/directory/projects/electricsql",
+    "excerpt": "Sync little subsets of your Postgres data into local apps and services.",
+    "category": "Library"
+  },
+  {
+    "title": "Liveblocks",
+    "url": "/directory/projects/liveblocks",
+    "excerpt": "Ship features like comments, notifications, a text editor, or build any collaborative experience in days, not months. Engage users, fuel creativity, and drive growth. Finally.",
+    "category": "Library"
+  },
+  {
+    "title": "Fireproof",
+    "url": "/directory/projects/fireproof",
+    "excerpt": "Simplify your application state with Fireproof.",
+    "category": "Library"
+  },
+  {
+    "title": "Gun",
+    "url": "/directory/projects/gun",
+    "excerpt": "Decentralized Database",
+    "category": "Library"
+  },
+  {
+    "title": "Instant",
+    "url": "/directory/projects/instant",
+    "excerpt": "We make you productive by giving your frontend a real-time database.",
+    "category": "Library"
+  },
+  {
+    "title": "m-ld",
+    "url": "/directory/projects/m-ld",
+    "excerpt": "m-ld",
+    "category": "Library"
+  },
+  {
+    "title": "NextGraph",
+    "url": "/directory/projects/nextgraph",
+    "excerpt": "Features a social network, shared documents, productivity tools, an app store, and more! You can use NextGraph for free. It is decentralized, resilient, secure, private and encrypted. You own your data and software! Developers can build new web3.0 local-first apps with our open source framework, based on open standards, with CRDTs, E2EE, Semantic Web, RDF, SPARQL, JSON, Markdown, Svelte, React, JavaScript, Rust, etc... ActivityPub and Solid compatible",
+    "category": "Library"
+  },
+  {
+    "title": "PouchDB",
+    "url": "/directory/projects/pouchdb",
+    "excerpt": "PouchDB, the JavaScript Database that Syncs!",
+    "category": "Library"
+  },
+  {
+    "title": "remoteStorage",
+    "url": "/directory/projects/remotestorage",
+    "excerpt": "An open protocol for per-user storage on the Web",
+    "category": "Library"
+  },
+  {
+    "title": "RxDB",
+    "url": "/directory/projects/rxdb",
+    "excerpt": "RxDB is a fast, local-first NoSQL-database for JavaScript Applications like Websites, hybrid Apps, Electron-Apps, Progressive Web Apps and Node.js",
+    "category": "Library"
+  },
+  {
+    "title": "SignalDB",
+    "url": "/directory/projects/signaldatabase",
+    "excerpt": "SignalDB is a reactive, local-first JavaScript database with real-time sync, Optimistic UI and signal-based reactivity",
+    "category": "Library"
+  },
+  {
+    "title": "Socket Runtime",
+    "url": "/directory/projects/socket-runtime",
+    "excerpt": "A cross-platform runtime for Web developers to build desktop & mobile apps for any OS using any frontend library. - socketsupply/socket",
+    "category": "Library"
+  },
+  {
+    "title": "SyncedStore",
+    "url": "/directory/projects/syncedstore",
+    "excerpt": "SyncedStore - Javascript CRDT based real-time sync",
+    "category": "Library"
+  },
+  {
+    "title": "Triplit",
+    "url": "/directory/projects/triplit",
+    "excerpt": "Triplit is a complete solution to data persistence, state management, and realtime synchronization for web applications that want to go fast.",
+    "category": "Library"
+  },
+  {
+    "title": "Verdant",
+    "url": "/directory/projects/verdant",
+    "excerpt": "Verdant",
+    "category": "Library"
+  },
+  {
+    "title": "VLCN",
+    "url": "/directory/projects/vlcn",
+    "excerpt": "Make collaborative, multiplayer or local-first applications",
+    "category": "Library"
+  },
+  {
+    "title": "WatermelonDB",
+    "url": "/directory/projects/watermelondb",
+    "excerpt": "WatermelonDB",
+    "category": "Library"
+  },
+  {
+    "title": "Trystero",
+    "url": "/directory/projects/trystero",
+    "excerpt": "✨🤝✨ Build instant multiplayer webapps, no server required — Magic WebRTC matchmaking over BitTorrent, Nostr, MQTT, IPFS, Supabase, and Firebase - dmotz/trystero",
+    "category": "Library"
+  },
+  {
+    "title": "Amplify DataStore",
+    "url": "/directory/projects/amplify-datastore",
+    "excerpt": "Amplify DataStore provides a programming model for leveraging shared and distributed data without writing additional code for offline and online scenarios, which makes working with distributed, cross-user data just as simple as working with local-only data. AWS Amplify Documentation",
+    "category": "Library"
+  },
+  {
+    "title": "Collabs",
+    "url": "/directory/projects/collabs",
+    "excerpt": "Collabs Documentation — Collabs  documentation",
+    "category": "Library"
+  },
+  {
+    "title": "Dexie Cloud",
+    "url": "/directory/projects/dexie-cloud",
+    "excerpt": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
+    "category": "Library"
+  },
+  {
+    "title": "Ditto",
+    "url": "/directory/projects/ditto",
+    "excerpt": "Mobile ad-hoc mesh networking and peer-to-peer data sync for your enterprise applications.",
+    "category": "Library"
+  },
+  {
+    "title": "hocuspocus",
+    "url": "/directory/projects/hocuspocus",
+    "excerpt": "Tiptap is a suite of open source content editing and real-time collaboration tools for developers building apps like Notion or Google Docs.",
+    "category": "Library"
+  },
+  {
+    "title": "Jamsocket",
+    "url": "/directory/projects/jamsocket",
+    "excerpt": "The platform for scaling sync engines, based on the infra behind Figma and Google Docs. With first class support for Y-Sweet, a Yjs realtime sync engine.",
+    "category": "Library"
+  },
+  {
+    "title": "Liveblocks Storage",
+    "url": "/directory/projects/liveblocks-storage",
+    "excerpt": "Liveblocks Storage is a realtime sync engine designed for multiplayer creative tools such as Figma, Pitch, and Spline.",
+    "category": "Library"
+  },
+  {
+    "title": "Liveblocks Yjs",
+    "url": "/directory/projects/liveblocks-yjs",
+    "excerpt": "Liveblocks Yjs is a realtime sync engine designed for collaborative text editors such as Notion and Google Docs.",
+    "category": "Library"
+  },
+  {
+    "title": "Logux",
+    "url": "/directory/projects/logux",
+    "excerpt": "Logux is a client-server communication tool for collaborative web applications with optimistics UI, offline first and live updates",
+    "category": "Library"
+  },
+  {
+    "title": "Loro",
+    "url": "/directory/projects/loro",
+    "excerpt": "Loro - Reimagine state management with CRDTs | Built for local-first software.",
+    "category": "Library"
+  },
+  {
+    "title": "Replicache",
+    "url": "/directory/projects/replicache",
+    "excerpt": "Replicache is a client-side datastore and sync framework for building local-first web apps. It works with most backend stacks.",
+    "category": "Library"
+  },
+  {
+    "title": "Sockethub",
+    "url": "/directory/projects/sockethub",
+    "excerpt": "The polyglot solution to the federated social web",
+    "category": "Library"
+  },
+  {
+    "title": "Yjs",
+    "url": "/directory/projects/yjs",
+    "excerpt": "Yjs Shared Editing",
+    "category": "Library"
+  },
+  {
+    "title": "Y-Sweet",
+    "url": "/directory/projects/y-sweet",
+    "excerpt": "Y-Sweet is an open source Yjs realtime sync engine with built in storage to S3. Designed for collaborative design and text editors such as Figma and Google Docs.",
+    "category": "Library"
+  },
+  {
+    "title": "Legend State",
+    "url": "/directory/projects/legend-state",
+    "excerpt": "Legend-State is a super fast and powerful state library that enables fine-grained reactivity and easy automatic persistence - LegendApp/legend-state",
+    "category": "Library"
+  },
+  {
+    "title": "Agregore Browser",
+    "url": "/directory/apps/agregore-browser",
+    "excerpt": "Explore the distributed web",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Bangle.io",
+    "url": "/directory/apps/bangle-io",
+    "excerpt": "Bangle.io",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "DXOS Composer",
+    "url": "/directory/apps/dxos-composer",
+    "excerpt": "DXOS Composer Application",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Excalidraw",
+    "url": "/directory/apps/excalidraw",
+    "excerpt": "Excalidraw is a virtual collaborative whiteboard tool that lets you easily sketch diagrams that have a hand-drawn feel to them.",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Gnocchi.club",
+    "url": "/directory/apps/gnocchi-club",
+    "excerpt": "Your grocery list, done better",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Strut.io",
+    "url": "/directory/apps/strut-io",
+    "excerpt": "An editor for creating web based presentations",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Textorama",
+    "url": "/directory/apps/textorama",
+    "excerpt": "Textorama is a modest text editor. It works with plain text files in your file system.",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Legend",
+    "url": "/directory/apps/legend",
+    "excerpt": "Legend is designed for you - to work the way you do and to be the one place for all your productivity needs.",
+    "category": "Directory Entry"
+  },
+  {
+    "title": "Nullboard",
+    "url": "/directory/apps/nullboard",
+    "excerpt": "Nullboard is a minimalist take on a kanban board / a task list manager, designed to be compact, readable and quick in use.",
+    "category": "Library"
+  },
+  {
+    "title": "TiddlyWiki",
+    "url": "/directory/apps/tiddlywiki",
+    "excerpt": "TiddlyWiki is a complete interactive wiki in JavaScript. It can be used as a single HTML file in the browser or as a powerful Node.js application. It is highly customisable - the entire user interface is itself implemented in hackable WikiText.",
+    "category": "Library"
+  },
+  {
+    "title": "Learn",
+    "url": "/#learn",
+    "excerpt": "Learn - Main section of the home page",
+    "category": "Section"
+  },
+  {
+    "title": "Things to read",
+    "url": "/#learn-things-to-read",
+    "excerpt": "Learn - Things to read",
+    "category": "Learning Resource"
+  },
+  {
+    "title": "Local-first software: you own your data, in spite of the cloud",
+    "url": "https://www.inkandswitch.com/local-first",
+    "excerpt": "Local-first software: you own your data, in spite of the cloud by Ink & Switch",
+    "category": "Article"
+  },
+  {
+    "title": "Building data-centric apps with a reactive relational database",
+    "url": "https://riffle.systems/essays/prelude",
+    "excerpt": "Building data-centric apps with a reactive relational database by Riffle",
+    "category": "Article"
+  },
+  {
+    "title": "Developing local-first software",
+    "url": "https://electric-sql.com/blog/2023/02/09/developing-local-first-software",
+    "excerpt": "Developing local-first software by James Arthur",
+    "category": "Article"
+  },
+  {
+    "title": "What if we had local-first software?",
+    "url": "https://adlrocha.substack.com/p/adlrocha-what-if-we-had-local-first",
+    "excerpt": "What if we had local-first software? by @adlrocha",
+    "category": "Article"
+  },
+  {
+    "title": "Closing the gap between your users and their data",
+    "url": "https://tripleodeon.com/2022/11/closing-the-gap-between-your-users-and-their-data",
+    "excerpt": "Closing the gap between your users and their data by James Pearce",
+    "category": "Article"
+  },
+  {
+    "title": "In search of a local-first database",
+    "url": "https://jaredforsyth.com/posts/in-search-of-a-local-first-database",
+    "excerpt": "In search of a local-first database by Jared Forsyth",
+    "category": "Article"
+  },
+  {
+    "title": "End-to-End Encryption in the Browser",
+    "url": "https://blog.excalidraw.com/end-to-end-encryption/",
+    "excerpt": "End-to-End Encryption in the Browser by vjeux",
+    "category": "Article"
+  },
+  {
+    "title": "Designing Data Structures for Collaborative Apps",
+    "url": "https://mattweidner.com/2022/02/10/collaborative-data-design.html",
+    "excerpt": "Designing Data Structures for Collaborative Apps by Matthew Weidner",
+    "category": "Article"
+  },
+  {
+    "title": "A Gentle Introduction to CRDTs",
+    "url": "https://vlcn.io/blog/gentle-intro-to-crdts.html",
+    "excerpt": "A Gentle Introduction to CRDTs by Matt Wonlaw",
+    "category": "Article"
+  },
+  {
+    "title": "Some notes on local-first development",
+    "url": "https://bricolage.io/some-notes-on-local-first-development/",
+    "excerpt": "Some notes on local-first development by @kylemathews",
+    "category": "Article"
+  },
+  {
+    "title": "List CRDT Benchmarks",
+    "url": "https://jsonjoy.com/blog/list-crdt-benchmarks",
+    "excerpt": "List CRDT Benchmarks by Vadim @streamich Dalecky",
+    "category": "Article"
+  },
+  {
+    "title": "Things to watch",
+    "url": "/#learn-things-to-watch",
+    "excerpt": "Learn - Things to watch",
+    "category": "Learning Resource"
+  },
+  {
+    "title": "Local-first software",
+    "url": "https://www.youtube.com/watch?v=KrPsyr8Ig6M",
+    "excerpt": "Local-first software by Peter van Hardenberg",
+    "category": "Video"
+  },
+  {
+    "title": "Introduction to local-first applications",
+    "url": "https://www.youtube.com/watch?v=RbiGkdSGm4s",
+    "excerpt": "Introduction to local-first applications by Mycelial",
+    "category": "Video"
+  },
+  {
+    "title": "CRDTs for mortals",
+    "url": "https://www.youtube.com/watch?v=DEcwa68f-jY",
+    "excerpt": "CRDTs for mortals by James Long",
+    "category": "Video"
+  },
+  {
+    "title": "CRDTs: the hard parts",
+    "url": "https://www.youtube.com/watch?v=x7drE24geUw",
+    "excerpt": "CRDTs: the hard parts by Martin Kleppmann",
+    "category": "Video"
+  },
+  {
+    "title": "AWS reInvent 2019: Data Driven Mobile & Web Apps",
+    "url": "https://www.youtube.com/watch?v=KcYl6_We0EU",
+    "excerpt": "AWS reInvent 2019: Data Driven Mobile & Web Apps by Richard Threlkeld",
+    "category": "Video"
+  },
+  {
+    "title": "Holistic Approach to Local-First Software",
+    "url": "https://www.youtube.com/watch?v=VqUzhnDd1-E",
+    "excerpt": "Holistic Approach to Local-First Software by Mauve Signweaver",
+    "category": "Video"
+  },
+  {
+    "title": "Local-first app development",
+    "url": "https://www.youtube.com/watch?v=qHSI5rxTp_Q",
+    "excerpt": "Local-first app development by Johannes Schickling",
+    "category": "Video"
+  },
+  {
+    "title": "localfirst.fm: podcast about local-first software development",
+    "url": "https://www.localfirst.fm",
+    "excerpt": "localfirst.fm: podcast about local-first software development by Johannes Schickling",
+    "category": "Video"
+  },
+  {
+    "title": "Build",
+    "url": "/#build",
+    "excerpt": "Build - Main section of the home page",
+    "category": "Section"
+  },
+  {
+    "title": "Storing data",
+    "url": "/#apps-storing-data",
+    "excerpt": "Build - Storing data",
+    "category": "Development Resource"
+  },
+  {
+    "title": "Dexie.js",
+    "url": "https://dexie.org/",
+    "excerpt": "Dexie.js by David Fahlander",
+    "category": "External Resource"
+  },
+  {
+    "title": "DXOS",
+    "url": "https://dxos.org",
+    "excerpt": "DXOS by dxos.org",
+    "category": "External Resource"
+  },
+  {
+    "title": "Dat Stack",
+    "url": "https://dat-ecosystem.org/",
+    "excerpt": "Dat Stack by hyper- core/bee/store/drive (by dat-ecosystem)",
+    "category": "External Resource"
+  },
+  {
+    "title": "ElectricSQL",
+    "url": "https://electric-sql.com",
+    "excerpt": "ElectricSQL by ElectricSQL team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Evolu",
+    "url": "https://www.evolu.dev/",
+    "excerpt": "Evolu by Daniel Steigerwald",
+    "category": "External Resource"
+  },
+  {
+    "title": "Liveblocks",
+    "url": "https://liveblocks.io/",
+    "excerpt": "Liveblocks by Liveblocks team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Fireproof",
+    "url": "https://use-fireproof.com/",
+    "excerpt": "Fireproof by Fireproof team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Gun",
+    "url": "https://gun.eco",
+    "excerpt": "Gun by Mark Nadal",
+    "category": "External Resource"
+  },
+  {
+    "title": "Instant",
+    "url": "https://www.instantdb.com",
+    "excerpt": "Instant by Stepan Parunashvili",
+    "category": "External Resource"
+  },
+  {
+    "title": "m-ld",
+    "url": "https://m-ld.org/",
+    "excerpt": "m-ld by George Svarovsky et al.",
+    "category": "External Resource"
+  },
+  {
+    "title": "NextGraph",
+    "url": "https://nextgraph.org/",
+    "excerpt": "NextGraph by Niko Bonnieure",
+    "category": "External Resource"
+  },
+  {
+    "title": "PouchDB",
+    "url": "https://pouchdb.com",
+    "excerpt": "PouchDB by PouchDB contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "remoteStorage",
+    "url": "https://remotestorage.io",
+    "excerpt": "remoteStorage by remoteStorage contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "RxDB",
+    "url": "https://rxdb.info",
+    "excerpt": "RxDB by Daniel Meyer",
+    "category": "External Resource"
+  },
+  {
+    "title": "SignalDB",
+    "url": "https://signaldb.js.org",
+    "excerpt": "SignalDB by Max Nowack",
+    "category": "External Resource"
+  },
+  {
+    "title": "Socket Runtime",
+    "url": "https://github.com/socketsupply/socket",
+    "excerpt": "Socket Runtime by Socket Runtime Team",
+    "category": "External Resource"
+  },
+  {
+    "title": "SyncedStore",
+    "url": "https://syncedstore.org",
+    "excerpt": "SyncedStore by Yousef El-Dardiry",
+    "category": "External Resource"
+  },
+  {
+    "title": "TinyBase",
+    "url": "https://tinybase.org",
+    "excerpt": "TinyBase by James Pearce",
+    "category": "External Resource"
+  },
+  {
+    "title": "Triplit",
+    "url": "https://triplit.dev",
+    "excerpt": "Triplit by Aspen Cloud",
+    "category": "External Resource"
+  },
+  {
+    "title": "Verdant",
+    "url": "https://verdant.dev",
+    "excerpt": "Verdant by Grant Forrest",
+    "category": "External Resource"
+  },
+  {
+    "title": "VLCN",
+    "url": "https://vlcn.io",
+    "excerpt": "VLCN by Matt Wonlaw",
+    "category": "External Resource"
+  },
+  {
+    "title": "WatermelonDB",
+    "url": "https://watermelondb.dev",
+    "excerpt": "WatermelonDB by Radek Pietruszewski / Nozbe",
+    "category": "External Resource"
+  },
+  {
+    "title": "Syncing data",
+    "url": "/#apps-syncing-data",
+    "excerpt": "Build - Syncing data",
+    "category": "Development Resource"
+  },
+  {
+    "title": "Jazz Tools",
+    "url": "https://jazz.tools/",
+    "excerpt": "Jazz Tools by Anselm / Garden Computing",
+    "category": "External Resource"
+  },
+  {
+    "title": "Amplify DataStore",
+    "url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
+    "excerpt": "Amplify DataStore by Amazon Web Services",
+    "category": "External Resource"
+  },
+  {
+    "title": "Automerge",
+    "url": "https://automerge.org",
+    "excerpt": "Automerge by Ink & Switch and contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "Collabs",
+    "url": "https://collabs.readthedocs.io/en/latest/",
+    "excerpt": "Collabs by Composable Systems Lab @ CMU",
+    "category": "External Resource"
+  },
+  {
+    "title": "CouchDB",
+    "url": "https://couchdb.apache.org",
+    "excerpt": "CouchDB by apache couchdb team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Dexie Cloud",
+    "url": "https://dexie.org/cloud/",
+    "excerpt": "Dexie Cloud by Awarica AB",
+    "category": "External Resource"
+  },
+  {
+    "title": "Ditto",
+    "url": "https://ditto.live",
+    "excerpt": "Ditto by Ditto Live, Inc",
+    "category": "External Resource"
+  },
+  {
+    "title": "hocuspocus",
+    "url": "https://tiptap.dev/hocuspocus/",
+    "excerpt": "hocuspocus by ueberdosis",
+    "category": "External Resource"
+  },
+  {
+    "title": "Jamsocket",
+    "url": "https://jamsocket.com/",
+    "excerpt": "Jamsocket by Jamsocket team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Liveblocks Storage",
+    "url": "https://liveblocks.io/realtime-apis/storage",
+    "excerpt": "Liveblocks Storage by Liveblocks team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Liveblocks Yjs",
+    "url": "https://liveblocks.io/realtime-apis/yjs",
+    "excerpt": "Liveblocks Yjs by Liveblocks team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Logux",
+    "url": "https://logux.org",
+    "excerpt": "Logux by Andrey Sitnik",
+    "category": "External Resource"
+  },
+  {
+    "title": "Loro",
+    "url": "https://loro.dev/",
+    "excerpt": "Loro by Loro",
+    "category": "External Resource"
+  },
+  {
+    "title": "PowerSync",
+    "url": "https://www.powersync.com",
+    "excerpt": "PowerSync by JourneyApps",
+    "category": "External Resource"
+  },
+  {
+    "title": "Replicache",
+    "url": "https://replicache.dev",
+    "excerpt": "Replicache by Rocicorp",
+    "category": "External Resource"
+  },
+  {
+    "title": "Sockethub",
+    "url": "http://sockethub.org",
+    "excerpt": "Sockethub by Nick Jennings",
+    "category": "External Resource"
+  },
+  {
+    "title": "Yjs",
+    "url": "https://yjs.dev",
+    "excerpt": "Yjs by Kevin Jahns & contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "Y-Sweet",
+    "url": "https://jamsocket.com/y-sweet",
+    "excerpt": "Y-Sweet by Jamsocket team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Trystero",
+    "url": "https://github.com/dmotz/trystero",
+    "excerpt": "Trystero by Dan Motzenbecker / Dmotz",
+    "category": "External Resource"
+  },
+  {
+    "title": "Legend State",
+    "url": "https://github.com/LegendApp/legend-state",
+    "excerpt": "Legend State by Jay Meistrich",
+    "category": "External Resource"
+  },
+  {
+    "title": "Zero",
+    "url": "https://zero.rocicorp.dev",
+    "excerpt": "Zero by Rocicorp",
+    "category": "External Resource"
+  },
+  {
+    "title": "Examples",
+    "url": "/#apps-examples",
+    "excerpt": "Build - Examples",
+    "category": "Development Resource"
+  },
+  {
+    "title": "CRDT tutorials",
+    "url": "https://github.com/siliconjungle/crdt-tutorials",
+    "excerpt": "CRDT tutorials by James Addison",
+    "category": "External Resource"
+  },
+  {
+    "title": "CRDT example app",
+    "url": "https://github.com/jlongster/crdt-example-app",
+    "excerpt": "CRDT example app by James Long",
+    "category": "External Resource"
+  },
+  {
+    "title": "TinyRooms",
+    "url": "https://github.com/tinyplex/tinyrooms",
+    "excerpt": "TinyRooms by James Pearce",
+    "category": "External Resource"
+  },
+  {
+    "title": "XR Fragments",
+    "url": "https://xrfragment.org",
+    "excerpt": "XR Fragments by Leon van Kammen / coderofsalvation",
+    "category": "External Resource"
+  },
+  {
+    "title": "Join in",
+    "url": "/#join-in",
+    "excerpt": "Join in - Main section of the home page",
+    "category": "Section"
+  },
+  {
+    "title": "Folks to follow",
+    "url": "/folks-to-follow",
+    "excerpt": "Join in - Folks to follow",
+    "category": "Resource"
+  },
+  {
+    "title": "Peter van Hardenberg",
+    "url": "https://twitter.com/pvh",
+    "excerpt": "Peter van Hardenberg by @pvh",
+    "category": "Application"
+  },
+  {
+    "title": "Johannes Schickling",
+    "url": "https://twitter.com/schickling",
+    "excerpt": "Johannes Schickling by @schickling",
+    "category": "Application"
+  },
+  {
+    "title": "Geoffrey Litt",
+    "url": "https://twitter.com/geoffreylitt",
+    "excerpt": "Geoffrey Litt by @geoffreylitt",
+    "category": "Application"
+  },
+  {
+    "title": "Yonz",
+    "url": "https://twitter.com/devYonz",
+    "excerpt": "Yonz by @devYonz",
+    "category": "Application"
+  },
+  {
+    "title": "Matt Wonlaw",
+    "url": "https://twitter.com/tantaman",
+    "excerpt": "Matt Wonlaw by @tantaman",
+    "category": "Application"
+  },
+  {
+    "title": "James Pearce",
+    "url": "https://twitter.com/jamespearce",
+    "excerpt": "James Pearce by @jamespearce",
+    "category": "Application"
+  },
+  {
+    "title": "Grant Forrest",
+    "url": "https://twitter.com/gaforres",
+    "excerpt": "Grant Forrest by @gaforres",
+    "category": "Application"
+  },
+  {
+    "title": "James Addison",
+    "url": "https://twitter.com/JungleSilicon",
+    "excerpt": "James Addison by @JungleSilicon",
+    "category": "Application"
+  },
+  {
+    "title": "Mauve Signweaver",
+    "url": "https://mastodon.mauve.moe/@mauve",
+    "excerpt": "Mauve Signweaver by @RangerMauve",
+    "category": "Application"
+  },
+  {
+    "title": "Jess Martin",
+    "url": "https://x.com/jessmartin",
+    "excerpt": "Jess Martin by @jessmartin",
+    "category": "Application"
+  },
+  {
+    "title": "James Arthur",
+    "url": "https://x.com/thruflo",
+    "excerpt": "James Arthur by @thruflo",
+    "category": "Application"
+  },
+  {
+    "title": "Aaron Boodman",
+    "url": "https://x.com/aboodman",
+    "excerpt": "Aaron Boodman by @aboodman",
+    "category": "Application"
+  },
+  {
+    "title": "Coderofsalvation",
+    "url": "https://mastodon.online/@lvk",
+    "excerpt": "Coderofsalvation by @coderofsalvation",
+    "category": "Application"
+  },
+  {
+    "title": "Jay Meistrich",
+    "url": "https://x.com/jmeistrich",
+    "excerpt": "Jay Meistrich by @jmeistrich",
+    "category": "Application"
+  },
+  {
+    "title": "Communities to join",
+    "url": "/communities-to-join",
+    "excerpt": "Join in - Communities to join",
+    "category": "Resource"
+  },
+  {
+    "title": "#LoFi.so Discord",
+    "url": "https://discord.gg/ZRrwZxn4rW",
+    "excerpt": "#LoFi.so Discord by Local First Software Builders",
+    "category": "Application"
+  },
+  {
+    "title": "Braid",
+    "url": "https://braid.org",
+    "excerpt": "Braid by IETF & members",
+    "category": "Application"
+  },
+  {
+    "title": "This page on Hacker News",
+    "url": "https://news.ycombinator.com/item?id=34857435",
+    "excerpt": "This page on Hacker News by @bubblehack3r",
+    "category": "Application"
+  },
+  {
+    "title": "Apps to try",
+    "url": "/#apps-to-try-apps-to-try",
+    "excerpt": "Join in - Apps to try",
+    "category": "Application"
+  },
+  {
+    "title": "Actual",
+    "url": "https://actualbudget.com",
+    "excerpt": "Actual by James Long & contributors",
+    "category": "Application"
+  },
+  {
+    "title": "Agregore Browser",
+    "url": "https://agregore.mauve.moe/",
+    "excerpt": "Agregore Browser by Mauve Signweaver & contributors",
+    "category": "Application"
+  },
+  {
+    "title": "Bangle.io",
+    "url": "https://bangle.io",
+    "excerpt": "Bangle.io by Kushan Joshi",
+    "category": "Application"
+  },
+  {
+    "title": "DXOS Composer",
+    "url": "https://composer.space",
+    "excerpt": "DXOS Composer by dxos.org",
+    "category": "Application"
+  },
+  {
+    "title": "Excalidraw",
+    "url": "https://excalidraw.com",
+    "excerpt": "Excalidraw by Excalidraw contributors",
+    "category": "Application"
+  },
+  {
+    "title": "Gnocchi.club",
+    "url": "https://gnocchi.club",
+    "excerpt": "Gnocchi.club by Grant Forrest",
+    "category": "Application"
+  },
+  {
+    "title": "Obsidian",
+    "url": "https://obsidian.md",
+    "excerpt": "Obsidian by Dyynalist inc",
+    "category": "Application"
+  },
+  {
+    "title": "Strut.io",
+    "url": "https://strut.io",
+    "excerpt": "Strut.io by Strut contributors",
+    "category": "Application"
+  },
+  {
+    "title": "Textorama",
+    "url": "https://textorama.melo.plus/",
+    "excerpt": "Textorama by João Melo",
+    "category": "Application"
+  },
+  {
+    "title": "Tender",
+    "url": "https://tender.run/",
+    "excerpt": "Tender by Tender team",
+    "category": "Application"
+  },
+  {
+    "title": "Legend",
+    "url": "https://www.legendapp.com/",
+    "excerpt": "Legend by Jay Meistrich",
+    "category": "Application"
+  },
+  {
+    "title": "Vella.ai",
+    "url": "https://vella.ai",
+    "excerpt": "Vella.ai - Partner of Local-First Web",
+    "category": "Sponsor"
+  },
+  {
+    "title": "StackBlitz",
+    "url": "https://stackblitz.com",
+    "excerpt": "StackBlitz - Platinum of Local-First Web",
+    "category": "Sponsor"
+  },
+  {
+    "title": "Astro",
+    "url": "https://astro.build",
+    "excerpt": "Astro - Gold of Local-First Web",
+    "category": "Sponsor"
+  },
+  {
+    "title": "Storyblok",
+    "url": "https://www.storyblok.com",
+    "excerpt": "Storyblok - Gold of Local-First Web",
+    "category": "Sponsor"
+  },
+  {
+    "title": "Bit",
+    "url": "https://bit.dev",
+    "excerpt": "Bit - Gold of Local-First Web",
+    "category": "Sponsor"
+  },
+  {
+    "title": "Home",
+    "url": "/",
+    "excerpt": "Local-first software for the web - Build apps that work offline and sync when online",
+    "category": "Page"
+  },
+  {
+    "title": "Directory",
+    "url": "/directory",
+    "excerpt": "Explore local-first applications and tools for developers and users",
+    "category": "Page"
+  },
+  {
+    "title": "Blog",
+    "url": "/blog",
+    "excerpt": "Latest news and articles about local-first development and the ecosystem",
+    "category": "Page"
+  }
+]

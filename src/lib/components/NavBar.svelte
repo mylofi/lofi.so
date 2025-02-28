@@ -1,11 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { theme, toggleTheme } from '$lib/stores/themeStore';
+	import SearchButton from './SearchButton.svelte';
+	import SearchModal from './SearchModal.svelte';
+	import { toggleSearchModal } from '$lib/stores/searchStore';
+	import { browser } from '$app/environment';
+	
 	let isMenuOpen = false;
 	let scrollY: number;
 	let lastScrollY = 0;
 	let isVisible = true;
 	let isAtTop = true;
+	
+	// Determine the keyboard shortcut based on platform
+	let shortcutKey = '⌘K';
+	
+	if (browser) {
+		// Check if we're on Windows/Linux or Mac
+		shortcutKey = navigator.platform.indexOf('Mac') >= 0 ? '⌘K' : 'Ctrl+K';
+	}
 
 	function handleScroll() {
 		scrollY = window.scrollY;
@@ -101,6 +114,7 @@
 							>Blog</a
 						>
 					</div>
+					<SearchButton />
 					<button
 						on:click={toggleTheme}
 						class="rounded-md p-2 text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
@@ -134,6 +148,7 @@
 
 				<!-- Mobile menu button and theme toggle -->
 				<div class="flex items-center space-x-2 md:hidden">
+					<SearchButton />
 					<button
 						on:click={toggleTheme}
 						class="p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -215,8 +230,20 @@
 						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
 						>Blog</a
 					>
+					<button
+						on:click={() => {
+							toggleSearchModal();
+							isMenuOpen = false;
+						}}
+						class="w-full text-left block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+					>
+						Search <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">{shortcutKey}</span>
+					</button>
 				</div>
 			</div>
 		{/if}
 	</nav>
 </div>
+
+<!-- Search Modal -->
+<SearchModal />
