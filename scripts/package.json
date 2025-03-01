@@ -1,0 +1,7 @@
+{
+  "name": "search-index-generator",
+  "version": "1.0.0",
+  "description": "Generates a search index for the site",
+  "type": "module",
+  "private": true
+} 

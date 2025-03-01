@@ -11,7 +11,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"generate-search-index": "node scripts/generate-search-index.js",
+		"prebuild": "npm run generate-search-index"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.2.11",
@@ -22,6 +24,10 @@
 		"@types/marked": "^5.0.2",
 		"@types/node": "^22.13.4",
 		"autoprefixer": "^10.4.20",
+		"glob": "^10.4.5",
+		"gray-matter": "^4.0.3",
+		"jsdom": "^26.0.0",
+		"marked": "^15.0.7",
 		"mdsvex": "^0.12.3",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
@@ -35,8 +41,7 @@
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^5.5.3",
 		"@vercel/kv": "^3.0.0",
-		"gray-matter": "^4.0.3",
-		"marked": "^15.0.6",
+		"fuse.js": "^7.1.0",
 		"modern-screenshot": "^4.5.5"
 	}
 }
