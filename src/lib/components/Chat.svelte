@@ -12,41 +12,112 @@
   let chatContainer: HTMLDivElement;
   let inputContainer: HTMLDivElement;
   let chatWrapper: HTMLDivElement;
+  let isFullScreen = false;
+
+  const popularQuestions = [
+    "Pick a lo-fi tool and give me a project idea to build",
+    "What are the core principles of local-first software?",
+    "How can I make my web app work offline?",
+    "Explain CRDT in simple terms"
+  ];
+
+  function setInputValue(question: string) {
+    inputValue = question;
+    // Focus the input after setting the value
+    const input = inputContainer?.querySelector('input');
+    if (input) {
+      input.focus();
+    }
+  }
 
   function handleClickOutside(event: MouseEvent) {
-    if (chatWrapper && !chatWrapper.contains(event.target as Node)) {
+    if (!isFullScreen && chatWrapper && !chatWrapper.contains(event.target as Node)) {
       chatStore.toggleChat();
     }
+  }
+
+  function toggleFullScreen() {
+    isFullScreen = !isFullScreen;
+    // Toggle body scroll
+    document.body.style.overflow = isFullScreen ? 'hidden' : '';
   }
 
   onMount(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      // restore scrolling when component is destroyed
+      document.body.style.overflow = '';
     };
   });
 
   // Auto scroll to bottom when new messages arrive
-  let isUserScrolling = false;
+  let shouldAutoScroll = true;
+  let lastMessageCount = 0;
+  let lastAIResponseIndex = -1;
 
-function handleScroll() {
-  const threshold = 50;
-  const isAtBottom = chatContainer.scrollHeight - chatContainer.scrollTop <= chatContainer.clientHeight + threshold;
+  function handleScroll() {
+    const threshold = 100;
+    const isAtBottom = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight < threshold;
+    
+    // Only update shouldAutoScroll when user is actively scrolling
+    // not when the scroll event is triggered by our own scrollTop changes
+    if ($chatStore.messages.length === lastMessageCount) {
+      shouldAutoScroll = isAtBottom;
+    }
+  }
 
-  isUserScrolling = !isAtBottom;
-}
+  function scrollToMessage(index: number) {
+    if (!chatContainer) return;
+    
+    const messageElements = chatContainer.querySelectorAll('.message-item');
+    if (messageElements && messageElements[index]) {
+      messageElements[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 
-onMount(() => {
-  chatContainer.addEventListener("scroll", handleScroll);
-  return () => chatContainer.removeEventListener("scroll", handleScroll);
-});
+  onMount(() => {
+    chatContainer.addEventListener("scroll", handleScroll);
+    return () => chatContainer.removeEventListener("scroll", handleScroll);
+  });
 
-$: if ($chatStore.messages.length && chatContainer && !isUserScrolling) {
-  setTimeout(() => {
-    chatContainer.scrollTop = chatContainer.scrollHeight;
-  }, 100);
-}
-
+  // Handle new messages and scrolling
+  $: {
+    if ($chatStore.messages.length > 0) {
+      // If new messages arrived
+      if ($chatStore.messages.length !== lastMessageCount) {
+        // Check if the new message is from AI
+        const newMessageIndex = $chatStore.messages.length - 1;
+        const isNewAIMessage = 
+          $chatStore.messages[newMessageIndex] && 
+          $chatStore.messages[newMessageIndex].role === 'model';
+        
+        // Update our counter
+        lastMessageCount = $chatStore.messages.length;
+        
+        // If it's a new AI message, save its index
+        if (isNewAIMessage) {
+          lastAIResponseIndex = newMessageIndex;
+        }
+        
+        // Only scroll if we should auto-scroll or if it's a new AI message
+        if ((shouldAutoScroll || isNewAIMessage) && chatContainer) {
+          setTimeout(() => {
+            if (isNewAIMessage) {
+              // Scroll to the new AI message
+              scrollToMessage(newMessageIndex);
+            } else {
+              // Otherwise scroll to bottom
+              chatContainer.scrollTo({
+                top: chatContainer.scrollHeight,
+                behavior: 'smooth'
+              });
+            }
+          }, 100);
+        }
+      }
+    }
+  }
 
   async function handleSubmit() {
     if (!inputValue.trim()) return;
@@ -83,41 +154,93 @@ $: if ($chatStore.messages.length && chatContainer && !isUserScrolling) {
       minute: '2-digit' 
     });
   }
+
+  function clearChat() {
+    chatStore.clearMessages();
+  }
 </script>
 
 {#if $chatStore.isOpen}
   <div
     bind:this={chatWrapper}
-    class="fixed bottom-4 right-4 z-50 flex w-96 flex-col rounded-lg bg-white shadow-xl dark:bg-gray-800"
+    class="fixed z-50 flex flex-col rounded-lg bg-white shadow-xl transition-all duration-300 ease-in-out dark:bg-gray-800"
+    class:bottom-4={!isFullScreen}
+    class:right-4={!isFullScreen}
+    class:w-96={!isFullScreen}
+    class:inset-0={isFullScreen}
+    class:rounded-none={isFullScreen}
     transition:fly={{ y: 20, duration: 300, easing: quintOut }}
   >
     <!-- Header -->
-    <div class="flex items-center justify-between rounded-t-lg bg-primary p-4 text-white">
+    <div class="flex items-center justify-between rounded-t-lg bg-primary p-4 text-white" class:rounded-none={isFullScreen}>
       <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
         </svg>
-        <span class="font-medium">Local-First Chat</span>
+        <span class="font-medium">Lo-fi AI</span>
       </div>
-      <button
-        on:click={() => chatStore.toggleChat()}
-        class="rounded p-1 hover:bg-white/10"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+      <div class="flex items-center gap-1">
+        <button
+          on:click={toggleFullScreen}
+          class="rounded p-1 hover:bg-white/10"
+          title={isFullScreen ? "Exit full screen" : "Full screen"}
+        >
+          {#if isFullScreen}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3" />
+            </svg>
+          {:else}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8V5a2 2 0 012-2h3m10 0h3a2 2 0 012 2v3m0 10v3a2 2 0 01-2 2h-3m-10 0H5a2 2 0 01-2-2v-3" />
+            </svg>
+          {/if}
+        </button>
+        <button
+          on:click={() => chatStore.toggleChat()}
+          class="rounded p-1 hover:bg-white/10"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </div>
 
     <!-- Messages -->
     <div
       bind:this={chatContainer}
-      class="custom-scrollbar flex flex-col gap-4 overflow-y-auto p-4"
-      style="height: 400px;"
+      class="custom-scrollbar flex flex-col gap-4 overflow-y-auto p-4 scroll-smooth"
+      style={isFullScreen ? "height: calc(100vh - 132px);" : "height: 400px;"}
     >
-      {#each $chatStore.messages as message (message.timestamp)}
+      {#if $chatStore.messages.length === 0}
+        <div class="flex h-full flex-col items-center justify-center text-center gap-3 text-gray-500 dark:text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>
+          <div class="max-w-sm">
+            <h3 class="text-lg font-medium mb-2">Welcome to Lo-fi AI!</h3>
+            <p class="text-sm mb-6">Ask me anything about local-first development, web technologies, or just chat about building better software.</p>
+            
+            <div class="flex flex-col gap-2">
+              <p class="text-sm font-medium">Popular questions to get started:</p>
+              <div class="flex flex-col gap-2">
+                {#each popularQuestions as question}
+                  <button
+                    on:click={() => setInputValue(question)}
+                    class="text-left text-sm px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
+                  >
+                    {question}
+                  </button>
+                {/each}
+              </div>
+            </div>
+          </div>
+        </div>
+      {/if}
+
+      {#each $chatStore.messages as message, index (message.timestamp)}
         <div
-          class="flex flex-col gap-1"
+          class="flex flex-col gap-1 message-item"
           transition:slide={{ duration: 300 }}
         >
           <div class="flex items-start gap-2">
@@ -138,7 +261,7 @@ $: if ($chatStore.messages.length && chatContainer && !isUserScrolling) {
             <div class="flex-1">
               <div class="flex items-center gap-2">
                 <span class="font-medium">
-                  {message.role === 'model' ? 'AI Assistant' : 'You'}
+                  {message.role === 'model' ? 'lo-fi bot' : 'You'}
                 </span>
                 <span class="text-xs text-gray-500 dark:text-gray-400">
                   {formatTime(message.timestamp)}
@@ -180,6 +303,18 @@ $: if ($chatStore.messages.length && chatContainer && !isUserScrolling) {
         on:submit|preventDefault={handleSubmit}
         class="flex items-center gap-2"
       >
+        {#if $chatStore.messages.length > 0}
+          <button
+            type="button"
+            on:click={clearChat}
+            class="flex h-9 w-9 items-center justify-center rounded-full text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
+            title="Clear chat"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        {/if}
         <input
           type="text"
           bind:value={inputValue}

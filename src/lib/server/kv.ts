@@ -31,6 +31,6 @@ export async function saveEvent(event: EventData) {
 
 export async function getLatestEvent(): Promise<EventData | null> {
     const event = await kv.get<EventData>('current_event');
-    console.log('Retrieved event from KV:', event);
+    // console.log('Retrieved event from KV:', event);
     return event;
 } 

@@ -31,7 +31,9 @@ function createChatStore() {
     toggleChat: () => 
       update(state => ({ ...state, isOpen: !state.isOpen })),
     reset: () => 
-      set({ messages: [], isOpen: false, isLoading: false })
+      set({ messages: [], isOpen: false, isLoading: false }),
+    clearMessages: () =>
+      update(state => ({ ...state, messages: [], isLoading: false }))
   };
 }
 

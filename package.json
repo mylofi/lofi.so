@@ -43,6 +43,7 @@
 		"@sveltejs/adapter-vercel": "^5.5.3",
 		"@vercel/kv": "^3.0.0",
 		"fuse.js": "^7.1.0",
-		"modern-screenshot": "^4.5.5"
+		"modern-screenshot": "^4.5.5",
+		"openai": "^4.86.2"
 	}
 }

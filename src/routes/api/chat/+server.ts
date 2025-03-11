@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 import { GEMINI_API_KEY } from '$env/static/private';
 import { json } from '@sveltejs/kit';
 import { getLocalFirstContext } from '$lib/utils/localFirstContext';
@@ -8,30 +8,39 @@ interface ChatMessage {
   text: string;
 }
 
-const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+const openAI = new OpenAI({
+  apiKey: GEMINI_API_KEY,
+  baseURL: 'https://generativelanguage.googleapis.com/v1beta'
+});
 
 const SYSTEM_PROMPT = getLocalFirstContext();
+
+function mapRole(role: string): string {
+  return role === 'model' ? 'assistant' : 'user';
+}
 
 export async function POST({ request }) {
   try {
     const { message, history } = await request.json();
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const chat = model.startChat({
-      systemPrompt: SYSTEM_PROMPT,
-      history: history.map((msg: ChatMessage) => ({
-        role: msg.role,
-        parts: [{ text: msg.text }],
+
+    const messages = [
+      { role: 'system', content: SYSTEM_PROMPT },
+      ...history.map((msg: ChatMessage) => ({
+        role: mapRole(msg.role),
+        content: msg.text
       })),
-      generationConfig: {
-        maxOutputTokens: 1000,
-      },
+      { role: 'user', content: message }
+    ];
+
+    const result = await openAI.chat.completions.create({
+      model: 'gemini-1.5-flash',
+      messages
     });
 
-    const result = await chat.sendMessage(message);
-    const response = await result.response;
-    const text = response.text();
-    
-    return json({ success: true, text });
+    return json({ 
+      success: true, 
+      text: result.choices[0].message.content 
+    });
   } catch (error) {
     console.error('Error:', error);
     return json({ 
