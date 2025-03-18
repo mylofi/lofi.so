@@ -470,6 +470,12 @@
               "author": "Leon van Kammen / coderofsalvation",
               "url": "https://xrfragment.org",
               "icon": "https://xrfragment.org/example/assets/logo.svg"
+            },
+            {
+              "title": "PyScript LTK",
+              "author": "Chris Laffra",
+              "url": "https://github.com/pyscript/ltk",
+              "icon": "https://pyscript.net/assets/images/pyscript-sticker-black.svg"
             }
           ]
         }
@@ -566,6 +572,12 @@
               "author": "@jmeistrich",
               "url": "https://x.com/jmeistrich",
               "icon": "https://pbs.twimg.com/profile_images/509425693726224384/9TfNlE-Y_400x400.jpeg"
+            },
+            {
+              "title": "Chris Laffra",
+              "author": "@laffra",
+              "url": "https://chrislaffra.com",
+              "icon": "https://chrislaffra.com/chris.png"
             }
           ]
         },
@@ -660,6 +672,12 @@
               "author": "Jay Meistrich",
               "url": "https://www.legendapp.com/",
               "icon": "https://www.legendapp.com/img/Logomark_(White).svg"
+            },
+            {
+              "title": "PySheets",
+              "author": "Chris Laffra",
+              "url": "https://www.pysheets.app/",
+              "icon": "https://pysheets.app/favicon.ico"
             }
           ]
         }
