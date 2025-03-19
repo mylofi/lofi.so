@@ -108,16 +108,6 @@
 								<div class="flex flex-col space-y-2">
 									<button
 										class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
-											activeLearnTab === 'read'
-												? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
-												: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
-										}`}
-										on:click={() => setActiveLearnTab('read')}
-									>
-										Read
-									</button>
-									<button
-										class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
 											activeLearnTab === 'watch'
 												? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
 												: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
@@ -126,6 +116,17 @@
 									>
 										Watch
 									</button>
+									<button
+										class={`rounded-lg px-4 py-2 text-left text-sm font-medium transition-all duration-200 ${
+											activeLearnTab === 'read'
+												? 'bg-gray-100 text-primary shadow-sm dark:bg-gray-800'
+												: 'text-gray-500 hover:bg-gray-100/50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-white'
+										}`}
+										on:click={() => setActiveLearnTab('read')}
+									>
+										Read
+									</button>
+									
 								</div>
 							</div>
 
