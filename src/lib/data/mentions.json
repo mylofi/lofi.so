@@ -39,6 +39,24 @@
       "date": "2024-01-10",
       "url": "https://alexop.dev/posts/what-is-local-first-web-development/",
       "excerpt": "An exploration of local-first web development principles and how they're changing the way we build modern web applications with better user experience and data ownership."
+    },
+    {
+      "title": "Local-First Software: The Future of Web Development",
+      "author": "Changelog",
+      "platform": "TikTok",
+      "date": "2024-03-20",
+      "url": "https://www.tiktok.com/@changelog.com/video/7463154362609634590",
+      "excerpt": "A quick overview of local-first software and its impact on web development.",
+      "type": "video"
+    },
+    {
+      "title": "Local-First Software: Building Resilient Applications",
+      "author": "Changelog",
+      "platform": "YouTube",
+      "date": "2024-03-20",
+      "url": "https://www.youtube.com/watch?v=vLRtC53rwCg",
+      "excerpt": "An in-depth discussion about building resilient applications with local-first software principles.",
+      "type": "video"
     }
   ]
 } 

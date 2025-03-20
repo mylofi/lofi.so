@@ -55,10 +55,10 @@
 					Join
 				</a>
 				<a
-					href="#apps-to-try"
-					class="scroll-smooth rounded-md bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:bg-primary/90"
+					href="#apps"
+					class="scroll-smooth rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
 					on:click|preventDefault={(e) => {
-						const section = document.querySelector('#apps-to-try');
+						const section = document.querySelector('#apps');
 						if (section) {
 							section.scrollIntoView({ behavior: 'smooth' });
 						}

@@ -24,11 +24,17 @@
 		scrollY = window.scrollY;
 		isAtTop = scrollY < 20;
 
-		if (!isAtTop) {
-			isVisible = true;
+		// Only apply scroll-based visibility on the homepage
+		if ($page.url.pathname === '/') {
+			if (!isAtTop) {
+				isVisible = true;
+			} else {
+				isVisible = true;
+				lastScrollY = scrollY;
+			}
 		} else {
+			// Always visible on non-homepage routes
 			isVisible = true;
-			lastScrollY = scrollY;
 		}
 	}
 
@@ -61,13 +67,13 @@
 <svelte:window on:scroll={handleScroll} />
 
 <div
-	class="fixed left-0 right-0 z-40 transition-all duration-300 {!isAtTop
+	class="fixed left-0 right-0 z-40 transition-all duration-300 {!isAtTop || $page.url.pathname !== '/'
 		? 'bg-white/80 backdrop-blur-sm dark:bg-gray-900/80'
 		: ''}"
-	class:translate-y-[-100%]={!isVisible}
+	class:translate-y-[-100%]={!isVisible && $page.url.pathname === '/'}
 >
 	<nav
-		class="w-full border transition-all duration-300 {!isAtTop
+		class="w-full border transition-all duration-300 {!isAtTop || $page.url.pathname !== '/'
 			? 'border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80'
 			: 'border-transparent bg-transparent'}"
 	>
@@ -88,12 +94,12 @@
 				<div class="hidden md:flex items-center space-x-4">
 					<div
 						class="flex items-center space-x-4 transition-opacity duration-300"
-						class:opacity-0={isAtTop}
-						class:pointer-events-none={isAtTop}
+						class:opacity-0={isAtTop && $page.url.pathname === '/'}
+						class:pointer-events-none={isAtTop && $page.url.pathname === '/'}
 					>
 						<a
-							href="#apps-to-try"
-							on:click={(e) => scrollToSection(e, '#apps-to-try')}
+							href="#apps"
+							on:click={(e) => scrollToSection(e, '#apps')}
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Explore</a
 						>
@@ -102,6 +108,11 @@
 							on:click={(e) => scrollToSection(e, '#apps')}
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Build</a
+						>
+						<a
+							href="/learn"
+							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
+							>Learn</a
 						>
 						<a
 							href="/directory"
@@ -209,8 +220,8 @@
 			<div class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
 				<div class="space-y-1 px-4 py-3">
 					<a
-						href="#apps-to-try"
-						on:click={(e) => scrollToSection(e, '#apps-to-try')}
+						href="#apps"
+						on:click={(e) => scrollToSection(e, '#apps')}
 						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
 						>Explore</a
 					>
@@ -219,6 +230,11 @@
 						on:click={(e) => scrollToSection(e, '#apps')}
 						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
 						>Build</a
+					>
+					<a
+						href="/learn"
+						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
+						>Learn</a
 					>
 					<a
 						href="/directory"
