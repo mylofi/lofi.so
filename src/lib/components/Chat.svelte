@@ -32,24 +32,55 @@
 
   function handleClickOutside(event: MouseEvent) {
     if (!isFullScreen && chatWrapper && !chatWrapper.contains(event.target as Node)) {
+      const clickedElement = event.target as HTMLElement;
+      const closestAnchor = clickedElement.closest('a');
+      
+      if (closestAnchor) {
+        return;
+      }
+      
       chatStore.toggleChat();
     }
   }
 
   function toggleFullScreen() {
     isFullScreen = !isFullScreen;
-    // Toggle body scroll
     document.body.style.overflow = isFullScreen ? 'hidden' : '';
   }
 
+  let clickOutsideCleanup: (() => void) | null = null;
+
+  $: {
+    if ($chatStore.isOpen && !clickOutsideCleanup) {
+      document.addEventListener('mousedown', handleClickOutside);
+      clickOutsideCleanup = () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    } else if (!$chatStore.isOpen && clickOutsideCleanup) {
+      clickOutsideCleanup();
+      clickOutsideCleanup = null;
+    }
+  }
+
   onMount(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    // Ensure we clean up all event listeners when component is destroyed
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      // restore scrolling when component is destroyed
+      if (clickOutsideCleanup) {
+        clickOutsideCleanup();
+      }
+      if (chatContainer) {
+        chatContainer.removeEventListener("scroll", handleScroll);
+      }
       document.body.style.overflow = '';
     };
   });
+
+  let scrollListenerAdded = false;
+  
+  $: if (chatContainer && !scrollListenerAdded) {
+    chatContainer.addEventListener("scroll", handleScroll);
+    scrollListenerAdded = true;
+  }
 
   // Auto scroll to bottom when new messages arrive
   let shouldAutoScroll = true;
@@ -75,11 +106,6 @@
       messageElements[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-
-  onMount(() => {
-    chatContainer.addEventListener("scroll", handleScroll);
-    return () => chatContainer.removeEventListener("scroll", handleScroll);
-  });
 
   // Handle new messages and scrolling
   $: {
