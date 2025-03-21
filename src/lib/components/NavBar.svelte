@@ -98,18 +98,6 @@
 						class:pointer-events-none={isAtTop && $page.url.pathname === '/'}
 					>
 						<a
-							href="#apps"
-							on:click={(e) => scrollToSection(e, '#apps')}
-							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-							>Explore</a
-						>
-						<a
-							href="#apps"
-							on:click={(e) => scrollToSection(e, '#apps')}
-							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
-							>Build</a
-						>
-						<a
 							href="/learn"
 							class="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-primary"
 							>Learn</a
@@ -219,18 +207,6 @@
 		{#if isMenuOpen}
 			<div class="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
 				<div class="space-y-1 px-4 py-3">
-					<a
-						href="#apps"
-						on:click={(e) => scrollToSection(e, '#apps')}
-						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
-						>Explore</a
-					>
-					<a
-						href="#apps"
-						on:click={(e) => scrollToSection(e, '#apps')}
-						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"
-						>Build</a
-					>
 					<a
 						href="/learn"
 						class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100 hover:text-primary dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-primary"

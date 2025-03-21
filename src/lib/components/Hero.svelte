@@ -55,20 +55,40 @@
 					Join
 				</a>
 				<a
-					href="#apps"
+					href="#explore"
 					class="scroll-smooth rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
 					on:click|preventDefault={(e) => {
-						const section = document.querySelector('#apps');
-						if (section) {
-							section.scrollIntoView({ behavior: 'smooth' });
+						const exploreSection = document.getElementById('explore');
+						if (exploreSection) {
+							const navHeight = 100;
+							const elementPosition = exploreSection.getBoundingClientRect().top;
+							const offsetPosition = elementPosition + window.scrollY - navHeight;
+							
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: 'smooth'
+							});
 						}
 					}}
 				>
 					Explore
 				</a>
 				<a
-					href="/directory"
+					href="#directory"
 					class="rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+					on:click|preventDefault={(e) => {
+						const section = document.getElementById('directory');
+						if (section) {
+							const navHeight = 100;
+							const elementPosition = section.getBoundingClientRect().top;
+							const offsetPosition = elementPosition + window.scrollY - navHeight;
+							
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: 'smooth'
+							});
+						}
+					}}
 				>
 					Directory
 				</a>
