@@ -35,7 +35,7 @@
 </script>
 
 {#if eventData && eventData.eventNumber}
-	<main id="graphic" class="flex min-h-screen items-center justify-center p-4 lg:h-screen">
+	<main id="graphic" class="flex items-center justify-center p-4">
 		<div
 			class="lg:scale-90 relative flex h-fit w-fit origin-top scale-[0.8] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white sm:scale-65 md:scale-75 lg:flex-row"
 		>
