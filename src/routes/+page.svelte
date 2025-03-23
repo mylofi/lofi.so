@@ -97,8 +97,8 @@
 							<h3 class="text-2xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Join Us</h3>
 						</div>
 						<div class="pt-6 md:block rounded-lg mb-2">
-							<div class="flex flex-col items-center justify-between gap-8 md:flex-row">
-								<div class="flex-1">
+							<div class="flex flex-col items-center justify-center md:flex-row">
+								<div class="w-full max-w-4xl mx-auto">
 									<EventGraphic eventData={eventDataForGraphic} />
 								</div>
 							</div>
@@ -326,25 +326,73 @@
 						<h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Sponsors</h2>
 						<div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
 					</div>
-					<div class="relative space-y-8">
-						<div class="grid gap-8 md:grid-cols-2 justify-items-center">
-							{#each sponsors as sponsor}
+					<div class="relative space-y-12">
+						<!-- Partners Row -->
+						<div class="flex flex-wrap justify-center gap-8">
+							{#each sponsors.filter(s => s.tier === 'Partner') as sponsor}
 								<a 
 									href={sponsor.url} 
 									target="_blank" 
 									rel="noopener noreferrer" 
-									class="block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10 w-full"
+									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
+									style="height: 150px; width: 300px;"
 								>
-									<img 
-										src={sponsor.image} 
-										alt={sponsor.name} 
-										class="h-14 w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert transition-all duration-300 hover:opacity-100 hover:grayscale-0 hover:brightness-100 hover:invert-0" 
-									/>
+									<div class="flex h-full w-full items-center justify-center">
+										<img 
+											src={sponsor.image} 
+											alt={sponsor.name} 
+											style="max-height: 110px;"
+											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
+										/>
+									</div>
+								</a>
+							{/each}
+						</div>
+						
+						<!-- Platinum Row -->
+						<div class="flex flex-wrap justify-center gap-8">
+							{#each sponsors.filter(s => s.tier === 'Platinum') as sponsor}
+								<a 
+									href={sponsor.url} 
+									target="_blank" 
+									rel="noopener noreferrer" 
+									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
+									style="height: 120px; width: 250px;"
+								>
+									<div class="flex h-full w-full items-center justify-center">
+										<img 
+											src={sponsor.image} 
+											alt={sponsor.name} 
+											style="max-height: 80px;"
+											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
+										/>
+									</div>
+								</a>
+							{/each}
+						</div>
+						
+						<!-- Gold Row -->
+						<div class="flex flex-wrap justify-center gap-8">
+							{#each sponsors.filter(s => s.tier === 'Gold') as sponsor}
+								<a 
+									href={sponsor.url} 
+									target="_blank" 
+									rel="noopener noreferrer" 
+									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
+									style="height: 90px; width: 200px;"
+								>
+									<div class="flex h-full w-full items-center justify-center">
+										<img 
+											src={sponsor.image} 
+											alt={sponsor.name}
+											style="max-height: 50px;" 
+											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
+										/>
+									</div>
 								</a>
 							{/each}
 						</div>
 					</div>
-					
 				</section>
 			</div>
 		</div>
