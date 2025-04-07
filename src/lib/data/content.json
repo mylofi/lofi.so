@@ -234,6 +234,12 @@
               "icon": "https://socketsupply.co/images/monogram.svg"
             },
             {
+              "title": "Soukai",
+              "author": "Noel De Martin",
+              "url": "https://soukai.js.org",
+              "icon": "https://soukai.js.org/img/logo.svg"
+            },
+            {
               "title": "SyncedStore",
               "author": "Yousef El-Dardiry",
               "url": "https://syncedstore.org",
@@ -678,6 +684,12 @@
               "author": "Chris Laffra",
               "url": "https://www.pysheets.app/",
               "icon": "https://pysheets.app/favicon.ico"
+            },
+            {
+              "title": "Umai",
+              "author": "Noel De Martin",
+              "url": "https://umai.noeldemartin.com",
+              "icon": "https://noeldemartin.com/logos/umai-small.svg"
             }
           ]
         }
