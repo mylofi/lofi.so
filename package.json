@@ -3,6 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "yarn@3.6.3",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -30,6 +31,7 @@
 		"jsdom": "^26.0.0",
 		"marked": "^15.0.7",
 		"mdsvex": "^0.12.3",
+		"postcss": "^8.5.3",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.10",
