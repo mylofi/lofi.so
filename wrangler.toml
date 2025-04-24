@@ -1,3 +1,10 @@
 name = "localfirstweb-dev"
 compatibility_date = "2025-04-24"
-compatibility_flags = ["nodejs_compat"] 
+compatibility_flags = ["nodejs_compat"]
+
+[build]
+command = "npm run build"
+
+# Specify output directory for Pages
+[build.upload]
+format = "service-worker"
