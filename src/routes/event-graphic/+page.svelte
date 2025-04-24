@@ -28,6 +28,7 @@
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
+				customImageUrl: '',
 				talk: '',
 				bio: '',
 				talkPoints: ['', '', ''],
@@ -110,6 +111,17 @@
 		
 		formData.speakers[index].error = '';
 		
+		// Handle custom image URL
+		if (speaker.profileImagePlatform === 'custom') {
+			if (speaker.customImageUrl) {
+				formData.speakers[index].image = speaker.customImageUrl;
+			} else {
+				formData.speakers[index].image = '';
+			}
+			formData = { ...formData };
+			return;
+		}
+		
 		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
@@ -158,6 +170,7 @@
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
+				customImageUrl: '',
 				talk: '',
 				bio: '',
 				talkPoints: ['', '', ''],
@@ -429,6 +442,7 @@
 										>
 											<option value="twitter">Use Twitter</option>
 											<option value="bluesky">Use Bluesky</option>
+											<option value="custom">Use Custom Image URL</option>
 										</select>
 									</div>
 
@@ -445,6 +459,21 @@
 												class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 											/>
 											<p class="mt-1 text-xs text-gray-500">Leave empty to use Twitter handle</p>
+										</div>
+									{/if}
+
+									{#if speaker.profileImagePlatform === 'custom'}
+										<div>
+											<label class="block text-sm font-medium text-gray-700">
+												Custom Image URL
+											</label>
+											<input
+												type="url"
+												bind:value={speaker.customImageUrl}
+												placeholder="https://example.com/image.jpg"
+												on:change={() => handleSocialHandleChange(i)}
+												class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+											/>
 										</div>
 									{/if}
 								</div>
