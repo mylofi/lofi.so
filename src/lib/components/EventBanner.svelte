@@ -6,6 +6,9 @@
 
 	export let eventData: EventData | null = null;
 
+	// Check if event date is in the future
+	$: isUpcomingEvent = eventData?.date ? new Date(eventData.date) > new Date() : false;
+
 	$: formattedDate = eventData?.date ? new Date(eventData.date).toLocaleDateString('en-US', {
 		weekday: 'short',
 		day: 'numeric',
@@ -25,7 +28,7 @@
 </script>
 
 <div class="contents">
-	{#if $isBannerVisible && eventData?.eventNumber}
+	{#if $isBannerVisible && eventData?.eventNumber && isUpcomingEvent}
 		<div
 			class="fixed left-0 right-0 top-0 z-50 h-9 bg-primary text-white transition-all duration-300"
 		>
@@ -96,6 +99,6 @@
 <!-- spacer div that adjusts based on banner visibility -->
 <div
 	class="transition-all duration-300"
-	class:h-9={$isBannerVisible && eventData?.eventNumber}
-	class:h-0={!$isBannerVisible || !eventData?.eventNumber}
+	class:h-9={$isBannerVisible && eventData?.eventNumber && isUpcomingEvent}
+	class:h-0={!$isBannerVisible || !eventData?.eventNumber || !isUpcomingEvent}
 ></div>

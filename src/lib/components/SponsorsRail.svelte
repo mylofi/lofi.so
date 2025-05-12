@@ -33,6 +33,9 @@
 	} : undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
+	
+	// Check if the event date has passed
+	$: isEventPassed = eventData ? new Date(eventData.date) < new Date() : false;
 
 	$: sponsorsByTier = sponsors.reduce(
 		(acc, sponsor) => {
@@ -64,21 +67,31 @@
 					>
 						<div class="mb-4 flex items-center gap-3">
 							<div class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-primary/20">
-								<svg
-									class="h-5 w-5 text-primary"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-									/>
-								</svg>
+								{#if isEventPassed}
+									<svg
+										class="h-5 w-5 text-primary"
+										fill="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+									</svg>
+								{:else}
+									<svg
+										class="h-5 w-5 text-primary"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+										/>
+									</svg>
+								{/if}
 							</div>
-							<span class="text-sm font-medium text-primary">Next Event</span>
+							<span class="text-sm font-medium text-primary">{isEventPassed ? 'Last Meetup' : 'Next Event'}</span>
 						</div>
 						
 						<a href={activeNextEvent.url} class="group mb-4 block">
@@ -91,17 +104,44 @@
 						</a>
 
 						<div class="border-t dark:border-white/10 border-gray-200 pt-4">
-							<a
-								href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
-								class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								<svg class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-								</svg>
-								Watch Previous Meetups
-							</a>
+							{#if isEventPassed}
+								<div class="flex flex-col gap-2">
+									<a
+										href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
+										class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<svg class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="currentColor">
+											<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+										</svg>
+										Catch up on this event
+									</a>
+									<a
+										href="https://discord.gg/localfirst"
+										class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<svg class="h-4 w-4 text-discord group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="currentColor">
+											<path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
+										</svg>
+										Join Discord for next event updates
+									</a>
+								</div>
+							{:else}
+								<a
+									href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
+									class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<svg class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+									</svg>
+									Watch Previous Meetups
+								</a>
+							{/if}
 						</div>
 					</div>
 				{/if}
