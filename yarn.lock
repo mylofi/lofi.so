@@ -1380,6 +1380,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gtag.js@npm:^0.0.20":
+  version: 0.0.20
+  resolution: "@types/gtag.js@npm:0.0.20"
+  checksum: 02e16dcaa64ad643e9c78bd0bd041e2b01b9ac4aea0da5bcbd226442a38c8d44f9a50bbc70d0c8219afc455e9850b6af73d4152f52f8bd61f81c8ba32efec42f
+  languageName: node
+  linkType: hard
+
 "@types/marked@npm:^5.0.2":
   version: 5.0.2
   resolution: "@types/marked@npm:5.0.2"
@@ -3026,6 +3033,7 @@ __metadata:
     "@sveltejs/vite-plugin-svelte": ^5.0.0
     "@tailwindcss/aspect-ratio": ^0.4.2
     "@tailwindcss/typography": ^0.5.16
+    "@types/gtag.js": ^0.0.20
     "@types/marked": ^5.0.2
     "@types/node": ^22.13.4
     "@vercel/kv": ^3.0.0
