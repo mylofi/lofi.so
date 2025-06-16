@@ -155,7 +155,7 @@
 	<!-- Resources Section -->
 	<div class="grid md:grid-cols-3 gap-6 mt-10">
 		<!-- Community -->
-		<a href="https://discord.gg/localfirst" target="_blank" rel="noopener noreferrer" 
+		<a href="https://discord.gg/lofi-so" target="_blank" rel="noopener noreferrer" 
 		   class="group flex flex-col p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all hover:border-primary/20">
 			<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" viewBox="0 0 20 20" fill="currentColor">

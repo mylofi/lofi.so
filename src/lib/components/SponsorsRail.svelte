@@ -118,7 +118,7 @@
 										Catch up on this event
 									</a>
 									<a
-										href="https://discord.gg/localfirst"
+										href="https://discord.gg/lofi-so"
 										class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
 										target="_blank"
 										rel="noopener noreferrer"

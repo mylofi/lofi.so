@@ -242,7 +242,7 @@
 						Catch Up on Past Events
 					</a>
 					<a
-						href="https://discord.gg/localfirst"
+						href="https://discord.gg/lofi-so"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="inline-flex items-center justify-center gap-2 rounded-lg bg-discord px-4 py-2 text-white transition hover:bg-discord/90"
