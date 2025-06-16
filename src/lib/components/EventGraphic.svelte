@@ -2,6 +2,7 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import type { EventData } from '$lib/server/kv';
+	import sponsorsData from '$lib/data/sponsors.json';
 
 	interface Speaker {
 		name: string;
@@ -11,6 +12,9 @@
 	}
 
 	export let eventData: EventData | null = null;
+	
+	// Get sponsors from the data file
+	const sponsors = sponsorsData.sponsors;
 
 	$: formattedDate = eventData?.date ? formatDate(eventData.date) : '';
 	$: formattedTime = eventData?.time ? formatTime(eventData.time) : '';
@@ -159,7 +163,7 @@
 			</section>
 
 			<!-- Call to Action Section -->
-			<section class="relative flex w-full flex-col gap-3 p-2 sm:gap-4 sm:p-3 lg:w-auto">
+			<section class="relative flex w-full flex-col gap-5 p-2 sm:gap-10 sm:p-3 lg:w-auto">
 				<!-- <h3 class="m-0 text-center text-lg font-semibold text-white sm:text-xl lg:text-2xl">
 					{#if isEventPassed}
 						Watch the Recording
@@ -167,34 +171,27 @@
 						Join Us!
 					{/if}
 				</h3> -->
-				<!-- QR Code or Thumbnail Section -->
-				<div class="hidden flex-col items-center gap-2 lg:flex">
-					{#if isEventPassed}
-						<div class="relative h-32 w-32 overflow-hidden rounded-lg bg-black">
-							<img
-								src="https://img.youtube.com/vi/placeholder/0.jpg"
-								alt="Event Recording Thumbnail"
-								class="h-full w-full object-cover"
-							/>
-							<div class="absolute inset-0 flex items-center justify-center bg-black/30">
-								<div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600">
-									<svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-										<path d="M8 5v14l11-7z"/>
-									</svg>
-								</div>
-							</div>
-						</div>
-					{:else}
-						<div class="h-24 w-24 rounded-lg bg-white p-2 sm:h-28 sm:w-28 lg:h-32 lg:w-32">
-							<img
-								src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${eventData.registrationUrl}`}
-								alt="Event QR Code"
-								class="h-full w-full"
-							/>
-						</div>
-						<span class="text-sm text-white/90">Scan for details</span>
-					{/if}
+				<!-- Sponsors Section -->
+				<div class="hidden flex-col items-center gap-4 lg:flex">
+					<h4 class="text-center text-lg font-bold text-white/90">Sponsored by</h4>
+					<div class="flex flex-col items-center gap-4">
+						{#each sponsors as sponsor}
+							<a 
+								href={sponsor.url} 
+								target="_blank" 
+								rel="noopener noreferrer"
+								class="transition hover:opacity-90"
+							>
+								<img 
+									src={sponsor.image} 
+									alt={sponsor.name} 
+									class="h-auto w-24 max-h-12 object-contain {sponsor.tier === 'Partner' ? 'max-h-16 w-32' : ''}"
+								/>
+							</a>
+						{/each}
+					</div>
 				</div>
+				
 				<!-- Action Buttons -->
 				<div class="flex w-full flex-col items-center gap-3">
 					{#if isEventPassed}
