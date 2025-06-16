@@ -114,7 +114,27 @@
 		// Handle custom image URL
 		if (speaker.profileImagePlatform === 'custom') {
 			if (speaker.customImageUrl) {
-				formData.speakers[index].image = speaker.customImageUrl;
+				try {
+					// Upload to ImgBB
+					const response = await fetch('/api/imgbb-upload', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ imageUrl: speaker.customImageUrl })
+					});
+					
+					if (!response.ok) {
+						const errorData = await response.json();
+						throw new Error(errorData.error || 'Failed to upload image');
+					}
+					
+					const data = await response.json();
+					formData.speakers[index].image = data.imageUrl;
+					formData.speakers[index].error = '';
+				} catch (error) {
+					formData.speakers[index].image = '';
+					formData.speakers[index].error = error instanceof Error ? 
+						error.message : 'Failed to upload image to ImgBB';
+				}
 			} else {
 				formData.speakers[index].image = '';
 			}
