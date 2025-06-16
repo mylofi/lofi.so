@@ -185,7 +185,7 @@
 								<img 
 									src={sponsor.image} 
 									alt={sponsor.name} 
-									class="h-auto w-24 max-h-12 object-contain {sponsor.tier === 'Partner' ? 'max-h-16 w-32' : ''}"
+									class="h-auto w-24 max-h-12 object-contain {sponsor.tier === 'Partner' ? 'max-h-20 w-32' : ''}"
 								/>
 							</a>
 						{/each}

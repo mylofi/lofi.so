@@ -11,28 +11,28 @@
     {
       "name": "Vella.ai",
       "image": "https://i.ibb.co/n0NvSG2/vella-logo.png",
-      "url": "https://vella.ai",
-      "tier": "Partner",
+      "url": "https://vella.ai?utm_source=lofi_so",
+      "tier": "Gold",
       "amount": 5000
     },
     {
       "name": "Electric SQL",
       "image": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
-      "url": "https://electric-sql.com",
+      "url": "https://electric-sql.com?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     },
     {
       "name": "Jazz",
       "image": "https://i.ibb.co/M5C7xQRB/jazz.png",
-      "url": "https://jazz.tools",
+      "url": "https://jazz.tools?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     },
     {
       "name": "Zero",
-      "image": "https://i.ibb.co/pBscxHNw/zero-icon.png",
-      "url": "https://0.email",
+      "image": "https://i.ibb.co/WNHXCJNm/rocicorp-zero.png",
+      "url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     }
