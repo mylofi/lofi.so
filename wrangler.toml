@@ -1,4 +1,4 @@
 name = "lofi-so"
 compatibility_date = "2025-04-24"
-compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".sveltekit/cloudflare"
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
