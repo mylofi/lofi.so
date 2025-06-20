@@ -28,6 +28,7 @@
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
+				customImageUrl: '',
 				talk: '',
 				bio: '',
 				talkPoints: ['', '', ''],
@@ -110,6 +111,37 @@
 		
 		formData.speakers[index].error = '';
 		
+		// Handle custom image URL
+		if (speaker.profileImagePlatform === 'custom') {
+			if (speaker.customImageUrl) {
+				try {
+					// Upload to ImgBB
+					const response = await fetch('/api/imgbb-upload', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({ imageUrl: speaker.customImageUrl })
+					});
+					
+					if (!response.ok) {
+						const errorData = await response.json();
+						throw new Error(errorData.error || 'Failed to upload image');
+					}
+					
+					const data = await response.json();
+					formData.speakers[index].image = data.imageUrl;
+					formData.speakers[index].error = '';
+				} catch (error) {
+					formData.speakers[index].image = '';
+					formData.speakers[index].error = error instanceof Error ? 
+						error.message : 'Failed to upload image to ImgBB';
+				}
+			} else {
+				formData.speakers[index].image = '';
+			}
+			formData = { ...formData };
+			return;
+		}
+		
 		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
@@ -158,6 +190,7 @@
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
+				customImageUrl: '',
 				talk: '',
 				bio: '',
 				talkPoints: ['', '', ''],
@@ -429,6 +462,7 @@
 										>
 											<option value="twitter">Use Twitter</option>
 											<option value="bluesky">Use Bluesky</option>
+											<option value="custom">Use Custom Image URL</option>
 										</select>
 									</div>
 
@@ -445,6 +479,21 @@
 												class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 											/>
 											<p class="mt-1 text-xs text-gray-500">Leave empty to use Twitter handle</p>
+										</div>
+									{/if}
+
+									{#if speaker.profileImagePlatform === 'custom'}
+										<div>
+											<label class="block text-sm font-medium text-gray-700">
+												Custom Image URL
+											</label>
+											<input
+												type="url"
+												bind:value={speaker.customImageUrl}
+												placeholder="https://example.com/image.jpg"
+												on:change={() => handleSocialHandleChange(i)}
+												class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+											/>
 										</div>
 									{/if}
 								</div>

@@ -11,42 +11,28 @@
     {
       "name": "Vella.ai",
       "image": "https://i.ibb.co/n0NvSG2/vella-logo.png",
-      "url": "https://vella.ai",
-      "tier": "Partner",
-      "amount": 5000
-    },
-    {
-      "name": "StackBlitz",
-      "image": "https://images.seeklogo.com/logo-png/44/2/stackblitz-icon-logo-png_seeklogo-444239.png",
-      "url": "https://stackblitz.com",
-      "tier": "Platinum",
-      "amount": 2000
-    },
-    {
-      "name": "Astro",
-      "image": "https://astro.build/assets/press/logomark-light.svg",
-      "url": "https://astro.build",
+      "url": "https://vella.ai?utm_source=lofi_so",
       "tier": "Gold",
-      "amount": 1000
+      "amount": 5000
     },
     {
       "name": "Electric SQL",
       "image": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
-      "url": "https://electric-sql.com",
+      "url": "https://electric-sql.com?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     },
     {
-      "name": "Storyblok",
-      "image": "https://www.storyblok.com/favicon.svg",
-      "url": "https://www.storyblok.com",
+      "name": "Jazz",
+      "image": "https://i.ibb.co/M5C7xQRB/jazz.png",
+      "url": "https://jazz.tools?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     },
     {
-      "name": "Bit",
-      "image": "https://static.bit.dev/bit-logo.svg",
-      "url": "https://bit.dev",
+      "name": "Zero",
+      "image": "https://i.ibb.co/WNHXCJNm/rocicorp-zero.png",
+      "url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
       "tier": "Gold",
       "amount": 1000
     }

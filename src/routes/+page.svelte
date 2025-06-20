@@ -18,6 +18,9 @@
 	// Add state for active tab
 	let activeTab = 'storage';
 	
+	// State for explore header animation
+	let isScrolled = false;
+	
 	// Get read and watch content
 	const readContent = content[0].sections.find((s) => s.title === 'Things to read')?.items || [];
 	const watchContent = [
@@ -62,6 +65,23 @@
 				});
 			}
 		}
+		
+		// Add scroll event listener for explore header animation
+		const exploreSection = document.getElementById('explore');
+		const exploreStickyHeader = document.getElementById('explore-header');
+		const navbarHeight = document.documentElement.style.getPropertyValue('--navbar-height') || '80px';
+		const navHeight = parseInt(navbarHeight) || 80;
+		
+		if (exploreSection && exploreStickyHeader) {
+			window.addEventListener('scroll', () => {
+				const scrollPosition = window.scrollY;
+				const exploreSectionTop = exploreSection.offsetTop;
+				const exploreSectionRect = exploreSection.getBoundingClientRect();
+				
+				// Check if the section has reached the navbar
+				isScrolled = exploreSectionRect.top <= navHeight;
+			});
+		}
 	});
 </script>
 
@@ -78,13 +98,14 @@
 				<section id="explore" class="relative">
 					<!-- Main Sticky Header -->
 					<div
-						class="sticky top-[calc(var(--navbar-height)-1rem)] z-30 bg-white dark:bg-gray-900 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 mb-16 py-6"
+						id="explore-header"
+						class="sticky top-[calc(var(--navbar-height)-1rem)] z-30 bg-white dark:bg-gray-900 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 mb-16 py-6 transition-all duration-300 ease-in-out"
 					>
-						<div class="px-4 text-center">
-							<h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+						<div class="px-4 transition-all duration-300 ease-in-out text-center">
+							<h2 class="transition-all duration-300 ease-in-out bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent font-bold mb-4 text-gray-900 dark:text-white" class:text-3xl={!isScrolled} class:text-xl={isScrolled}>
 								Explore
 							</h2>
-							<div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+							<div class="h-1 bg-primary rounded-full transition-all duration-300 ease-in-out mx-auto" class:w-20={!isScrolled} class:w-12={isScrolled}></div>
 						</div>
 					</div>
 

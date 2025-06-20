@@ -8,14 +8,14 @@
 			<p class="text-lg text-gray-600 dark:text-gray-300">
 				Something missing?
 				<a
-					href="https://github.com/Dagmawi-Y/localfirstweb/blob/main/src/lib/data/content.json"
+					href="https://github.com/mylofi/lofi.so/blob/main/src/lib/data/content.json"
 					class="text-gray-900 underline transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
 				>
 					<span class="inline-block text-primary">✍️ Edit the lists</span>
 				</a>
 				or
 				<a
-					href="https://github.com/Dagmawi-Y/localfirstweb"
+					href="https://github.com/mylofi/lofi.so"
 					class="text-gray-900 underline transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
 				>
 					<span class="inline-block text-primary">🎨 redesign the page!</span>

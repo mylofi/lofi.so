@@ -24,6 +24,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/typography": "^0.5.16",
+		"@types/gtag.js": "^0.0.20",
 		"@types/marked": "^5.0.2",
 		"@types/node": "^22.13.4",
 		"autoprefixer": "^10.4.20",
