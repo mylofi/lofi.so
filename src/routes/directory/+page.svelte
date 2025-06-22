@@ -3,6 +3,7 @@
     import categoryJson from '$lib/data/directory/Category.json';
     import type { DirectoryData, CategoryData } from '$lib/types/directory';
     import { activeCategory } from '$lib/stores/categoryStore';
+    import { searchQuery } from '$lib/stores/directorySearchStore';
     
     const items = (itemJson as DirectoryData).records;
     const categories = (categoryJson as CategoryData).records;
@@ -19,12 +20,22 @@
     
     const allCategories = ["All", ...categoryNames].sort();
     
-    $: filteredItems = $activeCategory === "All" 
-        ? items 
-        : items.filter(item => {
+    $: filteredItems = items.filter(item => {
+        // Filter by category
+        const categoryFilter = $activeCategory === "All" || (() => {
             const categoryId = categories.find(c => c.fields.Name === $activeCategory)?.id;
             return categoryId && item.fields.Categories?.includes(categoryId);
-        });
+        })();
+        
+        // Filter by search query
+        const searchFilter = $searchQuery === '' || [
+            item.fields.Title,
+            item.fields.description,
+            item.fields.author
+        ].some(field => field?.toLowerCase().includes($searchQuery.toLowerCase()));
+        
+        return categoryFilter && searchFilter;
+    });
 </script>
 
 <div class="max-w-7xl mx-auto px-8">
@@ -35,6 +46,25 @@
         <p class="text-gray-600 dark:text-gray-400">
             Discover and explore software that puts users first through local data ownership, seamless sync, and offline capabilities.
         </p>
+    </div>
+
+    <!-- Search bar -->
+    <div class="mb-6">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input
+                type="search"
+                bind:value={$searchQuery}
+                class="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:outline-none
+                    dark:bg-gray-800 dark:border-gray-700 
+                       dark:placeholder-gray-400 dark:text-white"
+                placeholder="Search apps and projects..."
+            />
+        </div>
     </div>
 
     <!-- Category filters -->
@@ -79,4 +109,11 @@
             </a>
         {/each}
     </div>
+    
+    <!-- No results message -->
+    {#if filteredItems.length === 0}
+        <div class="text-center py-12">
+            <p class="text-gray-600 dark:text-gray-400">No items found matching your criteria.</p>
+        </div>
+    {/if}
 </div> 
