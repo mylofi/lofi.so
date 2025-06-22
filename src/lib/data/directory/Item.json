@@ -3,6 +3,20 @@
       {
         "id": 1,
         "fields": {
+          "Main_Category": 3,
+          "Title": "Zero",
+          "slug": "zero",
+          "author": "Rocicorp",
+          "url": "https://zero.rocicorp.dev",
+          "icon": "https://pbs.twimg.com/profile_images/1868725523267878912/BlAYEcqM_400x400.jpg",
+          "description": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 1,
+        "fields": {
           "Main_Category": 1,
           "Title": "Actual",
           "slug": "actual",
@@ -93,7 +107,7 @@
           "author": "Fig",
           "url": "https://figwealth.io",
           "icon": "https://figwealth.io/assets/favicon/apple-touch-icon.png",
-          "description": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA’s, as well as expense management tools for day-to-day finances.",
+          "description": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA's, as well as expense management tools for day-to-day finances.",
           "Categories": ["L", 38],
           "Uses": ["L", 6]
         }
@@ -149,7 +163,7 @@
           "author": "Obsidian",
           "url": "https://obsidian.md",
           "icon": "https://obsidian.md/apple-touch-icon.png",
-          "description": "Obsidian is the private and flexible note‑taking app that adapts to the way you think.",
+          "description": "Obsidian is the private and flexible note-taking app that adapts to the way you think.",
           "Categories": ["L", 2],
           "Uses": null
         }
@@ -832,7 +846,7 @@
           "Main_Category": 1,
           "Title": "Textorama",
           "slug": "textorama",
-          "author": "Jo√£o Melo",
+          "author": "João Melo",
           "url": "https://textorama.melo.plus/",
           "icon": "https://textorama.melo.plus/android-chrome-192x192.png",
           "description": "Textorama is a modest text editor. It works with plain text files in your file system.",
@@ -879,6 +893,62 @@
           "icon": "https://avatars.githubusercontent.com/u/79505?s=200&v=4",
           "description": "TiddlyWiki is a complete interactive wiki in JavaScript. It can be used as a single HTML file in the browser or as a powerful Node.js application. It is highly customisable - the entire user interface is itself implemented in hackable WikiText.",
           "Categories": ["L", 2, 37, 12],
+          "Uses": null
+        }
+      },
+      {
+        "id": 74,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Jazz Tools",
+          "slug": "jazz-tools",
+          "author": "Anselm / Garden Computing",
+          "url": "https://jazz.tools/",
+          "icon": "https://jazz.tools/favicon.ico",
+          "description": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 75,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Soukai",
+          "slug": "soukai",
+          "author": "Noel De Martin",
+          "url": "https://soukai.js.org",
+          "icon": "https://soukai.js.org/img/logo.svg",
+          "description": "A refreshing JavaScript ODM for Solid, IndexedDB, and more.",
+          "Categories": ["L", 37, 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 76,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "PySheets",
+          "slug": "pysheets",
+          "author": "Chris Laffra",
+          "url": "https://www.pysheets.app/",
+          "icon": "https://pysheets.app/favicon.ico",
+          "description": "A spreadsheet application powered by Python that works locally in your browser.",
+          "Categories": ["L", 37],
+          "Uses": null
+        }
+      },
+      {
+        "id": 77,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Umai",
+          "slug": "umai",
+          "author": "Noel De Martin",
+          "url": "https://umai.noeldemartin.com",
+          "icon": "https://noeldemartin.com/logos/umai-small.svg",
+          "description": "A local-first recipe manager application.",
+          "Categories": ["L", 37],
           "Uses": null
         }
       }
