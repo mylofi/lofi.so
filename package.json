@@ -15,7 +15,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check .",
 		"generate-search-index": "node scripts/generate-search-index.js",
-		"prebuild": "npm run generate-search-index"
+		"prebuild": "npm run generate-search-index",
+		"deploy": "npx wrangler pages deploy .svelte-kit/cloudflare"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "^7.0.1",

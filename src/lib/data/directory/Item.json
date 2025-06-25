@@ -15,6 +15,34 @@
         }
       },
       {
+        "id": 21,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "ElectricSQL",
+          "slug": "electricsql",
+          "author": "ElectricSQL team",
+          "url": "https://electric-sql.com",
+          "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
+          "description": "Sync little subsets of your Postgres data into local apps and services.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 74,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Jazz Tools",
+          "slug": "jazz-tools",
+          "author": "Anselm / Garden Computing",
+          "url": "https://jazz.tools/",
+          "icon": "https://jazz.tools/favicon.ico",
+          "description": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
         "id": 1,
         "fields": {
           "Main_Category": 1,
@@ -291,20 +319,6 @@
           "icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg",
           "description": "dat-ecosystem is a post-web p2p community of projects - Most projects are self funded. Some of the projects contribute maintainance and development to core pieces of the Dat ecosystem while others create high level applications built on top of p2p protocols.",
           "Categories": ["L", 39, 41],
-          "Uses": null
-        }
-      },
-      {
-        "id": 21,
-        "fields": {
-          "Main_Category": 3,
-          "Title": "ElectricSQL",
-          "slug": "electricsql",
-          "author": "ElectricSQL team",
-          "url": "https://electric-sql.com",
-          "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
-          "description": "Sync little subsets of your Postgres data into local apps and services.",
-          "Categories": ["L", 39],
           "Uses": null
         }
       },
@@ -893,20 +907,6 @@
           "icon": "https://avatars.githubusercontent.com/u/79505?s=200&v=4",
           "description": "TiddlyWiki is a complete interactive wiki in JavaScript. It can be used as a single HTML file in the browser or as a powerful Node.js application. It is highly customisable - the entire user interface is itself implemented in hackable WikiText.",
           "Categories": ["L", 2, 37, 12],
-          "Uses": null
-        }
-      },
-      {
-        "id": 74,
-        "fields": {
-          "Main_Category": 3,
-          "Title": "Jazz Tools",
-          "slug": "jazz-tools",
-          "author": "Anselm / Garden Computing",
-          "url": "https://jazz.tools/",
-          "icon": "https://jazz.tools/favicon.ico",
-          "description": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
-          "Categories": ["L", 41],
           "Uses": null
         }
       },
