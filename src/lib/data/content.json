@@ -649,11 +649,17 @@
               "url": "https://gnocchi.club",
               "icon": "https://gnocchi.club/android-chrome-512x512.png"
             },
-             {
+            {
               "title": "Obsidian",
               "author": "Dyynalist inc",
               "url": "https://obsidian.md",
               "icon": "https://obsidian.md/images/2023-06-logo.png"
+            },
+            {
+              "title": "Kinopio",
+              "author": "Piri",
+              "url": "https://kinopio.club",
+              "icon": "https://kinopio.club/logo.png"
             },
             {
               "title": "Strut.io",
