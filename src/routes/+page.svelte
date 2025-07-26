@@ -153,7 +153,7 @@
 										href={item.url}
 										class="relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 									>
-										<img src={item.icon} alt={item.title} class="mb-3 h-6 w-6" />
+										<img src={item.icon} alt="" class="mb-3 h-6 w-6" />
 
 										<h5 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
 											{item.title}
