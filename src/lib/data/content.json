@@ -141,7 +141,7 @@
               "title": "ElectricSQL",
               "author": "ElectricSQL team",
               "url": "https://electric-sql.com",
-              "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg"
+              "icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
             },
             {
               "title": "Dexie.js",
@@ -153,7 +153,7 @@
               "title": "DXOS",
               "author": "dxos.org",
               "url": "https://dxos.org",
-              "icon": "https://docs.dxos.org/images/logotype/dxos-hero-white.svg"
+              "icon": "https://i.ibb.co/pvwKDFDW/57182821.png"
             },
             {
               "title": "Dat Stack",
@@ -165,7 +165,7 @@
               "title": "Evolu",
               "author": "Daniel Steigerwald",
               "url": "https://www.evolu.dev/",
-              "icon": "https://raw.githubusercontent.com/evoluhq/evolu/main/apps/web/public/favicon-32x32.png"
+              "icon": "https://i.ibb.co/tp0F0Gdn/56556353.png"
             },
             {
               "title": "Liveblocks",
@@ -290,7 +290,7 @@
               "title": "Zero",
               "author": "Rocicorp",
               "url": "https://zero.rocicorp.dev",
-              "icon": "https://pbs.twimg.com/profile_images/1868725523267878912/BlAYEcqM_400x400.jpg"
+              "icon": "https://i.ibb.co/gnNWF6s/Zero.png"
             },
             {
               "title": "Amplify DataStore",
@@ -649,11 +649,17 @@
               "url": "https://gnocchi.club",
               "icon": "https://gnocchi.club/android-chrome-512x512.png"
             },
-             {
+            {
               "title": "Obsidian",
               "author": "Dyynalist inc",
               "url": "https://obsidian.md",
               "icon": "https://obsidian.md/images/2023-06-logo.png"
+            },
+            {
+              "title": "Kinopio",
+              "author": "Piri",
+              "url": "https://kinopio.club",
+              "icon": "https://kinopio.club/logo.png"
             },
             {
               "title": "Strut.io",
@@ -690,6 +696,12 @@
               "author": "Noel De Martin",
               "url": "https://umai.noeldemartin.com",
               "icon": "https://noeldemartin.com/logos/umai-small.svg"
+            },
+            {
+              "title": "Focus",
+              "author": "Noel De Martin",
+              "url": "https://focus.noeldemartin.com",
+              "icon": "https://noeldemartin.com/logos/focus-small.svg"
             }
           ]
         }

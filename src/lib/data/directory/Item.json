@@ -8,8 +8,36 @@
           "slug": "zero",
           "author": "Rocicorp",
           "url": "https://zero.rocicorp.dev",
-          "icon": "https://pbs.twimg.com/profile_images/1868725523267878912/BlAYEcqM_400x400.jpg",
+          "icon": "https://i.ibb.co/gnNWF6s/Zero.png",
           "description": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+          "Categories": ["L", 41],
+          "Uses": null
+        }
+      },
+      {
+        "id": 21,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "ElectricSQL",
+          "slug": "electricsql",
+          "author": "ElectricSQL team",
+          "url": "https://electric-sql.com",
+          "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
+          "description": "Sync little subsets of your Postgres data into local apps and services.",
+          "Categories": ["L", 39],
+          "Uses": null
+        }
+      },
+      {
+        "id": 74,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "Jazz Tools",
+          "slug": "jazz-tools",
+          "author": "Anselm / Garden Computing",
+          "url": "https://jazz.tools/",
+          "icon": "https://jazz.tools/favicon.ico",
+          "description": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
           "Categories": ["L", 41],
           "Uses": null
         }
@@ -291,20 +319,6 @@
           "icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg",
           "description": "dat-ecosystem is a post-web p2p community of projects - Most projects are self funded. Some of the projects contribute maintainance and development to core pieces of the Dat ecosystem while others create high level applications built on top of p2p protocols.",
           "Categories": ["L", 39, 41],
-          "Uses": null
-        }
-      },
-      {
-        "id": 21,
-        "fields": {
-          "Main_Category": 3,
-          "Title": "ElectricSQL",
-          "slug": "electricsql",
-          "author": "ElectricSQL team",
-          "url": "https://electric-sql.com",
-          "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg",
-          "description": "Sync little subsets of your Postgres data into local apps and services.",
-          "Categories": ["L", 39],
           "Uses": null
         }
       },
@@ -897,20 +911,6 @@
         }
       },
       {
-        "id": 74,
-        "fields": {
-          "Main_Category": 3,
-          "Title": "Jazz Tools",
-          "slug": "jazz-tools",
-          "author": "Anselm / Garden Computing",
-          "url": "https://jazz.tools/",
-          "icon": "https://jazz.tools/favicon.ico",
-          "description": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
-          "Categories": ["L", 41],
-          "Uses": null
-        }
-      },
-      {
         "id": 75,
         "fields": {
           "Main_Category": 3,
@@ -951,7 +951,21 @@
           "Categories": ["L", 37],
           "Uses": null
         }
-      }
+      },
+      {
+        "id": 78,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Calystone",
+          "slug": "calystone",
+          "author": "João Melo",
+          "url": "https://calyst.one/",
+          "icon": "https://calyst.one/icon.svg",
+          "description": "Calystone helps you organize your life through your file system with features like note taking and task management.",
+          "Categories": [2, 12, 37, 43],
+          "Uses": null
+        }
+      }      
     ]
   }
   

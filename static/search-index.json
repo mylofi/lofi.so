@@ -1,5 +1,11 @@
 [
   {
+    "title": "Zero",
+    "url": "/directory/projects/zero",
+    "excerpt": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+    "category": "Library"
+  },
+  {
     "title": "Actual",
     "url": "/directory/apps/actual",
     "excerpt": "Actual | Actual Budget Documentation",
@@ -38,7 +44,7 @@
   {
     "title": "Fig",
     "url": "/directory/apps/fig",
-    "excerpt": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA’s, as well as expense management tools for day-to-day finances.",
+    "excerpt": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA's, as well as expense management tools for day-to-day finances.",
     "category": "Library"
   },
   {
@@ -62,7 +68,7 @@
   {
     "title": "Obsidian",
     "url": "/directory/apps/obsidian",
-    "excerpt": "Obsidian is the private and flexible note‑taking app that adapts to the way you think.",
+    "excerpt": "Obsidian is the private and flexible note-taking app that adapts to the way you think.",
     "category": "Library"
   },
   {
@@ -378,6 +384,30 @@
     "category": "Library"
   },
   {
+    "title": "Jazz Tools",
+    "url": "/directory/projects/jazz-tools",
+    "excerpt": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
+    "category": "Library"
+  },
+  {
+    "title": "Soukai",
+    "url": "/directory/projects/soukai",
+    "excerpt": "A refreshing JavaScript ODM for Solid, IndexedDB, and more.",
+    "category": "Library"
+  },
+  {
+    "title": "PySheets",
+    "url": "/directory/apps/pysheets",
+    "excerpt": "A spreadsheet application powered by Python that works locally in your browser.",
+    "category": "Library"
+  },
+  {
+    "title": "Umai",
+    "url": "/directory/apps/umai",
+    "excerpt": "A local-first recipe manager application.",
+    "category": "Library"
+  },
+  {
     "title": "Learn",
     "url": "/#learn",
     "excerpt": "Learn - Main section of the home page",
@@ -522,6 +552,12 @@
     "category": "Development Resource"
   },
   {
+    "title": "ElectricSQL",
+    "url": "https://electric-sql.com",
+    "excerpt": "ElectricSQL by ElectricSQL team",
+    "category": "External Resource"
+  },
+  {
     "title": "Dexie.js",
     "url": "https://dexie.org/",
     "excerpt": "Dexie.js by David Fahlander",
@@ -537,12 +573,6 @@
     "title": "Dat Stack",
     "url": "https://dat-ecosystem.org/",
     "excerpt": "Dat Stack by hyper- core/bee/store/drive (by dat-ecosystem)",
-    "category": "External Resource"
-  },
-  {
-    "title": "ElectricSQL",
-    "url": "https://electric-sql.com",
-    "excerpt": "ElectricSQL by ElectricSQL team",
     "category": "External Resource"
   },
   {
@@ -618,6 +648,12 @@
     "category": "External Resource"
   },
   {
+    "title": "Soukai",
+    "url": "https://soukai.js.org",
+    "excerpt": "Soukai by Noel De Martin",
+    "category": "External Resource"
+  },
+  {
     "title": "SyncedStore",
     "url": "https://syncedstore.org",
     "excerpt": "SyncedStore by Yousef El-Dardiry",
@@ -663,6 +699,12 @@
     "title": "Jazz Tools",
     "url": "https://jazz.tools/",
     "excerpt": "Jazz Tools by Anselm / Garden Computing",
+    "category": "External Resource"
+  },
+  {
+    "title": "Zero",
+    "url": "https://zero.rocicorp.dev",
+    "excerpt": "Zero by Rocicorp",
     "category": "External Resource"
   },
   {
@@ -780,12 +822,6 @@
     "category": "External Resource"
   },
   {
-    "title": "Zero",
-    "url": "https://zero.rocicorp.dev",
-    "excerpt": "Zero by Rocicorp",
-    "category": "External Resource"
-  },
-  {
     "title": "Examples",
     "url": "/#apps-examples",
     "excerpt": "Build - Examples",
@@ -813,6 +849,12 @@
     "title": "XR Fragments",
     "url": "https://xrfragment.org",
     "excerpt": "XR Fragments by Leon van Kammen / coderofsalvation",
+    "category": "External Resource"
+  },
+  {
+    "title": "PyScript LTK",
+    "url": "https://github.com/pyscript/ltk",
+    "excerpt": "PyScript LTK by Chris Laffra",
     "category": "External Resource"
   },
   {
@@ -912,6 +954,12 @@
     "category": "Application"
   },
   {
+    "title": "Chris Laffra",
+    "url": "https://chrislaffra.com",
+    "excerpt": "Chris Laffra by @laffra",
+    "category": "Application"
+  },
+  {
     "title": "Communities to join",
     "url": "/communities-to-join",
     "excerpt": "Join in - Communities to join",
@@ -1008,33 +1056,39 @@
     "category": "Application"
   },
   {
+    "title": "PySheets",
+    "url": "https://www.pysheets.app/",
+    "excerpt": "PySheets by Chris Laffra",
+    "category": "Application"
+  },
+  {
+    "title": "Umai",
+    "url": "https://umai.noeldemartin.com",
+    "excerpt": "Umai by Noel De Martin",
+    "category": "Application"
+  },
+  {
     "title": "Vella.ai",
-    "url": "https://vella.ai",
-    "excerpt": "Vella.ai - Partner of Local-First Web",
+    "url": "https://vella.ai?utm_source=lofi_so",
+    "excerpt": "Vella.ai - Gold of Local-First Web",
     "category": "Sponsor"
   },
   {
-    "title": "StackBlitz",
-    "url": "https://stackblitz.com",
-    "excerpt": "StackBlitz - Platinum of Local-First Web",
+    "title": "Electric SQL",
+    "url": "https://electric-sql.com?utm_source=lofi_so",
+    "excerpt": "Electric SQL - Gold of Local-First Web",
     "category": "Sponsor"
   },
   {
-    "title": "Astro",
-    "url": "https://astro.build",
-    "excerpt": "Astro - Gold of Local-First Web",
+    "title": "Jazz",
+    "url": "https://jazz.tools?utm_source=lofi_so",
+    "excerpt": "Jazz - Gold of Local-First Web",
     "category": "Sponsor"
   },
   {
-    "title": "Storyblok",
-    "url": "https://www.storyblok.com",
-    "excerpt": "Storyblok - Gold of Local-First Web",
-    "category": "Sponsor"
-  },
-  {
-    "title": "Bit",
-    "url": "https://bit.dev",
-    "excerpt": "Bit - Gold of Local-First Web",
+    "title": "Zero",
+    "url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
+    "excerpt": "Zero - Gold of Local-First Web",
     "category": "Sponsor"
   },
   {
