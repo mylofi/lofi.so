@@ -1,6 +1,6 @@
 # Local-first Software
 
-A modern directory of local-first software development resources, hosted at [localfirstweb.dev](https://localfirstweb.dev).
+A modern directory of local-first software development resources, hosted at [lofi.so](https://lofi.so).
 
 ## Development
 
