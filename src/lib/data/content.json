@@ -389,6 +389,12 @@
               "icon": "https://nextgraph.org/favicon.svg"
             },
             {
+              "title": "p2panda",
+              "author": "adzialocha",
+              "url": "https://p2panda.org/",
+              "icon": "https://p2panda.org/assets/images/p2panda.svg"
+            },
+            {
               "title": "PowerSync",
               "author": "JourneyApps",
               "url": "https://www.powersync.com",
