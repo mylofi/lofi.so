@@ -42,6 +42,12 @@
     "category": "Library"
   },
   {
+    "title": "MySQLSync",
+    "url": "/directory/projects/mysqlsync",
+    "excerpt": "A synchronization solution that connects MySQL with mobile applications, which can reuse the same database schema in a local SQLite instance and sync automatically in both directions.",
+    "category": "Library"
+  },
+  {
     "title": "Fig",
     "url": "/directory/apps/fig",
     "excerpt": "Fig allows freelancers like you to manage your finances, while saving for retirement. Our platform includes retirement plans, including Solo401k & IRA's, as well as expense management tools for day-to-day finances.",

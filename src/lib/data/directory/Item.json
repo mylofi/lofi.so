@@ -965,6 +965,20 @@
           "Categories": [2, 12, 37, 43],
           "Uses": null
         }
+      },
+      {
+        "id": 79,
+        "fields": {
+          "Main_Category": 3,
+          "Title": "MySQLSync",
+          "slug": "mysqlsync",
+          "author": "DidiSoft",
+          "url": "https://mysqlsync.com",
+          "icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg",
+          "description": "A synchronization solution that connects MySQL with mobile applications, which can reuse the same database schema in a local SQLite instance and sync automatically in both directions.",
+          "Categories": ["L", 37, 41, 40],
+          "Uses": null
+        }
       }      
     ]
   }
