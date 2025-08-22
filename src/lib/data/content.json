@@ -377,6 +377,12 @@
               "icon": "https://loro.dev/favicon.ico"
             },
             {
+              "title": "MySQLSync",
+              "author": "DidiSoft",
+              "url": "https://mysqlsync.com",
+              "icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg"
+            },
+            {
               "title": "m-ld",
               "author": "George Svarovsky et al.",
               "url": "https://m-ld.org/",
