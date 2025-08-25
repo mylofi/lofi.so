@@ -12,6 +12,9 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Archivo', 'system-ui', 'sans-serif']
+			},
+			screens: {
+				'xs': '470px'
 			}
 		}
 	},
