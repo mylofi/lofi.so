@@ -25,6 +25,8 @@
 		speakers: [
 			{
 				name: '',
+				socialPlatform: 'twitter',
+				socialHandle: '@',
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
@@ -51,14 +53,57 @@
 	function handleTwitterHandleInput(event: Event, index: number) {
 		const input = event.target as HTMLInputElement;
 		let value = input.value;
-		
+
 		if (!value.startsWith('@')) {
 			value = '@' + value;
 		}
-		
+
 		formData.speakers[index].twitterHandle = value;
 		formData = { ...formData }; // Trigger reactivity
-		
+
+		handleSocialHandleChange(index);
+	}
+
+	function handleSocialHandleInput(event: Event, index: number) {
+		const input = event.target as HTMLInputElement;
+		let value = input.value;
+		const platform = formData.speakers[index].socialPlatform;
+
+		// Add @ prefix for Twitter handles
+		if (platform === 'twitter' && !value.startsWith('@')) {
+			value = '@' + value;
+		}
+
+		formData.speakers[index].socialHandle = value;
+		// Also update twitterHandle for backward compatibility
+		if (platform === 'twitter') {
+			formData.speakers[index].twitterHandle = value;
+		}
+
+		formData = { ...formData }; // Trigger reactivity
+
+		handleSocialHandleChange(index);
+	}
+
+	function handleSocialPlatformChange(index: number) {
+		const speaker = formData.speakers[index];
+		const platform = speaker.socialPlatform;
+
+		// Update profileImagePlatform based on social platform
+		if (platform === 'twitter' || platform === 'bluesky') {
+			speaker.profileImagePlatform = platform;
+		} else if (platform === 'linkedin') {
+			// For LinkedIn, we might want to use custom image or Twitter as fallback
+			speaker.profileImagePlatform = 'twitter';
+		}
+
+		// Update placeholder and handle format
+		if (platform === 'twitter' && !speaker.socialHandle.startsWith('@')) {
+			speaker.socialHandle = '@' + speaker.socialHandle;
+		}
+
+		formData = { ...formData }; // Trigger reactivity
+
 		handleSocialHandleChange(index);
 	}
 
@@ -187,6 +232,8 @@
 			...formData.speakers,
 			{
 				name: '',
+				socialPlatform: 'twitter',
+				socialHandle: '@',
 				twitterHandle: '@',
 				profileImagePlatform: 'twitter',
 				profileImageHandle: '',
@@ -221,9 +268,12 @@
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
 
+			const rect = graphic.getBoundingClientRect();
 			const dataUrl = await domToPng(graphic, {
 				scale: 2,
 				quality: 1,
+				width: rect.width,
+				height: rect.height,
 				style: {
 					transform: 'scale(1)',
 					transformOrigin: 'top left'
@@ -257,12 +307,15 @@
 			for (let i = 0; i < formData.speakers.length; i++) {
 				const speaker = formData.speakers[i];
 				const speakerCardElement = document.querySelector(`#speaker-card-${i}`);
-				
+
 				if (!speakerCardElement) continue;
 
+				const rect = speakerCardElement.getBoundingClientRect();
 				const dataUrl = await domToPng(speakerCardElement, {
 					scale: 2,
 					quality: 1,
+					width: rect.width,
+					height: rect.height,
 					style: {
 						transform: 'scale(1)',
 						transformOrigin: 'top left'
@@ -438,12 +491,25 @@
 
 							<div class="space-y-4">
 								<div>
-									<label class="block text-sm font-medium text-gray-700">Twitter Handle (Required)</label>
+									<label class="block text-sm font-medium text-gray-700">Social Platform</label>
+									<select
+										bind:value={speaker.socialPlatform}
+										on:change={() => handleSocialPlatformChange(i)}
+										class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+									>
+										<option value="twitter">Twitter</option>
+										<option value="bluesky">Bluesky</option>
+										<option value="linkedin">LinkedIn</option>
+									</select>
+								</div>
+
+								<div>
+									<label class="block text-sm font-medium text-gray-700">Social Handle</label>
 									<input
 										type="text"
-										bind:value={speaker.twitterHandle}
-										placeholder="@username"
-										on:change={(event) => handleTwitterHandleInput(event, i)}
+										bind:value={speaker.socialHandle}
+										placeholder={speaker.socialPlatform === 'twitter' ? '@username' : speaker.socialPlatform === 'bluesky' ? 'handle.bsky.social' : 'username'}
+										on:change={(event) => handleSocialHandleInput(event, i)}
 										class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 										required
 									/>
@@ -565,7 +631,7 @@
 						...formData,
 						speakers: formData.speakers.map(s => ({
 							name: s.name,
-							twitterHandle: s.twitterHandle,
+							twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
 							talk: s.talk,
 							image: s.image
 						}))
@@ -584,7 +650,7 @@
 							<SpeakerCard
 								speakerData={{
 									name: speaker.name,
-									twitterHandle: speaker.twitterHandle,
+									twitterHandle: speaker.socialPlatform === 'twitter' ? speaker.socialHandle : speaker.twitterHandle,
 									talk: speaker.talk,
 									bio: speaker.bio,
 									talkPoints: speaker.talkPoints,
