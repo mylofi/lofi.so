@@ -979,7 +979,35 @@
           "Categories": ["L", 37, 41, 40],
           "Uses": null
         }
-      }      
+      },
+      {
+        "id": 80,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Expensinator",
+          "slug": "expensinator",
+          "author": "Expensinator",
+          "url": "https://expensinator.com",
+          "icon": "https://expensinator.com/assets/images/logo.png",
+          "description": "Expensinator is a simple, local first expense management tool that helps you track, categorize, and analyze your spending habits with ease.",
+          "Categories": ["L", 38],
+          "Uses": null
+        }
+      },
+      {
+        "id": 80,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "MyInvoices",
+          "slug": "myinvoices",
+          "author": "Myinvoices",
+          "url": "https://myinvoices.online",
+          "icon": "https://myinvoices.online/assets/img/logo.svg",
+          "description": "The perfect billing solution designed specifically for freelancers, small business owners, and independent developers. Manage your invoices professionally without the complexity of enterprise software.",
+          "Categories": ["L", 38],
+          "Uses": null
+        }
+      }
     ]
   }
   
