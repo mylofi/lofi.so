@@ -995,7 +995,7 @@
         }
       },
       {
-        "id": 80,
+        "id": 81,
         "fields": {
           "Main_Category": 1,
           "Title": "MyInvoices",
@@ -1006,6 +1006,20 @@
           "description": "The perfect billing solution designed specifically for freelancers, small business owners, and independent developers. Manage your invoices professionally without the complexity of enterprise software.",
           "Categories": ["L", 38],
           "Uses": null
+        }
+      },
+      {
+        "id": 82,
+        "fields": {
+          "Main_Category": 1,
+          "Title": "Locu",
+          "slug": "locu",
+          "author": "Locu Labs",
+          "url": "https://locu.app",
+          "icon": "https://avatars.githubusercontent.com/u/106989065?s=200&v=4",
+          "description": "The next-generation productivity app built for makers. Combine your tasks, notes, and focus sessions into one unified workspace designed for maximum execution and deep work.",
+          "Categories": ["L", 2, 43],
+          "Uses": [54]
         }
       }
     ]
