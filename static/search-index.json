@@ -366,12 +366,6 @@
     "category": "Directory Entry"
   },
   {
-    "title": "Textorama",
-    "url": "/directory/apps/textorama",
-    "excerpt": "Textorama is a modest text editor. It works with plain text files in your file system.",
-    "category": "Directory Entry"
-  },
-  {
     "title": "Legend",
     "url": "/directory/apps/legend",
     "excerpt": "Legend is designed for you - to work the way you do and to be the one place for all your productivity needs.",
@@ -1041,12 +1035,6 @@
     "title": "Strut.io",
     "url": "https://strut.io",
     "excerpt": "Strut.io by Strut contributors",
-    "category": "Application"
-  },
-  {
-    "title": "Textorama",
-    "url": "https://textorama.melo.plus/",
-    "excerpt": "Textorama by João Melo",
     "category": "Application"
   },
   {
