@@ -115,8 +115,7 @@
 		if (!handle) return null;
 
 		try {
-			const response = await fetch(`/api/twitter-profile?username=${encodeURIComponent(handle)}`);
-			console.log({response})
+			const response = await fetch(`/api/profile-image?platform=twitter&username=${encodeURIComponent(handle)}`);
 			if (!response.ok) {
 				const errorData = await response.json();
 				if (response.status === 429) {
@@ -136,14 +135,14 @@
 		if (!handle) return null;
 
 		try {
-			const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`);
+			const response = await fetch(`/api/profile-image?platform=bluesky&username=${encodeURIComponent(handle)}`);
 			if (!response.ok) {
-				console.error('Failed to fetch Bluesky profile:', await response.text());
+				console.error('Failed to fetch Bluesky profile');
 				return null;
 			}
 			const data = await response.json();
 			// Proxy the avatar URL through our endpoint
-			return data.avatar ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.avatar)}` : null;
+			return data.profile_image_url ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.profile_image_url)}` : null;
 		} catch (error) {
 			console.error('Error fetching Bluesky profile:', error);
 			return null;
