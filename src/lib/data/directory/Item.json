@@ -855,20 +855,6 @@
         }
       },
       {
-        "id": 69,
-        "fields": {
-          "Main_Category": 1,
-          "Title": "Textorama",
-          "slug": "textorama",
-          "author": "João Melo",
-          "url": "https://textorama.melo.plus/",
-          "icon": "https://textorama.melo.plus/android-chrome-192x192.png",
-          "description": "Textorama is a modest text editor. It works with plain text files in your file system.",
-          "Categories": null,
-          "Uses": null
-        }
-      },
-      {
         "id": 71,
         "fields": {
           "Main_Category": 1,
@@ -949,20 +935,6 @@
           "icon": "https://noeldemartin.com/logos/umai-small.svg",
           "description": "A local-first recipe manager application.",
           "Categories": ["L", 37],
-          "Uses": null
-        }
-      },
-      {
-        "id": 78,
-        "fields": {
-          "Main_Category": 1,
-          "Title": "Calystone",
-          "slug": "calystone",
-          "author": "João Melo",
-          "url": "https://calyst.one/",
-          "icon": "https://calyst.one/icon.svg",
-          "description": "Calystone helps you organize your life through your file system with features like note taking and task management.",
-          "Categories": [2, 12, 37, 43],
           "Uses": null
         }
       },
