@@ -17,10 +17,10 @@
 
 	// Add state for active tab
 	let activeTab = 'storage';
-	
+
 	// State for explore header animation
 	let isScrolled = false;
-	
+
 	// Get read and watch content
 	const readContent = content[0].sections.find((s) => s.title === 'Things to read')?.items || [];
 	const watchContent = [
@@ -65,19 +65,19 @@
 				});
 			}
 		}
-		
+
 		// Add scroll event listener for explore header animation
 		const exploreSection = document.getElementById('explore');
 		const exploreStickyHeader = document.getElementById('explore-header');
 		const navbarHeight = document.documentElement.style.getPropertyValue('--navbar-height') || '80px';
 		const navHeight = parseInt(navbarHeight) || 80;
-		
+
 		if (exploreSection && exploreStickyHeader) {
 			window.addEventListener('scroll', () => {
 				const scrollPosition = window.scrollY;
 				const exploreSectionTop = exploreSection.offsetTop;
 				const exploreSectionRect = exploreSection.getBoundingClientRect();
-				
+
 				// Check if the section has reached the navbar
 				isScrolled = exploreSectionRect.top <= navHeight;
 			});
@@ -89,7 +89,7 @@
 
 <div class="relative py-16">
 	<SponsorsRail {nextEvent} {sponsors} eventData={eventDataForGraphic} />
-	
+
 	<div class="mx-auto max-w-[90rem] px-4 sm:px-6 md:px-8">
 		<div class="lg:flex">
 			<!-- Main Content -->
@@ -111,9 +111,9 @@
 
 					<!-- 1. Join Us Section (Meetup Graphic) -->
 					<section id="join-us" class="py-12 relative border border-gray-100 dark:border-gray-800 rounded-lg p-6 mb-8 mt-8">
-						<div 
+						<div
 							class="sticky top-[calc(var(--navbar-height)+5rem)] z-20 -mx-4 -mt-6 mb-8 px-4 py-8 bg-white dark:bg-gray-900 backdrop-blur-sm text-left border-b border-gray-100 dark:border-gray-800"
-							
+
 						>
 							<h3 class="text-2xl font-bold text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Join Us</h3>
 						</div>
@@ -143,7 +143,7 @@
 								</svg>
 							</a>
 						</div>
-						
+
 						<div class="pt-6 relative">
 							<!-- Read Content Section -->
 							<h4 class="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Things to read</h4>
@@ -162,7 +162,7 @@
 									</a>
 								{/each}
 							</div>
-							
+
 							<!-- Watch Content Section -->
 							<h4 class="text-xl font-semibold mb-6 text-gray-900 dark:text-white">Things to watch</h4>
 							<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -279,7 +279,7 @@
 								</svg>
 							</a>
 						</div>
-						
+
 						<div class="pt-6 relative">
 							<!-- Tabs Navigation -->
 							<div class="flex space-x-1 rounded-xl bg-gray-100 p-1 dark:bg-gray-800/50 mb-8">
@@ -337,83 +337,6 @@
 							</div>
 						</div>
 					</section>
-				</section>
-
-				<!-- 5. Sponsors Section with tiered layout -->
-				<section class="py-16 relative border border-gray-100 dark:border-gray-800 rounded-lg mb-8 p-6">
-					<div
-						class="sticky top-[calc(var(--navbar-height)-1rem)] z-30 bg-white dark:bg-gray-900 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800 mb-8 py-6 -mx-4 px-4 text-center"
-					>
-						<h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">Sponsors</h2>
-						<div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
-					</div>
-					<div class="relative space-y-12">
-						<!-- Partners Row -->
-						<div class="flex flex-wrap justify-center gap-8">
-							{#each sponsors.filter(s => s.tier === 'Partner') as sponsor}
-								<a 
-									href={sponsor.url} 
-									target="_blank" 
-									rel="noopener noreferrer" 
-									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
-									style="height: 150px; width: 300px;"
-								>
-									<div class="flex h-full w-full items-center justify-center">
-										<img 
-											src={sponsor.image} 
-											alt={sponsor.name} 
-											style="max-height: 110px;"
-											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
-										/>
-									</div>
-								</a>
-							{/each}
-						</div>
-						
-						<!-- Platinum Row -->
-						<div class="flex flex-wrap justify-center gap-8">
-							{#each sponsors.filter(s => s.tier === 'Platinum') as sponsor}
-								<a 
-									href={sponsor.url} 
-									target="_blank" 
-									rel="noopener noreferrer" 
-									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
-									style="height: 120px; width: 250px;"
-								>
-									<div class="flex h-full w-full items-center justify-center">
-										<img 
-											src={sponsor.image} 
-											alt={sponsor.name} 
-											style="max-height: 80px;"
-											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
-										/>
-									</div>
-								</a>
-							{/each}
-						</div>
-						
-						<!-- Gold Row -->
-						<div class="flex flex-wrap justify-center gap-8">
-							{#each sponsors.filter(s => s.tier === 'Gold') as sponsor}
-								<a 
-									href={sponsor.url} 
-									target="_blank" 
-									rel="noopener noreferrer" 
-									class="group block p-6 transition-all duration-200 hover:bg-gray-50 dark:hover:bg-white/10 rounded-lg border border-gray-200 dark:border-white/10"
-									style="height: 90px; width: 200px;"
-								>
-									<div class="flex h-full w-full items-center justify-center">
-										<img 
-											src={sponsor.image} 
-											alt={sponsor.name}
-											style="max-height: 50px;" 
-											class="w-auto mx-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 transition-all duration-300" 
-										/>
-									</div>
-								</a>
-							{/each}
-						</div>
-					</div>
 				</section>
 			</div>
 		</div>
