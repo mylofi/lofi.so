@@ -147,7 +147,7 @@
               "title": "Dexie.js",
               "author": "David Fahlander",
               "url": "https://dexie.org/",
-              "icon": "https://dexie.org/assets/images/dexie-icon-64x64.png"
+              "icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4"
             },
             {
               "title": "DXOS",
@@ -299,11 +299,11 @@
               "icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png"
             },
             {
-              "title": "Automerge",
-              "author": "Ink & Switch and contributors",
-              "url": "https://automerge.org",
-              "icon": "https://automerge.org/img/favicon.ico"
-            },
+							"title": "Automerge",
+							"author": "Ink & Switch and contributors",
+							"url": "https://automerge.org",
+							"icon": "https://avatars.githubusercontent.com/u/29780209?s=500&v=4"
+						},
             {
               "title": "Collabs",
               "author": "Composable Systems Lab @ CMU",
@@ -487,7 +487,7 @@
               "title": "XR Fragments",
               "author": "Leon van Kammen / coderofsalvation",
               "url": "https://xrfragment.org",
-              "icon": "https://xrfragment.org/example/assets/logo.svg"
+              "icon": "https://xrfragment.org/favicon.ico"
             },
             {
               "title": "PyScript LTK",
@@ -714,4 +714,4 @@
       ]
     }
   ]
-  
+
