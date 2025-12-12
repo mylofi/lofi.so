@@ -1,10 +1,21 @@
 <script lang="ts">
+	import { theme } from '$lib/stores/themeStore';
+
 	export let sponsors: {
 		url: string;
 		image: string;
+		imageDark?: string;
 		name: string;
 		tier: 'Partner' | 'Platinum' | 'Gold';
 	}[];
+
+	// Get the appropriate image based on current theme
+	function getSponsorImage(sponsor: typeof sponsors[0]): string {
+		if (sponsor.imageDark && $theme === 'dark') {
+			return sponsor.imageDark;
+		}
+		return sponsor.image;
+	}
 	export let variant: 'sidebar' | 'horizontal' | 'compact' = 'sidebar';
 	export let showNextEvent = true;
 	export let nextEvent: { url: string; name: string; date: string; time: string } | undefined =
@@ -23,7 +34,7 @@
 	$: nextEventFromKV = eventData ? {
 		url: eventData.registrationUrl,
 		name: 'Local First Meetup',
-		date: new Date(eventData.date).toLocaleDateString('en-US', { 
+		date: new Date(eventData.date).toLocaleDateString('en-US', {
 			weekday: 'long',
 			year: 'numeric',
 			month: 'long',
@@ -33,7 +44,7 @@
 	} : undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
-	
+
 	// Check if the event date has passed
 	$: isEventPassed = eventData ? new Date(eventData.date) < new Date() : false;
 
@@ -93,7 +104,7 @@
 							</div>
 							<span class="text-sm font-medium text-primary">{isEventPassed ? 'Past Meetup' : 'Next Event'}</span>
 						</div>
-						
+
 						<a href={activeNextEvent.url} class="group mb-4 block">
 							<h3 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white transition group-hover:text-primary">
 								{activeNextEvent.name}
@@ -215,7 +226,7 @@
 							>
 								<div class="flex h-full w-full items-center justify-center p-4">
 									<img
-										src={sponsor.image}
+										src={getSponsorImage(sponsor)}
 										alt={sponsor.name}
 										class="max-h-full max-w-full object-contain opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
 									/>
@@ -250,9 +261,9 @@
 					class="aspect-video group flex items-center justify-center rounded-lg bg-gray-800/50 p-4 transition-colors hover:bg-white"
 				>
 					<img
-						src={sponsor.image}
+						src={getSponsorImage(sponsor)}
 						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain opacity-50 brightness-0 invert transition-all duration-300 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0"
+						class="max-h-full max-w-full object-contain opacity-50 grayscale invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0"
 					/>
 				</a>
 			{/each}
@@ -274,9 +285,9 @@
 					class="aspect-video group flex items-center justify-center rounded-lg bg-gray-800/50 p-3 transition-colors hover:bg-white"
 				>
 					<img
-						src={sponsor.image}
+						src={getSponsorImage(sponsor)}
 						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain opacity-50 brightness-0 invert transition-all duration-300 group-hover:opacity-100 group-hover:brightness-100 group-hover:invert-0"
+						class="max-h-full max-w-full object-contain opacity-50 grayscale invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0"
 					/>
 				</a>
 			{/each}

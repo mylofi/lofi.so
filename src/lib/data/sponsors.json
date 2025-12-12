@@ -8,33 +8,40 @@
     "description": "Join us for the first Local First Software meetup of 2024! We'll be discussing the latest developments in local-first software and sharing experiences from the community."
   },
   "sponsors": [
-    {
-      "name": "Vella.ai",
-      "image": "https://res.cloudinary.com/dbpqjtdf0/image/upload/v1764004640/vella-logo_kby04y.png",
-      "url": "https://vella.ai?utm_source=lofi_so",
-      "tier": "Gold",
-      "amount": 5000
-    },
-    {
-      "name": "Electric SQL",
-      "image": "https://res.cloudinary.com/dbpqjtdf0/image/upload/v1764004655/elec-nobg_wjogc5.png",
-      "url": "https://electric-sql.com?utm_source=lofi_so",
-      "tier": "Gold",
-      "amount": 1000
-    },
-    {
-      "name": "Jazz",
-      "image": "https://res.cloudinary.com/dbpqjtdf0/image/upload/v1764004664/jazz-logo-only_skwifk.png",
-      "url": "https://jazz.tools?utm_source=lofi_so",
-      "tier": "Gold",
-      "amount": 1000
-    },
-    {
-      "name": "Zero",
-      "image": "https://res.cloudinary.com/dbpqjtdf0/image/upload/v1764004674/Zero_dremjp.png",
-      "url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
-      "tier": "Gold",
-      "amount": 1000
-    }
-  ]
-} 
+		{
+			"name": "Vella.ai",
+			"image": "/images/sponsors/vella.png",
+			"url": "https://vella.ai?utm_source=lofi_so",
+			"tier": "Gold",
+			"amount": 5000
+		},
+		{
+			"name": "Electric SQL",
+			"image": "/images/sponsors/electric.png",
+			"url": "https://electric-sql.com?utm_source=lofi_so",
+			"tier": "Gold",
+			"amount": 1000
+		},
+		{
+			"name": "Jazz",
+			"image": "/images/sponsors/jazz.png",
+			"url": "https://jazz.tools?utm_source=lofi_so",
+			"tier": "Gold",
+			"amount": 1000
+		},
+		{
+			"name": "PowerSync",
+			"image": "/images/sponsors/powersync.png",
+			"url": "https://powersync.com?utm_source=lofi_so",
+			"tier": "Gold",
+			"amount": 1000
+		},
+		{
+			"name": "Zero",
+			"image": "/images/sponsors/Zero.png",
+			"url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
+			"tier": "Gold",
+			"amount": 1000
+		}
+	]
+}
