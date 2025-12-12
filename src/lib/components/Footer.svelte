@@ -34,7 +34,7 @@
 							<img
 								src={sponsor.image}
 								alt={sponsor.name}
-								class="h-10 w-auto opacity-75 dark:opacity-50 grayscale dark:brightness-0 dark:invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
+								class="h-14 w-auto opacity-50 grayscale dark:brightness-0 dark:invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
 							/>
 						</a>
 					{/each}
