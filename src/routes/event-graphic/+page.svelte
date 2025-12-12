@@ -153,32 +153,28 @@
 	async function handleSocialHandleChange(index: number) {
 		const speaker = formData.speakers[index];
 		let profileImageUrl = null;
-		
+
 		formData.speakers[index].error = '';
-		
+
 		// Handle custom image URL
 		if (speaker.profileImagePlatform === 'custom') {
 			if (speaker.customImageUrl) {
 				try {
-					// Upload to ImgBB
-					const response = await fetch('/api/imgbb-upload', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ imageUrl: speaker.customImageUrl })
-					});
-					
+					// Proxy the custom image URL through our endpoint
+					const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(speaker.customImageUrl)}`;
+
+					// Verify the image is accessible
+					const response = await fetch(proxyUrl);
 					if (!response.ok) {
-						const errorData = await response.json();
-						throw new Error(errorData.error || 'Failed to upload image');
+						throw new Error('Failed to load image');
 					}
-					
-					const data = await response.json();
-					formData.speakers[index].image = data.imageUrl;
+
+					formData.speakers[index].image = proxyUrl;
 					formData.speakers[index].error = '';
 				} catch (error) {
 					formData.speakers[index].image = '';
-					formData.speakers[index].error = error instanceof Error ? 
-						error.message : 'Failed to upload image to ImgBB';
+					formData.speakers[index].error = error instanceof Error ?
+						error.message : 'Failed to load custom image';
 				}
 			} else {
 				formData.speakers[index].image = '';
@@ -186,7 +182,7 @@
 			formData = { ...formData };
 			return;
 		}
-		
+
 		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
@@ -194,8 +190,8 @@
 			return;
 		}
 
-		const handleToUse = speaker.profileImagePlatform === 'bluesky' ? 
-			speaker.profileImageHandle || speaker.twitterHandle : 
+		const handleToUse = speaker.profileImagePlatform === 'bluesky' ?
+			speaker.profileImageHandle || speaker.twitterHandle :
 			speaker.twitterHandle;
 
 		if (!handleToUse) {
@@ -223,7 +219,7 @@
 			// Use the exact error message from the API
 			formData.speakers[index].error = error instanceof Error ? error.message : 'An unexpected error occurred';
 		}
-		
+
 		formData = { ...formData };
 	}
 
@@ -279,7 +275,7 @@
 					transformOrigin: 'top left'
 				}
 			});
-			
+
 			const link = document.createElement('a');
 			link.download = `meetup${formData.eventNumber}.png`;
 			link.href = dataUrl;
@@ -321,7 +317,7 @@
 						transformOrigin: 'top left'
 					}
 				});
-				
+
 				const link = document.createElement('a');
 				link.download = `speaker-${formData.eventNumber}-${speaker.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 				link.href = dataUrl;
