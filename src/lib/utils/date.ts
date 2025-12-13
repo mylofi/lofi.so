@@ -38,10 +38,12 @@ export const formatEventDate = (event: EventDate | null): string => {
   }
 
   try {
-    const eventDate = createEventDateTime(event.date, event.time);
-    const adjustedDate = adjustDateForTimezone(eventDate, event.timezone);
+    // Parse date as local time to avoid timezone shifting
+    const [year, month, day] = event.date.split('-').map(Number);
+    const [hours, minutes] = event.time.split(':').map(Number);
+    const eventDate = new Date(year, month - 1, day, hours, minutes);
 
-    return adjustedDate.toLocaleDateString('en-US', {
+    return eventDate.toLocaleDateString('en-US', {
       weekday: 'short',
       day: 'numeric',
       month: 'short'
