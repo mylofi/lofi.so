@@ -399,7 +399,7 @@
 				<h2 class="text-xl font-semibold">URLs</h2>
 
 				<div>
-					<label class="block text-sm font-medium text-gray-700">Registration URL</label>
+					<label class="block text-sm font-medium text-gray-700">Event Join URL</label>
 					<input
 						type="url"
 						bind:value={formData.registrationUrl}
@@ -632,8 +632,8 @@
 	<div class="mt-8 space-y-8">
 		<div>
 			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
-			<div class="overflow-auto">
-				<div id="graphic">
+			<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
+				<div id="graphic" class="scale-90 origin-center">
 					<EventGraphic eventData={{
 						...formData,
 						speakers: formData.speakers.map(s => ({
@@ -651,9 +651,9 @@
 			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
 			<div class="space-y-8">
 				{#each formData.speakers as speaker, i}
-					<div class="overflow-auto rounded-lg border border-gray-200 p-4">
-						<h3 class="mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
-						<div id="speaker-card-{i}">
+					<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
+						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
+						<div id="speaker-card-{i}" class="scale-90 origin-center">
 							<SpeakerCard
 								speakerData={{
 									name: speaker.name,

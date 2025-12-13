@@ -24,12 +24,14 @@
 	// $: recordingDate = isEventPassed && eventData?.date ? formatRecordingDate(eventData.date) : '';
 
 	function formatDate(dateStr: string): string {
-		const date = new Date(dateStr);
-		const day = date.getDate();
+		// Parse date as local time to avoid timezone shifting
+		const [year, month, day] = dateStr.split('-').map(Number);
+		const date = new Date(year, month - 1, day);
+		const dayNum = date.getDate();
 		const weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
-		const month = date.toLocaleDateString('en-US', { month: 'long' });
-		const year = date.getFullYear();
-		return `${weekday}, ${day} ${month} ${year}`;
+		const monthName = date.toLocaleDateString('en-US', { month: 'long' });
+		const yearNum = date.getFullYear();
+		return `${weekday}, ${dayNum} ${monthName} ${yearNum}`;
 	}
 
 	function formatTime(timeStr: string): string {
@@ -54,9 +56,9 @@
 </script>
 
 {#if eventData && eventData.eventNumber}
-	<main id="graphic" class="flex items-center justify-center p-4">
+	<main id="graphic" class="flex items-center justify-center">
 		<div
-			class="lg:scale-90 relative flex h-fit w-fit origin-top scale-[0.8] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white sm:scale-65 md:scale-75 lg:flex-row"
+			class="relative flex w-[1200px] flex-col items-stretch justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white lg:flex-row"
 		>
 			<!-- Past Event Ribbon -->
 			{#if isEventPassed}
@@ -87,8 +89,8 @@
 			</div>
 
 			<!-- Main Content Section -->
-			<section class="rounded-xl shadow-lg">
-				<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
+			<section class="flex flex-1 flex-col rounded-xl shadow-lg">
+				<div class="flex flex-1 flex-col rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
 					<div class="mb-3">
 						<!-- Header with Logo -->
 						<div class="mb-3 flex items-center gap-2">
@@ -114,14 +116,15 @@
 					</div>
 
 					<!-- Speakers Section -->
-					<div class="rounded-xl bg-white p-3 shadow-xl dark:bg-gray-900 sm:p-4 {isEventPassed ? 'opacity-90' : ''}">
+					<div class="flex flex-1 flex-col rounded-xl bg-white p-3 shadow-xl dark:bg-gray-900 sm:p-4 {isEventPassed ? 'opacity-90' : ''}">
 						{#if isEventPassed}
 							<h4 class="m-0 text-xl font-semibold sm:text-2xl">Recorded Talks</h4>
 						{:else}
 							<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
 						{/if}
 						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
-						{#if eventData.speakers && eventData.speakers.length > 0}
+						<div class="flex-1">
+							{#if eventData.speakers && eventData.speakers.length > 0}
 							{#each eventData.speakers as speaker}
 								<!-- Speaker Card -->
 								<div class="group flex items-center gap-2">
@@ -159,12 +162,13 @@
 						{:else}
 							<p class="text-gray-500 dark:text-gray-400">No speakers scheduled yet</p>
 						{/if}
+						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Call to Action Section -->
-			<section class="relative flex w-full flex-col gap-5 p-2 sm:gap-10 sm:p-3 lg:w-auto">
+			<section class="relative flex w-full flex-col gap-5 p-2 sm:gap-10 sm:p-3 lg:w-[280px] lg:flex-shrink-0">
 				<!-- <h3 class="m-0 text-center text-lg font-semibold text-white sm:text-xl lg:text-2xl">
 					{#if isEventPassed}
 						Watch the Recording
