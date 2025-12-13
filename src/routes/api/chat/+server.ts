@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
-import { GEMINI_API_KEY } from '$env/static/private';
 import { json } from '@sveltejs/kit';
 import { getLocalFirstContext } from '$lib/utils/localFirstContext';
+import { env } from '$env/dynamic/private';
 
 interface ChatMessage {
   role: 'user' | 'model';
@@ -9,7 +9,7 @@ interface ChatMessage {
 }
 
 const openAI = new OpenAI({
-  apiKey: GEMINI_API_KEY,
+  apiKey: env.GEMINI_API_KEY || '',
   baseURL: 'https://generativelanguage.googleapis.com/v1beta'
 });
 

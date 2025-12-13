@@ -8,7 +8,7 @@
 	import type { LayoutData } from './$types';
 	import Chat from '$lib/components/Chat.svelte';
 	import Analytics from '$lib/analytics.svelte';
-	
+
 	let { data, children } = $props<{data: LayoutData}>();
 </script>
 
@@ -34,7 +34,7 @@
 	<main>
 		{@render children()}
 	</main>
-	<Footer />
+	<Footer sponsors={data.sponsors} />
 	<!-- <EventPopup /> -->
 	<Chat />
 </div>

@@ -18,6 +18,7 @@
 	const lastTuesday = getLastTuesdayOfMonth();
 
 	let formData = {
+		title: 'Watch Party',
 		eventNumber: 1,
 		date: lastTuesday,
 		time: '08:00',
@@ -38,7 +39,7 @@
 				error: ''
 			}
 		],
-		registrationUrl: 'https://localfirstweb.dev',
+		registrationUrl: 'https://lofi.so',
 		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 		logoUrl: '/images/logo.png'
@@ -115,8 +116,7 @@
 		if (!handle) return null;
 
 		try {
-			const response = await fetch(`/api/twitter-profile?username=${encodeURIComponent(handle)}`);
-			console.log({response})
+			const response = await fetch(`/api/profile-image?platform=twitter&username=${encodeURIComponent(handle)}`);
 			if (!response.ok) {
 				const errorData = await response.json();
 				if (response.status === 429) {
@@ -136,14 +136,14 @@
 		if (!handle) return null;
 
 		try {
-			const response = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`);
+			const response = await fetch(`/api/profile-image?platform=bluesky&username=${encodeURIComponent(handle)}`);
 			if (!response.ok) {
-				console.error('Failed to fetch Bluesky profile:', await response.text());
+				console.error('Failed to fetch Bluesky profile');
 				return null;
 			}
 			const data = await response.json();
 			// Proxy the avatar URL through our endpoint
-			return data.avatar ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.avatar)}` : null;
+			return data.profile_image_url ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.profile_image_url)}` : null;
 		} catch (error) {
 			console.error('Error fetching Bluesky profile:', error);
 			return null;
@@ -153,32 +153,28 @@
 	async function handleSocialHandleChange(index: number) {
 		const speaker = formData.speakers[index];
 		let profileImageUrl = null;
-		
+
 		formData.speakers[index].error = '';
-		
+
 		// Handle custom image URL
 		if (speaker.profileImagePlatform === 'custom') {
 			if (speaker.customImageUrl) {
 				try {
-					// Upload to ImgBB
-					const response = await fetch('/api/imgbb-upload', {
-						method: 'POST',
-						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify({ imageUrl: speaker.customImageUrl })
-					});
-					
+					// Proxy the custom image URL through our endpoint
+					const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(speaker.customImageUrl)}`;
+
+					// Verify the image is accessible
+					const response = await fetch(proxyUrl);
 					if (!response.ok) {
-						const errorData = await response.json();
-						throw new Error(errorData.error || 'Failed to upload image');
+						throw new Error('Failed to load image');
 					}
-					
-					const data = await response.json();
-					formData.speakers[index].image = data.imageUrl;
+
+					formData.speakers[index].image = proxyUrl;
 					formData.speakers[index].error = '';
 				} catch (error) {
 					formData.speakers[index].image = '';
-					formData.speakers[index].error = error instanceof Error ? 
-						error.message : 'Failed to upload image to ImgBB';
+					formData.speakers[index].error = error instanceof Error ?
+						error.message : 'Failed to load custom image';
 				}
 			} else {
 				formData.speakers[index].image = '';
@@ -186,7 +182,7 @@
 			formData = { ...formData };
 			return;
 		}
-		
+
 		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
@@ -194,8 +190,8 @@
 			return;
 		}
 
-		const handleToUse = speaker.profileImagePlatform === 'bluesky' ? 
-			speaker.profileImageHandle || speaker.twitterHandle : 
+		const handleToUse = speaker.profileImagePlatform === 'bluesky' ?
+			speaker.profileImageHandle || speaker.twitterHandle :
 			speaker.twitterHandle;
 
 		if (!handleToUse) {
@@ -223,7 +219,7 @@
 			// Use the exact error message from the API
 			formData.speakers[index].error = error instanceof Error ? error.message : 'An unexpected error occurred';
 		}
-		
+
 		formData = { ...formData };
 	}
 
@@ -279,9 +275,9 @@
 					transformOrigin: 'top left'
 				}
 			});
-			
+
 			const link = document.createElement('a');
-			link.download = `meetup${formData.eventNumber}.png`;
+			link.download = `${formData.title.toLowerCase().replace(/\s+/g, '-')}${formData.eventNumber}.png`;
 			link.href = dataUrl;
 			link.click();
 		} catch (error) {
@@ -321,7 +317,7 @@
 						transformOrigin: 'top left'
 					}
 				});
-				
+
 				const link = document.createElement('a');
 				link.download = `speaker-${formData.eventNumber}-${speaker.name.toLowerCase().replace(/\s+/g, '-')}.png`;
 				link.href = dataUrl;
@@ -342,6 +338,17 @@
 			<!-- Basic Event Details -->
 			<div class="space-y-4 rounded-lg bg-white p-6 shadow-md">
 				<h2 class="text-xl font-semibold">Event Details</h2>
+
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Event Title</label>
+					<input
+						type="text"
+						bind:value={formData.title}
+						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+						placeholder="Watchparty, Meetup, etc."
+						required
+					/>
+				</div>
 
 				<div>
 					<label class="block text-sm font-medium text-gray-700">Event Number</label>
@@ -392,7 +399,7 @@
 				<h2 class="text-xl font-semibold">URLs</h2>
 
 				<div>
-					<label class="block text-sm font-medium text-gray-700">Registration URL</label>
+					<label class="block text-sm font-medium text-gray-700">Event Join URL</label>
 					<input
 						type="url"
 						bind:value={formData.registrationUrl}
@@ -625,8 +632,8 @@
 	<div class="mt-8 space-y-8">
 		<div>
 			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
-			<div class="overflow-auto">
-				<div id="graphic">
+			<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
+				<div id="graphic" class="scale-90 origin-center">
 					<EventGraphic eventData={{
 						...formData,
 						speakers: formData.speakers.map(s => ({
@@ -644,9 +651,9 @@
 			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
 			<div class="space-y-8">
 				{#each formData.speakers as speaker, i}
-					<div class="overflow-auto rounded-lg border border-gray-200 p-4">
-						<h3 class="mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
-						<div id="speaker-card-{i}">
+					<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
+						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
+						<div id="speaker-card-{i}" class="scale-90 origin-center">
 							<SpeakerCard
 								speakerData={{
 									name: speaker.name,

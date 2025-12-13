@@ -12,7 +12,8 @@
 	}
 
 	export let eventData: EventData | null = null;
-	
+	$: title = eventData?.title || 'Meetup';
+
 	// Get sponsors from the data file
 	const sponsors = sponsorsData.sponsors;
 
@@ -23,12 +24,14 @@
 	// $: recordingDate = isEventPassed && eventData?.date ? formatRecordingDate(eventData.date) : '';
 
 	function formatDate(dateStr: string): string {
-		const date = new Date(dateStr);
-		const day = date.getDate();
+		// Parse date as local time to avoid timezone shifting
+		const [year, month, day] = dateStr.split('-').map(Number);
+		const date = new Date(year, month - 1, day);
+		const dayNum = date.getDate();
 		const weekday = date.toLocaleDateString('en-US', { weekday: 'long' });
-		const month = date.toLocaleDateString('en-US', { month: 'long' });
-		const year = date.getFullYear();
-		return `${weekday}, ${day} ${month} ${year}`;
+		const monthName = date.toLocaleDateString('en-US', { month: 'long' });
+		const yearNum = date.getFullYear();
+		return `${weekday}, ${dayNum} ${monthName} ${yearNum}`;
 	}
 
 	function formatTime(timeStr: string): string {
@@ -38,13 +41,13 @@
 		const hour12 = hour % 12 || 12;
 		return `${hour12}${ampm}`;
 	}
-	
+
 	function formatRecordingDate(dateStr: string): string {
 		const eventDate = new Date(dateStr);
 		// Add one day to simulate when recording became available
 		const recordingAvailableDate = new Date(eventDate);
 		recordingAvailableDate.setDate(eventDate.getDate() + 1);
-		
+
 		return recordingAvailableDate.toLocaleDateString('en-US', {
 			month: 'short',
 			day: 'numeric'
@@ -53,9 +56,9 @@
 </script>
 
 {#if eventData && eventData.eventNumber}
-	<main id="graphic" class="flex items-center justify-center p-4">
+	<main id="graphic" class="flex items-center justify-center">
 		<div
-			class="lg:scale-90 relative flex h-fit w-fit origin-top scale-[0.8] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white sm:scale-65 md:scale-75 lg:flex-row"
+			class="relative flex w-[1200px] flex-col items-stretch justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white lg:flex-row"
 		>
 			<!-- Past Event Ribbon -->
 			{#if isEventPassed}
@@ -65,7 +68,7 @@
 					</div>
 				</div>
 			{/if}
-			
+
 			<!-- Background Pattern -->
 			<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
 				<svg width="100%" height="100%">
@@ -86,8 +89,8 @@
 			</div>
 
 			<!-- Main Content Section -->
-			<section class="rounded-xl shadow-lg">
-				<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
+			<section class="flex flex-1 flex-col rounded-xl shadow-lg">
+				<div class="flex flex-1 flex-col rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
 					<div class="mb-3">
 						<!-- Header with Logo -->
 						<div class="mb-3 flex items-center gap-2">
@@ -97,12 +100,12 @@
 								class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
 							/>
 							<h2 class="m-0 text-xl font-bold sm:text-2xl lg:text-3xl">
-								LoFi/{eventData.eventNumber} - {isEventPassed ? 'Past Meetup' : 'Join our Monthly Meetup'}
-							</h2>
-						</div>
+							LoFi {title}
+						</h2>
+					</div>
 
-						<!-- Event Details -->
-						<p class="text-sm sm:text-base">Local First Meetup #{eventData.eventNumber}</p>
+					<!-- Event Details -->
+					<p class="text-sm sm:text-base">Local First {title}</p>
 						<p class="my-2 text-base font-bold {isEventPassed ? 'text-gray-500' : 'text-discord'} sm:text-lg">
 							{#if isEventPassed}
 								<span class="line-through">{formattedDateTime}</span> <span class="ml-2 text-sm font-normal">(Event has ended)</span>
@@ -113,14 +116,15 @@
 					</div>
 
 					<!-- Speakers Section -->
-					<div class="rounded-xl bg-white p-3 shadow-xl dark:bg-gray-900 sm:p-4 {isEventPassed ? 'opacity-90' : ''}">
+					<div class="flex flex-1 flex-col rounded-xl bg-white p-3 shadow-xl dark:bg-gray-900 sm:p-4 {isEventPassed ? 'opacity-90' : ''}">
 						{#if isEventPassed}
 							<h4 class="m-0 text-xl font-semibold sm:text-2xl">Recorded Talks</h4>
 						{:else}
 							<h4 class="m-0 text-xl font-semibold sm:text-2xl">Scheduled Talks</h4>
 						{/if}
 						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
-						{#if eventData.speakers && eventData.speakers.length > 0}
+						<div class="flex-1">
+							{#if eventData.speakers && eventData.speakers.length > 0}
 							{#each eventData.speakers as speaker}
 								<!-- Speaker Card -->
 								<div class="group flex items-center gap-2">
@@ -158,12 +162,13 @@
 						{:else}
 							<p class="text-gray-500 dark:text-gray-400">No speakers scheduled yet</p>
 						{/if}
+						</div>
 					</div>
 				</div>
 			</section>
 
 			<!-- Call to Action Section -->
-			<section class="relative flex w-full flex-col gap-5 p-2 sm:gap-10 sm:p-3 lg:w-auto">
+			<section class="relative flex w-full flex-col gap-5 p-2 sm:gap-10 sm:p-3 lg:w-[280px] lg:flex-shrink-0">
 				<!-- <h3 class="m-0 text-center text-lg font-semibold text-white sm:text-xl lg:text-2xl">
 					{#if isEventPassed}
 						Watch the Recording
@@ -176,22 +181,22 @@
 					<h4 class="text-center text-lg font-bold text-white/90">Sponsored by</h4>
 					<div class="flex flex-col items-center gap-4">
 						{#each sponsors as sponsor}
-							<a 
-								href={sponsor.url} 
-								target="_blank" 
+							<a
+								href={sponsor.url}
+								target="_blank"
 								rel="noopener noreferrer"
 								class="transition hover:opacity-90"
 							>
-								<img 
-									src={sponsor.image} 
-									alt={sponsor.name} 
+								<img
+									src={sponsor.image}
+									alt={sponsor.name}
 									class="h-auto w-24 max-h-12 object-contain {sponsor.tier === 'Partner' ? 'max-h-20 w-32' : ''}"
 								/>
 							</a>
 						{/each}
 					</div>
 				</div>
-				
+
 				<!-- Action Buttons -->
 				<div class="flex w-full flex-col items-center gap-3">
 					{#if isEventPassed}
