@@ -2,6 +2,7 @@ import { getKVBinding } from '$lib/server/context';
 
 export interface EventData {
 	eventNumber: number;
+    title: string;
 	date: string;
 	time: string;
 	timezone: string;

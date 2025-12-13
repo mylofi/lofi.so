@@ -18,6 +18,7 @@
 	const lastTuesday = getLastTuesdayOfMonth();
 
 	let formData = {
+		title: 'Watch Party',
 		eventNumber: 1,
 		date: lastTuesday,
 		time: '08:00',
@@ -38,7 +39,7 @@
 				error: ''
 			}
 		],
-		registrationUrl: 'https://localfirstweb.dev',
+		registrationUrl: 'https://lofi.so',
 		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 		logoUrl: '/images/logo.png'
@@ -276,7 +277,7 @@
 			});
 
 			const link = document.createElement('a');
-			link.download = `meetup${formData.eventNumber}.png`;
+			link.download = `${formData.title.toLowerCase().replace(/\s+/g, '-')}${formData.eventNumber}.png`;
 			link.href = dataUrl;
 			link.click();
 		} catch (error) {
@@ -337,6 +338,17 @@
 			<!-- Basic Event Details -->
 			<div class="space-y-4 rounded-lg bg-white p-6 shadow-md">
 				<h2 class="text-xl font-semibold">Event Details</h2>
+
+				<div>
+					<label class="block text-sm font-medium text-gray-700">Event Title</label>
+					<input
+						type="text"
+						bind:value={formData.title}
+						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+						placeholder="Watchparty, Meetup, etc."
+						required
+					/>
+				</div>
 
 				<div>
 					<label class="block text-sm font-medium text-gray-700">Event Number</label>

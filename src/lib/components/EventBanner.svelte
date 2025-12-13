@@ -13,6 +13,7 @@
 
 	$: formattedDate = formatEventDate(eventData);
 	$: formattedTime = eventData?.time ? eventData.time.split(':')[0] + ' ' + eventData.timezone : '';
+	$: title = eventData?.title || 'Meetup';
 
 	onMount(() => {
 		// Set initial banner state based on event data
@@ -46,7 +47,7 @@
 					<div class="flex items-center gap-1">
 						<span class="hidden sm:inline">🎉</span>
 						<span>
-							<strong>LoFi/#{eventData.eventNumber}</strong> - {formattedDate} @ {formattedTime}
+							<strong>LoFi {title}</strong> - {formattedDate} @ {formattedTime}
 						</span>
 					</div>
 
@@ -86,6 +87,7 @@
 						</a>
 					</div>
 
+					<!-- Conference addition
 					<div class="flex items-center gap-0.5 xs:gap-1 ml-0.5 xs:ml-1 pl-0.5 xs:pl-1 border-l border-white/30">
 						<a
 							href="https://syncconf.dev/"
@@ -102,7 +104,7 @@
 								<path d="M7 17L17 7M17 7H7M17 7V17"/>
 							</svg>
 						</a>
-					</div>
+					</div>-->
 				</div>
 
 				<button

@@ -12,7 +12,8 @@
 	}
 
 	export let eventData: EventData | null = null;
-	
+	$: title = eventData?.title || 'Meetup';
+
 	// Get sponsors from the data file
 	const sponsors = sponsorsData.sponsors;
 
@@ -38,13 +39,13 @@
 		const hour12 = hour % 12 || 12;
 		return `${hour12}${ampm}`;
 	}
-	
+
 	function formatRecordingDate(dateStr: string): string {
 		const eventDate = new Date(dateStr);
 		// Add one day to simulate when recording became available
 		const recordingAvailableDate = new Date(eventDate);
 		recordingAvailableDate.setDate(eventDate.getDate() + 1);
-		
+
 		return recordingAvailableDate.toLocaleDateString('en-US', {
 			month: 'short',
 			day: 'numeric'
@@ -65,7 +66,7 @@
 					</div>
 				</div>
 			{/if}
-			
+
 			<!-- Background Pattern -->
 			<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
 				<svg width="100%" height="100%">
@@ -97,12 +98,12 @@
 								class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
 							/>
 							<h2 class="m-0 text-xl font-bold sm:text-2xl lg:text-3xl">
-								LoFi/{eventData.eventNumber} - {isEventPassed ? 'Past Meetup' : 'Join our Monthly Meetup'}
-							</h2>
-						</div>
+							LoFi {title}
+						</h2>
+					</div>
 
-						<!-- Event Details -->
-						<p class="text-sm sm:text-base">Local First Meetup #{eventData.eventNumber}</p>
+					<!-- Event Details -->
+					<p class="text-sm sm:text-base">Local First {title}</p>
 						<p class="my-2 text-base font-bold {isEventPassed ? 'text-gray-500' : 'text-discord'} sm:text-lg">
 							{#if isEventPassed}
 								<span class="line-through">{formattedDateTime}</span> <span class="ml-2 text-sm font-normal">(Event has ended)</span>
@@ -176,22 +177,22 @@
 					<h4 class="text-center text-lg font-bold text-white/90">Sponsored by</h4>
 					<div class="flex flex-col items-center gap-4">
 						{#each sponsors as sponsor}
-							<a 
-								href={sponsor.url} 
-								target="_blank" 
+							<a
+								href={sponsor.url}
+								target="_blank"
 								rel="noopener noreferrer"
 								class="transition hover:opacity-90"
 							>
-								<img 
-									src={sponsor.image} 
-									alt={sponsor.name} 
+								<img
+									src={sponsor.image}
+									alt={sponsor.name}
 									class="h-auto w-24 max-h-12 object-contain {sponsor.tier === 'Partner' ? 'max-h-20 w-32' : ''}"
 								/>
 							</a>
 						{/each}
 					</div>
 				</div>
-				
+
 				<!-- Action Buttons -->
 				<div class="flex w-full flex-col items-center gap-3">
 					{#if isEventPassed}

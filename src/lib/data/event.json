@@ -12,7 +12,7 @@
     },
     {
       "name": "Someone Great",
-      "handle": "@someone", 
+      "handle": "@someone",
       "talk": "Building apps the local first way, you own your data to the fullest.",
       "image": "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
     },
@@ -23,7 +23,7 @@
       "image": "https://static.vecteezy.com/system/resources/previews/024/183/525/non_2x/avatar-of-a-man-portrait-of-a-young-guy-illustration-of-male-character-in-modern-color-style-vector.jpg"
     }
   ],
-  "registrationUrl": "https://localfirstweb.dev",
+  "registrationUrl": "https://lofi.so",
   "discordUrl": "https://discord.gg/lofi-so",
   "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE",
   "logoUrl": "/images/logo.png"
