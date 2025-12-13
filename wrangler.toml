@@ -1,4 +1,8 @@
 name = "lofi-so"
-compatibility_date = "2025-04-24"
-compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
 pages_build_output_dir = ".svelte-kit/cloudflare"
+compatibility_date = "2025-04-24"
+compatibility_flags = ["nodejs_compat"]
+
+[[kv_namespaces]]
+binding = "eventData"
+id = "a582ee811be9420d8bdc1bbeaa437fee"
