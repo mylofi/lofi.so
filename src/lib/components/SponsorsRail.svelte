@@ -29,6 +29,7 @@
 		timezone: string;
 		discordUrl: string;
 		registrationUrl: string;
+		startTimeISO?: string;
 	} | null = null;
 
 	type TierType = 'Partner' | 'Platinum' | 'Gold';
@@ -43,22 +44,32 @@
 		}
 	});
 
-	$: nextEventFromKV = eventData ? {
-		url: eventData.registrationUrl,
-		name: 'Local First Meetup',
-		date: new Date(eventData.date).toLocaleDateString('en-US', {
-			weekday: 'long',
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		}),
-		time: `${eventData.time} ${eventData.timezone}`
-	} : undefined;
+	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
+
+	$: nextEventFromKV = eventData
+		? {
+			url: eventData.registrationUrl,
+			name: 'Local First Meetup',
+			date: (startTimeDate || new Date(eventData.date)).toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}),
+			time: startTimeDate
+				? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+				: `${eventData.time} ${eventData.timezone}`
+		}
+		: undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
 
 	// Check if the event date has passed
-	$: isEventPassed = eventData ? new Date(eventData.date) < new Date() : false;
+	$: isEventPassed = startTimeDate
+		? startTimeDate.getTime() < Date.now()
+		: eventData
+			? new Date(eventData.date) < new Date()
+			: false;
 
 	// $: sponsorsByTier = sponsors.reduce(
 	// 	(acc, sponsor) => {
@@ -82,7 +93,7 @@
 
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
-		<div class="absolute bottom-5 right-[max(0px,calc(50%-45rem))] top-24 z-20 w-[19.5rem] px-8">
+		<div class="absolute top-24 bottom-5 right-[max(0px,calc(50%-45rem))] z-20 w-[19.5rem] pr-4">
 			<div class="sticky top-32 h-[calc(100vh-9rem)] overflow-y-auto">
 				{#if showNextEvent && activeNextEvent}
 					<div
