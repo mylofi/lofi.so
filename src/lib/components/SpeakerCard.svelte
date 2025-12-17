@@ -23,11 +23,18 @@
 		: '';
 	$: formattedTime = time ? `${time.split(':')[0]}${time.split(':')[0] >= '12' ? 'PM' : 'AM'}` : '';
 	$: formattedDateTime = `${formattedDate} @ ${formattedTime} ${timezone}`;
+
+	// Calculate total content length to determine font sizes
+	$: totalTalkPointsLength = speakerData.talkPoints.filter(p => p).reduce((sum, p) => sum + p.length, 0);
+	$: isShortContent = speakerData.talk.length < 30 && totalTalkPointsLength < 80;
+	$: bulletTextSize = isShortContent ? 'text-base' : 'text-sm';
+	$: bulletDotSize = isShortContent ? 'h-4 w-4 mt-1' : 'h-3 w-3 mt-1.5';
+	$: bulletSpacing = isShortContent ? 'space-y-4' : 'space-y-2';
 </script>
 
-<main class="flex min-h-screen items-center justify-center p-4">
+<main class="inline-block">
 	<div
-		class="relative flex h-fit w-fit origin-center scale-[0.55] flex-col items-end justify-end rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white sm:scale-60 md:scale-[0.65]"
+		class="relative flex w-[800px] h-[450px] flex-col rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white"
 	>
 		<!-- Background Pattern -->
 		<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
@@ -49,78 +56,79 @@
 		</div>
 
 		<!-- Main Content Section -->
-		<section class="max-w-[1000px] rounded-xl p-6">
-			<div class="rounded-xl bg-gray-100 px-6 py-6 shadow-md dark:bg-gray-800">
+		<section class="flex-1 rounded-xl p-5">
+			<div class="h-full rounded-xl bg-gray-100 p-4 shadow-md dark:bg-gray-800">
 				<!-- Speaker Content -->
-				<div class="rounded-xl bg-white p-6 shadow-xl dark:bg-gray-900">
-					<div class="grid grid-cols-1 gap-14 lg:grid-cols-2">
-						<!-- Left Column -->
-						<div class="flex flex-col gap-8">
+				<div class="h-full rounded-xl bg-white p-5 shadow-xl dark:bg-gray-900" >
+					<div class="flex w-full h-full gap-12">
+						<!-- Speaker Column -->
+						<div class="w-[300px] flex flex-col gap-4 h-full">
 							<!-- Speaker Image and Info -->
-							<div class="flex flex-col gap-6">
+							<div class="flex flex-col gap-4">
 								<div class="relative">
 									{#if speakerData.image}
-										<div class="aspect-square h-56 w-56 overflow-hidden rounded-full bg-gray-200 shadow-lg dark:bg-gray-700">
+										<div class="aspect-square h-44 w-44 overflow-hidden rounded-full bg-gray-200 shadow-lg dark:bg-gray-700">
 											<img
 												src={speakerData.image}
 												alt={speakerData.name}
 												class="h-full w-full object-cover"
 											/>
 										</div>
-										<div class="absolute -bottom-2 -right-2 rounded-xl bg-white/95 p-4 shadow-lg backdrop-blur-sm dark:bg-gray-900/95">
-											<h2 class="text-2xl font-bold">{speakerData.name}</h2>
+										<div class="absolute -bottom-2 left-[100px] min-w-[120px] max-w-[200px] rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-sm dark:bg-gray-900/95">
+											<h2 class="text-lg font-bold leading-tight line-clamp-2">{speakerData.name}</h2>
 											<a
 												href={`https://x.com/${speakerData.twitterHandle?.substring(1)}`}
 												target="_blank"
 												rel="noopener noreferrer"
-												class="text-lg text-gray-600 hover:text-discord dark:text-gray-400"
+												class="text-sm text-gray-600 hover:text-discord dark:text-gray-400"
 											>
 												{speakerData.twitterHandle}
 											</a>
 										</div>
 									{/if}
 								</div>
-								<p class="max-w-md text-gray-700 dark:text-gray-300">
-									{speakerData.bio}
-								</p>
 							</div>
+							<!-- Bio -->
+							<p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-5">
+								{speakerData.bio}
+							</p>
 						</div>
 
-						<!-- Right Column -->
-						<div class="flex flex-col justify-between gap-8">
+						<!-- Talk Details  Column-->
+						<div class="w-[400px] flex flex-col gap-8 h-full">
 							<!-- Header with Logo -->
 							<div>
-								<div class="mb-3 flex items-center gap-2">
-									<img src="/images/logo.png" alt="LoFi" class="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
-									<h2 class="m-0 text-xl font-bold sm:text-2xl lg:text-3xl">
+								<div class="mb-2 flex items-center gap-2">
+									<img src="/images/logo.png" alt="LoFi" class="h-10 w-10" />
+									<h1 class="m-0 text-2xl font-bold">
 										LoFi/{eventNumber}
-									</h2>
+									</h1>
 								</div>
-								<p class="mb-1 text-lg font-bold text-gray-800 dark:text-gray-200 sm:text-base">
+								<h2 class="mb-1 text-xl font-bold text-gray-800 dark:text-gray-200">
 									Local First Meetup #{eventNumber}
-								</p>
-								<p class="text-base font-bold text-discord sm:text-lg">
+								</h2>
+								<p class="text-base font-bold text-discord">
 									{formattedDateTime}
 								</p>
 							</div>
 
 							<!-- Talk Info -->
-							<div class="flex flex-col gap-6">
-								<h1 class="max-w-md text-2xl font-bold text-gray-900 dark:text-white lg:text-4xl">
+							<div class="flex flex-col gap-3">
+								<h1 class="font-bold text-gray-900 dark:text-white line-clamp-2 {speakerData.talk.length > 40 ? 'text-xl' : 'text-2xl'}">
 									{speakerData.talk}
 								</h1>
-								<div class="space-y-4">
+								<div class={bulletSpacing}>
 									{#each speakerData.talkPoints.filter((point) => point) as point}
-										<div class="flex items-start gap-3">
-											<div class="mt-2 h-3 w-3 flex-shrink-0 rounded-full bg-discord lg:h-4 lg:w-4" />
-											<p class="max-w-md text-lg text-gray-800 dark:text-gray-200 lg:text-xl">
+										<div class="flex items-start gap-2">
+											<div class="flex-shrink-0 rounded-full bg-discord {bulletDotSize}" />
+											<p class="text-gray-800 dark:text-gray-200 line-clamp-2 {bulletTextSize}">
 												{point}
 											</p>
 										</div>
 									{/each}
 								</div>
 							</div>
-						</div>
+</div>
 					</div>
 				</div>
 			</div>
@@ -133,4 +141,4 @@
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
 			Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	}
-</style> 
+</style>

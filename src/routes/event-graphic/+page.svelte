@@ -2,6 +2,7 @@
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
+	import { buildStartTimeISO, tzOffsetMap } from '$lib/utils/date';
 	import { onMount } from 'svelte';
 
 	function getLastTuesdayOfMonth() {
@@ -44,6 +45,12 @@
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 		logoUrl: '/images/logo.png'
 	};
+
+
+
+	$: startTimeISO = formData.date && formData.time
+		? new Date(buildStartTimeISO(formData.date, formData.time, formData.timezone)).toISOString()
+		: '';
 
 	// Update the date when the month changes
 	function updateToLastTuesday() {
@@ -108,8 +115,45 @@
 		handleSocialHandleChange(index);
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		updateToLastTuesday();
+
+		// Load latest event data
+		try {
+			const response = await fetch('/api/latest-event');
+			if (response.ok) {
+				const eventData = await response.json();
+				if (eventData && eventData.eventNumber) {
+					formData = {
+						title: eventData.title || 'Watch Party',
+						eventNumber: eventData.eventNumber || 1,
+						date: eventData.date || formData.date,
+						time: eventData.time || '08:00',
+						timezone: eventData.timezone || 'PST',
+						speakers: eventData.speakers?.map((s: any) => ({
+							name: s.name || '',
+							socialPlatform: 'twitter',
+							socialHandle: s.twitterHandle || '@',
+							twitterHandle: s.twitterHandle || '@',
+							profileImagePlatform: 'twitter',
+							profileImageHandle: '',
+							customImageUrl: '',
+							talk: s.talk || '',
+							bio: s.bio || '',
+							talkPoints: s.talkPoints || ['', '', ''],
+							image: s.image || '',
+							error: ''
+						})) || formData.speakers,
+						registrationUrl: eventData.registrationUrl || 'https://lofi.so',
+						discordUrl: eventData.discordUrl || 'https://discord.gg/ZRrwZxn4rW',
+						calendarUrl: eventData.calendarUrl || 'https://calendar.google.com/calendar/event?action=TEMPLATE',
+						logoUrl: eventData.logoUrl || '/images/logo.png'
+					};
+				}
+			}
+		} catch (error) {
+			console.error('Error loading latest event:', error);
+		}
 	});
 
 	async function fetchTwitterProfile(handle: string): Promise<string | null> {
@@ -247,15 +291,46 @@
 		formData.speakers = formData.speakers.filter((_, i) => i !== index);
 	}
 
+	function resetForm() {
+		formData = {
+			title: 'Watch Party',
+			eventNumber: 1,
+			date: getLastTuesdayOfMonth(),
+			time: '08:00',
+			timezone: 'PST',
+			speakers: [
+				{
+					name: '',
+					socialPlatform: 'twitter',
+					socialHandle: '@',
+					twitterHandle: '@',
+					profileImagePlatform: 'twitter',
+					profileImageHandle: '',
+					customImageUrl: '',
+					talk: '',
+					bio: '',
+					talkPoints: ['', '', ''],
+					image: '',
+					error: ''
+				}
+			],
+			registrationUrl: 'https://lofi.so',
+			discordUrl: 'https://discord.gg/ZRrwZxn4rW',
+			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
+			logoUrl: '/images/logo.png'
+		};
+	}
+
 	async function handleSubmit() {
 		try {
+			const payload = { ...formData, startTimeISO };
 			// save the JSON data
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(formData)
+				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
@@ -264,16 +339,11 @@
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
 
-			const rect = graphic.getBoundingClientRect();
 			const dataUrl = await domToPng(graphic, {
 				scale: 2,
 				quality: 1,
-				width: rect.width,
-				height: rect.height,
-				style: {
-					transform: 'scale(1)',
-					transformOrigin: 'top left'
-				}
+				width: 1120,
+				height: 630
 			});
 
 			const link = document.createElement('a');
@@ -288,13 +358,14 @@
 
 	async function handleGenerateSpeakerCards() {
 		try {
+			const payload = { ...formData, startTimeISO };
 			// save the JSON data first
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(formData)
+				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
@@ -306,16 +377,11 @@
 
 				if (!speakerCardElement) continue;
 
-				const rect = speakerCardElement.getBoundingClientRect();
 				const dataUrl = await domToPng(speakerCardElement, {
 					scale: 2,
 					quality: 1,
-					width: rect.width,
-					height: rect.height,
-					style: {
-						transform: 'scale(1)',
-						transformOrigin: 'top left'
-					}
+					width: 800,
+					height: 450
 				});
 
 				const link = document.createElement('a');
@@ -625,6 +691,13 @@
 			>
 				Generate Speaker Cards
 			</button>
+			<button
+				type="button"
+				on:click={resetForm}
+				class="rounded-md bg-gray-500 px-4 py-2 text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+			>
+				Reset
+			</button>
 		</div>
 	</form>
 
@@ -632,10 +705,12 @@
 	<div class="mt-8 space-y-8">
 		<div>
 			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
-			<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
-				<div id="graphic" class="scale-90 origin-center">
+			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
+				<!-- Fixed width wrapper ensures lg: breakpoints apply for export -->
+				<div id="graphic" class="origin-center" style="width: 1120px; min-width: 1120px; height: 630px; min-height: 630px;">
 					<EventGraphic eventData={{
 						...formData,
+						startTimeISO,
 						speakers: formData.speakers.map(s => ({
 							name: s.name,
 							twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
@@ -651,9 +726,9 @@
 			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
 			<div class="space-y-8">
 				{#each formData.speakers as speaker, i}
-					<div class="flex items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
+					<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
 						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
-						<div id="speaker-card-{i}" class="scale-90 origin-center">
+						<div id="speaker-card-{i}" class="origin-center">
 							<SpeakerCard
 								speakerData={{
 									name: speaker.name,

@@ -7,12 +7,24 @@
 
 	export let eventData: EventData | null = null;
 
+	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
+
 	// Check if event date is in the future
-	$: isUpcomingEvent = eventData?.date ? new Date(eventData.date) > new Date() : false;
+	$: isUpcomingEvent = startTimeDate
+		? startTimeDate.getTime() > Date.now()
+		: eventData?.date
+			? new Date(eventData.date) > new Date()
+			: false;
 	$: shouldShowBanner = $isBannerVisible && eventData?.eventNumber && isUpcomingEvent;
 
-	$: formattedDate = formatEventDate(eventData);
-	$: formattedTime = eventData?.time ? eventData.time.split(':')[0] + ' ' + eventData.timezone : '';
+	$: formattedDate = startTimeDate
+		? startTimeDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })
+		: formatEventDate(eventData);
+	$: formattedTime = startTimeDate
+		? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+		: eventData?.time
+			? eventData.time.split(':')[0] + ' ' + eventData.timezone
+			: '';
 	$: title = eventData?.title || 'Meetup';
 
 	onMount(() => {
