@@ -28,7 +28,6 @@
 				"Uses": null
 			}
 		},
-
 		{
 			"id": 6,
 			"fields": {
@@ -43,21 +42,6 @@
 				"Uses": null
 			}
 		},
-		{
-			"id": 1,
-			"fields": {
-				"Main_Category": 3,
-				"Title": "Zero",
-				"slug": "zero",
-				"author": "Rocicorp",
-				"url": "https://zero.rocicorp.dev",
-				"icon": "https://i.ibb.co/gnNWF6s/Zero.png",
-				"description": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
-				"Categories": ["L", 41],
-				"Uses": null
-			}
-		},
-
 		{
 			"id": 1,
 			"fields": {
@@ -304,7 +288,7 @@
 				"slug": "dexie-cloud",
 				"author": "Awarica AB",
 				"url": "https://dexie.org/cloud/",
-				"icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4",
+				"icon": "https://avatars.githubusercontent.com/u/32483223?s=128&v=4",
 				"description": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
 				"Categories": ["L", 41],
 				"Uses": null
@@ -332,7 +316,7 @@
 				"slug": "dxos",
 				"author": "dxos.org",
 				"url": "https://dxos.org",
-				"icon": "https://docs.dxos.org/images/logotype/dxos-hero-white.svg",
+				"icon": "https://avatars.githubusercontent.com/u/57182821?s=200&v=4",
 				"description": "The Decentralized Operating System",
 				"Categories": ["L", 39, 41],
 				"Uses": null
@@ -517,6 +501,20 @@
 				"icon": "https://github.githubassets.com/favicons/favicon-dark.svg",
 				"description": "SyncedStore - Javascript CRDT based real-time sync",
 				"Categories": ["L", 39],
+				"Uses": null
+			}
+		},
+		{
+			"id": 34,
+			"fields": {
+				"Main_Category": 3,
+				"Title": "Zero",
+				"slug": "zero",
+				"author": "Rocicorp",
+				"url": "https://zero.rocicorp.dev",
+				"icon": "https://i.ibb.co/gnNWF6s/Zero.png",
+				"description": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+				"Categories": ["L", 41],
 				"Uses": null
 			}
 		},
