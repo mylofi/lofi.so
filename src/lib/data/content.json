@@ -1,719 +1,717 @@
 [
     {
-      "index": 1,
-      "title": "Learn",
-      "sections": [
-        {
-          "title": "Things to read",
-          "items": [
+        "index": 1,
+        "title": "Learn",
+        "sections": [
             {
-              "title": "Local-first software: you own your data, in spite of the cloud",
-              "author": "Ink & Switch",
-              "url": "https://www.inkandswitch.com/local-first",
-              "icon": "https://www.inkandswitch.com/static/favicons/favicon.ico"
+                "title": "Things to read",
+                "items": [
+                    {
+                        "title": "Local-first software: you own your data, in spite of the cloud",
+                        "author": "Ink & Switch",
+                        "url": "https://www.inkandswitch.com/local-first",
+                        "icon": "https://www.inkandswitch.com/static/favicons/favicon.ico"
+                    },
+                    {
+                        "title": "Building data-centric apps with a reactive relational database",
+                        "author": "Riffle",
+                        "url": "https://riffle.systems/essays/prelude",
+                        "icon": "https://riffle.systems/favicon-32x32.png"
+                    },
+                    {
+                        "title": "Developing local-first software",
+                        "author": "James Arthur",
+                        "url": "https://electric-sql.com/blog/2023/02/09/developing-local-first-software",
+                        "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg"
+                    },
+                    {
+                        "title": "What if we had local-first software?",
+                        "author": "@adlrocha",
+                        "url": "https://adlrocha.substack.com/p/adlrocha-what-if-we-had-local-first",
+                        "icon": "https://substackcdn.com/image/fetch/w_96,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe6333716-f819-4deb-8a2c-279b79623d48_122x122.png"
+                    },
+                    {
+                        "title": "Closing the gap between your users and their data",
+                        "author": "James Pearce",
+                        "url": "https://tripleodeon.com/2022/11/closing-the-gap-between-your-users-and-their-data",
+                        "icon": "https://tripleodeon.com/favicon.ico"
+                    },
+                    {
+                        "title": "In search of a local-first database",
+                        "author": "Jared Forsyth",
+                        "url": "https://jaredforsyth.com/posts/in-search-of-a-local-first-database",
+                        "icon": "https://jaredforsyth.com/images/logo/JF_black_32.png"
+                    },
+                    {
+                        "title": "End-to-End Encryption in the Browser",
+                        "author": "vjeux",
+                        "url": "https://blog.excalidraw.com/end-to-end-encryption/",
+                        "icon": "https://excalidraw.com/favicon.ico"
+                    },
+                    {
+                        "title": "Designing Data Structures for Collaborative Apps",
+                        "author": "Matthew Weidner",
+                        "url": "https://mattweidner.com/2022/02/10/collaborative-data-design.html",
+                        "icon": "https://mattweidner.com/assets/img/favicon.ico"
+                    },
+                    {
+                        "title": "A Gentle Introduction to CRDTs",
+                        "author": "Matt Wonlaw",
+                        "url": "https://vlcn.io/blog/gentle-intro-to-crdts.html",
+                        "icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+                    },
+                    {
+                        "title": "Some notes on local-first development",
+                        "author": "@kylemathews",
+                        "url": "https://bricolage.io/some-notes-on-local-first-development/",
+                        "icon": "https://bricolage.io/favicon-32x32.png"
+                    },
+                    {
+                        "title": "List CRDT Benchmarks",
+                        "author": "Vadim @streamich Dalecky",
+                        "url": "https://jsonjoy.com/blog/list-crdt-benchmarks",
+                        "icon": "https://appsets.jsonjoy.com/branding/logos/64x64-fitted.png"
+                    }
+                ]
             },
             {
-              "title": "Building data-centric apps with a reactive relational database",
-              "author": "Riffle",
-              "url": "https://riffle.systems/essays/prelude",
-              "icon": "https://riffle.systems/favicon-32x32.png"
-            },
-            {
-              "title": "Developing local-first software",
-              "author": "James Arthur",
-              "url": "https://electric-sql.com/blog/2023/02/09/developing-local-first-software",
-              "icon": "https://raw.githubusercontent.com/electric-sql/meta/main/identity/ElectricSQL-icon-light-trans.svg"
-            },
-            {
-              "title": "What if we had local-first software?",
-              "author": "@adlrocha",
-              "url": "https://adlrocha.substack.com/p/adlrocha-what-if-we-had-local-first",
-              "icon": "https://substackcdn.com/image/fetch/w_96,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fe6333716-f819-4deb-8a2c-279b79623d48_122x122.png"
-            },
-            {
-              "title": "Closing the gap between your users and their data",
-              "author": "James Pearce",
-              "url": "https://tripleodeon.com/2022/11/closing-the-gap-between-your-users-and-their-data",
-              "icon": "https://tripleodeon.com/favicon.ico"
-            },
-            {
-              "title": "In search of a local-first database",
-              "author": "Jared Forsyth",
-              "url": "https://jaredforsyth.com/posts/in-search-of-a-local-first-database",
-              "icon": "https://jaredforsyth.com/images/logo/JF_black_32.png"
-            },
-            {
-              "title": "End-to-End Encryption in the Browser",
-              "author": "vjeux",
-              "url": "https://blog.excalidraw.com/end-to-end-encryption/",
-              "icon": "https://excalidraw.com/favicon.ico"
-            },
-            {
-              "title": "Designing Data Structures for Collaborative Apps",
-              "author": "Matthew Weidner",
-              "url": "https://mattweidner.com/2022/02/10/collaborative-data-design.html",
-              "icon": "https://mattweidner.com/assets/img/favicon.ico"
-            },
-            {
-              "title": "A Gentle Introduction to CRDTs",
-              "author": "Matt Wonlaw",
-              "url": "https://vlcn.io/blog/gentle-intro-to-crdts.html",
-              "icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
-            },
-            {
-              "title": "Some notes on local-first development",
-              "author": "@kylemathews",
-              "url": "https://bricolage.io/some-notes-on-local-first-development/",
-              "icon": "https://bricolage.io/favicon-32x32.png"
-            },
-            {
-              "title": "List CRDT Benchmarks",
-              "author": "Vadim @streamich Dalecky",
-              "url": "https://jsonjoy.com/blog/list-crdt-benchmarks",
-              "icon": "https://appsets.jsonjoy.com/branding/logos/64x64-fitted.png"
+                "title": "Things to watch",
+                "items": [
+                    {
+                        "title": "Local-first software",
+                        "author": "Peter van Hardenberg",
+                        "url": "https://www.youtube.com/watch?v=KrPsyr8Ig6M",
+                        "icon": "https://img.youtube.com/vi/KrPsyr8Ig6M/sddefault.jpg"
+                    },
+                    {
+                        "title": "Introduction to local-first applications",
+                        "author": "Mycelial",
+                        "url": "https://www.youtube.com/watch?v=RbiGkdSGm4s",
+                        "icon": "https://img.youtube.com/vi/RbiGkdSGm4s/sddefault.jpg"
+                    },
+                    {
+                        "title": "CRDTs for mortals",
+                        "author": "James Long",
+                        "url": "https://www.youtube.com/watch?v=DEcwa68f-jY",
+                        "icon": "https://img.youtube.com/vi/DEcwa68f-jY/sddefault.jpg"
+                    },
+                    {
+                        "title": "CRDTs: the hard parts",
+                        "author": "Martin Kleppmann",
+                        "url": "https://www.youtube.com/watch?v=x7drE24geUw",
+                        "icon": "https://img.youtube.com/vi/x7drE24geUw/sddefault.jpg"
+                    },
+                    {
+                        "title": "AWS reInvent 2019: Data Driven Mobile & Web Apps",
+                        "author": "Richard Threlkeld",
+                        "url": "https://www.youtube.com/watch?v=KcYl6_We0EU",
+                        "icon": "https://img.youtube.com/vi/KcYl6_We0EU/sddefault.jpg"
+                    },
+                    {
+                        "title": "Holistic Approach to Local-First Software",
+                        "author": "Mauve Signweaver",
+                        "url": "https://www.youtube.com/watch?v=VqUzhnDd1-E",
+                        "icon": "https://img.youtube.com/vi/VqUzhnDd1-E/sddefault.jpg"
+                    },
+                    {
+                        "title": "Local-first app development",
+                        "author": "Johannes Schickling",
+                        "url": "https://www.youtube.com/watch?v=qHSI5rxTp_Q",
+                        "icon": "https://img.youtube.com/vi/qHSI5rxTp_Q/sddefault.jpg"
+                    },
+                    {
+                        "title": "localfirst.fm: podcast about local-first software development",
+                        "author": "Johannes Schickling",
+                        "url": "https://www.localfirst.fm",
+                        "icon": "https://www.localfirst.fm/_next/static/media/poster.c846b7aa.png"
+                    }
+                ]
             }
-          ]
-        },
-        {
-          "title": "Things to watch",
-          "items": [
-            {
-              "title": "Local-first software",
-              "author": "Peter van Hardenberg",
-              "url": "https://www.youtube.com/watch?v=KrPsyr8Ig6M",
-              "icon": "https://img.youtube.com/vi/KrPsyr8Ig6M/sddefault.jpg"
-            },
-            {
-              "title": "Introduction to local-first applications",
-              "author": "Mycelial",
-              "url": "https://www.youtube.com/watch?v=RbiGkdSGm4s",
-              "icon": "https://img.youtube.com/vi/RbiGkdSGm4s/sddefault.jpg"
-            },
-            {
-              "title": "CRDTs for mortals",
-              "author": "James Long",
-              "url": "https://www.youtube.com/watch?v=DEcwa68f-jY",
-              "icon": "https://img.youtube.com/vi/DEcwa68f-jY/sddefault.jpg"
-            },
-            {
-              "title": "CRDTs: the hard parts",
-              "author": "Martin Kleppmann",
-              "url": "https://www.youtube.com/watch?v=x7drE24geUw",
-              "icon": "https://img.youtube.com/vi/x7drE24geUw/sddefault.jpg"
-            },
-            {
-              "title": "AWS reInvent 2019: Data Driven Mobile & Web Apps",
-              "author": "Richard Threlkeld",
-              "url": "https://www.youtube.com/watch?v=KcYl6_We0EU",
-              "icon": "https://img.youtube.com/vi/KcYl6_We0EU/sddefault.jpg"
-            },
-            {
-              "title": "Holistic Approach to Local-First Software",
-              "author": "Mauve Signweaver",
-              "url": "https://www.youtube.com/watch?v=VqUzhnDd1-E",
-              "icon": "https://img.youtube.com/vi/VqUzhnDd1-E/sddefault.jpg"
-            },
-            {
-              "title": "Local-first app development",
-              "author": "Johannes Schickling",
-              "url": "https://www.youtube.com/watch?v=qHSI5rxTp_Q",
-              "icon": "https://img.youtube.com/vi/qHSI5rxTp_Q/sddefault.jpg"
-            },
-            {
-              "title": "localfirst.fm: podcast about local-first software development",
-              "author": "Johannes Schickling",
-              "url": "https://www.localfirst.fm",
-              "icon": "https://www.localfirst.fm/_next/static/media/poster.c846b7aa.png"
-            }
-          ]
-        }
-      ]
+        ]
     },
     {
-      "index": 2,
-      "title": "Build",
-      "sections": [
-        {
-          "title": "Storing data",
-          "class": "row2",
-          "items": [
-						{
-							"title": "ElectricSQL",
-							"author": "ElectricSQL team",
-							"url": "https://electric-sql.com",
-							"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
-						},
-						{
-							"title": "PowerSync",
-							"author": "JourneyApps",
-							"url": "https://www.powersync.com",
-							"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
-						},
-						{
-							"title": "Dexie.js",
-							"author": "David Fahlander",
-							"url": "https://dexie.org/",
-							"icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4"
-						},
-						{
-							"title": "remoteStorage",
-							"author": "remoteStorage contributors",
-							"url": "https://remotestorage.io",
-							"icon": "https://remotestorage.io/logo.svg"
-						},
-						{
-							"title": "Gun",
-							"author": "Mark Nadal",
-							"url": "https://gun.eco",
-							"icon": "https://gun.eco/icons/icon-48x48.png?v=dfecf3c0fa09798b200a8a8b9fa0f172"
-						},
+        "index": 2,
+        "title": "Build",
+        "sections": [
+            {
+                "title": "Storing data",
+                "class": "row2",
+                "items": [
+                    {
+                        "title": "ElectricSQL",
+                        "author": "ElectricSQL team",
+                        "url": "https://electric-sql.com",
+                        "icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
+                    },
+                    {
+                        "title": "PowerSync",
+                        "author": "JourneyApps",
+                        "url": "https://www.powersync.com",
+                        "icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
+                    },
+                    {
+                        "title": "Dexie.js",
+                        "author": "David Fahlander",
+                        "url": "https://dexie.org/",
+                        "icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4"
+                    },
+                    {
+                        "title": "WatermelonDB",
+                        "author": "Radek Pietruszewski / Nozbe",
+                        "url": "https://watermelondb.dev",
+                        "icon": "https://raw.githubusercontent.com/Nozbe/WatermelonDB/master/assets/icon128x128.png"
+                    },
+                    {
+                        "title": "remoteStorage",
+                        "author": "remoteStorage contributors",
+                        "url": "https://remotestorage.io",
+                        "icon": "https://remotestorage.io/logo.svg"
+                    },
+                    {
+                        "title": "RxDB",
+                        "author": "Daniel Meyer",
+                        "url": "https://rxdb.info",
+                        "icon": "https://rxdb.info/files/logo/logo.svg"
+                    },
+                    {
+                        "title": "TinyBase",
+                        "author": "James Pearce",
+                        "url": "https://tinybase.org",
+                        "icon": "https://tinybase.org/favicon.svg"
+                    },
+                    {
+                        "title": "Gun",
+                        "author": "Mark Nadal",
+                        "url": "https://gun.eco",
+                        "icon": "https://gun.eco/icons/icon-48x48.png?v=dfecf3c0fa09798b200a8a8b9fa0f172"
+                    },
+                    {
+                        "title": "DXOS",
+                        "author": "dxos.org",
+                        "url": "https://dxos.org",
+                        "icon": "https://i.ibb.co/pvwKDFDW/57182821.png"
+                    },
+                    {
+                        "title": "Dat Stack",
+                        "author": "hyper- core/bee/store/drive (by dat-ecosystem)",
+                        "url": "https://dat-ecosystem.org/",
+                        "icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
+                    },
+                    {
+                        "title": "Evolu",
+                        "author": "Daniel Steigerwald",
+                        "url": "https://www.evolu.dev/",
+                        "icon": "https://i.ibb.co/tp0F0Gdn/56556353.png"
+                    },
+                    {
+                        "title": "Liveblocks",
+                        "author": "Liveblocks team",
+                        "url": "https://liveblocks.io/",
+                        "icon": "https://liveblocks.io/favicon.svg"
+                    },
+                    {
+                        "title": "Fireproof",
+                        "author": "Fireproof team",
+                        "url": "https://use-fireproof.com/",
+                        "icon": "https://fireproof.storage/static/img/flame.svg"
+                    },
+                    {
+                        "title": "Instant",
+                        "author": "Stepan Parunashvili",
+                        "url": "https://www.instantdb.com",
+                        "icon": "https://www.instantdb.com/img/icon/apple-touch-icon-152x152.png"
+                    },
+                    {
+                        "title": "m-ld",
+                        "author": "George Svarovsky et al.",
+                        "url": "https://m-ld.org/",
+                        "icon": "https://m-ld.org/m-ld.inverse.svg"
+                    },
+                    {
+                        "title": "NextGraph",
+                        "author": "Niko Bonnieure",
+                        "url": "https://nextgraph.org/",
+                        "icon": "https://nextgraph.org/favicon.svg"
+                    },
+                    {
+                        "title": "PouchDB",
+                        "author": "PouchDB contributors",
+                        "url": "https://pouchdb.com",
+                        "icon": "https://pouchdb.com/static/favicon.ico"
+                    },
+                    {
+                        "title": "SignalDB",
+                        "author": "Max Nowack",
+                        "url": "https://signaldb.js.org",
+                        "icon": "https://signaldb.js.org/logo.svg"
+                    },
+                    {
+                        "title": "Socket Runtime",
+                        "author": "Socket Runtime Team",
+                        "url": "https://github.com/socketsupply/socket",
+                        "icon": "https://socketsupply.co/images/monogram.svg"
+                    },
+                    {
+                        "title": "Soukai",
+                        "author": "Noel De Martin",
+                        "url": "https://soukai.js.org",
+                        "icon": "https://soukai.js.org/img/logo.svg"
+                    },
+                    {
+                        "title": "SyncedStore",
+                        "author": "Yousef El-Dardiry",
+                        "url": "https://syncedstore.org",
+                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+                    },
+                    {
+                        "title": "Triplit",
+                        "author": "Aspen Cloud",
+                        "url": "https://triplit.dev",
+                        "icon": "https://triplit.dev/favicon.ico"
+                    },
+                    {
+                        "title": "Verdant",
+                        "author": "Grant Forrest",
+                        "url": "https://verdant.dev",
+                        "icon": "https://verdant.dev/favicon-32x32.png"
+                    },
+                    {
+                        "title": "VLCN",
+                        "author": "Matt Wonlaw",
+                        "url": "https://vlcn.io",
+                        "icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+                    }
+                ]
+            },
+            {
+                "title": "Syncing data",
+                "items": [
+									{
+										"title": "Jazz Tools",
+										"author": "Anselm / Garden Computing",
+										"url": "https://jazz.tools/",
+										"icon": "https://jazz.tools/favicon.ico"
+									},
+									{
+										"title": "ElectricSQL",
+										"author": "ElectricSQL team",
+										"url": "https://electric-sql.com",
+										"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
+									},
+									{
+										"title": "PowerSync",
+										"author": "JourneyApps",
+										"url": "https://www.powersync.com",
+										"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
+									},
+									{
+										"title": "Yjs",
+										"author": "Kevin Jahns & contributors",
+										"url": "https://yjs.dev",
+										"icon": "https://yjs.dev/images/logo/yjs.svg"
+									},
+									{
+										"title": "Automerge",
+										"author": "Ink & Switch and contributors",
+										"url": "https://automerge.org",
+										"icon": "https://avatars.githubusercontent.com/u/29780209?s=500&v=4"
+									},
+									{
+										"title": "Collabs",
+										"author": "Composable Systems Lab @ CMU",
+										"url": "https://collabs.readthedocs.io/en/latest/",
+										"icon": "https://collabs.readthedocs.io/en/latest/_static/favicon.ico"
+									},
+									{
+										"title": "CouchDB",
+										"author": "apache couchdb team",
+										"url": "https://couchdb.apache.org",
+										"icon": "https://couchdb.apache.org/image/couch@2x.png"
+									},
+									{
+										"title": "Dexie Cloud",
+										"author": "Awarica AB",
+										"url": "https://dexie.org/cloud/",
+										"icon": "https://dexie.org/assets/images/dexie-icon-64x64.png"
+									},
+									{
+										"title": "Ditto",
+										"author": "Ditto Live, Inc",
+										"url": "https://ditto.live",
+										"icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg"
+									},
+									{
+										"title": "Dat Stack",
+										"author": "hyper- swarm/dht & autobase (by dat-ecosystem)",
+										"url": "https://dat-ecosystem.org/",
+										"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
+									},
+									{
+										"title": "hocuspocus",
+										"author": "ueberdosis",
+										"url": "https://tiptap.dev/hocuspocus/",
+										"icon": "https://yjs.dev/images/logo/yjs.svg"
+									},
+									{
+										"title": "Jamsocket",
+										"author": "Jamsocket team",
+										"url": "https://jamsocket.com/",
+										"icon": "https://jamsocket.com/favicon.svg"
+									},
+									{
+										"title": "Liveblocks Storage",
+										"author": "Liveblocks team",
+										"url": "https://liveblocks.io/realtime-apis/storage",
+										"icon": "https://liveblocks.io/favicon.svg"
+									},
+									{
+										"title": "Liveblocks Yjs",
+										"author": "Liveblocks team",
+										"url": "https://liveblocks.io/realtime-apis/yjs",
+										"icon": "https://liveblocks.io/favicon.svg"
+									},
+									{
+										"title": "Logux",
+										"author": "Andrey Sitnik",
+										"url": "https://logux.org",
+										"icon": "https://logux.org/branding/logo.svg"
+									},
+									{
+										"title": "Loro",
+										"author": "Loro",
+										"url": "https://loro.dev/",
+										"icon": "https://loro.dev/favicon.ico"
+									},
+									{
+										"title": "MySQLSync",
+										"author": "DidiSoft",
+										"url": "https://mysqlsync.com",
+										"icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg"
+									},
+									{
+										"title": "m-ld",
+										"author": "George Svarovsky et al.",
+										"url": "https://m-ld.org/",
+										"icon": "https://m-ld.org/m-ld.inverse.svg"
+									},
+									{
+										"title": "NextGraph",
+										"author": "Niko Bonnieure",
+										"url": "https://nextgraph.org/",
+										"icon": "https://nextgraph.org/favicon.svg"
+									},
+									{
+										"title": "p2panda",
+										"author": "adzialocha",
+										"url": "https://p2panda.org/",
+										"icon": "https://p2panda.org/assets/images/p2panda.svg"
+									},
 
-						{
-							"title": "DXOS",
-							"author": "dxos.org",
-							"url": "https://dxos.org",
-							"icon": "https://i.ibb.co/pvwKDFDW/57182821.png"
-						},
-						{
-							"title": "Dat Stack",
-							"author": "hyper- core/bee/store/drive (by dat-ecosystem)",
-							"url": "https://dat-ecosystem.org/",
-							"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
-						},
-						{
-							"title": "Evolu",
-							"author": "Daniel Steigerwald",
-							"url": "https://www.evolu.dev/",
-							"icon": "https://i.ibb.co/tp0F0Gdn/56556353.png"
-						},
-						{
-							"title": "Liveblocks",
-							"author": "Liveblocks team",
-							"url": "https://liveblocks.io/",
-							"icon": "https://liveblocks.io/favicon.svg"
-						},
-						{
-							"title": "Fireproof",
-							"author": "Fireproof team",
-							"url": "https://use-fireproof.com/",
-							"icon": "https://fireproof.storage/static/img/flame.svg"
-						},
-
-						{
-							"title": "Instant",
-							"author": "Stepan Parunashvili",
-							"url": "https://www.instantdb.com",
-							"icon": "https://www.instantdb.com/img/icon/apple-touch-icon-152x152.png"
-						},
-						{
-							"title": "m-ld",
-							"author": "George Svarovsky et al.",
-							"url": "https://m-ld.org/",
-							"icon": "https://m-ld.org/m-ld.inverse.svg"
-						},
-						{
-							"title": "NextGraph",
-							"author": "Niko Bonnieure",
-							"url": "https://nextgraph.org/",
-							"icon": "https://nextgraph.org/favicon.svg"
-						},
-						{
-							"title": "PouchDB",
-							"author": "PouchDB contributors",
-							"url": "https://pouchdb.com",
-							"icon": "https://pouchdb.com/static/favicon.ico"
-						},
-						{
-							"title": "RxDB",
-							"author": "Daniel Meyer",
-							"url": "https://rxdb.info",
-							"icon": "https://rxdb.info/files/logo/logo.svg"
-						},
-						{
-							"title": "SignalDB",
-							"author": "Max Nowack",
-							"url": "https://signaldb.js.org",
-							"icon": "https://signaldb.js.org/logo.svg"
-						},
-						{
-							"title": "Socket Runtime",
-							"author": "Socket Runtime Team",
-							"url": "https://github.com/socketsupply/socket",
-							"icon": "https://socketsupply.co/images/monogram.svg"
-						},
-						{
-							"title": "Soukai",
-							"author": "Noel De Martin",
-							"url": "https://soukai.js.org",
-							"icon": "https://soukai.js.org/img/logo.svg"
-						},
-						{
-							"title": "SyncedStore",
-							"author": "Yousef El-Dardiry",
-							"url": "https://syncedstore.org",
-							"icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
-						},
-						{
-							"title": "TinyBase",
-							"author": "James Pearce",
-							"url": "https://tinybase.org",
-							"icon": "https://tinybase.org/favicon.svg"
-						},
-						{
-							"title": "Triplit",
-							"author": "Aspen Cloud",
-							"url": "https://triplit.dev",
-							"icon": "https://triplit.dev/favicon.ico"
-						},
-						{
-							"title": "Verdant",
-							"author": "Grant Forrest",
-							"url": "https://verdant.dev",
-							"icon": "https://verdant.dev/favicon-32x32.png"
-						},
-						{
-							"title": "VLCN",
-							"author": "Matt Wonlaw",
-							"url": "https://vlcn.io",
-							"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
-						},
-						{
-							"title": "WatermelonDB",
-							"author": "Radek Pietruszewski / Nozbe",
-							"url": "https://watermelondb.dev",
-							"icon": "https://raw.githubusercontent.com/Nozbe/WatermelonDB/master/assets/icon128x128.png"
-						}
-					]
-        },
-        {
-          "title": "Syncing data",
-          "items": [
-						{
-							"title": "Jazz Tools",
-							"author": "Anselm / Garden Computing",
-							"url": "https://jazz.tools/",
-							"icon": "https://jazz.tools/favicon.ico"
-						},
-						{
-							"title": "ElectricSQL",
-							"author": "ElectricSQL team",
-							"url": "https://electric-sql.com",
-							"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
-						},
-						{
-							"title": "Amplify DataStore",
-							"author": "Amazon Web Services",
-							"url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
-							"icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png"
-						},
-						{
-							"title": "Automerge",
-							"author": "Ink & Switch and contributors",
-							"url": "https://automerge.org",
-							"icon": "https://avatars.githubusercontent.com/u/29780209?s=500&v=4"
-						},
-						{
-							"title": "Collabs",
-							"author": "Composable Systems Lab @ CMU",
-							"url": "https://collabs.readthedocs.io/en/latest/",
-							"icon": "https://collabs.readthedocs.io/en/latest/_static/favicon.ico"
-						},
-						{
-							"title": "CouchDB",
-							"author": "apache couchdb team",
-							"url": "https://couchdb.apache.org",
-							"icon": "https://couchdb.apache.org/image/couch@2x.png"
-						},
-						{
-							"title": "Dexie Cloud",
-							"author": "Awarica AB",
-							"url": "https://dexie.org/cloud/",
-							"icon": "https://dexie.org/assets/images/dexie-icon-64x64.png"
-						},
-						{
-							"title": "Ditto",
-							"author": "Ditto Live, Inc",
-							"url": "https://ditto.live",
-							"icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg"
-						},
-						{
-							"title": "Dat Stack",
-							"author": "hyper- swarm/dht & autobase (by dat-ecosystem)",
-							"url": "https://dat-ecosystem.org/",
-							"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
-						},
-						{
-							"title": "hocuspocus",
-							"author": "ueberdosis",
-							"url": "https://tiptap.dev/hocuspocus/",
-							"icon": "https://yjs.dev/images/logo/yjs.svg"
-						},
-						{
-							"title": "Jamsocket",
-							"author": "Jamsocket team",
-							"url": "https://jamsocket.com/",
-							"icon": "https://jamsocket.com/favicon.svg"
-						},
-						{
-							"title": "Liveblocks Storage",
-							"author": "Liveblocks team",
-							"url": "https://liveblocks.io/realtime-apis/storage",
-							"icon": "https://liveblocks.io/favicon.svg"
-						},
-						{
-							"title": "Liveblocks Yjs",
-							"author": "Liveblocks team",
-							"url": "https://liveblocks.io/realtime-apis/yjs",
-							"icon": "https://liveblocks.io/favicon.svg"
-						},
-						{
-							"title": "Logux",
-							"author": "Andrey Sitnik",
-							"url": "https://logux.org",
-							"icon": "https://logux.org/branding/logo.svg"
-						},
-						{
-							"title": "Loro",
-							"author": "Loro",
-							"url": "https://loro.dev/",
-							"icon": "https://loro.dev/favicon.ico"
-						},
-						{
-							"title": "MySQLSync",
-							"author": "DidiSoft",
-							"url": "https://mysqlsync.com",
-							"icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg"
-						},
-						{
-							"title": "m-ld",
-							"author": "George Svarovsky et al.",
-							"url": "https://m-ld.org/",
-							"icon": "https://m-ld.org/m-ld.inverse.svg"
-						},
-						{
-							"title": "NextGraph",
-							"author": "Niko Bonnieure",
-							"url": "https://nextgraph.org/",
-							"icon": "https://nextgraph.org/favicon.svg"
-						},
-						{
-							"title": "p2panda",
-							"author": "adzialocha",
-							"url": "https://p2panda.org/",
-							"icon": "https://p2panda.org/assets/images/p2panda.svg"
-						},
-						{
-							"title": "PowerSync",
-							"author": "JourneyApps",
-							"url": "https://www.powersync.com",
-							"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
-						},
-						{
-							"title": "Replicache",
-							"author": "Rocicorp",
-							"url": "https://replicache.dev",
-							"icon": "https://replicache.dev/icons/favicon-32x32.png"
-						},
-						{
-							"title": "Sockethub",
-							"author": "Nick Jennings",
-							"url": "http://sockethub.org",
-							"icon": "http://sockethub.org/favicon.ico"
-						},
-						{
-							"title": "TinyBase",
-							"author": "James Pearce",
-							"url": "https://tinybase.org",
-							"icon": "https://tinybase.org/favicon.svg"
-						},
-						{
-							"title": "Verdant",
-							"author": "Grant Forrest",
-							"url": "https://verdant.dev",
-							"icon": "https://verdant.dev/favicon-32x32.png"
-						},
-						{
-							"title": "VLCN",
-							"author": "Matt Wonlaw",
-							"url": "https://vlcn.io",
-							"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
-						},
-						{
-							"title": "Yjs",
-							"author": "Kevin Jahns & contributors",
-							"url": "https://yjs.dev",
-							"icon": "https://yjs.dev/images/logo/yjs.svg"
-						},
-						{
-							"title": "Y-Sweet",
-							"author": "Jamsocket team",
-							"url": "https://jamsocket.com/y-sweet",
-							"icon": "https://demos.y-sweet.dev/icon.png"
-						},
-						{
-							"title": "Trystero",
-							"author": "Dan Motzenbecker / Dmotz",
-							"url": "https://github.com/dmotz/trystero",
-							"icon": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Font_Awesome_5_solid_handshake.svg"
-						},
-						{
-							"title": "Legend State",
-							"author": "Jay Meistrich",
-							"url": "https://github.com/LegendApp/legend-state",
-							"icon": "https://avatars.githubusercontent.com/u/60373862?s=192&v=4"
-						}
-					]
-        },
-        {
-          "title": "Examples",
-          "items": [
-            {
-              "title": "CRDT tutorials",
-              "author": "James Addison",
-              "url": "https://github.com/siliconjungle/crdt-tutorials",
-              "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+									{
+										"title": "Replicache",
+										"author": "Rocicorp",
+										"url": "https://replicache.dev",
+										"icon": "https://replicache.dev/icons/favicon-32x32.png"
+									},
+									{
+										"title": "Sockethub",
+										"author": "Nick Jennings",
+										"url": "http://sockethub.org",
+										"icon": "http://sockethub.org/favicon.ico"
+									},
+									{
+										"title": "TinyBase",
+										"author": "James Pearce",
+										"url": "https://tinybase.org",
+										"icon": "https://tinybase.org/favicon.svg"
+									},
+									{
+										"title": "Verdant",
+										"author": "Grant Forrest",
+										"url": "https://verdant.dev",
+										"icon": "https://verdant.dev/favicon-32x32.png"
+									},
+									{
+										"title": "VLCN",
+										"author": "Matt Wonlaw",
+										"url": "https://vlcn.io",
+										"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+									},
+									{
+										"title": "Y-Sweet",
+										"author": "Jamsocket team",
+										"url": "https://jamsocket.com/y-sweet",
+										"icon": "https://demos.y-sweet.dev/icon.png"
+									},
+									{
+										"title": "Trystero",
+										"author": "Dan Motzenbecker / Dmotz",
+										"url": "https://github.com/dmotz/trystero",
+										"icon": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Font_Awesome_5_solid_handshake.svg"
+									},
+									{
+										"title": "Legend State",
+										"author": "Jay Meistrich",
+										"url": "https://github.com/LegendApp/legend-state",
+										"icon": "https://avatars.githubusercontent.com/u/60373862?s=192&v=4"
+									},
+									{
+										"title": "Amplify DataStore",
+										"author": "Amazon Web Services",
+										"url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
+										"icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png"
+									}
+								]
             },
             {
-              "title": "CRDT example app",
-              "author": "James Long",
-              "url": "https://github.com/jlongster/crdt-example-app",
-              "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
-            },
-            {
-              "title": "TinyRooms",
-              "author": "James Pearce",
-              "url": "https://github.com/tinyplex/tinyrooms",
-              "icon": "https://tinyrooms.jamesgpearce.partykit.dev/favicon.svg"
-            },
-            {
-              "title": "XR Fragments",
-              "author": "Leon van Kammen / coderofsalvation",
-              "url": "https://xrfragment.org",
-              "icon": "https://xrfragment.org/favicon.ico"
-            },
-            {
-              "title": "PyScript LTK",
-              "author": "Chris Laffra",
-              "url": "https://github.com/pyscript/ltk",
-              "icon": "https://pyscript.net/assets/images/pyscript-sticker-black.svg"
+                "title": "Examples",
+                "items": [
+                    {
+                        "title": "CRDT tutorials",
+                        "author": "James Addison",
+                        "url": "https://github.com/siliconjungle/crdt-tutorials",
+                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+                    },
+                    {
+                        "title": "CRDT example app",
+                        "author": "James Long",
+                        "url": "https://github.com/jlongster/crdt-example-app",
+                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+                    },
+                    {
+                        "title": "TinyRooms",
+                        "author": "James Pearce",
+                        "url": "https://github.com/tinyplex/tinyrooms",
+                        "icon": "https://tinyrooms.jamesgpearce.partykit.dev/favicon.svg"
+                    },
+                    {
+                        "title": "XR Fragments",
+                        "author": "Leon van Kammen / coderofsalvation",
+                        "url": "https://xrfragment.org",
+                        "icon": "https://xrfragment.org/favicon.ico"
+                    },
+                    {
+                        "title": "PyScript LTK",
+                        "author": "Chris Laffra",
+                        "url": "https://github.com/pyscript/ltk",
+                        "icon": "https://pyscript.net/assets/images/pyscript-sticker-black.svg"
+                    }
+                ]
             }
-          ]
-        }
-      ]
+        ]
     },
     {
-      "index": 3,
-      "title": "Join in",
-      "sections": [
-        {
-          "title": "Folks to follow",
-          "class": "row2",
-          "items": [
+        "index": 3,
+        "title": "Join in",
+        "sections": [
             {
-              "title": "Peter van Hardenberg",
-              "author": "@pvh",
-              "url": "https://twitter.com/pvh",
-              "icon": "https://pbs.twimg.com/profile_images/1328185619030306817/E4HOEB1f_200x200.jpg"
+                "title": "Folks to follow",
+                "class": "row2",
+                "items": [
+                    {
+                        "title": "Peter van Hardenberg",
+                        "author": "@pvh",
+                        "url": "https://twitter.com/pvh",
+                        "icon": "https://pbs.twimg.com/profile_images/1328185619030306817/E4HOEB1f_200x200.jpg"
+                    },
+                    {
+                        "title": "Johannes Schickling",
+                        "author": "@schickling",
+                        "url": "https://twitter.com/schickling",
+                        "icon": "https://pbs.twimg.com/profile_images/1624092671739408417/GGvOzADg_200x200.jpg"
+                    },
+                    {
+                        "title": "Geoffrey Litt",
+                        "author": "@geoffreylitt",
+                        "url": "https://twitter.com/geoffreylitt",
+                        "icon": "https://pbs.twimg.com/profile_images/722626068293763072/4erM-SPN_200x200.jpg"
+                    },
+                    {
+                        "title": "Yonz",
+                        "author": "@devYonz",
+                        "url": "https://twitter.com/devYonz",
+                        "icon": "https://pbs.twimg.com/profile_images/1144723583492489216/P_w9bGIW_200x200.png"
+                    },
+                    {
+                        "title": "Matt Wonlaw",
+                        "author": "@tantaman",
+                        "url": "https://twitter.com/tantaman",
+                        "icon": "https://pbs.twimg.com/profile_images/1534358445083791367/cQxb9f9X_200x200.jpg"
+                    },
+                    {
+                        "title": "James Pearce",
+                        "author": "@jamespearce",
+                        "url": "https://twitter.com/jamespearce",
+                        "icon": "https://avatars.githubusercontent.com/u/90942?v=4"
+                    },
+                    {
+                        "title": "Grant Forrest",
+                        "author": "@gaforres",
+                        "url": "https://twitter.com/gaforres",
+                        "icon": "https://pbs.twimg.com/profile_images/1350947174645956609/Ebe_Qd46_200x200.jpg"
+                    },
+                    {
+                        "title": "James Addison",
+                        "author": "@JungleSilicon",
+                        "url": "https://twitter.com/JungleSilicon",
+                        "icon": "https://pbs.twimg.com/profile_images/1829702628470571011/whdoDUWu_400x400.jpg"
+                    },
+                    {
+                        "title": "Mauve Signweaver",
+                        "author": "@RangerMauve",
+                        "url": "https://mastodon.mauve.moe/@mauve",
+                        "icon": "https://mastodon.mauve.moe/system/accounts/avatars/000/000/002/original/e4b910cee121b1b8.png"
+                    },
+                    {
+                        "title": "Jess Martin",
+                        "author": "@jessmartin",
+                        "url": "https://x.com/jessmartin",
+                        "icon": "https://pbs.twimg.com/profile_images/1292828088565477376/FjgsLsU7_200x200.jpg"
+                    },
+                    {
+                        "title": "James Arthur",
+                        "author": "@thruflo",
+                        "url": "https://x.com/thruflo",
+                        "icon": "https://media.licdn.com/dms/image/D4D03AQG7yE6tP_gODA/profile-displayphoto-shrink_200_200/0/1699897098222?e=2147483647&v=beta&t=hopexyUcfil1vY97aeIZl7iUxRvWA8aMw2sK8-4S4EM"
+                    },
+                    {
+                        "title": "Aaron Boodman",
+                        "author": "@aboodman",
+                        "url": "https://x.com/aboodman",
+                        "icon": "https://pbs.twimg.com/profile_images/1599851549337194496/TUE6LkYS_400x400.jpg"
+                    },
+                    {
+                        "title": "Coderofsalvation",
+                        "author": "@coderofsalvation",
+                        "url": "https://mastodon.online/@lvk",
+                        "icon": "https://2wa.isvery.ninja/asset/img/pyramid_avatar.png"
+                    },
+                    {
+                        "title": "Jay Meistrich",
+                        "author": "@jmeistrich",
+                        "url": "https://x.com/jmeistrich",
+                        "icon": "https://pbs.twimg.com/profile_images/509425693726224384/9TfNlE-Y_400x400.jpeg"
+                    },
+                    {
+                        "title": "Chris Laffra",
+                        "author": "@laffra",
+                        "url": "https://chrislaffra.com",
+                        "icon": "https://chrislaffra.com/chris.png"
+                    }
+                ]
             },
             {
-              "title": "Johannes Schickling",
-              "author": "@schickling",
-              "url": "https://twitter.com/schickling",
-              "icon": "https://pbs.twimg.com/profile_images/1624092671739408417/GGvOzADg_200x200.jpg"
+                "title": "Communities to join",
+                "items": [
+                    {
+                        "title": "#LoFi.so Discord",
+                        "author": "Local First Software Builders",
+                        "url": "https://discord.gg/ZRrwZxn4rW",
+                        "icon": "https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg"
+                    },
+                    {
+                        "title": "Braid",
+                        "author": "IETF & members",
+                        "url": "https://braid.org",
+                        "icon": "https://www.ietf.org/lib/dt/9.8.0/ietf/images/ietf-logo-nor-mask.svg"
+                    },
+                    {
+                        "title": "This page on Hacker News",
+                        "author": "@bubblehack3r",
+                        "url": "https://news.ycombinator.com/item?id=34857435",
+                        "icon": "https://news.ycombinator.com/favicon.ico"
+                    }
+                ]
             },
             {
-              "title": "Geoffrey Litt",
-              "author": "@geoffreylitt",
-              "url": "https://twitter.com/geoffreylitt",
-              "icon": "https://pbs.twimg.com/profile_images/722626068293763072/4erM-SPN_200x200.jpg"
-            },
-            {
-              "title": "Yonz",
-              "author": "@devYonz",
-              "url": "https://twitter.com/devYonz",
-              "icon": "https://pbs.twimg.com/profile_images/1144723583492489216/P_w9bGIW_200x200.png"
-            },
-            {
-              "title": "Matt Wonlaw",
-              "author": "@tantaman",
-              "url": "https://twitter.com/tantaman",
-              "icon": "https://pbs.twimg.com/profile_images/1534358445083791367/cQxb9f9X_200x200.jpg"
-            },
-            {
-              "title": "James Pearce",
-              "author": "@jamespearce",
-              "url": "https://twitter.com/jamespearce",
-              "icon": "https://avatars.githubusercontent.com/u/90942?v=4"
-            },
-            {
-              "title": "Grant Forrest",
-              "author": "@gaforres",
-              "url": "https://twitter.com/gaforres",
-              "icon": "https://pbs.twimg.com/profile_images/1350947174645956609/Ebe_Qd46_200x200.jpg"
-            },
-            {
-              "title": "James Addison",
-              "author": "@JungleSilicon",
-              "url": "https://twitter.com/JungleSilicon",
-              "icon": "https://pbs.twimg.com/profile_images/1829702628470571011/whdoDUWu_400x400.jpg"
-            },
-            {
-              "title": "Mauve Signweaver",
-              "author": "@RangerMauve",
-              "url": "https://mastodon.mauve.moe/@mauve",
-              "icon": "https://mastodon.mauve.moe/system/accounts/avatars/000/000/002/original/e4b910cee121b1b8.png"
-            },
-            {
-              "title": "Jess Martin",
-              "author": "@jessmartin",
-              "url": "https://x.com/jessmartin",
-              "icon": "https://pbs.twimg.com/profile_images/1292828088565477376/FjgsLsU7_200x200.jpg"
-            },
-            {
-              "title": "James Arthur",
-              "author": "@thruflo",
-              "url": "https://x.com/thruflo",
-              "icon": "https://media.licdn.com/dms/image/D4D03AQG7yE6tP_gODA/profile-displayphoto-shrink_200_200/0/1699897098222?e=2147483647&v=beta&t=hopexyUcfil1vY97aeIZl7iUxRvWA8aMw2sK8-4S4EM"
-            },
-            {
-              "title": "Aaron Boodman",
-              "author": "@aboodman",
-              "url": "https://x.com/aboodman",
-              "icon": "https://pbs.twimg.com/profile_images/1599851549337194496/TUE6LkYS_400x400.jpg"
-            },
-            {
-              "title": "Coderofsalvation",
-              "author": "@coderofsalvation",
-              "url": "https://mastodon.online/@lvk",
-              "icon": "https://2wa.isvery.ninja/asset/img/pyramid_avatar.png"
-            },
-            {
-              "title": "Jay Meistrich",
-              "author": "@jmeistrich",
-              "url": "https://x.com/jmeistrich",
-              "icon": "https://pbs.twimg.com/profile_images/509425693726224384/9TfNlE-Y_400x400.jpeg"
-            },
-            {
-              "title": "Chris Laffra",
-              "author": "@laffra",
-              "url": "https://chrislaffra.com",
-              "icon": "https://chrislaffra.com/chris.png"
+                "title": "Apps to try",
+                "items": [
+                    {
+                        "title": "Actual",
+                        "author": "James Long & contributors",
+                        "url": "https://actualbudget.com",
+                        "icon": "https://actualbudget.com/favicon-32x32.png"
+                    },
+                    {
+                        "title": "Agregore Browser",
+                        "author": "Mauve Signweaver & contributors",
+                        "url": "https://agregore.mauve.moe/",
+                        "icon": "https://agregore.mauve.moe/icon.svg"
+                    },
+                    {
+                        "title": "Bangle.io",
+                        "author": "Kushan Joshi",
+                        "url": "https://bangle.io",
+                        "icon": "https://app.bangle.io/icon-transparent_x512.png"
+                    },
+                    {
+                        "title": "DXOS Composer",
+                        "author": "dxos.org",
+                        "url": "https://composer.space",
+                        "icon": "https://composer.space/android-chrome-512x512.png"
+                    },
+                    {
+                        "title": "Excalidraw",
+                        "author": "Excalidraw contributors",
+                        "url": "https://excalidraw.com",
+                        "icon": "https://excalidraw.com/favicon.ico"
+                    },
+                    {
+                        "title": "Gnocchi.club",
+                        "author": "Grant Forrest",
+                        "url": "https://gnocchi.club",
+                        "icon": "https://gnocchi.club/android-chrome-512x512.png"
+                    },
+                    {
+                        "title": "Obsidian",
+                        "author": "Dyynalist inc",
+                        "url": "https://obsidian.md",
+                        "icon": "https://obsidian.md/images/2023-06-logo.png"
+                    },
+                    {
+                        "title": "Kinopio",
+                        "author": "Piri",
+                        "url": "https://kinopio.club",
+                        "icon": "https://kinopio.club/logo.png"
+                    },
+                    {
+                        "title": "Strut.io",
+                        "author": "Strut contributors",
+                        "url": "https://strut.io",
+                        "icon": "https://strut.io/favicon.ico"
+                    },
+                    {
+                        "title": "Tender",
+                        "author": "Tender team",
+                        "url": "https://tender.run/",
+                        "icon": "https://tender.run/logo.svg"
+                    },
+                    {
+                        "title": "Legend",
+                        "author": "Jay Meistrich",
+                        "url": "https://www.legendapp.com/",
+                        "icon": "https://www.legendapp.com/img/Logomark_(White).svg"
+                    },
+                    {
+                        "title": "PySheets",
+                        "author": "Chris Laffra",
+                        "url": "https://www.pysheets.app/",
+                        "icon": "https://pysheets.app/favicon.ico"
+                    },
+                    {
+                        "title": "Umai",
+                        "author": "Noel De Martin",
+                        "url": "https://umai.noeldemartin.com",
+                        "icon": "https://noeldemartin.com/logos/umai-small.svg"
+                    },
+                    {
+                        "title": "Focus",
+                        "author": "Noel De Martin",
+                        "url": "https://focus.noeldemartin.com",
+                        "icon": "https://noeldemartin.com/logos/focus-small.svg"
+                    }
+                ]
             }
-          ]
-        },
-        {
-          "title": "Communities to join",
-          "items": [
-            {
-              "title": "#LoFi.so Discord",
-              "author": "Local First Software Builders",
-              "url": "https://discord.gg/ZRrwZxn4rW",
-              "icon": "https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0b5061df29d55a92d945_full_logo_blurple_RGB.svg"
-            },
-            {
-              "title": "Braid",
-              "author": "IETF & members",
-              "url": "https://braid.org",
-              "icon": "https://www.ietf.org/lib/dt/9.8.0/ietf/images/ietf-logo-nor-mask.svg"
-            },
-            {
-              "title": "This page on Hacker News",
-              "author": "@bubblehack3r",
-              "url": "https://news.ycombinator.com/item?id=34857435",
-              "icon": "https://news.ycombinator.com/favicon.ico"
-            }
-          ]
-        },
-        {
-          "title": "Apps to try",
-          "items": [
-            {
-              "title": "Actual",
-              "author": "James Long & contributors",
-              "url": "https://actualbudget.com",
-              "icon": "https://actualbudget.com/favicon-32x32.png"
-            },
-            {
-              "title": "Agregore Browser",
-              "author": "Mauve Signweaver & contributors",
-              "url": "https://agregore.mauve.moe/",
-              "icon": "https://agregore.mauve.moe/icon.svg"
-            },
-            {
-              "title": "Bangle.io",
-              "author": "Kushan Joshi",
-              "url": "https://bangle.io",
-              "icon": "https://app.bangle.io/icon-transparent_x512.png"
-            },
-            {
-              "title": "DXOS Composer",
-              "author": "dxos.org",
-              "url": "https://composer.space",
-              "icon": "https://composer.space/android-chrome-512x512.png"
-            },
-            {
-              "title": "Excalidraw",
-              "author": "Excalidraw contributors",
-              "url": "https://excalidraw.com",
-              "icon": "https://excalidraw.com/favicon.ico"
-            },
-            {
-              "title": "Gnocchi.club",
-              "author": "Grant Forrest",
-              "url": "https://gnocchi.club",
-              "icon": "https://gnocchi.club/android-chrome-512x512.png"
-            },
-            {
-              "title": "Obsidian",
-              "author": "Dyynalist inc",
-              "url": "https://obsidian.md",
-              "icon": "https://obsidian.md/images/2023-06-logo.png"
-            },
-            {
-              "title": "Kinopio",
-              "author": "Piri",
-              "url": "https://kinopio.club",
-              "icon": "https://kinopio.club/logo.png"
-            },
-            {
-              "title": "Strut.io",
-              "author": "Strut contributors",
-              "url": "https://strut.io",
-              "icon": "https://strut.io/favicon.ico"
-            },
-            {
-              "title": "Tender",
-              "author": "Tender team",
-              "url": "https://tender.run/",
-              "icon": "https://tender.run/logo.svg"
-            },
-            {
-              "title": "Legend",
-              "author": "Jay Meistrich",
-              "url": "https://www.legendapp.com/",
-              "icon": "https://www.legendapp.com/img/Logomark_(White).svg"
-            },
-            {
-              "title": "PySheets",
-              "author": "Chris Laffra",
-              "url": "https://www.pysheets.app/",
-              "icon": "https://pysheets.app/favicon.ico"
-            },
-            {
-              "title": "Umai",
-              "author": "Noel De Martin",
-              "url": "https://umai.noeldemartin.com",
-              "icon": "https://noeldemartin.com/logos/umai-small.svg"
-            },
-            {
-              "title": "Focus",
-              "author": "Noel De Martin",
-              "url": "https://focus.noeldemartin.com",
-              "icon": "https://noeldemartin.com/logos/focus-small.svg"
-            }
-          ]
-        }
-      ]
+        ]
     }
-  ]
-
+]
