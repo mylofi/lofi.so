@@ -93,8 +93,8 @@
 
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
-		<div class="absolute top-24 bottom-5 right-[max(0px,calc(50%-45rem))] z-20 w-[19.5rem] pr-4">
-			<div class="sticky top-32 h-[calc(100vh-9rem)] overflow-y-auto">
+		<div class="absolute top-24 bottom-5 right-0 z-20 w-[19.5rem] pr-4">
+			<div class="sticky top-24 h-[calc(100vh-9rem)] overflow-y-auto">
 				{#if showNextEvent && activeNextEvent}
 					<div
 						class="mb-4 overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200 shadow-lg dark:shadow-xl transition-colors duration-300"
