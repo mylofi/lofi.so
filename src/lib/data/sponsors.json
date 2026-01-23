@@ -9,23 +9,16 @@
   },
   "sponsors": [
 		{
-			"name": "Vella.ai",
-			"image": "/images/sponsors/vella.png",
-			"url": "https://vella.ai?utm_source=lofi_so",
+			"name": "Jazz",
+			"image": "/images/sponsors/jazz.png",
+			"url": "https://jazz.tools?utm_source=lofi_so",
 			"tier": "Gold",
-			"amount": 5000
+			"amount": 1000
 		},
 		{
 			"name": "Electric SQL",
 			"image": "/images/sponsors/electric.png",
 			"url": "https://electric-sql.com?utm_source=lofi_so",
-			"tier": "Gold",
-			"amount": 1000
-		},
-		{
-			"name": "Jazz",
-			"image": "/images/sponsors/jazz.png",
-			"url": "https://jazz.tools?utm_source=lofi_so",
 			"tier": "Gold",
 			"amount": 1000
 		},
@@ -37,11 +30,11 @@
 			"amount": 1000
 		},
 		{
-			"name": "Zero",
-			"image": "/images/sponsors/zero.png",
-			"url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
+			"name": "Vella.ai",
+			"image": "/images/sponsors/vella.png",
+			"url": "https://vella.ai?utm_source=lofi_so",
 			"tier": "Gold",
-			"amount": 1000
+			"amount": 5000
 		}
 	]
 }
