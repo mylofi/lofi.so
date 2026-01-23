@@ -133,372 +133,372 @@
         "index": 2,
         "title": "Build",
         "sections": [
-            {
-                "title": "Storing data",
-                "class": "row2",
-                "items": [
-                    {
-                        "title": "ElectricSQL",
-                        "author": "ElectricSQL team",
-                        "url": "https://electric-sql.com",
-                        "icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
-                    },
-                    {
-                        "title": "PowerSync",
-                        "author": "JourneyApps",
-                        "url": "https://www.powersync.com",
-                        "icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
-                    },
-                    {
-                        "title": "Dexie.js",
-                        "author": "David Fahlander",
-                        "url": "https://dexie.org/",
-                        "icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4"
-                    },
-                    {
-                        "title": "WatermelonDB",
-                        "author": "Radek Pietruszewski / Nozbe",
-                        "url": "https://watermelondb.dev",
-                        "icon": "https://raw.githubusercontent.com/Nozbe/WatermelonDB/master/assets/icon128x128.png"
-                    },
-                    {
-                        "title": "remoteStorage",
-                        "author": "remoteStorage contributors",
-                        "url": "https://remotestorage.io",
-                        "icon": "https://remotestorage.io/logo.svg"
-                    },
-                    {
-                        "title": "RxDB",
-                        "author": "Daniel Meyer",
-                        "url": "https://rxdb.info",
-                        "icon": "https://rxdb.info/files/logo/logo.svg"
-                    },
-                    {
-                        "title": "TinyBase",
-                        "author": "James Pearce",
-                        "url": "https://tinybase.org",
-                        "icon": "https://tinybase.org/favicon.svg"
-                    },
-                    {
-                        "title": "Gun",
-                        "author": "Mark Nadal",
-                        "url": "https://gun.eco",
-                        "icon": "https://gun.eco/icons/icon-48x48.png?v=dfecf3c0fa09798b200a8a8b9fa0f172"
-                    },
-                    {
-                        "title": "DXOS",
-                        "author": "dxos.org",
-                        "url": "https://dxos.org",
-                        "icon": "https://i.ibb.co/pvwKDFDW/57182821.png"
-                    },
-                    {
-                        "title": "Dat Stack",
-                        "author": "hyper- core/bee/store/drive (by dat-ecosystem)",
-                        "url": "https://dat-ecosystem.org/",
-                        "icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
-                    },
-                    {
-                        "title": "Evolu",
-                        "author": "Daniel Steigerwald",
-                        "url": "https://www.evolu.dev/",
-                        "icon": "https://i.ibb.co/tp0F0Gdn/56556353.png"
-                    },
-                    {
-                        "title": "Liveblocks",
-                        "author": "Liveblocks team",
-                        "url": "https://liveblocks.io/",
-                        "icon": "https://liveblocks.io/favicon.svg"
-                    },
-                    {
-                        "title": "Fireproof",
-                        "author": "Fireproof team",
-                        "url": "https://use-fireproof.com/",
-                        "icon": "https://fireproof.storage/static/img/flame.svg"
-                    },
-                    {
-                        "title": "Instant",
-                        "author": "Stepan Parunashvili",
-                        "url": "https://www.instantdb.com",
-                        "icon": "https://www.instantdb.com/img/icon/apple-touch-icon-152x152.png"
-                    },
-                    {
-                        "title": "m-ld",
-                        "author": "George Svarovsky et al.",
-                        "url": "https://m-ld.org/",
-                        "icon": "https://m-ld.org/m-ld.inverse.svg"
-                    },
-                    {
-                        "title": "NextGraph",
-                        "author": "Niko Bonnieure",
-                        "url": "https://nextgraph.org/",
-                        "icon": "https://nextgraph.org/favicon.svg"
-                    },
-                    {
-                        "title": "PouchDB",
-                        "author": "PouchDB contributors",
-                        "url": "https://pouchdb.com",
-                        "icon": "https://pouchdb.com/static/favicon.ico"
-                    },
-                    {
-                        "title": "SignalDB",
-                        "author": "Max Nowack",
-                        "url": "https://signaldb.js.org",
-                        "icon": "https://signaldb.js.org/logo.svg"
-                    },
-                    {
-                        "title": "Socket Runtime",
-                        "author": "Socket Runtime Team",
-                        "url": "https://github.com/socketsupply/socket",
-                        "icon": "https://socketsupply.co/images/monogram.svg"
-                    },
-                    {
-                        "title": "Soukai",
-                        "author": "Noel De Martin",
-                        "url": "https://soukai.js.org",
-                        "icon": "https://soukai.js.org/img/logo.svg"
-                    },
-                    {
-                        "title": "SyncedStore",
-                        "author": "Yousef El-Dardiry",
-                        "url": "https://syncedstore.org",
-                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
-                    },
-                    {
-                        "title": "Triplit",
-                        "author": "Aspen Cloud",
-                        "url": "https://triplit.dev",
-                        "icon": "https://triplit.dev/favicon.ico"
-                    },
-                    {
-                        "title": "Verdant",
-                        "author": "Grant Forrest",
-                        "url": "https://verdant.dev",
-                        "icon": "https://verdant.dev/favicon-32x32.png"
-                    },
-                    {
-                        "title": "VLCN",
-                        "author": "Matt Wonlaw",
-                        "url": "https://vlcn.io",
-                        "icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
-                    }
-                ]
-            },
-            {
-                "title": "Syncing data",
-                "items": [
-									{
-										"title": "Jazz Tools",
-										"author": "Anselm / Garden Computing",
-										"url": "https://jazz.tools/",
-										"icon": "https://jazz.tools/favicon.ico"
-									},
-									{
-										"title": "ElectricSQL",
-										"author": "ElectricSQL team",
-										"url": "https://electric-sql.com",
-										"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
-									},
-									{
-										"title": "PowerSync",
-										"author": "JourneyApps",
-										"url": "https://www.powersync.com",
-										"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
-									},
-									{
-										"title": "Yjs",
-										"author": "Kevin Jahns & contributors",
-										"url": "https://yjs.dev",
-										"icon": "https://avatars.githubusercontent.com/u/45042178?s=128&v=4"
-									},
-									{
-										"title": "Automerge",
-										"author": "Ink & Switch and contributors",
-										"url": "https://automerge.org",
-										"icon": "https://avatars.githubusercontent.com/u/29780209?s=500&v=4"
-									},
-									{
-										"title": "Collabs",
-										"author": "Composable Systems Lab @ CMU",
-										"url": "https://collabs.readthedocs.io/en/latest/",
-										"icon": "https://collabs.readthedocs.io/en/latest/_static/favicon.ico"
-									},
-									{
-										"title": "CouchDB",
-										"author": "apache couchdb team",
-										"url": "https://couchdb.apache.org",
-										"icon": "https://couchdb.apache.org/image/couch@2x.png"
-									},
-									{
-										"title": "Dexie Cloud",
-										"author": "Awarica AB",
-										"url": "https://dexie.org/cloud/",
-										"icon": "https://dexie.org/assets/images/dexie-icon-64x64.png"
-									},
-									{
-										"title": "Ditto",
-										"author": "Ditto Live, Inc",
-										"url": "https://ditto.live",
-										"icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg"
-									},
-									{
-										"title": "Dat Stack",
-										"author": "hyper- swarm/dht & autobase (by dat-ecosystem)",
-										"url": "https://dat-ecosystem.org/",
-										"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
-									},
-									{
-										"title": "hocuspocus",
-										"author": "ueberdosis",
-										"url": "https://tiptap.dev/hocuspocus/",
-										"icon": "https://avatars.githubusercontent.com/u/45042178?s=128&v=4"
-									},
-									{
-										"title": "Jamsocket",
-										"author": "Jamsocket team",
-										"url": "https://jamsocket.com/",
-										"icon": "https://jamsocket.com/favicon.svg"
-									},
-									{
-										"title": "Liveblocks Storage",
-										"author": "Liveblocks team",
-										"url": "https://liveblocks.io/realtime-apis/storage",
-										"icon": "https://liveblocks.io/favicon.svg"
-									},
-									{
-										"title": "Liveblocks Yjs",
-										"author": "Liveblocks team",
-										"url": "https://liveblocks.io/realtime-apis/yjs",
-										"icon": "https://liveblocks.io/favicon.svg"
-									},
-									{
-										"title": "Logux",
-										"author": "Andrey Sitnik",
-										"url": "https://logux.org",
-										"icon": "https://logux.org/branding/logo.svg"
-									},
-									{
-										"title": "Loro",
-										"author": "Loro",
-										"url": "https://loro.dev/",
-										"icon": "https://loro.dev/favicon.ico"
-									},
-									{
-										"title": "MySQLSync",
-										"author": "DidiSoft",
-										"url": "https://mysqlsync.com",
-										"icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg"
-									},
-									{
-										"title": "m-ld",
-										"author": "George Svarovsky et al.",
-										"url": "https://m-ld.org/",
-										"icon": "https://m-ld.org/m-ld.inverse.svg"
-									},
-									{
-										"title": "NextGraph",
-										"author": "Niko Bonnieure",
-										"url": "https://nextgraph.org/",
-										"icon": "https://nextgraph.org/favicon.svg"
-									},
-									{
-										"title": "p2panda",
-										"author": "adzialocha",
-										"url": "https://p2panda.org/",
-										"icon": "https://p2panda.org/assets/images/p2panda.svg"
-									},
+					{
+						"title": "Syncing data",
+						"items": [
+							{
+								"title": "Jazz Tools",
+								"author": "Anselm / Garden Computing",
+								"url": "https://jazz.tools/",
+								"icon": "https://jazz.tools/favicon.ico"
+							},
+							{
+								"title": "ElectricSQL",
+								"author": "ElectricSQL team",
+								"url": "https://electric-sql.com",
+								"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
+							},
+							{
+								"title": "PowerSync",
+								"author": "JourneyApps",
+								"url": "https://www.powersync.com",
+								"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
+							},
+							{
+								"title": "Yjs",
+								"author": "Kevin Jahns & contributors",
+								"url": "https://yjs.dev",
+								"icon": "https://avatars.githubusercontent.com/u/45042178?s=128&v=4"
+							},
+							{
+								"title": "Automerge",
+								"author": "Ink & Switch and contributors",
+								"url": "https://automerge.org",
+								"icon": "https://avatars.githubusercontent.com/u/29780209?s=500&v=4"
+							},
+							{
+								"title": "Collabs",
+								"author": "Composable Systems Lab @ CMU",
+								"url": "https://collabs.readthedocs.io/en/latest/",
+								"icon": "https://collabs.readthedocs.io/en/latest/_static/favicon.ico"
+							},
+							{
+								"title": "CouchDB",
+								"author": "apache couchdb team",
+								"url": "https://couchdb.apache.org",
+								"icon": "https://couchdb.apache.org/image/couch@2x.png"
+							},
+							{
+								"title": "Dexie Cloud",
+								"author": "Awarica AB",
+								"url": "https://dexie.org/cloud/",
+								"icon": "https://dexie.org/assets/images/dexie-icon-64x64.png"
+							},
+							{
+								"title": "Ditto",
+								"author": "Ditto Live, Inc",
+								"url": "https://ditto.live",
+								"icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg"
+							},
+							{
+								"title": "Dat Stack",
+								"author": "hyper- swarm/dht & autobase (by dat-ecosystem)",
+								"url": "https://dat-ecosystem.org/",
+								"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
+							},
+							{
+								"title": "hocuspocus",
+								"author": "ueberdosis",
+								"url": "https://tiptap.dev/hocuspocus/",
+								"icon": "https://avatars.githubusercontent.com/u/45042178?s=128&v=4"
+							},
+							{
+								"title": "Jamsocket",
+								"author": "Jamsocket team",
+								"url": "https://jamsocket.com/",
+								"icon": "https://jamsocket.com/favicon.svg"
+							},
+							{
+								"title": "Liveblocks Storage",
+								"author": "Liveblocks team",
+								"url": "https://liveblocks.io/realtime-apis/storage",
+								"icon": "https://liveblocks.io/favicon.svg"
+							},
+							{
+								"title": "Liveblocks Yjs",
+								"author": "Liveblocks team",
+								"url": "https://liveblocks.io/realtime-apis/yjs",
+								"icon": "https://liveblocks.io/favicon.svg"
+							},
+							{
+								"title": "Logux",
+								"author": "Andrey Sitnik",
+								"url": "https://logux.org",
+								"icon": "https://logux.org/branding/logo.svg"
+							},
+							{
+								"title": "Loro",
+								"author": "Loro",
+								"url": "https://loro.dev/",
+								"icon": "https://loro.dev/favicon.ico"
+							},
+							{
+								"title": "MySQLSync",
+								"author": "DidiSoft",
+								"url": "https://mysqlsync.com",
+								"icon": "https://mysqlsync.com/wp-content/uploads/2025/04/cropped-Logo.jpg"
+							},
+							{
+								"title": "m-ld",
+								"author": "George Svarovsky et al.",
+								"url": "https://m-ld.org/",
+								"icon": "https://m-ld.org/m-ld.inverse.svg"
+							},
+							{
+								"title": "NextGraph",
+								"author": "Niko Bonnieure",
+								"url": "https://nextgraph.org/",
+								"icon": "https://nextgraph.org/favicon.svg"
+							},
+							{
+								"title": "p2panda",
+								"author": "adzialocha",
+								"url": "https://p2panda.org/",
+								"icon": "https://p2panda.org/assets/images/p2panda.svg"
+							},
 
-									{
-										"title": "Replicache",
-										"author": "Rocicorp",
-										"url": "https://replicache.dev",
-										"icon": "https://replicache.dev/icons/favicon-32x32.png"
-									},
-									{
-										"title": "Sockethub",
-										"author": "Nick Jennings",
-										"url": "http://sockethub.org",
-										"icon": "http://sockethub.org/favicon.ico"
-									},
-									{
-										"title": "TinyBase",
-										"author": "James Pearce",
-										"url": "https://tinybase.org",
-										"icon": "https://tinybase.org/favicon.svg"
-									},
-									{
-										"title": "Verdant",
-										"author": "Grant Forrest",
-										"url": "https://verdant.dev",
-										"icon": "https://verdant.dev/favicon-32x32.png"
-									},
-									{
-										"title": "VLCN",
-										"author": "Matt Wonlaw",
-										"url": "https://vlcn.io",
-										"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
-									},
-									{
-										"title": "Y-Sweet",
-										"author": "Jamsocket team",
-										"url": "https://jamsocket.com/y-sweet",
-										"icon": "https://demos.y-sweet.dev/icon.png"
-									},
-									{
-										"title": "Trystero",
-										"author": "Dan Motzenbecker / Dmotz",
-										"url": "https://github.com/dmotz/trystero",
-										"icon": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Font_Awesome_5_solid_handshake.svg"
-									},
-									{
-										"title": "Legend State",
-										"author": "Jay Meistrich",
-										"url": "https://github.com/LegendApp/legend-state",
-										"icon": "https://avatars.githubusercontent.com/u/60373862?s=192&v=4"
-									},
-									{
-										"title": "Amplify DataStore",
-										"author": "Amazon Web Services",
-										"url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
-										"icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png"
-									}
-								]
-            },
-            {
-                "title": "Examples",
-                "items": [
-                    {
-                        "title": "CRDT tutorials",
-                        "author": "James Addison",
-                        "url": "https://github.com/siliconjungle/crdt-tutorials",
-                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
-                    },
-                    {
-                        "title": "CRDT example app",
-                        "author": "James Long",
-                        "url": "https://github.com/jlongster/crdt-example-app",
-                        "icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
-                    },
-                    {
-                        "title": "TinyRooms",
-                        "author": "James Pearce",
-                        "url": "https://github.com/tinyplex/tinyrooms",
-                        "icon": "https://tinyrooms.jamesgpearce.partykit.dev/favicon.svg"
-                    },
-                    {
-                        "title": "XR Fragments",
-                        "author": "Leon van Kammen / coderofsalvation",
-                        "url": "https://xrfragment.org",
-                        "icon": "https://xrfragment.org/favicon.ico"
-                    },
-                    {
-                        "title": "PyScript LTK",
-                        "author": "Chris Laffra",
-                        "url": "https://github.com/pyscript/ltk",
-                        "icon": "https://pyscript.net/assets/images/pyscript-sticker-black.svg"
-                    }
-                ]
-            }
-        ]
+							{
+								"title": "Replicache",
+								"author": "Rocicorp",
+								"url": "https://replicache.dev",
+								"icon": "https://replicache.dev/icons/favicon-32x32.png"
+							},
+							{
+								"title": "Sockethub",
+								"author": "Nick Jennings",
+								"url": "http://sockethub.org",
+								"icon": "http://sockethub.org/favicon.ico"
+							},
+							{
+								"title": "TinyBase",
+								"author": "James Pearce",
+								"url": "https://tinybase.org",
+								"icon": "https://tinybase.org/favicon.svg"
+							},
+							{
+								"title": "Verdant",
+								"author": "Grant Forrest",
+								"url": "https://verdant.dev",
+								"icon": "https://verdant.dev/favicon-32x32.png"
+							},
+							{
+								"title": "VLCN",
+								"author": "Matt Wonlaw",
+								"url": "https://vlcn.io",
+								"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+							},
+							{
+								"title": "Y-Sweet",
+								"author": "Jamsocket team",
+								"url": "https://jamsocket.com/y-sweet",
+								"icon": "https://demos.y-sweet.dev/icon.png"
+							},
+							{
+								"title": "Trystero",
+								"author": "Dan Motzenbecker / Dmotz",
+								"url": "https://github.com/dmotz/trystero",
+								"icon": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Font_Awesome_5_solid_handshake.svg"
+							},
+							{
+								"title": "Legend State",
+								"author": "Jay Meistrich",
+								"url": "https://github.com/LegendApp/legend-state",
+								"icon": "https://avatars.githubusercontent.com/u/60373862?s=192&v=4"
+							},
+							{
+								"title": "Amplify DataStore",
+								"author": "Amazon Web Services",
+								"url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
+								"icon": "https://d0.awsstatic.com/logos/powered-by-aws-white.png"
+							}
+						]
+					},
+					{
+						"title": "Storing data",
+						"class": "row2",
+						"items": [
+							{
+								"title": "ElectricSQL",
+								"author": "ElectricSQL team",
+								"url": "https://electric-sql.com",
+								"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
+							},
+							{
+								"title": "PowerSync",
+								"author": "JourneyApps",
+								"url": "https://www.powersync.com",
+								"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
+							},
+							{
+								"title": "Dexie.js",
+								"author": "David Fahlander",
+								"url": "https://dexie.org/",
+								"icon": "https://avatars.githubusercontent.com/u/32483223?s=500&v=4"
+							},
+							{
+								"title": "WatermelonDB",
+								"author": "Radek Pietruszewski / Nozbe",
+								"url": "https://watermelondb.dev",
+								"icon": "https://raw.githubusercontent.com/Nozbe/WatermelonDB/master/assets/icon128x128.png"
+							},
+							{
+								"title": "remoteStorage",
+								"author": "remoteStorage contributors",
+								"url": "https://remotestorage.io",
+								"icon": "https://remotestorage.io/logo.svg"
+							},
+							{
+								"title": "RxDB",
+								"author": "Daniel Meyer",
+								"url": "https://rxdb.info",
+								"icon": "https://rxdb.info/files/logo/logo.svg"
+							},
+							{
+								"title": "TinyBase",
+								"author": "James Pearce",
+								"url": "https://tinybase.org",
+								"icon": "https://tinybase.org/favicon.svg"
+							},
+							{
+								"title": "Gun",
+								"author": "Mark Nadal",
+								"url": "https://gun.eco",
+								"icon": "https://gun.eco/icons/icon-48x48.png?v=dfecf3c0fa09798b200a8a8b9fa0f172"
+							},
+							{
+								"title": "DXOS",
+								"author": "dxos.org",
+								"url": "https://dxos.org",
+								"icon": "https://i.ibb.co/pvwKDFDW/57182821.png"
+							},
+							{
+								"title": "Dat Stack",
+								"author": "hyper- core/bee/store/drive (by dat-ecosystem)",
+								"url": "https://dat-ecosystem.org/",
+								"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
+							},
+							{
+								"title": "Evolu",
+								"author": "Daniel Steigerwald",
+								"url": "https://www.evolu.dev/",
+								"icon": "https://i.ibb.co/tp0F0Gdn/56556353.png"
+							},
+							{
+								"title": "Liveblocks",
+								"author": "Liveblocks team",
+								"url": "https://liveblocks.io/",
+								"icon": "https://liveblocks.io/favicon.svg"
+							},
+							{
+								"title": "Fireproof",
+								"author": "Fireproof team",
+								"url": "https://use-fireproof.com/",
+								"icon": "https://fireproof.storage/static/img/flame.svg"
+							},
+							{
+								"title": "Instant",
+								"author": "Stepan Parunashvili",
+								"url": "https://www.instantdb.com",
+								"icon": "https://www.instantdb.com/img/icon/apple-touch-icon-152x152.png"
+							},
+							{
+								"title": "m-ld",
+								"author": "George Svarovsky et al.",
+								"url": "https://m-ld.org/",
+								"icon": "https://m-ld.org/m-ld.inverse.svg"
+							},
+							{
+								"title": "NextGraph",
+								"author": "Niko Bonnieure",
+								"url": "https://nextgraph.org/",
+								"icon": "https://nextgraph.org/favicon.svg"
+							},
+							{
+								"title": "PouchDB",
+								"author": "PouchDB contributors",
+								"url": "https://pouchdb.com",
+								"icon": "https://pouchdb.com/static/favicon.ico"
+							},
+							{
+								"title": "SignalDB",
+								"author": "Max Nowack",
+								"url": "https://signaldb.js.org",
+								"icon": "https://signaldb.js.org/logo.svg"
+							},
+							{
+								"title": "Socket Runtime",
+								"author": "Socket Runtime Team",
+								"url": "https://github.com/socketsupply/socket",
+								"icon": "https://socketsupply.co/images/monogram.svg"
+							},
+							{
+								"title": "Soukai",
+								"author": "Noel De Martin",
+								"url": "https://soukai.js.org",
+								"icon": "https://soukai.js.org/img/logo.svg"
+							},
+							{
+								"title": "SyncedStore",
+								"author": "Yousef El-Dardiry",
+								"url": "https://syncedstore.org",
+								"icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+							},
+							{
+								"title": "Triplit",
+								"author": "Aspen Cloud",
+								"url": "https://triplit.dev",
+								"icon": "https://triplit.dev/favicon.ico"
+							},
+							{
+								"title": "Verdant",
+								"author": "Grant Forrest",
+								"url": "https://verdant.dev",
+								"icon": "https://verdant.dev/favicon-32x32.png"
+							},
+							{
+								"title": "VLCN",
+								"author": "Matt Wonlaw",
+								"url": "https://vlcn.io",
+								"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+							}
+						]
+					},
+					{
+						"title": "Examples",
+						"items": [
+							{
+								"title": "CRDT tutorials",
+								"author": "James Addison",
+								"url": "https://github.com/siliconjungle/crdt-tutorials",
+								"icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+							},
+							{
+								"title": "CRDT example app",
+								"author": "James Long",
+								"url": "https://github.com/jlongster/crdt-example-app",
+								"icon": "https://github.githubassets.com/favicons/favicon-dark.svg"
+							},
+							{
+								"title": "TinyRooms",
+								"author": "James Pearce",
+								"url": "https://github.com/tinyplex/tinyrooms",
+								"icon": "https://tinyrooms.jamesgpearce.partykit.dev/favicon.svg"
+							},
+							{
+								"title": "XR Fragments",
+								"author": "Leon van Kammen / coderofsalvation",
+								"url": "https://xrfragment.org",
+								"icon": "https://xrfragment.org/favicon.ico"
+							},
+							{
+								"title": "PyScript LTK",
+								"author": "Chris Laffra",
+								"url": "https://github.com/pyscript/ltk",
+								"icon": "https://pyscript.net/assets/images/pyscript-sticker-black.svg"
+							}
+						]
+					}
+				]
     },
     {
         "index": 3,

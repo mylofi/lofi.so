@@ -30,13 +30,13 @@
 
 	// Define tab categories
 	const tabs = [
-		{ id: 'storage', label: 'Storage', color: 'primary', items: content[1].sections[0].items },
 		{
 			id: 'collaboration',
 			label: 'Sync & Collaboration',
 			color: '[#5865F2]',
-			items: content[1].sections[1]?.items || []
+			items: content[1].sections[0]?.items || []
 		},
+		{ id: 'storage', label: 'Storage', color: 'primary', items: content[1].sections[1].items },
 		{
 			id: 'development',
 			label: 'Development Tools',
