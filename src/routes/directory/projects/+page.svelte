@@ -1,5 +1,6 @@
 <script lang="ts">
 	import itemJson from '$lib/data/directory/Item.json';
+	import DirectoryItemGrid from '$lib/components/DirectoryItemGrid.svelte';
 	import type { DirectoryData } from '$lib/types/directory';
 
 	const items = (itemJson as DirectoryData).records;
@@ -15,28 +16,5 @@
 		</p>
 	</header>
 
-	<div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-		{#each projects as project}
-			<a
-				href="/directory/projects/{project.fields.slug}"
-				class="group rounded-xl border border-slate-700/60 bg-slate-900/70 p-4 transition hover:border-primary/30 hover:bg-slate-900/90 hover:shadow-sm dark:border-slate-600/70 dark:bg-slate-800/75 dark:hover:bg-slate-800/95"
-			>
-				<div class="flex items-start gap-3">
-					<img
-						src={project.fields.icon}
-						alt={project.fields.Title}
-						class="h-12 w-12 rounded-xl object-cover"
-					/>
-					<div class="min-w-0">
-						<h3 class="truncate text-base font-semibold text-slate-100">
-							{project.fields.Title}
-						</h3>
-						<p class="mt-1 line-clamp-2 text-sm text-slate-400">
-							{project.fields.description}
-						</p>
-					</div>
-				</div>
-			</a>
-		{/each}
-	</div>
+	<DirectoryItemGrid items={projects} hrefPrefix="/directory/projects" emptyMessage="No projects found." />
 </div>
