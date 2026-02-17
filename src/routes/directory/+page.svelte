@@ -55,20 +55,6 @@
 					Discover software that keeps user data local, works offline first, and syncs on your terms.
 				</p>
 			</div>
-			<div class="grid grid-cols-3 gap-3 text-center">
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
-					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Total</p>
-					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{items.length}</p>
-				</div>
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
-					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Apps</p>
-					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{appCount}</p>
-				</div>
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
-					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Projects</p>
-					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{projectCount}</p>
-				</div>
-			</div>
 		</div>
 	</header>
 
@@ -109,21 +95,25 @@
 					class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/80"
 				>
 					<div class="flex items-start gap-3">
-						<img src={item.fields.icon} alt={item.fields.Title} class="h-12 w-12 rounded-xl object-cover" />
-						<div class="min-w-0">
-							<div class="flex items-center gap-2">
-								<h3 class="truncate text-base font-semibold text-slate-900 dark:text-slate-100">
-									{item.fields.Title}
-								</h3>
-								<span class={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-									item.fields.Main_Category === 1
-										? 'bg-primary/10 text-primary'
-										: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
-								}`}>
+						<img
+							src={item.fields.icon}
+							alt={item.fields.Title}
+							class="h-12 w-12 flex-shrink-0 rounded-xl object-cover"
+						/>
+						<div class="min-w-0 flex-1">
+							<h3 class="line-clamp-1 text-base font-semibold text-slate-900 dark:text-slate-100">
+								{item.fields.Title}
+							</h3>
+							<div class="mt-1">
+								<span class={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+										item.fields.Main_Category === 1
+											? 'bg-primary/10 text-primary'
+											: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300'
+									}`}>
 									{item.fields.Main_Category === 1 ? 'App' : 'Project'}
 								</span>
 							</div>
-							<p class="mt-1 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
+							<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">
 								{item.fields.description}
 							</p>
 							<p class="mt-2 text-xs font-medium text-slate-500 dark:text-slate-400">By {item.fields.author}</p>
