@@ -1,29 +1,32 @@
-<section class="relative isolate overflow-hidden px-4 pb-16 pt-24 sm:px-6 sm:pt-28 lg:px-8 lg:pt-36">
-	<div class="pointer-events-none absolute inset-0">
-		<div class="absolute inset-0 bg-gradient-to-b from-panel/80 via-paper to-paper dark:from-gray-900 dark:via-gray-900 dark:to-gray-900"></div>
-		<div class="absolute -left-24 top-0 h-80 w-80 rounded-full bg-primary/25 blur-3xl"></div>
-		<div class="absolute -right-20 top-12 h-72 w-72 rounded-full bg-discord/20 blur-3xl"></div>
-		<div class="absolute bottom-0 left-0 right-0 h-40 bg-[radial-gradient(ellipse_at_center,rgba(76,98,255,0.12),transparent_70%)]"></div>
+<section class="relative flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+	<div class="absolute inset-0 overflow-hidden">
+		<div
+			class="animate-glow absolute left-1/2 top-0 h-[25rem] w-[40rem] -translate-x-1/2 rounded-full bg-primary opacity-30 blur-[6rem] dark:opacity-30"
+		></div>
+		<div
+			class="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-50 [mask-image:radial-gradient(circle_at_center,white,transparent_75%)] dark:opacity-100"
+		></div>
 	</div>
 
-	<div class="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
-		<div>
-			<p class="mb-4 inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-				Local-First Discovery Index
-			</p>
-			<h1 class="max-w-3xl text-balance text-4xl font-black tracking-tight text-ink sm:text-5xl lg:text-6xl dark:text-white">
-				Sync & Local-First
+	<div class="relative mx-auto max-w-7xl">
+		<div class="text-center">
+			<img src="/images/logo.svg" alt="Local First Software" class="mx-auto mb-2 h-32 sm:h-40" />
+			<h1
+				class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl"
+			>
+				Local-first Software
 			</h1>
-			<p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-				A curated directory & community for builders.
+			<p class="mx-auto mt-7 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
+				Experience apps that work offline, keep your data private, and sync seamlessly across your
+				devices. Your data stays with you, not locked in the cloud.
 			</p>
 
-			<div class="mt-8 flex flex-wrap gap-3 sm:mt-10">
+			<div class="mt-14 flex justify-center gap-4">
 				<a
 					href="https://discord.gg/ZRrwZxn4rW"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-3 rounded-2xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90 sm:text-base"
+					class="inline-flex items-center gap-3 rounded-md bg-primary px-6 py-3 text-lg font-semibold text-white transition hover:bg-primary/90"
 				>
 					<span class="inline-flex h-5 w-5 items-center justify-center" aria-hidden="true">
 						<svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
@@ -35,25 +38,10 @@
 					<span>Join</span>
 				</a>
 				<a
-					href="#directory"
-					class="inline-flex items-center rounded-xl border border-slate-300 bg-white/90 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-primary/30 hover:text-primary dark:border-gray-700 dark:bg-gray-900/80 dark:text-slate-200 dark:hover:border-primary/40 sm:text-base"
-					on:click|preventDefault={() => {
-						const section = document.getElementById('directory');
-						if (section) {
-							const navHeight = 100;
-							const elementPosition = section.getBoundingClientRect().top;
-							const offsetPosition = elementPosition + window.scrollY - navHeight;
-							window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-						}
-					}}
-				>
-					Directory
-				</a>
-				<a
 					href="#join-us"
-					class="inline-flex items-center rounded-xl border border-slate-300 bg-white/90 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-primary/30 hover:text-primary dark:border-gray-700 dark:bg-gray-900/80 dark:text-slate-200 dark:hover:border-primary/40"
+					class="rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
 					on:click|preventDefault={() => {
-						const section = document.getElementById('join-us');
+						const section = document.querySelector('#join-us');
 						if (section) {
 							const navHeight = 100;
 							const elementPosition = section.getBoundingClientRect().top;
@@ -64,28 +52,43 @@
 				>
 					Explore
 				</a>
-			</div>
-		</div>
-
-		<div class="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-			<div class="rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/70">
-				<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Join</p>
-				<p class="mt-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-					Connect with like-minded builders and stay updated on the latest in local-first development.
-				</p>
-			</div>
-			<div class="rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/70">
-				<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Learn</p>
-				<p class="mt-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-					Meetups, article mentions, and people worth following in one place.
-				</p>
-			</div>
-			<div class="rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/70">
-				<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Discover</p>
-				<p class="mt-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-					Tools, databases, apps and more from builders like you.
-				</p>
+				<a
+					href="#directory"
+					class="rounded-md border border-gray-200 bg-white px-6 py-3 text-lg font-semibold text-gray-900 transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+					on:click|preventDefault={() => {
+						const section = document.querySelector('#directory');
+						if (section) {
+							const navHeight = 100;
+							const elementPosition = section.getBoundingClientRect().top;
+							const offsetPosition = elementPosition + window.scrollY - navHeight;
+							window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+						}
+					}}
+				>
+					Directory
+				</a>
 			</div>
 		</div>
 	</div>
 </section>
+
+<style>
+	@keyframes glow {
+		0% {
+			opacity: 0.1;
+			transform: translate(-50%, 0) scale(0.8);
+		}
+		50% {
+			opacity: 0.3;
+			transform: translate(-50%, 0) scale(1.1);
+		}
+		100% {
+			opacity: 0.1;
+			transform: translate(-50%, 0) scale(0.8);
+		}
+	}
+
+	:global(.animate-glow) {
+		animation: glow 7s ease-in-out infinite;
+	}
+</style>

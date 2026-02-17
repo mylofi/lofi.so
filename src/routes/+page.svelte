@@ -30,22 +30,16 @@
 		{
 			id: 'collaboration',
 			label: 'Sync & Collaboration',
-			activeClass: 'bg-primary text-white shadow-sm shadow-primary/20',
-			badgeClass: 'bg-primary/10 text-primary',
 			items: content[1].sections[0]?.items || []
 		},
 		{
 			id: 'storage',
 			label: 'Storage',
-			activeClass: 'bg-sky-600 text-white shadow-sm shadow-sky-200',
-			badgeClass: 'bg-sky-100 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300',
 			items: content[1].sections[1].items
 		},
 		{
 			id: 'development',
 			label: 'Development Tools',
-			activeClass: 'bg-emerald-600 text-white shadow-sm shadow-emerald-200',
-			badgeClass: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300',
 			items: content[1].sections[2]?.items || []
 		}
 	];
@@ -100,12 +94,7 @@
 							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Meetup</p>
 							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Join Us</h3>
 						</div>
-						<a
-							href="/event-graphic"
-							class="inline-flex items-center rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition hover:bg-primary/10"
-						>
-							Open Generator
-						</a>
+
 					</div>
 					<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950 sm:p-3">
 						<EventGraphic eventData={eventDataForGraphic} />
@@ -172,12 +161,25 @@
 							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Community</p>
 							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Feed</h3>
 						</div>
-						<a
-							href="/mentions"
-							class="inline-flex items-center rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-primary/30 hover:text-primary dark:border-gray-700 dark:text-slate-200"
-						>
-							See all mentions
-						</a>
+						<div class="flex flex-wrap items-center justify-end gap-2">
+							<a
+								href="https://www.localfirstnews.com/"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex h-12 items-center gap-3 rounded-lg border border-primary/20 bg-primary/5 px-3 text-sm font-semibold text-slate-800 transition hover:border-primary/40 hover:bg-primary/10 dark:border-primary/30 dark:bg-primary/10 dark:text-slate-100"
+							>
+								<span class="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-black tracking-[0.08em] text-white">
+									LF
+								</span>
+								<span>LF News</span>
+							</a>
+							<a
+								href="/mentions"
+								class="inline-flex h-12 items-center rounded-lg border border-slate-300 px-5 text-sm font-semibold text-slate-700 transition hover:border-primary/30 hover:text-primary dark:border-gray-700 dark:text-slate-200"
+							>
+								Read Posts
+							</a>
+						</div>
 					</div>
 
 					<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -225,7 +227,7 @@
 							<button
 								class={`rounded-lg px-4 py-2 text-sm font-semibold transition sm:flex-1 ${
 									activeTab === tab.id
-										? tab.activeClass
+										? 'bg-primary text-white shadow-sm shadow-primary/20'
 										: 'text-slate-600 hover:bg-white hover:text-slate-900 dark:text-slate-300 dark:hover:bg-gray-700 dark:hover:text-white'
 								}`}
 								on:click={() => setActiveTab(tab.id)}
@@ -254,7 +256,7 @@
 												</p>
 											</div>
 										</div>
-										<span class={`mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${tab.badgeClass}`}>
+										<span class={`mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/10 text-primary`}>
 											{tab.label}
 										</span>
 									</a>

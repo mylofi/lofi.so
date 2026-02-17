@@ -1,10 +1,9 @@
 <script lang="ts">
 	import itemJson from '$lib/data/directory/Item.json';
 	import type { DirectoryData } from '$lib/types/directory';
-	import { dedupeDirectoryBySlug } from '$lib/utils/directory';
 
-	const items = dedupeDirectoryBySlug((itemJson as DirectoryData).records);
-	const projects = items.filter((item) => item.fields.Main_Category === 3);
+	const items = (itemJson as DirectoryData).records;
+	const apps = items.filter((item) => item.fields.Main_Category === 1);
 </script>
 
 <div class="mx-auto max-w-7xl py-8">

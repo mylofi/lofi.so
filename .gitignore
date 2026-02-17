@@ -26,3 +26,5 @@ vite.config.ts.timestamp-*
 
 .yarn
 plan*.md
+.playwright-cli/
+output/

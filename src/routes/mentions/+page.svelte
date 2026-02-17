@@ -106,7 +106,7 @@
 				<section class="mb-12">
 					<div class="mb-6 flex items-center justify-between">
 						<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Read</h2>
-						<span class="text-sm text-gray-500 dark:text-gray-400">{readMentions.length} articles</span>
+						<span class="text-sm text-gray-500 dark:text-gray-400">{readMentions.length + 1} articles</span>
 					</div>
 					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{#each readMentions as mention}
@@ -142,6 +142,40 @@
 								</div>
 							</article>
 						{/each}
+
+						<article class="group relative overflow-hidden rounded-xl border border-primary/25 bg-gradient-to-br from-primary/10 via-white to-primary/5 transition-all hover:border-primary/50 hover:shadow-lg dark:from-primary/20 dark:via-gray-800/80 dark:to-gray-800/90">
+							<div class="p-4">
+								<div class="mb-2 flex items-center justify-between">
+									<div class="inline-flex items-center gap-2">
+										<span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-primary text-[11px] font-black tracking-wide text-white">
+											LF
+										</span>
+										<span class="text-xs font-medium text-gray-900 dark:text-white">Local First News</span>
+									</div>
+								</div>
+								<h3 class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white">
+									Get the latest local-first updates
+								</h3>
+								<p class="mb-3 line-clamp-2 text-sm text-gray-600 dark:text-gray-300">
+									Follow launches, ecosystem signals, and weekly local-first coverage in one place.
+								</p>
+								<a
+									href="https://www.localfirstnews.com/"
+									class="inline-flex items-center font-semibold text-primary hover:text-primary/80"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Visit Local First News
+									<svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+										<path
+											fill-rule="evenodd"
+											d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</a>
+							</div>
+						</article>
 					</div>
 				</section>
 
@@ -209,4 +243,4 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
