@@ -83,16 +83,14 @@
 						Everything You Need to Build and Discover Local-First
 					</h2>
 					<p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
-						Browse curated software, join upcoming meetups, follow new discussions, and track tools
-						people in the ecosystem are actively using.
+						Discover curated tools, connect with the community, and stay updated on the latest in the local-first ecosystem.
 					</p>
 				</header>
 
 				<section id="join-us" class="rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 sm:p-6">
-					<div class="mb-5 flex items-center justify-between gap-4 border-b border-slate-200 pb-4 dark:border-gray-800">
+					<div class="mb-5 flex items-center justify-between gap-4 dark:border-gray-800">
 						<div>
-							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Meetup</p>
-							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Join Us</h3>
+							<h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-primary sm:text-sm">JOIN</h3>
 						</div>
 
 					</div>
@@ -102,10 +100,9 @@
 				</section>
 
 				<section id="learn" class="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80">
-					<div class="mb-8 flex items-center justify-between gap-4 border-b border-slate-200 pb-4 dark:border-gray-800">
+					<div class="mb-8 flex items-center justify-between gap-4 dark:border-gray-800">
 						<div>
-							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Knowledge</p>
-							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Learn</h3>
+							<h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-primary sm:text-sm">LEARN</h3>
 						</div>
 						<a
 							href="/learn"
@@ -156,10 +153,9 @@
 				</section>
 
 				<section id="feed" class="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80">
-					<div class="mb-8 flex items-center justify-between gap-4 border-b border-slate-200 pb-4 dark:border-gray-800">
+					<div class="mb-8 flex items-center justify-between gap-4  dark:border-gray-800">
 						<div>
-							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Community</p>
-							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Feed</h3>
+							<h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-primary sm:text-sm">DISCOVER</h3>
 						</div>
 						<div class="flex flex-wrap items-center justify-end gap-2">
 							<a
@@ -209,10 +205,9 @@
 				</section>
 
 				<section id="directory" class="rounded-2xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80">
-					<div class="mb-8 flex items-center justify-between gap-4 border-b border-slate-200 pb-4 dark:border-gray-800">
+					<div class="mb-8 flex items-center justify-between gap-4 dark:border-gray-800">
 						<div>
-							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Discovery</p>
-							<h3 class="mt-1 text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Directory</h3>
+							<h3 class="text-xs font-semibold uppercase tracking-[0.16em] text-primary sm:text-sm">DIRECTORY</h3>
 						</div>
 						<a
 							href="/directory"
