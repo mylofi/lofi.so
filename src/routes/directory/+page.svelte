@@ -22,9 +22,6 @@
 
 	const allCategories = ['All', ...categoryNames].sort();
 
-	const appCount = items.filter((item) => item.fields.Main_Category === 1).length;
-	const projectCount = items.filter((item) => item.fields.Main_Category === 3).length;
-
 	$: filteredItems = items.filter((item) => {
 		const categoryFilter =
 			$activeCategory === 'All' ||
