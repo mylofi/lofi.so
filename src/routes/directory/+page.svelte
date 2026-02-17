@@ -44,7 +44,7 @@
 </script>
 
 <div class="mx-auto max-w-7xl py-8">
-	<header class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 sm:p-8">
+	<header class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/80 sm:p-8">
 		<div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 			<div>
 				<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Local-First Directory</p>
@@ -56,23 +56,23 @@
 				</p>
 			</div>
 			<div class="grid grid-cols-3 gap-3 text-center">
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-gray-800 dark:bg-gray-950">
-					<p class="text-xs uppercase tracking-wide text-slate-500">Total</p>
+				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
+					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Total</p>
 					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{items.length}</p>
 				</div>
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-gray-800 dark:bg-gray-950">
-					<p class="text-xs uppercase tracking-wide text-slate-500">Apps</p>
+				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
+					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Apps</p>
 					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{appCount}</p>
 				</div>
-				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-gray-800 dark:bg-gray-950">
-					<p class="text-xs uppercase tracking-wide text-slate-500">Projects</p>
+				<div class="rounded-xl border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-900/80">
+					<p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">Projects</p>
 					<p class="text-lg font-bold text-slate-900 dark:text-slate-100">{projectCount}</p>
 				</div>
 			</div>
 		</div>
 	</header>
 
-	<div class="mt-6 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 sm:p-6">
+	<div class="mt-6 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/80 sm:p-6">
 		<div class="relative mb-6">
 			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 				<svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -82,7 +82,7 @@
 			<input
 				type="search"
 				bind:value={$searchQuery}
-				class="block w-full rounded-xl border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 outline-none transition focus:border-primary dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+				class="block w-full rounded-xl border border-slate-300 bg-white p-3 pl-10 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-100 dark:placeholder:text-slate-400"
 				placeholder="Search apps, products, and platforms..."
 			/>
 		</div>
@@ -93,7 +93,7 @@
 					class={`rounded-full px-4 py-2 text-sm font-semibold transition ${
 						$activeCategory === category
 							? 'bg-primary text-white'
-							: 'border border-slate-300 bg-white text-slate-700 hover:border-primary/30 hover:text-primary dark:border-gray-700 dark:bg-gray-950 dark:text-slate-200'
+							: 'border border-slate-300 bg-white text-slate-700 hover:border-primary/30 hover:text-primary dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800'
 					}`}
 					on:click={() => activeCategory.set(category)}
 				>
@@ -106,7 +106,7 @@
 			{#each filteredItems as item}
 				<a
 					href="/directory/{item.fields.Main_Category === 1 ? 'apps' : 'projects'}/{item.fields.slug}"
-					class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-950"
+					class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/80"
 				>
 					<div class="flex items-start gap-3">
 						<img src={item.fields.icon} alt={item.fields.Title} class="h-12 w-12 rounded-xl object-cover" />

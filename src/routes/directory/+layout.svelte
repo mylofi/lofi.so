@@ -52,30 +52,30 @@
 	}
 </script>
 
-<div class="min-h-screen bg-paper pt-[var(--navbar-height)] dark:bg-gray-900">
+<div class="min-h-screen bg-paper pt-[var(--navbar-height)] dark:bg-slate-950">
 	<div class="mx-auto flex max-w-[95rem]">
 		<aside class="hidden w-72 shrink-0 lg:block">
-			<div class="sticky top-[var(--navbar-height)] h-[calc(100vh-var(--navbar-height))] overflow-y-auto border-r border-slate-200 bg-white/70 p-4 backdrop-blur dark:border-gray-800 dark:bg-gray-900/70">
+			<div class="sticky top-[var(--navbar-height)] h-[calc(100vh-var(--navbar-height))] overflow-y-auto border-r border-slate-200 bg-white/70 p-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/70">
 				<nav class="space-y-3">
 					<a
 						href="/directory"
 						class={`block rounded-lg px-4 py-2 text-sm font-semibold transition ${
 							currentPath === '/directory'
 								? 'bg-primary/10 text-primary'
-								: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
+								: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
 						}`}
 					>
 						Directory Home
 					</a>
 
-					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-gray-800 dark:bg-gray-900">
+					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900">
 						<div class="flex items-center gap-1">
 							<a
 								href="/directory/projects"
 								class={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition ${
 									currentPath.includes('/projects')
 										? 'bg-primary/10 text-primary'
-										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
+										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
 								}`}
 								onclick={() => expandSection('projects')}
 							>
@@ -83,7 +83,7 @@
 							</a>
 							<button
 								type="button"
-								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-gray-800 dark:hover:text-white"
+								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
 								onclick={() => toggleSection('projects')}
 								aria-label={expandedSections.has('projects') ? 'Collapse projects list' : 'Expand projects list'}
 							>
@@ -107,7 +107,7 @@
 											class={`block rounded-md px-3 py-1.5 text-sm transition ${
 												currentPath === `/directory/projects/${project.fields.slug}`
 													? 'bg-primary/10 font-semibold text-primary'
-													: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800'
+													: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
 											}`}
 										>
 											{project.fields.Title}
@@ -118,14 +118,14 @@
 						{/if}
 					</div>
 
-					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-gray-800 dark:bg-gray-900">
+					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900">
 						<div class="flex items-center gap-1">
 							<a
 								href="/directory/apps"
 								class={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition ${
 									currentPath.includes('/apps')
 										? 'bg-primary/10 text-primary'
-										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
+										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
 								}`}
 								onclick={() => expandSection('apps')}
 							>
@@ -133,7 +133,7 @@
 							</a>
 							<button
 								type="button"
-								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-gray-800 dark:hover:text-white"
+								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
 								onclick={() => toggleSection('apps')}
 								aria-label={expandedSections.has('apps') ? 'Collapse apps list' : 'Expand apps list'}
 							>
@@ -157,7 +157,7 @@
 											class={`block rounded-md px-3 py-1.5 text-sm transition ${
 												currentPath === `/directory/apps/${app.fields.slug}`
 													? 'bg-primary/10 font-semibold text-primary'
-													: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-gray-800'
+													: 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
 											}`}
 										>
 											{app.fields.Title}

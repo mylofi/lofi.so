@@ -36,13 +36,13 @@
 			<span>{app.fields.Title}</span>
 		</nav>
 
-		<section class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-gray-800 dark:bg-gray-900/80 sm:p-8">
+		<section class="rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/80 sm:p-8">
 			<div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
 				<div class="flex min-w-0 items-start gap-4">
 					<img
 						src={app.fields.icon}
 						alt={app.fields.Title}
-						class="h-16 w-16 rounded-2xl border border-slate-200 object-cover dark:border-gray-700"
+						class="h-16 w-16 rounded-2xl border border-slate-200 object-cover dark:border-slate-700"
 					/>
 					<div class="min-w-0">
 						<p class="inline-flex rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
@@ -68,16 +68,16 @@
 			</div>
 
 			<div class="mt-6 grid gap-4 sm:grid-cols-2">
-				<div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-					<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Website</p>
+				<div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900/85">
+					<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Website</p>
 					<p class="mt-2 text-sm font-semibold text-slate-900 dark:text-slate-100">{cleanHost(app.fields.url)}</p>
 				</div>
-				<div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-					<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Categories</p>
+				<div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900/85">
+					<p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 dark:text-slate-400">Categories</p>
 					<div class="mt-2 flex flex-wrap gap-2">
 						{#if appCategories.length > 0}
 							{#each appCategories as category}
-								<span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:bg-gray-800 dark:text-slate-200">
+								<span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-100">
 									{category}
 								</span>
 							{/each}
@@ -89,7 +89,7 @@
 			</div>
 		</section>
 
-		<div class="mt-8 flex items-center justify-between border-t border-slate-200 pt-6 dark:border-gray-800">
+		<div class="mt-8 flex items-center justify-between border-t border-slate-200 pt-6 dark:border-slate-700">
 			{#if prevApp}
 				<a href="/directory/apps/{prevApp.fields.slug}" class="text-sm font-semibold text-slate-600 hover:text-primary dark:text-slate-300">
 					← {prevApp.fields.Title}

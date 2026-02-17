@@ -217,7 +217,7 @@
 						</a>
 					</div>
 
-					<div class="mb-6 flex flex-wrap gap-2 rounded-xl bg-slate-100 p-2 dark:bg-gray-800/70">
+					<div class="mb-6 flex flex-wrap gap-2 rounded-xl bg-slate-100 p-2 dark:bg-slate-900/80">
 						{#each tabs as tab}
 							<button
 								class={`rounded-lg px-4 py-2 text-sm font-semibold transition sm:flex-1 ${
@@ -238,20 +238,20 @@
 								{#each tab.items.slice(0, 6) as item}
 									<a
 										href={item.url}
-										class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-900"
+										class="group rounded-xl border border-slate-700/60 bg-slate-900/70 p-4 transition hover:border-primary/30 hover:bg-slate-900/90 hover:shadow-sm dark:border-slate-600/70 dark:bg-slate-800/75 dark:hover:bg-slate-800/95"
 									>
 										<div class="flex items-start gap-3">
 											<img src={item.icon} alt={item.title} class="h-12 w-12 rounded-xl object-cover" />
 											<div class="min-w-0">
-												<h4 class="truncate text-base font-semibold text-slate-900 dark:text-slate-100">
+												<h4 class="truncate text-base font-semibold text-slate-100">
 													{item.title}
 												</h4>
-												<p class="mt-1 line-clamp-1 text-sm text-slate-500 dark:text-slate-400">
+												<p class="mt-1 line-clamp-1 text-sm text-slate-400">
 													{item.author}
 												</p>
 											</div>
 										</div>
-										<span class={`mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/10 text-primary`}>
+										<span class={`mt-3 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold bg-primary/20 text-primary`}>
 											{tab.label}
 										</span>
 									</a>
