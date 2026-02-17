@@ -113,20 +113,6 @@
 			}
 		},
 		{
-			"id": 6,
-			"fields": {
-				"Main_Category": 3,
-				"Title": "PowerSync",
-				"slug": "powersync",
-				"author": "JourneyApps",
-				"url": "https://www.powersync.com",
-				"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png",
-				"description": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
-				"Categories": ["L", 37, 41, 40],
-				"Uses": null
-			}
-		},
-		{
 			"id": 7,
 			"fields": {
 				"Main_Category": 1,

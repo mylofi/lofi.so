@@ -45,6 +45,11 @@
 				: [...expandedSections, section]
 		);
 	}
+
+	function expandSection(section: string) {
+		if (expandedSections.has(section)) return;
+		expandedSections = new Set([...expandedSections, section]);
+	}
 </script>
 
 <div class="min-h-screen bg-paper pt-[var(--navbar-height)] dark:bg-gray-900">
@@ -64,28 +69,37 @@
 					</a>
 
 					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-gray-800 dark:bg-gray-900">
-						<button
-							type="button"
-							class={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition ${
-								currentPath.includes('/projects')
-									? 'bg-primary/10 text-primary'
-									: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
-							}`}
-							on:click={() => toggleSection('projects')}
-						>
-							<span>Projects</span>
-							<svg
-								class="h-4 w-4 transition-transform"
-								class:rotate-90={expandedSections.has('projects')}
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
+						<div class="flex items-center gap-1">
+							<a
+								href="/directory/projects"
+								class={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+									currentPath.includes('/projects')
+										? 'bg-primary/10 text-primary'
+										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
+								}`}
+								onclick={() => expandSection('projects')}
 							>
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-							</svg>
-						</button>
+								Projects
+							</a>
+							<button
+								type="button"
+								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-gray-800 dark:hover:text-white"
+								onclick={() => toggleSection('projects')}
+								aria-label={expandedSections.has('projects') ? 'Collapse projects list' : 'Expand projects list'}
+							>
+								<svg
+									class="h-4 w-4 transition-transform"
+									class:rotate-90={expandedSections.has('projects')}
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
 						{#if expandedSections.has('projects')}
-							<ul class="mt-2 max-h-72 space-y-1 overflow-y-auto pr-1">
+							<ul class="mt-2 space-y-1 pr-1">
 								{#each projects as project}
 									<li>
 										<a
@@ -105,28 +119,37 @@
 					</div>
 
 					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-gray-800 dark:bg-gray-900">
-						<button
-							type="button"
-							class={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-semibold transition ${
-								currentPath.includes('/apps')
-									? 'bg-primary/10 text-primary'
-									: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
-							}`}
-							on:click={() => toggleSection('apps')}
-						>
-							<span>Apps</span>
-							<svg
-								class="h-4 w-4 transition-transform"
-								class:rotate-90={expandedSections.has('apps')}
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
+						<div class="flex items-center gap-1">
+							<a
+								href="/directory/apps"
+								class={`flex-1 rounded-lg px-3 py-2 text-sm font-semibold transition ${
+									currentPath.includes('/apps')
+										? 'bg-primary/10 text-primary'
+										: 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-gray-800'
+								}`}
+								onclick={() => expandSection('apps')}
 							>
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-							</svg>
-						</button>
+								Apps
+							</a>
+							<button
+								type="button"
+								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-gray-800 dark:hover:text-white"
+								onclick={() => toggleSection('apps')}
+								aria-label={expandedSections.has('apps') ? 'Collapse apps list' : 'Expand apps list'}
+							>
+								<svg
+									class="h-4 w-4 transition-transform"
+									class:rotate-90={expandedSections.has('apps')}
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+								>
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+								</svg>
+							</button>
+						</div>
 						{#if expandedSections.has('apps')}
-							<ul class="mt-2 max-h-72 space-y-1 overflow-y-auto pr-1">
+							<ul class="mt-2 space-y-1 pr-1">
 								{#each apps as app}
 									<li>
 										<a
