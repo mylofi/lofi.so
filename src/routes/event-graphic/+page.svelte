@@ -547,6 +547,8 @@
 		switch (target.id) {
 			case 'speaker_x_feed':
 				return `speaker-${safeName}.x.png`;
+			case 'speaker_discord_cover':
+				return `speaker-${safeName}.discord-cover.png`;
 			case 'legacy_speaker':
 				return `speaker-${safeName}.legacy-800x450.png`;
 			default:

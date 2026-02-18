@@ -69,6 +69,16 @@ export const DEFAULT_EXPORT_TARGETS: EventGraphicExportTarget[] = [
 		recommendedBytes: 4_500_000
 	},
 	{
+		id: 'speaker_discord_cover',
+		template: 'spotlight',
+		scope: 'speaker',
+		width: 800,
+		height: 320,
+		format: 'png',
+		maxBytes: 10_000_000,
+		recommendedBytes: 9_000_000
+	},
+	{
 		id: 'legacy_event',
 		template: 'agenda',
 		scope: 'event',
@@ -212,6 +222,17 @@ const normalizeExportTargets = (
 		const sharedEventTarget = DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'x_feed');
 		if (sharedEventTarget) {
 			normalized.unshift(sharedEventTarget);
+			seen.add('x_feed');
+		}
+	}
+
+	if (!seen.has('speaker_discord_cover')) {
+		const speakerDiscordCoverTarget = DEFAULT_EXPORT_TARGETS.find(
+			(target) => target.id === 'speaker_discord_cover'
+		);
+		if (speakerDiscordCoverTarget) {
+			normalized.push(speakerDiscordCoverTarget);
+			seen.add('speaker_discord_cover');
 		}
 	}
 

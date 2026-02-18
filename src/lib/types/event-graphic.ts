@@ -8,6 +8,7 @@ export type EventGraphicExportTargetId =
 	| 'discord_feed'
 	| 'sponsor_x_feed'
 	| 'speaker_x_feed'
+	| 'speaker_discord_cover'
 	| 'legacy_event'
 	| 'legacy_speaker';
 
