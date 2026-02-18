@@ -9,7 +9,7 @@
 	import Chat from '$lib/components/Chat.svelte';
 	import Analytics from '$lib/analytics.svelte';
 
-	let { data, children } = $props<{data: LayoutData}>();
+	let { data, children } = $props<{ data: LayoutData }>();
 </script>
 
 <Analytics />
@@ -29,7 +29,7 @@
 </svelte:head>
 
 <div class="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-	<EventBanner eventData={data.eventData} />
+	<EventBanner eventData={data.eventData} eventSpec={data.eventSpec} />
 	<NavBar />
 	<main>
 		{@render children()}

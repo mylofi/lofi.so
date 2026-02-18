@@ -1,0 +1,58 @@
+{
+	"fixtures": [
+		{
+			"id": "lofi33",
+			"label": "LoFi/33",
+			"description": "Regression fixture matching the LoFi/33 agenda + speaker set",
+			"event": {
+				"title": "Watch Party",
+				"eventNumber": 33,
+				"date": "2026-03-31",
+				"time": "08:00",
+				"timezone": "PST",
+				"registrationUrl": "https://lofi.so",
+				"discordUrl": "https://discord.gg/ZRrwZxn4rW",
+				"calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logoUrl": "/images/logo.png"
+			},
+			"speakers": [
+				{
+					"name": "Benjamin Hindman",
+					"socialPlatform": "twitter",
+					"socialHandle": "@benhindman",
+					"talk": "Local-first infrastructure updates",
+					"bio": "Benjamin works on local-first developer tooling.",
+					"talkPoints": [
+						"How to ship reliable sync at scale",
+						"Debugging realtime state divergence",
+						"What to expect in 2026"
+					]
+				},
+				{
+					"name": "Robel Estifanos",
+					"socialPlatform": "twitter",
+					"socialHandle": "@robelestif",
+					"talk": "Designing resilient offline workflows",
+					"bio": "Robel focuses on DX for distributed applications.",
+					"talkPoints": [
+						"Practical conflict resolution UX",
+						"Edge-first architecture patterns",
+						"Operational runbook lessons"
+					]
+				},
+				{
+					"name": "Glauber Costa",
+					"socialPlatform": "twitter",
+					"socialHandle": "@glcst",
+					"talk": "Storage engines for local-first systems",
+					"bio": "Glauber builds distributed databases and runtimes.",
+					"talkPoints": [
+						"Performance constraints in edge replicas",
+						"Durability tradeoffs and benchmarks",
+						"Roadmap for next generation storage"
+					]
+				}
+			]
+		}
+	]
+}

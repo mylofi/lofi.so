@@ -3,40 +3,43 @@
 	import { isBannerVisible, dismissBanner } from '$lib/stores/bannerStore';
 	import { onMount } from 'svelte';
 	import type { EventData } from '$lib/server/kv';
-	import { formatEventDate } from '$lib/utils/date';
+	import type { EventGraphicSpec } from '$lib/types/event-graphic';
+	import { toEventGraphicSpec } from '$lib/utils/event-graphic-spec';
 
 	export let eventData: EventData | null = null;
+	export let eventSpec: EventGraphicSpec | null = null;
 
-	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
+	$: resolvedSpec = eventSpec || toEventGraphicSpec(eventData);
+	$: startTimeDate = resolvedSpec?.event.startTimeISO
+		? new Date(resolvedSpec.event.startTimeISO)
+		: null;
 
 	// Check if event date is in the future
-	$: isUpcomingEvent = startTimeDate
-		? startTimeDate.getTime() > Date.now()
-		: eventData?.date
-			? new Date(eventData.date) > new Date()
-			: false;
-	$: shouldShowBanner = $isBannerVisible && eventData?.eventNumber && isUpcomingEvent;
+	$: isUpcomingEvent = startTimeDate ? startTimeDate.getTime() > Date.now() : false;
+	$: shouldShowBanner = $isBannerVisible && resolvedSpec?.event.number && isUpcomingEvent;
 
 	$: formattedDate = startTimeDate
-		? startTimeDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })
-		: formatEventDate(eventData);
+		? startTimeDate.toLocaleDateString('en-US', {
+				weekday: 'short',
+				day: 'numeric',
+				month: 'short'
+			})
+		: '';
 	$: formattedTime = startTimeDate
 		? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-		: eventData?.time
-			? eventData.time.split(':')[0] + ' ' + eventData.timezone
-			: '';
-	$: title = eventData?.title || 'Meetup';
+		: '';
+	$: title = resolvedSpec?.event.title || 'Meetup';
 
 	onMount(() => {
 		// Set initial banner state based on event data
-		if (!eventData?.eventNumber || !isUpcomingEvent) {
+		if (!resolvedSpec?.event.number || !isUpcomingEvent) {
 			document.documentElement.dataset.banner = 'false';
 		} else {
 			document.documentElement.dataset.banner = $isBannerVisible ? 'true' : 'false';
 		}
 
 		const unsubscribe = isBannerVisible.subscribe((visible) => {
-			if (visible !== undefined && eventData?.eventNumber && isUpcomingEvent) {
+			if (visible !== undefined && resolvedSpec?.event.number && isUpcomingEvent) {
 				document.documentElement.dataset.banner = visible ? 'true' : 'false';
 			} else {
 				document.documentElement.dataset.banner = 'false';
@@ -48,14 +51,16 @@
 </script>
 
 <div class="contents">
-	{#if shouldShowBanner && eventData}
+	{#if shouldShowBanner && resolvedSpec}
 		<div
 			class="fixed left-0 right-0 top-0 z-50 h-9 bg-primary text-white transition-all duration-300"
 		>
 			<div
 				class="mx-auto flex h-full max-w-7xl items-center justify-center px-4 text-center sm:px-6 lg:px-8"
 			>
-				<div class="flex flex-wrap items-center justify-center gap-x-1 xs:gap-x-2 gap-y-1 text-[10px] xs:text-xs sm:text-sm lg:text-base">
+				<div
+					class="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-[10px] xs:gap-x-2 xs:text-xs sm:text-sm lg:text-base"
+				>
 					<div class="flex items-center gap-1">
 						<span class="hidden sm:inline">🎉</span>
 						<span>
@@ -65,8 +70,8 @@
 
 					<div class="flex items-center gap-0.5 xs:gap-1">
 						<a
-							href={eventData.registrationUrl}
-							class="flex items-center gap-0.5 xs:gap-1 rounded bg-white/20 px-1 xs:px-2 py-0.5 text-[10px] xs:text-xs font-medium hover:bg-white/30"
+							href={resolvedSpec.event.links.registrationUrl}
+							class="flex items-center gap-0.5 rounded bg-white/20 px-1 py-0.5 text-[10px] font-medium hover:bg-white/30 xs:gap-1 xs:px-2 xs:text-xs"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
@@ -85,8 +90,8 @@
 							<span class="hidden sm:inline">Join</span>
 						</a>
 						<a
-							href={eventData.calendarUrl}
-							class="flex items-center gap-0.5 xs:gap-1 rounded bg-white/20 px-1 xs:px-2 py-0.5 text-[10px] xs:text-xs font-medium hover:bg-white/30"
+							href={resolvedSpec.event.links.calendarUrl}
+							class="flex items-center gap-0.5 rounded bg-white/20 px-1 py-0.5 text-[10px] font-medium hover:bg-white/30 xs:gap-1 xs:px-2 xs:text-xs"
 							target="_blank"
 							rel="noopener noreferrer"
 						>

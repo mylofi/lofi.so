@@ -1,35 +1,38 @@
 import { getKVBinding } from '$lib/server/context';
+import type { LegacyEventData } from '$lib/types/event-graphic';
+import { fromEventGraphicSpec, toEventGraphicSpec } from '$lib/utils/event-graphic-spec';
 
-export interface EventData {
-	eventNumber: number;
-    title: string;
-	startTimeISO?: string;
-	date: string;
-	time: string;
-	timezone: string;
-	speakers: Array<{
-		name: string;
-		twitterHandle: string;
-		talk: string;
-		image: string;
-	}>;
-	registrationUrl: string;
-	discordUrl: string;
-	calendarUrl: string;
-	logoUrl: string;
-}
+export type EventData = LegacyEventData;
+
+const normalizeEventPayload = (event: Partial<EventData>): EventData => {
+	const spec = toEventGraphicSpec(event);
+	if (!spec) {
+		throw new Error('Event payload is missing required fields.');
+	}
+
+	const normalized = fromEventGraphicSpec(spec);
+	return {
+		...normalized,
+		...event,
+		sponsors: spec.sponsors,
+		spec
+	};
+};
 
 export async function saveEvent(event: EventData) {
 	const kv = getKVBinding();
 	if (!kv) {
-		console.warn('KV binding (eventData) not found. Ensure it is bound in Cloudflare Dashboard and wrangler.toml.');
+		console.warn(
+			'KV binding (eventData) not found. Ensure it is bound in Cloudflare Dashboard and wrangler.toml.'
+		);
 		return null;
 	}
 
-	console.log('Saving event to KV:', event);
+	const payload = normalizeEventPayload(event);
+	console.log('Saving event to KV:', payload);
 	// Cloudflare KV stores strings, so we stringify the object
-	await kv.put('current_event', JSON.stringify(event));
-	return event;
+	await kv.put('current_event', JSON.stringify(payload));
+	return payload;
 }
 
 export async function getLatestEvent(): Promise<EventData | null> {
@@ -42,7 +45,8 @@ export async function getLatestEvent(): Promise<EventData | null> {
 	try {
 		const data = await kv.get('current_event');
 		if (!data) return null;
-		return JSON.parse(data) as EventData;
+		const parsed = JSON.parse(data) as Partial<EventData>;
+		return normalizeEventPayload(parsed);
 	} catch (error) {
 		console.error('Error getting event:', error);
 		return null;

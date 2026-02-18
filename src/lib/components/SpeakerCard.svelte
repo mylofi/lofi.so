@@ -1,144 +1,200 @@
 <script lang="ts">
+	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
+	import type { EventGraphicSpec, EventGraphicSpeaker } from '$lib/types/event-graphic';
+
 	export let speakerData: {
 		name: string;
-		twitterHandle: string;
+		twitterHandle?: string;
 		talk: string;
 		bio: string;
 		talkPoints: string[];
 		image: string;
+	} | null = null;
+
+	export let eventNumber: number = 1;
+	export let date: string = '';
+	export let time: string = '';
+	export let timezone: string = 'UTC';
+	export let eventSpec: EventGraphicSpec | null = null;
+	export let speaker: EventGraphicSpeaker | null = null;
+
+	$: resolvedSpeaker =
+		speaker ||
+		(speakerData
+			? ({
+					name: speakerData.name,
+					socials: { x: speakerData.twitterHandle || '' },
+					primarySocialPlatform: 'x',
+					talkTitle: speakerData.talk,
+					bio: speakerData.bio,
+					bullets: (speakerData.talkPoints || []).filter(Boolean),
+					avatarUrl: speakerData.image
+				} satisfies EventGraphicSpeaker)
+			: null);
+
+	$: resolvedDisplayDate =
+		eventSpec?.event.displayDateTime ||
+		(date
+			? `${new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+					weekday: 'long',
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric'
+				})} @ ${time || '08:00'} ${timezone}`
+			: 'Date to be announced');
+
+	$: activeEventNumber = eventSpec?.event.number || eventNumber;
+	$: activeSponsors = (eventSpec?.sponsors || []).slice(0, 4);
+
+	const getSpeakerHandle = (): string => {
+		if (!resolvedSpeaker) return '';
+		const primary = resolvedSpeaker.primarySocialPlatform;
+		return (
+			resolvedSpeaker.socials[primary] ||
+			resolvedSpeaker.socials.x ||
+			resolvedSpeaker.socials.bluesky ||
+			''
+		);
 	};
 
-	export let eventNumber: number;
-	export let date: string;
-	export let time: string;
-	export let timezone: string;
-
-	$: formattedDate = date
-		? new Date(date).toLocaleDateString('en-US', {
-				weekday: 'long',
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric'
-		  })
-		: '';
-	$: formattedTime = time ? `${time.split(':')[0]}${time.split(':')[0] >= '12' ? 'PM' : 'AM'}` : '';
-	$: formattedDateTime = `${formattedDate} @ ${formattedTime} ${timezone}`;
-
-	// Calculate total content length to determine font sizes
-	$: totalTalkPointsLength = speakerData.talkPoints.filter(p => p).reduce((sum, p) => sum + p.length, 0);
-	$: isShortContent = speakerData.talk.length < 30 && totalTalkPointsLength < 80;
-	$: bulletTextSize = isShortContent ? 'text-base' : 'text-sm';
-	$: bulletDotSize = isShortContent ? 'h-4 w-4 mt-1' : 'h-3 w-3 mt-1.5';
-	$: bulletSpacing = isShortContent ? 'space-y-4' : 'space-y-2';
+	const getSpeakerLink = (): string => {
+		const handle = getSpeakerHandle();
+		if (!handle) return '#';
+		if (resolvedSpeaker?.primarySocialPlatform === 'bluesky') {
+			return `https://bsky.app/profile/${handle.replace(/^@/, '')}`;
+		}
+		return `https://x.com/${handle.replace(/^@/, '')}`;
+	};
 </script>
 
-<main class="inline-block">
-	<div
-		class="relative flex w-[800px] h-[450px] flex-col rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white"
+{#if resolvedSpeaker}
+	<main
+		class="relative h-full w-full overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-discord shadow-[0_0_40px_-14px_theme(colors.primary)]"
 	>
-		<!-- Background Pattern -->
-		<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
+		<div class="pointer-events-none absolute inset-0 opacity-20">
 			<svg width="100%" height="100%">
 				<defs>
 					<pattern
-						id="dot-pattern"
+						id="speaker-dot-pattern"
 						x="0"
 						y="0"
-						width="30"
-						height="30"
+						width="26"
+						height="26"
 						patternUnits="userSpaceOnUse"
 					>
-						<circle cx="2" cy="2" r="1.2" fill="currentColor" />
+						<circle cx="2" cy="2" r="1" fill="white" />
 					</pattern>
 				</defs>
-				<rect width="100%" height="100%" fill="url(#dot-pattern)" />
+				<rect width="100%" height="100%" fill="url(#speaker-dot-pattern)" />
 			</svg>
 		</div>
 
-		<!-- Main Content Section -->
-		<section class="flex-1 rounded-xl p-5">
-			<div class="h-full rounded-xl bg-gray-100 p-4 shadow-md dark:bg-gray-800">
-				<!-- Speaker Content -->
-				<div class="h-full rounded-xl bg-white p-5 shadow-xl dark:bg-gray-900" >
-					<div class="flex w-full h-full gap-12">
-						<!-- Speaker Column -->
-						<div class="w-[300px] flex flex-col gap-4 h-full">
-							<!-- Speaker Image and Info -->
-							<div class="flex flex-col gap-4">
-								<div class="relative">
-									{#if speakerData.image}
-										<div class="aspect-square h-44 w-44 overflow-hidden rounded-full bg-gray-200 shadow-lg dark:bg-gray-700">
-											<img
-												src={speakerData.image}
-												alt={speakerData.name}
-												class="h-full w-full object-cover"
-											/>
-										</div>
-										<div class="absolute -bottom-2 left-[100px] min-w-[120px] max-w-[200px] rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-sm dark:bg-gray-900/95">
-											<h2 class="text-lg font-bold leading-tight line-clamp-2">{speakerData.name}</h2>
-											<a
-												href={`https://x.com/${speakerData.twitterHandle?.substring(1)}`}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="text-sm text-gray-600 hover:text-discord dark:text-gray-400"
-											>
-												{speakerData.twitterHandle}
-											</a>
-										</div>
-									{/if}
-								</div>
+		<div class="relative h-full min-h-[420px] p-4">
+			<div class="grid h-full grid-cols-12 gap-3">
+				<section
+					class="col-span-12 flex min-h-0 flex-col rounded-2xl border border-white/45 bg-white/95 p-3 text-gray-900 shadow-xl md:col-span-8"
+				>
+					<header class="mb-3">
+						<div class="mb-2 flex items-center gap-2">
+							<img
+								src={eventSpec?.event.links.logoUrl || '/images/logo.png'}
+								alt="LoFi"
+								class="h-8 w-8 rounded-md bg-white/90 p-1"
+							/>
+							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+								Spotlight
+							</p>
+						</div>
+						<h2 class="text-lg font-bold leading-tight sm:text-xl">LoFi/{activeEventNumber}</h2>
+						<p class="mt-1 text-xs font-semibold text-gray-700">{resolvedDisplayDate}</p>
+					</header>
+
+					<div class="grid min-h-0 flex-1 grid-cols-12 gap-3 overflow-hidden">
+						<div
+							class="col-span-4 flex min-h-0 flex-col items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 p-2.5"
+						>
+							<div class="h-28 w-28 overflow-hidden rounded-full bg-gray-200">
+								{#if resolvedSpeaker.avatarUrl}
+									<img
+										src={resolvedSpeaker.avatarUrl}
+										alt={resolvedSpeaker.name}
+										class="h-full w-full object-cover"
+									/>
+								{:else}
+									<div
+										class="flex h-full w-full items-center justify-center text-xs font-semibold text-gray-500"
+									>
+										N/A
+									</div>
+								{/if}
 							</div>
-							<!-- Bio -->
-							<p class="text-sm text-gray-700 dark:text-gray-300 line-clamp-5">
-								{speakerData.bio}
+
+							<div class="min-w-0 text-center">
+								<h3 class="truncate text-sm font-semibold">{resolvedSpeaker.name}</h3>
+								{#if getSpeakerHandle()}
+									<a
+										href={getSpeakerLink()}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="truncate text-xs font-medium text-primary hover:text-primary/80"
+									>
+										{getSpeakerHandle()}
+									</a>
+								{/if}
+							</div>
+
+							<p class="line-clamp-4 text-xs leading-relaxed text-gray-600">
+								{resolvedSpeaker.bio}
 							</p>
 						</div>
 
-						<!-- Talk Details  Column-->
-						<div class="w-[400px] flex flex-col gap-8 h-full">
-							<!-- Header with Logo -->
-							<div>
-								<div class="mb-2 flex items-center gap-2">
-									<img src="/images/logo.png" alt="LoFi" class="h-10 w-10" />
-									<h1 class="m-0 text-2xl font-bold">
-										LoFi/{eventNumber}
-									</h1>
-								</div>
-								<h2 class="mb-1 text-xl font-bold text-gray-800 dark:text-gray-200">
-									Local First Meetup #{eventNumber}
-								</h2>
-								<p class="text-base font-bold text-discord">
-									{formattedDateTime}
-								</p>
+						<div class="col-span-8 min-h-0 rounded-xl border border-gray-200 bg-white p-3">
+							<h4
+								class="mb-2 line-clamp-2 text-base font-bold italic leading-tight text-gray-900 sm:text-lg"
+							>
+								{resolvedSpeaker.talkTitle}
+							</h4>
+							<div class="space-y-2">
+								{#each resolvedSpeaker.bullets.slice(0, 4) as bullet}
+									<div class="flex items-start gap-2">
+										<span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+										<p class="line-clamp-2 text-xs leading-snug text-gray-700 sm:text-sm">
+											{bullet}
+										</p>
+									</div>
+								{/each}
 							</div>
-
-							<!-- Talk Info -->
-							<div class="flex flex-col gap-3">
-								<h1 class="font-bold text-gray-900 dark:text-white line-clamp-2 {speakerData.talk.length > 40 ? 'text-xl' : 'text-2xl'}">
-									{speakerData.talk}
-								</h1>
-								<div class={bulletSpacing}>
-									{#each speakerData.talkPoints.filter((point) => point) as point}
-										<div class="flex items-start gap-2">
-											<div class="flex-shrink-0 rounded-full bg-discord {bulletDotSize}" />
-											<p class="text-gray-800 dark:text-gray-200 line-clamp-2 {bulletTextSize}">
-												{point}
-											</p>
-										</div>
-									{/each}
-								</div>
-							</div>
-</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</section>
-	</div>
-</main>
+				</section>
 
-<style>
-	.speaker-card {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-			Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	}
-</style>
+				<aside class="col-span-12 flex min-h-0 flex-col gap-3 md:col-span-4">
+					<SponsorLockup sponsors={activeSponsors} compact={true} className="flex-1" />
+					<div class="rounded-2xl border border-white/35 bg-black/10 p-3 backdrop-blur-sm">
+						<div class="space-y-2">
+							<a
+								href={eventSpec?.event.links.discordUrl || 'https://discord.gg/lofi-so'}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="flex w-full items-center justify-center rounded-lg bg-white/95 px-3 py-2 text-sm font-semibold text-primary transition hover:bg-white"
+							>
+								Join Discord
+							</a>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</main>
+{:else}
+	<div
+		class="flex min-h-[320px] items-center justify-center rounded-2xl border border-slate-300/80 bg-slate-50 p-6 text-center dark:border-gray-700 dark:bg-gray-900"
+	>
+		<div class="max-w-md">
+			<h3 class="text-lg font-semibold text-slate-700 dark:text-slate-200">No Speaker Data</h3>
+			<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+				Add speakers to render spotlight cards.
+			</p>
+		</div>
+	</div>
+{/if}
