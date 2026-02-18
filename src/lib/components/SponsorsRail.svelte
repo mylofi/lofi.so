@@ -307,7 +307,7 @@
 									<img
 										src={getSponsorImage(sponsor)}
 										alt={sponsor.name}
-										class="max-h-full max-w-full object-contain transition duration-300 group-hover:scale-[1.03]"
+										class="h-auto max-h-[58px] w-auto max-w-[72%] object-contain transition duration-300 group-hover:scale-[1.03]"
 									/>
 								</div>
 							</a>
@@ -342,7 +342,7 @@
 					<img
 						src={getSponsorImage(sponsor)}
 						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+						class="h-auto max-h-[62%] w-auto max-w-[80%] object-contain transition-all duration-300 group-hover:scale-[1.03]"
 					/>
 				</a>
 			{/each}
@@ -366,7 +366,7 @@
 					<img
 						src={getSponsorImage(sponsor)}
 						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+						class="h-auto max-h-[62%] w-auto max-w-[80%] object-contain transition-all duration-300 group-hover:scale-[1.03]"
 					/>
 				</a>
 			{/each}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
+	import { invalidateAll } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
@@ -159,6 +160,7 @@
 	};
 
 	let isExporting = false;
+	let isSaving = false;
 	let exportError = '';
 	let exportSuccess = '';
 	let runManifest: ReturnType<typeof buildManifest> | null = null;
@@ -782,6 +784,27 @@
 		}
 	}
 
+	async function handleSaveEvent() {
+		exportError = '';
+		exportSuccess = '';
+
+		if (!eventSpec) {
+			exportError = 'Event spec is incomplete. Fill required fields before saving.';
+			return;
+		}
+
+		isSaving = true;
+		try {
+			await saveEventPayload(eventSpec);
+			await invalidateAll();
+			exportSuccess = 'Saved event to KV. Homepage data has been refreshed.';
+		} catch (error) {
+			exportError = error instanceof Error ? error.message : 'Failed to save event payload.';
+		} finally {
+			isSaving = false;
+		}
+	}
+
 	async function handleGenerateBundle() {
 		runArtifacts = [];
 		runManifest = null;
@@ -1309,8 +1332,16 @@
 
 		<div class="flex flex-wrap items-center gap-3">
 			<button
+				type="button"
+				on:click={handleSaveEvent}
+				disabled={isSaving || isExporting}
+				class="rounded-md bg-slate-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-600 disabled:cursor-not-allowed disabled:opacity-60"
+			>
+				{isSaving ? 'Saving...' : 'Save Event'}
+			</button>
+			<button
 				type="submit"
-				disabled={isExporting}
+				disabled={isExporting || isSaving}
 				class="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
 			>
 				{isExporting ? 'Generating bundle...' : 'Generate Full Bundle'}
