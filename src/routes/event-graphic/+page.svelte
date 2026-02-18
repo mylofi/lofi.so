@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import { invalidateAll } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
 	import SponsorCard from '$lib/components/SponsorCard.svelte';
@@ -31,6 +31,8 @@
 
 	type SocialPlatform = 'twitter' | 'bluesky' | 'linkedin';
 	type ProfileImagePlatform = 'twitter' | 'bluesky' | 'custom';
+	type PreviewScope = 'all' | 'event' | 'sponsor' | 'speaker';
+	const previewScopeOptions: PreviewScope[] = ['all', 'event', 'sponsor', 'speaker'];
 
 	interface SpeakerFormData {
 		name: string;
@@ -160,11 +162,15 @@
 	};
 
 	let isExporting = false;
+	let isExportingSpeakersOnly = false;
 	let isSaving = false;
 	let exportError = '';
 	let exportSuccess = '';
 	let runManifest: ReturnType<typeof buildManifest> | null = null;
 	let runArtifacts: ExportArtifactEntry[] = [];
+	let selectedTargetIds: EventGraphicExportTargetId[] = [];
+	let hasInitializedTargetSelection = false;
+	let previewScope: PreviewScope = 'all';
 	let previewEventTargetId: EventGraphicExportTargetId = 'x_feed';
 	let previewSponsorTargetId: EventGraphicExportTargetId = 'sponsor_x_feed';
 	let previewSpeakerTargetId: EventGraphicExportTargetId = 'speaker_x_feed';
@@ -207,12 +213,28 @@
 
 	$: eventSpec = toEventGraphicSpec(basePayload);
 	$: allTargets = eventSpec?.exports || DEFAULT_EXPORT_TARGETS;
-	$: selectedTargets = allTargets.filter(
+	$: availableTargets = allTargets.filter(
 		(target) => formData.includeLegacyTargets || !target.id.startsWith('legacy')
 	);
+	$: if (!hasInitializedTargetSelection && availableTargets.length > 0) {
+		selectedTargetIds = availableTargets.map((target) => target.id);
+		hasInitializedTargetSelection = true;
+	}
+	$: if (hasInitializedTargetSelection) {
+		const validSelection = selectedTargetIds.filter((selectedId) =>
+			availableTargets.some((target) => target.id === selectedId)
+		);
+		if (!areTargetIdsEqual(validSelection, selectedTargetIds)) {
+			selectedTargetIds = validSelection;
+		}
+	}
+	$: selectedTargets = availableTargets.filter((target) => selectedTargetIds.includes(target.id));
 	$: eventTargets = selectedTargets.filter((target) => target.scope === 'event');
 	$: sponsorTargets = selectedTargets.filter((target) => target.scope === 'sponsor');
 	$: speakerTargets = selectedTargets.filter((target) => target.scope === 'speaker');
+	$: showEventPreview = previewScope === 'all' || previewScope === 'event';
+	$: showSponsorPreview = previewScope === 'all' || previewScope === 'sponsor';
+	$: showSpeakerPreview = previewScope === 'all' || previewScope === 'speaker';
 	$: previewEventTarget =
 		eventTargets.find((target) => target.id === previewEventTargetId) ||
 		eventTargets[0] ||
@@ -245,6 +267,30 @@
 	) {
 		previewSpeakerTargetId = speakerTargets[0].id;
 	}
+
+	const areTargetIdsEqual = (
+		left: EventGraphicExportTargetId[],
+		right: EventGraphicExportTargetId[]
+	): boolean => {
+		if (left.length !== right.length) return false;
+		return left.every((value, index) => value === right[index]);
+	};
+
+	const toggleExportTarget = (targetId: EventGraphicExportTargetId) => {
+		if (selectedTargetIds.includes(targetId)) {
+			selectedTargetIds = selectedTargetIds.filter((id) => id !== targetId);
+			return;
+		}
+		selectedTargetIds = [...selectedTargetIds, targetId];
+	};
+
+	const selectAllExportTargets = () => {
+		selectedTargetIds = availableTargets.map((target) => target.id);
+	};
+
+	const clearExportTargets = () => {
+		selectedTargetIds = [];
+	};
 
 	const parseISOToDateTime = (iso: string): { date: string; time: string } => {
 		const parsed = new Date(iso);
@@ -807,6 +853,98 @@
 		}
 	}
 
+	async function exportSpeakerArtifacts(
+		spec: EventGraphicSpec,
+		targets: EventGraphicExportTarget[],
+		artifacts: ExportArtifactEntry[]
+	) {
+		for (const [index, speaker] of spec.speakers.entries()) {
+			const speakerNode = document.querySelector(`#${getSpeakerNodeId(index)}`);
+			if (!speakerNode) {
+				for (const target of targets) {
+					const missingFilename = buildSpeakerFilename(target, speaker.name);
+					artifacts.push(
+						buildErrorEntry(
+							target,
+							missingFilename,
+							'Speaker preview node is missing.',
+							buildSpeakerAltText(spec, speaker)
+						)
+					);
+				}
+				continue;
+			}
+
+			for (const target of targets) {
+				const filename = buildSpeakerFilename(target, speaker.name);
+				try {
+					const rendered = await renderArtifact(
+						speakerNode,
+						target,
+						filename,
+						buildSpeakerAltText(spec, speaker)
+					);
+					artifacts.push(rendered.entry);
+					downloadBlob(filename, rendered.blob);
+				} catch (error) {
+					artifacts.push(
+						buildErrorEntry(
+							target,
+							filename,
+							error instanceof Error ? error.message : 'Speaker export failed.',
+							buildSpeakerAltText(spec, speaker)
+						)
+					);
+				}
+			}
+		}
+	}
+
+	async function handleGenerateSpeakerGraphics() {
+		runArtifacts = [];
+		runManifest = null;
+		exportError = '';
+		exportSuccess = '';
+
+		if (!eventSpec) {
+			exportError = 'Event spec is incomplete. Fill required fields before exporting.';
+			return;
+		}
+
+		if (speakerTargets.length === 0) {
+			exportError = 'Select at least one speaker export target before generating speaker graphics.';
+			return;
+		}
+
+		const previousPreviewScope = previewScope;
+		previewScope = 'all';
+		await tick();
+
+		isExporting = true;
+		isExportingSpeakersOnly = true;
+		const artifacts: ExportArtifactEntry[] = [];
+
+		try {
+			await saveEventPayload(eventSpec);
+			await exportSpeakerArtifacts(eventSpec, speakerTargets, artifacts);
+
+			runArtifacts = artifacts;
+			runManifest = buildManifest(eventSpec, artifacts);
+			downloadText('manifest.json', JSON.stringify(runManifest, null, 2), 'application/json');
+			downloadText('captions.md', buildCaptionsMarkdown(eventSpec), 'text/markdown');
+
+			const warningCount = artifacts.filter((entry) => entry.status === 'warning').length;
+			const errorCount = artifacts.filter((entry) => entry.status === 'error').length;
+			exportSuccess = `Exported ${artifacts.length} speaker artifacts (${warningCount} warnings, ${errorCount} errors).`;
+		} catch (error) {
+			exportError = error instanceof Error ? error.message : 'Failed to generate speaker graphics.';
+		} finally {
+			previewScope = previousPreviewScope;
+			isExporting = false;
+			isExportingSpeakersOnly = false;
+		}
+	}
+
 	async function handleGenerateBundle() {
 		runArtifacts = [];
 		runManifest = null;
@@ -818,12 +956,24 @@
 			return;
 		}
 
-		const agendaNode = document.querySelector('#agenda-preview-node');
-		if (!agendaNode) {
-			exportError = 'Agenda preview node is missing.';
+		if (selectedTargets.length === 0) {
+			exportError = 'Select at least one export target before generating a bundle.';
 			return;
 		}
-		const sponsorNode = document.querySelector('#sponsor-preview-node');
+
+		const previousPreviewScope = previewScope;
+		previewScope = 'all';
+		await tick();
+
+		const agendaNode = eventTargets.length ? document.querySelector('#agenda-preview-node') : null;
+		if (eventTargets.length > 0 && !agendaNode) {
+			exportError = 'Agenda preview node is missing.';
+			previewScope = previousPreviewScope;
+			return;
+		}
+		const sponsorNode = sponsorTargets.length
+			? document.querySelector('#sponsor-preview-node')
+			: null;
 
 		isExporting = true;
 		const artifacts: ExportArtifactEntry[] = [];
@@ -835,7 +985,7 @@
 				const filename = buildAgendaFilename(target);
 				try {
 					const rendered = await renderArtifact(
-						agendaNode,
+						agendaNode as Element,
 						target,
 						filename,
 						buildAgendaAltText(eventSpec)
@@ -889,46 +1039,7 @@
 				}
 			}
 
-			for (const [index, speaker] of eventSpec.speakers.entries()) {
-				const speakerNode = document.querySelector(`#${getSpeakerNodeId(index)}`);
-				if (!speakerNode) {
-					for (const target of speakerTargets) {
-						const missingFilename = buildSpeakerFilename(target, speaker.name);
-						artifacts.push(
-							buildErrorEntry(
-								target,
-								missingFilename,
-								'Speaker preview node is missing.',
-								buildSpeakerAltText(eventSpec, speaker)
-							)
-						);
-					}
-					continue;
-				}
-
-				for (const target of speakerTargets) {
-					const filename = buildSpeakerFilename(target, speaker.name);
-					try {
-						const rendered = await renderArtifact(
-							speakerNode,
-							target,
-							filename,
-							buildSpeakerAltText(eventSpec, speaker)
-						);
-						artifacts.push(rendered.entry);
-						downloadBlob(filename, rendered.blob);
-					} catch (error) {
-						artifacts.push(
-							buildErrorEntry(
-								target,
-								filename,
-								error instanceof Error ? error.message : 'Speaker export failed.',
-								buildSpeakerAltText(eventSpec, speaker)
-							)
-						);
-					}
-				}
-			}
+			await exportSpeakerArtifacts(eventSpec, speakerTargets, artifacts);
 
 			runArtifacts = artifacts;
 			runManifest = buildManifest(eventSpec, artifacts);
@@ -941,7 +1052,9 @@
 		} catch (error) {
 			exportError = error instanceof Error ? error.message : 'Failed to generate bundle.';
 		} finally {
+			previewScope = previousPreviewScope;
 			isExporting = false;
+			isExportingSpeakersOnly = false;
 		}
 	}
 </script>
@@ -1112,18 +1225,71 @@
 					Include legacy exports (1120x630 and 800x450)
 				</label>
 
+				<details class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700">
+					<summary class="cursor-pointer text-sm font-semibold text-gray-800">
+						Choose export formats ({selectedTargetIds.length}/{availableTargets.length} selected)
+					</summary>
+					<div class="mt-3 space-y-3">
+						<div class="flex flex-wrap gap-2">
+							<button
+								type="button"
+								on:click={selectAllExportTargets}
+								class="rounded-md border border-gray-300 bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 hover:bg-gray-100"
+							>
+								Select all
+							</button>
+							<button
+								type="button"
+								on:click={clearExportTargets}
+								class="rounded-md border border-gray-300 bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 hover:bg-gray-100"
+							>
+								Clear
+							</button>
+						</div>
+
+						<div class="space-y-2">
+							{#each availableTargets as target}
+								<label
+									class="flex cursor-pointer items-start gap-2 rounded border border-gray-200 bg-white p-2"
+								>
+									<input
+										type="checkbox"
+										checked={selectedTargetIds.includes(target.id)}
+										on:change={() => toggleExportTarget(target.id)}
+										class="mt-0.5 h-3.5 w-3.5"
+									/>
+									<span class="min-w-0">
+										<span class="block font-mono text-[11px] text-gray-900">{target.id}</span>
+										<span class="block text-[11px] text-gray-600">
+											{target.width}x{target.height}
+											{target.format.toUpperCase()}
+											{#if target.maxBytes}
+												(max {target.maxBytes.toLocaleString()} bytes)
+											{/if}
+										</span>
+									</span>
+								</label>
+							{/each}
+						</div>
+					</div>
+				</details>
+
 				<div class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-600">
 					<p class="font-semibold text-gray-700">Active targets</p>
 					<ul class="mt-2 space-y-1">
-						{#each selectedTargets as target}
-							<li>
-								<span class="font-mono">{target.id}</span> - {target.width}x{target.height}
-								{target.format.toUpperCase()}
-								{#if target.maxBytes}
-									(max {target.maxBytes.toLocaleString()} bytes)
-								{/if}
-							</li>
-						{/each}
+						{#if selectedTargets.length > 0}
+							{#each selectedTargets as target}
+								<li>
+									<span class="font-mono">{target.id}</span> - {target.width}x{target.height}
+									{target.format.toUpperCase()}
+									{#if target.maxBytes}
+										(max {target.maxBytes.toLocaleString()} bytes)
+									{/if}
+								</li>
+							{/each}
+						{:else}
+							<li class="text-red-600">No export targets selected.</li>
+						{/if}
 					</ul>
 				</div>
 			</div>
@@ -1342,8 +1508,16 @@
 				{isSaving ? 'Saving...' : 'Save Event'}
 			</button>
 			<button
+				type="button"
+				on:click={handleGenerateSpeakerGraphics}
+				disabled={isExporting || isSaving || speakerTargets.length === 0}
+				class="rounded-md bg-discord px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-discord/90 disabled:cursor-not-allowed disabled:opacity-60"
+			>
+				{isExportingSpeakersOnly ? 'Generating speakers...' : 'Generate Speaker Graphics'}
+			</button>
+			<button
 				type="submit"
-				disabled={isExporting || isSaving}
+				disabled={isExporting || isSaving || selectedTargets.length === 0}
 				class="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
 			>
 				{isExporting ? 'Generating bundle...' : 'Generate Full Bundle'}
@@ -1371,95 +1545,124 @@
 	{/if}
 
 	<div class="mt-10 space-y-10">
-		<div>
-			<div class="mb-3 flex items-center justify-between gap-2">
-				<h2 class="text-xl font-semibold">Agenda Preview</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each eventTargets as target}
-						<button
-							type="button"
-							on:click={() => (previewEventTargetId = target.id)}
-							class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewEventTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-						>
-							{target.id}
-						</button>
-					{/each}
-				</div>
+		<div class="rounded-lg border border-slate-700 bg-slate-900/50 p-4">
+			<div class="mb-2 flex flex-wrap items-center justify-between gap-2">
+				<h2 class="text-sm font-semibold uppercase tracking-wide text-slate-200">Preview Scope</h2>
+				<span class="text-xs text-slate-400">Default: all outputs</span>
 			</div>
-
-			<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-				<div
-					id="agenda-preview-node"
-					class="origin-top-left"
-					style={`width: ${previewEventTarget.width}px; min-width: ${previewEventTarget.width}px; height: ${previewEventTarget.height}px; min-height: ${previewEventTarget.height}px;`}
-				>
-					<EventGraphic {eventSpec} renderTarget={previewEventTarget.id} />
-				</div>
+			<div class="flex flex-wrap gap-2">
+				{#each previewScopeOptions as scope}
+					<button
+						type="button"
+						on:click={() => (previewScope = scope)}
+						class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewScope === scope ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+					>
+						{scope === 'all' ? 'all outputs' : `${scope} only`}
+					</button>
+				{/each}
 			</div>
+			{#if selectedTargets.length === 0}
+				<p class="mt-2 text-xs text-red-300">
+					No outputs selected. Choose at least one format to render previews and exports.
+				</p>
+			{/if}
 		</div>
 
-		<div>
-			<div class="mb-3 flex items-center justify-between gap-2">
-				<h2 class="text-xl font-semibold">Sponsor Companion Preview</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each sponsorTargets as target}
-						<button
-							type="button"
-							on:click={() => (previewSponsorTargetId = target.id)}
-							class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSponsorTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-						>
-							{target.id}
-						</button>
-					{/each}
-				</div>
-			</div>
-
-			<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-				<div
-					id="sponsor-preview-node"
-					class="origin-top-left"
-					style={`width: ${previewSponsorTarget.width}px; min-width: ${previewSponsorTarget.width}px; height: ${previewSponsorTarget.height}px; min-height: ${previewSponsorTarget.height}px;`}
-				>
-					<SponsorCard {eventSpec} />
-				</div>
-			</div>
-		</div>
-
-		<div>
-			<div class="mb-3 flex items-center justify-between gap-2">
-				<h2 class="text-xl font-semibold">Speaker Spotlight Preview</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each speakerTargets as target}
-						<button
-							type="button"
-							on:click={() => (previewSpeakerTargetId = target.id)}
-							class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSpeakerTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-						>
-							{target.id}
-						</button>
-					{/each}
-				</div>
-			</div>
-
-			<div class="space-y-6">
-				{#if eventSpec}
-					{#each eventSpec.speakers as speaker, index}
-						<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-							<p class="mb-3 text-sm font-semibold text-slate-200">
-								{speaker.name || `Speaker ${index + 1}`}
-							</p>
-							<div
-								id={getSpeakerNodeId(index)}
-								class="origin-top-left"
-								style={`width: ${previewSpeakerTarget.width}px; min-width: ${previewSpeakerTarget.width}px; height: ${previewSpeakerTarget.height}px; min-height: ${previewSpeakerTarget.height}px;`}
+		{#if showEventPreview && eventTargets.length > 0}
+			<div>
+				<div class="mb-3 flex items-center justify-between gap-2">
+					<h2 class="text-xl font-semibold">Agenda Preview</h2>
+					<div class="flex flex-wrap gap-2">
+						{#each eventTargets as target}
+							<button
+								type="button"
+								on:click={() => (previewEventTargetId = target.id)}
+								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewEventTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
 							>
-								<SpeakerCard {eventSpec} {speaker} />
-							</div>
-						</div>
-					{/each}
-				{/if}
+								{target.id}
+							</button>
+						{/each}
+					</div>
+				</div>
+
+				<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
+					<div
+						id="agenda-preview-node"
+						class="origin-top-left"
+						style={`width: ${previewEventTarget.width}px; min-width: ${previewEventTarget.width}px; height: ${previewEventTarget.height}px; min-height: ${previewEventTarget.height}px;`}
+					>
+						<EventGraphic {eventSpec} renderTarget={previewEventTarget.id} />
+					</div>
+				</div>
 			</div>
-		</div>
+		{/if}
+
+		{#if showSponsorPreview && sponsorTargets.length > 0}
+			<div>
+				<div class="mb-3 flex items-center justify-between gap-2">
+					<h2 class="text-xl font-semibold">Sponsor Companion Preview</h2>
+					<div class="flex flex-wrap gap-2">
+						{#each sponsorTargets as target}
+							<button
+								type="button"
+								on:click={() => (previewSponsorTargetId = target.id)}
+								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSponsorTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+							>
+								{target.id}
+							</button>
+						{/each}
+					</div>
+				</div>
+
+				<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
+					<div
+						id="sponsor-preview-node"
+						class="origin-top-left"
+						style={`width: ${previewSponsorTarget.width}px; min-width: ${previewSponsorTarget.width}px; height: ${previewSponsorTarget.height}px; min-height: ${previewSponsorTarget.height}px;`}
+					>
+						<SponsorCard {eventSpec} />
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		{#if showSpeakerPreview && speakerTargets.length > 0}
+			<div>
+				<div class="mb-3 flex items-center justify-between gap-2">
+					<h2 class="text-xl font-semibold">Speaker Spotlight Preview</h2>
+					<div class="flex flex-wrap gap-2">
+						{#each speakerTargets as target}
+							<button
+								type="button"
+								on:click={() => (previewSpeakerTargetId = target.id)}
+								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSpeakerTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+							>
+								{target.id}
+							</button>
+						{/each}
+					</div>
+				</div>
+
+				<div class="space-y-6">
+					{#if eventSpec}
+						{#each eventSpec.speakers as speaker, index}
+							<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
+								<p class="mb-3 text-sm font-semibold text-slate-200">
+									{speaker.name || `Speaker ${index + 1}`}
+								</p>
+								<div
+									id={getSpeakerNodeId(index)}
+									class="origin-top-left"
+									style={`width: ${previewSpeakerTarget.width}px; min-width: ${previewSpeakerTarget.width}px; height: ${previewSpeakerTarget.height}px; min-height: ${previewSpeakerTarget.height}px;`}
+								>
+									<SpeakerCard {eventSpec} {speaker} />
+								</div>
+							</div>
+						{/each}
+					{/if}
+				</div>
+			</div>
+		{/if}
 	</div>
 
 	{#if runArtifacts.length > 0}
