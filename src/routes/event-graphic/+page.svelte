@@ -11,7 +11,6 @@
 		EventGraphicExportTarget,
 		EventGraphicExportTargetId,
 		EventGraphicSpec,
-		EventGraphicSponsor,
 		ExportArtifactEntry,
 		LegacyEventData
 	} from '$lib/types/event-graphic';
@@ -47,14 +46,6 @@
 		talkPoints: string[];
 		image: string;
 		error: string;
-	}
-
-	interface SponsorFormData {
-		name: string;
-		url: string;
-		logoLight: string;
-		logoDark: string;
-		order: number;
 	}
 
 	interface EventGraphicFixture {
@@ -115,23 +106,7 @@
 		error: ''
 	});
 
-	const toFormSponsor = (sponsor: EventGraphicSponsor): SponsorFormData => ({
-		name: sponsor.name,
-		url: sponsor.url,
-		logoLight: sponsor.logoLight,
-		logoDark: sponsor.logoDark || sponsor.logoLight,
-		order: sponsor.order
-	});
-
-	const createSponsor = (): SponsorFormData => ({
-		name: '',
-		url: '',
-		logoLight: '',
-		logoDark: '',
-		order: 999
-	});
-
-	const defaultSponsors = normalizeSponsors(undefined).map(toFormSponsor);
+	const defaultSponsors = normalizeSponsors(undefined);
 
 	let formData: {
 		title: string;
@@ -140,7 +115,6 @@
 		time: string;
 		timezone: string;
 		speakers: SpeakerFormData[];
-		sponsors: SponsorFormData[];
 		registrationUrl: string;
 		discordUrl: string;
 		calendarUrl: string;
@@ -153,7 +127,6 @@
 		time: '08:00',
 		timezone: 'PST',
 		speakers: [createSpeaker()],
-		sponsors: defaultSponsors,
 		registrationUrl: 'https://lofi.so',
 		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
@@ -198,13 +171,7 @@
 			talkPoints: speaker.talkPoints,
 			image: speaker.image
 		})),
-		sponsors: formData.sponsors.map((sponsor) => ({
-			name: sponsor.name,
-			url: sponsor.url,
-			logoLight: sponsor.logoLight,
-			logoDark: sponsor.logoDark || sponsor.logoLight,
-			order: sponsor.order
-		})),
+		sponsors: defaultSponsors,
 		registrationUrl: formData.registrationUrl,
 		discordUrl: formData.discordUrl,
 		calendarUrl: formData.calendarUrl,
@@ -319,7 +286,6 @@
 			time: '08:00',
 			timezone: 'PST',
 			speakers: [createSpeaker()],
-			sponsors: defaultSponsors,
 			registrationUrl: 'https://lofi.so',
 			discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
@@ -339,30 +305,6 @@
 
 	function removeSpeaker(index: number) {
 		formData.speakers = formData.speakers.filter((_, currentIndex) => currentIndex !== index);
-		formData = { ...formData };
-	}
-
-	function addSponsor() {
-		formData.sponsors = [...formData.sponsors, createSponsor()];
-		formData = { ...formData };
-	}
-
-	function removeSponsor(index: number) {
-		formData.sponsors = formData.sponsors.filter((_, currentIndex) => currentIndex !== index);
-		formData = { ...formData };
-	}
-
-	function sortSponsorsByOrder() {
-		const sorted = normalizeSponsors(
-			formData.sponsors.map((sponsor) => ({
-				name: sponsor.name,
-				url: sponsor.url,
-				logoLight: sponsor.logoLight,
-				logoDark: sponsor.logoDark || sponsor.logoLight,
-				order: sponsor.order
-			}))
-		);
-		formData.sponsors = sorted.map(toFormSponsor);
 		formData = { ...formData };
 	}
 
@@ -498,7 +440,6 @@
 				bio: speaker.bio,
 				talkPoints: [...speaker.talkPoints]
 			})),
-			sponsors: defaultSponsors,
 			registrationUrl: fixture.event.registrationUrl,
 			discordUrl: fixture.event.discordUrl,
 			calendarUrl: fixture.event.calendarUrl,
@@ -543,7 +484,6 @@
 				talkPoints: speaker.bullets.length > 0 ? speaker.bullets : ['', '', ''],
 				image: speaker.avatarUrl
 			})),
-			sponsors: spec.sponsors.map(toFormSponsor),
 			registrationUrl: spec.event.links.registrationUrl,
 			discordUrl: spec.event.links.discordUrl,
 			calendarUrl: spec.event.links.calendarUrl,
@@ -1092,7 +1032,7 @@
 	</div>
 
 	<form class="space-y-6 text-black" on:submit|preventDefault={handleGenerateBundle}>
-		<div class="grid grid-cols-1 gap-6 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
 			<div class="space-y-4 rounded-lg bg-white p-6 shadow-md xl:col-span-1">
 				<h2 class="text-lg font-semibold">Event Details</h2>
 
@@ -1225,6 +1165,10 @@
 					Include legacy exports (1120x630 and 800x450)
 				</label>
 
+				<p class="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
+					Sponsors are loaded from <span class="font-mono">src/lib/data/sponsors.json</span>.
+				</p>
+
 				<details class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700">
 					<summary class="cursor-pointer text-sm font-semibold text-gray-800">
 						Choose export formats ({selectedTargetIds.length}/{availableTargets.length} selected)
@@ -1291,79 +1235,6 @@
 							<li class="text-red-600">No export targets selected.</li>
 						{/if}
 					</ul>
-				</div>
-			</div>
-
-			<div class="space-y-4 rounded-lg bg-white p-6 shadow-md xl:col-span-1">
-				<div class="flex items-center justify-between">
-					<h2 class="text-lg font-semibold">Sponsors</h2>
-					<div class="flex items-center gap-2">
-						<button
-							type="button"
-							on:click={sortSponsorsByOrder}
-							class="rounded-md bg-gray-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gray-800"
-						>
-							Sort
-						</button>
-						<button
-							type="button"
-							on:click={addSponsor}
-							class="rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary/90"
-						>
-							Add
-						</button>
-					</div>
-				</div>
-
-				<div class="max-h-[420px] space-y-3 overflow-y-auto pr-1">
-					{#each formData.sponsors as sponsor, sponsorIndex}
-						<div class="rounded-md border border-gray-200 p-3">
-							<div class="mb-2 flex items-center justify-between">
-								<p class="text-xs font-semibold uppercase tracking-wide text-gray-600">
-									Sponsor {sponsorIndex + 1}
-								</p>
-								<button
-									type="button"
-									on:click={() => removeSponsor(sponsorIndex)}
-									class="text-xs font-semibold text-red-600 hover:text-red-700">Remove</button
-								>
-							</div>
-
-							<div class="space-y-2">
-								<input
-									type="text"
-									bind:value={sponsor.name}
-									placeholder="Name"
-									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-								/>
-								<input
-									type="number"
-									min="1"
-									bind:value={sponsor.order}
-									placeholder="Order"
-									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-								/>
-								<input
-									type="url"
-									bind:value={sponsor.url}
-									placeholder="Sponsor URL"
-									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-								/>
-								<input
-									type="text"
-									bind:value={sponsor.logoLight}
-									placeholder="Logo (light)"
-									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-								/>
-								<input
-									type="text"
-									bind:value={sponsor.logoDark}
-									placeholder="Logo (dark, optional)"
-									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
-								/>
-							</div>
-						</div>
-					{/each}
 				</div>
 			</div>
 		</div>
