@@ -28,3 +28,4 @@ vite.config.ts.timestamp-*
 plan*.md
 .playwright-cli/
 output/
+docs/fixtures/

@@ -189,11 +189,7 @@ const normalizeSpeaker = (speaker: LegacySpeakerInput): EventGraphicSpeaker => {
 
 const sortSponsors = (sponsors: EventGraphicSponsor[]): EventGraphicSponsor[] => {
 	return [...sponsors].sort((a, b) => {
-		const tierDelta = TIER_RANK[a.tier] - TIER_RANK[b.tier];
-		if (tierDelta !== 0) return tierDelta;
-		const priorityDelta = a.priority - b.priority;
-		if (priorityDelta !== 0) return priorityDelta;
-		return a.name.localeCompare(b.name);
+		return a.order - b.order;
 	});
 };
 
@@ -211,7 +207,7 @@ export const getDefaultSponsors = (): EventGraphicSponsor[] => {
 		url: sponsor.url,
 		logoLight: sponsor.image,
 		logoDark: sponsor.image,
-		priority: index + 1
+		order: index + 1
 	}));
 	return sortSponsors(list);
 };
@@ -225,11 +221,10 @@ export const normalizeSponsors = (
 
 	const normalized = sponsors.map((sponsor, index) => ({
 		name: sponsor.name?.trim() || `Sponsor ${index + 1}`,
-		tier: normalizeSponsorTier(sponsor.tier),
 		url: sponsor.url?.trim() || '',
 		logoLight: sponsor.logoLight?.trim() || sponsor.logoDark?.trim() || '',
 		logoDark: sponsor.logoDark?.trim() || sponsor.logoLight?.trim() || '',
-		priority: Number.isFinite(sponsor.priority) ? sponsor.priority : index + 1
+		order: Number.isFinite(sponsor.order) ? sponsor.order : index + 1
 	}));
 
 	return sortSponsors(normalized);

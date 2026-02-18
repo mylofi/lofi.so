@@ -36,11 +36,10 @@ export type SponsorTier = 'Partner' | 'Platinum' | 'Gold';
 
 export interface EventGraphicSponsor {
 	name: string;
-	tier: SponsorTier;
 	url: string;
 	logoLight: string;
 	logoDark?: string;
-	priority: number;
+	order: number;
 }
 
 export interface EventGraphicThemeTokens {
