@@ -32,8 +32,6 @@ export interface EventGraphicSpeaker {
 	avatarUrl: string;
 }
 
-export type SponsorTier = 'Partner' | 'Platinum' | 'Gold';
-
 export interface EventGraphicSponsor {
 	name: string;
 	url: string;

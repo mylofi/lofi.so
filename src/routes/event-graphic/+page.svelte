@@ -12,8 +12,7 @@
 		EventGraphicSpec,
 		EventGraphicSponsor,
 		ExportArtifactEntry,
-		LegacyEventData,
-		SponsorTier
+		LegacyEventData
 	} from '$lib/types/event-graphic';
 	import {
 		buildAgendaAltText,
@@ -49,11 +48,10 @@
 
 	interface SponsorFormData {
 		name: string;
-		tier: SponsorTier;
 		url: string;
 		logoLight: string;
 		logoDark: string;
-		priority: number;
+		order: number;
 	}
 
 	interface EventGraphicFixture {
@@ -116,20 +114,18 @@
 
 	const toFormSponsor = (sponsor: EventGraphicSponsor): SponsorFormData => ({
 		name: sponsor.name,
-		tier: sponsor.tier,
 		url: sponsor.url,
 		logoLight: sponsor.logoLight,
 		logoDark: sponsor.logoDark || sponsor.logoLight,
-		priority: sponsor.priority
+		order: sponsor.order
 	});
 
 	const createSponsor = (): SponsorFormData => ({
 		name: '',
-		tier: 'Gold',
 		url: '',
 		logoLight: '',
 		logoDark: '',
-		priority: 999
+		order: 999
 	});
 
 	const defaultSponsors = normalizeSponsors(undefined).map(toFormSponsor);
@@ -196,11 +192,10 @@
 		})),
 		sponsors: formData.sponsors.map((sponsor) => ({
 			name: sponsor.name,
-			tier: sponsor.tier,
 			url: sponsor.url,
 			logoLight: sponsor.logoLight,
 			logoDark: sponsor.logoDark || sponsor.logoLight,
-			priority: sponsor.priority
+			order: sponsor.order
 		})),
 		registrationUrl: formData.registrationUrl,
 		discordUrl: formData.discordUrl,
@@ -309,15 +304,14 @@
 		formData = { ...formData };
 	}
 
-	function sortSponsorsByTierAndPriority() {
+	function sortSponsorsByOrder() {
 		const sorted = normalizeSponsors(
 			formData.sponsors.map((sponsor) => ({
 				name: sponsor.name,
-				tier: sponsor.tier,
 				url: sponsor.url,
 				logoLight: sponsor.logoLight,
 				logoDark: sponsor.logoDark || sponsor.logoLight,
-				priority: sponsor.priority
+				order: sponsor.order
 			}))
 		);
 		formData.sponsors = sorted.map(toFormSponsor);
@@ -529,9 +523,7 @@
 	const buildAgendaFilename = (target: EventGraphicExportTarget): string => {
 		switch (target.id) {
 			case 'x_feed':
-				return 'event-agenda.x.png';
-			case 'bsky_feed':
-				return 'event-agenda.bsky.jpg';
+				return 'event-agenda.x-bsky.jpg';
 			case 'discord_feed':
 				return 'event-agenda.discord.png';
 			case 'legacy_event':
@@ -934,7 +926,7 @@
 		<div>
 			<h1 class="text-3xl font-bold">Event Graphic Generator</h1>
 			<p class="mt-2 text-sm text-slate-300">
-				Spec-driven bundle export for X, Bluesky, Discord, and homepage sync.
+				Spec-driven bundle export for X + Bluesky (shared), Discord, and homepage sync.
 			</p>
 		</div>
 		<div class="flex flex-wrap items-center gap-3 text-black">
@@ -1117,7 +1109,7 @@
 					<div class="flex items-center gap-2">
 						<button
 							type="button"
-							on:click={sortSponsorsByTierAndPriority}
+							on:click={sortSponsorsByOrder}
 							class="rounded-md bg-gray-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-gray-800"
 						>
 							Sort
@@ -1153,22 +1145,13 @@
 									placeholder="Name"
 									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
 								/>
-								<div class="grid grid-cols-2 gap-2">
-									<select
-										bind:value={sponsor.tier}
-										class="rounded-md border border-gray-300 px-3 py-2 text-sm"
-									>
-										<option value="Partner">Partner</option>
-										<option value="Platinum">Platinum</option>
-										<option value="Gold">Gold</option>
-									</select>
-									<input
-										type="number"
-										bind:value={sponsor.priority}
-										placeholder="Priority"
-										class="rounded-md border border-gray-300 px-3 py-2 text-sm"
-									/>
-								</div>
+								<input
+									type="number"
+									min="1"
+									bind:value={sponsor.order}
+									placeholder="Order"
+									class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+								/>
 								<input
 									type="url"
 									bind:value={sponsor.url}

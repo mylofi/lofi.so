@@ -11,17 +11,8 @@ import type {
 	ExportArtifactEntry,
 	LegacyEventData,
 	LegacySpeakerInput,
-	SocialPlatform,
-	SponsorTier
+	SocialPlatform
 } from '$lib/types/event-graphic';
-
-const TIER_RANK: Record<SponsorTier, number> = {
-	Partner: 0,
-	Platinum: 1,
-	Gold: 2
-};
-
-const SPONSOR_TIERS = new Set<SponsorTier>(['Partner', 'Platinum', 'Gold']);
 
 const DEFAULT_THEME: EventGraphicTheme = {
 	variant: 'agenda',
@@ -39,16 +30,6 @@ const DEFAULT_THEME: EventGraphicTheme = {
 export const DEFAULT_EXPORT_TARGETS: EventGraphicExportTarget[] = [
 	{
 		id: 'x_feed',
-		template: 'agenda',
-		scope: 'event',
-		width: 1200,
-		height: 675,
-		format: 'png',
-		maxBytes: 5_000_000,
-		recommendedBytes: 4_500_000
-	},
-	{
-		id: 'bsky_feed',
 		template: 'agenda',
 		scope: 'event',
 		width: 1200,
@@ -193,21 +174,57 @@ const sortSponsors = (sponsors: EventGraphicSponsor[]): EventGraphicSponsor[] =>
 	});
 };
 
-const normalizeSponsorTier = (tier: string): SponsorTier => {
-	if (SPONSOR_TIERS.has(tier as SponsorTier)) {
-		return tier as SponsorTier;
+const normalizeExportTargets = (
+	targets: EventGraphicExportTarget[] | undefined
+): EventGraphicExportTarget[] => {
+	if (!targets || targets.length === 0) {
+		return DEFAULT_EXPORT_TARGETS;
 	}
-	return 'Gold';
+
+	const normalized: EventGraphicExportTarget[] = [];
+	const seen = new Set<string>();
+
+	for (const target of targets) {
+		if (target.id === 'bsky_feed') {
+			continue;
+		}
+
+		if (target.id === 'x_feed') {
+			if (seen.has('x_feed')) continue;
+			normalized.push({
+				...target,
+				width: 1200,
+				height: 675,
+				format: 'jpg',
+				maxBytes: 1_000_000,
+				recommendedBytes: 950_000
+			});
+			seen.add('x_feed');
+			continue;
+		}
+
+		if (seen.has(target.id)) continue;
+		normalized.push(target);
+		seen.add(target.id);
+	}
+
+	if (!seen.has('x_feed')) {
+		const sharedEventTarget = DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'x_feed');
+		if (sharedEventTarget) {
+			normalized.unshift(sharedEventTarget);
+		}
+	}
+
+	return normalized;
 };
 
 export const getDefaultSponsors = (): EventGraphicSponsor[] => {
 	const list = sponsorsData.sponsors.map((sponsor, index) => ({
 		name: sponsor.name,
-		tier: normalizeSponsorTier(sponsor.tier),
 		url: sponsor.url,
 		logoLight: sponsor.image,
 		logoDark: sponsor.image,
-		order: index + 1
+		order: Number.isFinite(sponsor.order) ? sponsor.order : index + 1
 	}));
 	return sortSponsors(list);
 };
@@ -290,7 +307,7 @@ export const toEventGraphicSpec = (
 			})),
 			sponsors: normalizeSponsors(spec.sponsors),
 			theme: spec.theme || DEFAULT_THEME,
-			exports: spec.exports?.length ? spec.exports : DEFAULT_EXPORT_TARGETS
+			exports: normalizeExportTargets(spec.exports)
 		};
 	}
 

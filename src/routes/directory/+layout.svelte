@@ -8,12 +8,7 @@
 
 	const items = (itemJson as DirectoryData).records;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
-	const sponsors = rawSponsors as {
-		url: string;
-		image: string;
-		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
-	}[];
+	const sponsors = rawSponsors;
 
 	const apps = items.filter((item) => item.fields.Main_Category === 1);
 	const projects = items.filter((item) => item.fields.Main_Category === 3);
@@ -55,7 +50,9 @@
 <div class="min-h-screen bg-paper pt-[var(--navbar-height)] dark:bg-slate-950">
 	<div class="mx-auto flex max-w-[95rem]">
 		<aside class="hidden w-72 shrink-0 lg:block">
-			<div class="sticky top-[var(--navbar-height)] h-[calc(100vh-var(--navbar-height))] overflow-y-auto border-r border-slate-200 bg-white/70 p-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/70">
+			<div
+				class="sticky top-[var(--navbar-height)] h-[calc(100vh-var(--navbar-height))] overflow-y-auto border-r border-slate-200 bg-white/70 p-4 backdrop-blur dark:border-slate-800 dark:bg-slate-950/70"
+			>
 				<nav class="space-y-3">
 					<a
 						href="/directory"
@@ -68,7 +65,9 @@
 						Directory Home
 					</a>
 
-					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900">
+					<div
+						class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900"
+					>
 						<div class="flex items-center gap-1">
 							<a
 								href="/directory/projects"
@@ -85,7 +84,9 @@
 								type="button"
 								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
 								onclick={() => toggleSection('projects')}
-								aria-label={expandedSections.has('projects') ? 'Collapse projects list' : 'Expand projects list'}
+								aria-label={expandedSections.has('projects')
+									? 'Collapse projects list'
+									: 'Expand projects list'}
 							>
 								<svg
 									class="h-4 w-4 transition-transform"
@@ -94,7 +95,12 @@
 									fill="none"
 									stroke="currentColor"
 								>
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 5l7 7-7 7"
+									/>
 								</svg>
 							</button>
 						</div>
@@ -118,7 +124,9 @@
 						{/if}
 					</div>
 
-					<div class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900">
+					<div
+						class="rounded-xl border border-slate-200 bg-white p-2 dark:border-slate-800 dark:bg-slate-900"
+					>
 						<div class="flex items-center gap-1">
 							<a
 								href="/directory/apps"
@@ -135,7 +143,9 @@
 								type="button"
 								class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
 								onclick={() => toggleSection('apps')}
-								aria-label={expandedSections.has('apps') ? 'Collapse apps list' : 'Expand apps list'}
+								aria-label={expandedSections.has('apps')
+									? 'Collapse apps list'
+									: 'Expand apps list'}
 							>
 								<svg
 									class="h-4 w-4 transition-transform"
@@ -144,7 +154,12 @@
 									fill="none"
 									stroke="currentColor"
 								>
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 5l7 7-7 7"
+									/>
 								</svg>
 							</button>
 						</div>

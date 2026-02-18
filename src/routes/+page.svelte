@@ -10,13 +10,7 @@
 
 	const { content, sponsorsData, mentions, eventDataForGraphic, eventSpecForGraphic } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
-
-	const sponsors = rawSponsors as {
-		url: string;
-		image: string;
-		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
-	}[];
+	const sponsors = rawSponsors;
 
 	let activeTab = 'storage';
 

@@ -10,7 +10,7 @@
 		image: string;
 		imageDark?: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
+		order?: number;
 	}[];
 
 	// Get the appropriate image based on current theme
@@ -34,8 +34,6 @@
 		registrationUrl: string;
 		startTimeISO?: string;
 	} | null = null;
-
-	type TierType = 'Partner' | 'Platinum' | 'Gold';
 
 	let isMeetupsOpen = true;
 	let isConferencesOpen = true;
@@ -71,28 +69,16 @@
 		: undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
+	$: orderedSponsors = [...sponsors].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 
 	// Check if the event date has passed
 	$: isEventPassed = startTimeDate ? startTimeDate.getTime() < Date.now() : false;
 
-	// $: sponsorsByTier = sponsors.reduce(
-	// 	(acc, sponsor) => {
-	// 		if (!acc[sponsor.tier]) {
-	// 			acc[sponsor.tier] = [];
-	// 		}
-	// 		acc[sponsor.tier].push(sponsor);
-	// 		return acc;
-	// 	},
-	// 	{} as Record<TierType, typeof sponsors>
-	// );
-
-	const tierHeights: Record<TierType, number> = {
-		Partner: 120,
-		Platinum: 100,
-		Gold: 80
+	const getSponsorHeight = (position: number): number => {
+		if (position === 0) return 120;
+		if (position === 1) return 100;
+		return 80;
 	};
-
-	// const tierOrder: TierType[] = ['Partner', 'Platinum', 'Gold'];
 </script>
 
 {#if variant === 'sidebar'}
@@ -308,14 +294,14 @@
 				</div>
 
 				<div class="space-y-2 [&_img]:transition-all [&_img]:duration-300">
-					{#each sponsors as sponsor, i}
+					{#each orderedSponsors as sponsor, i}
 						<div class="space-y-1">
 							<a
 								href={sponsor.url}
 								class="group block overflow-hidden border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900/90 dark:hover:bg-gray-800/80"
 								class:rounded-t-xl={i === 0}
-								class:rounded-b-xl={i === sponsors.length - 1 && sponsors.length >= 4}
-								style="height: {tierHeights[sponsor.tier]}px"
+								class:rounded-b-xl={i === orderedSponsors.length - 1 && orderedSponsors.length >= 4}
+								style="height: {getSponsorHeight(i)}px"
 							>
 								<div class="flex h-full w-full items-center justify-center p-4">
 									<img
@@ -327,13 +313,13 @@
 							</a>
 						</div>
 					{/each}
-					{#if sponsors.length < 4}
-						{#each Array(4 - sponsors.length) as _, i}
+					{#if orderedSponsors.length < 4}
+						{#each Array(4 - orderedSponsors.length) as _, i}
 							<div class="space-y-1">
 								<div
 									class="block overflow-hidden border border-dashed border-slate-200/90 bg-white/70 backdrop-blur-sm transition-colors dark:border-gray-800 dark:bg-gray-900/60"
-									class:rounded-t-xl={sponsors.length === 0 && i === 0}
-									class:rounded-b-xl={i === 3 - sponsors.length}
+									class:rounded-t-xl={orderedSponsors.length === 0 && i === 0}
+									class:rounded-b-xl={i === 3 - orderedSponsors.length}
 									style="height: 80px"
 								>
 									<div class="flex h-full w-full items-center justify-center p-4"></div>
@@ -348,7 +334,7 @@
 {:else if variant === 'horizontal'}
 	<div class="w-full {className}">
 		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-			{#each sponsors as sponsor}
+			{#each orderedSponsors as sponsor}
 				<a
 					href={sponsor.url}
 					class="aspect-video group flex items-center justify-center rounded-lg border border-slate-200 bg-white p-4 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
@@ -360,8 +346,8 @@
 					/>
 				</a>
 			{/each}
-			{#if sponsors.length < 4}
-				{#each Array(4 - sponsors.length) as _}
+			{#if orderedSponsors.length < 4}
+				{#each Array(4 - orderedSponsors.length) as _}
 					<div
 						class="aspect-video flex items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-gray-800 dark:bg-gray-900/70"
 					></div>
@@ -372,7 +358,7 @@
 {:else}
 	<div class="w-full {className}">
 		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
-			{#each sponsors as sponsor}
+			{#each orderedSponsors as sponsor}
 				<a
 					href={sponsor.url}
 					class="aspect-video group flex items-center justify-center rounded-lg border border-slate-200 bg-white p-3 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
@@ -384,8 +370,8 @@
 					/>
 				</a>
 			{/each}
-			{#if sponsors.length < 4}
-				{#each Array(4 - sponsors.length) as _}
+			{#if orderedSponsors.length < 4}
+				{#each Array(4 - orderedSponsors.length) as _}
 					<div
 						class="aspect-video flex items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 dark:border-gray-800 dark:bg-gray-900/70"
 					></div>

@@ -4,16 +4,13 @@
 	import SponsorsRail from '$lib/components/SponsorsRail.svelte';
 	const { mentions, sponsorsData } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
-	const sponsors = rawSponsors as {
-		url: string;
-		image: string;
-		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
-	}[];
+	const sponsors = rawSponsors;
 
 	// Filter mentions by type with explicit type checking
-	const videoMentions = mentions.mentions.filter(m => m && m.type === 'video' && (m.platform === 'YouTube' || m.platform === 'TikTok'));
-	const readMentions = mentions.mentions.filter(m => !m.type || m.type === 'read');
+	const videoMentions = mentions.mentions.filter(
+		(m) => m && m.type === 'video' && (m.platform === 'YouTube' || m.platform === 'TikTok')
+	);
+	const readMentions = mentions.mentions.filter((m) => !m.type || m.type === 'read');
 
 	// Debug logging
 	console.log('All mentions:', mentions.mentions);
@@ -28,14 +25,21 @@
 		<div class="lg:flex">
 			<div class="flex-1 xl:mr-[19.5rem]">
 				<!-- Hero Section -->
-				<div class="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/90 to-primary p-6 text-white shadow-xl">
+				<div
+					class="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-primary/90 to-primary p-6 text-white shadow-xl"
+				>
 					<div class="relative z-10">
 						<h1 class="mb-2 text-3xl font-bold">Local-First Community Mentions</h1>
-						<p class="text-base text-white/90">Discover what developers, thought leaders, and community members are saying about Local-First Software.</p>
+						<p class="text-base text-white/90">
+							Discover what developers, thought leaders, and community members are saying about
+							Local-First Software.
+						</p>
 					</div>
 					<div class="absolute right-0 top-0 h-full w-1/2 opacity-10">
 						<svg class="h-full w-full" viewBox="0 0 100 100" fill="currentColor">
-							<path d="M95 50c0 24.85-20.15 45-45 45S5 74.85 5 50 25.15 5 50 5s45 20.15 45 45zm-87.5 0c0 23.47 19.03 42.5 42.5 42.5S92.5 73.47 92.5 50 73.47 7.5 50 7.5 7.5 26.53 7.5 50zm80 0c0 22.09-17.91 40-40 40S7.5 72.09 7.5 50s17.91-40 40-40 40 17.91 40 40z"/>
+							<path
+								d="M95 50c0 24.85-20.15 45-45 45S5 74.85 5 50 25.15 5 50 5s45 20.15 45 45zm-87.5 0c0 23.47 19.03 42.5 42.5 42.5S92.5 73.47 92.5 50 73.47 7.5 50 7.5 7.5 26.53 7.5 50zm80 0c0 22.09-17.91 40-40 40S7.5 72.09 7.5 50s17.91-40 40-40 40 17.91 40 40z"
+							/>
 						</svg>
 					</div>
 				</div>
@@ -44,11 +48,15 @@
 				<section class="mb-12">
 					<div class="mb-6 flex items-center justify-between">
 						<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Watch</h2>
-						<span class="text-sm text-gray-500 dark:text-gray-400">{videoMentions.length} videos</span>
+						<span class="text-sm text-gray-500 dark:text-gray-400"
+							>{videoMentions.length} videos</span
+						>
 					</div>
 					<div class="grid gap-6 sm:grid-cols-2">
 						{#each videoMentions as mention}
-							<article class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
+							<article
+								class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
+							>
 								<div class="aspect-video w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
 									{#if mention.platform === 'YouTube'}
 										<iframe
@@ -70,12 +78,19 @@
 								</div>
 								<div class="p-4">
 									<div class="mb-2 flex items-center justify-between">
-										<span class="text-xs font-medium text-gray-900 dark:text-white">{mention.author}</span>
+										<span class="text-xs font-medium text-gray-900 dark:text-white"
+											>{mention.author}</span
+										>
 										<time class="text-xs text-gray-400" datetime={mention.date}>
-											{new Date(mention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+											{new Date(mention.date).toLocaleDateString('en-US', {
+												month: 'short',
+												day: 'numeric'
+											})}
 										</time>
 									</div>
-									<h3 class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white">
+									<h3
+										class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white"
+									>
 										{mention.title}
 									</h3>
 									<p class="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
@@ -106,19 +121,30 @@
 				<section class="mb-12">
 					<div class="mb-6 flex items-center justify-between">
 						<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Read</h2>
-						<span class="text-sm text-gray-500 dark:text-gray-400">{readMentions.length + 1} articles</span>
+						<span class="text-sm text-gray-500 dark:text-gray-400"
+							>{readMentions.length + 1} articles</span
+						>
 					</div>
 					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{#each readMentions as mention}
-							<article class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20">
+							<article
+								class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white transition-all hover:border-primary/20 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
+							>
 								<div class="p-4">
 									<div class="mb-2 flex items-center justify-between">
-										<span class="text-xs font-medium text-gray-900 dark:text-white">{mention.author}</span>
+										<span class="text-xs font-medium text-gray-900 dark:text-white"
+											>{mention.author}</span
+										>
 										<time class="text-xs text-gray-400" datetime={mention.date}>
-											{new Date(mention.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+											{new Date(mention.date).toLocaleDateString('en-US', {
+												month: 'short',
+												day: 'numeric'
+											})}
 										</time>
 									</div>
-									<h3 class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white">
+									<h3
+										class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white"
+									>
 										{mention.title}
 									</h3>
 									<p class="mb-3 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
@@ -143,17 +169,25 @@
 							</article>
 						{/each}
 
-						<article class="group relative overflow-hidden rounded-xl border border-primary/25 bg-gradient-to-br from-primary/10 via-white to-primary/5 transition-all hover:border-primary/50 hover:shadow-lg dark:from-primary/20 dark:via-gray-800/80 dark:to-gray-800/90">
+						<article
+							class="group relative overflow-hidden rounded-xl border border-primary/25 bg-gradient-to-br from-primary/10 via-white to-primary/5 transition-all hover:border-primary/50 hover:shadow-lg dark:from-primary/20 dark:via-gray-800/80 dark:to-gray-800/90"
+						>
 							<div class="p-4">
 								<div class="mb-2 flex items-center justify-between">
 									<div class="inline-flex items-center gap-2">
-										<span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-primary text-[11px] font-black tracking-wide text-white">
+										<span
+											class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-primary text-[11px] font-black tracking-wide text-white"
+										>
 											LF
 										</span>
-										<span class="text-xs font-medium text-gray-900 dark:text-white">Local First News</span>
+										<span class="text-xs font-medium text-gray-900 dark:text-white"
+											>Local First News</span
+										>
 									</div>
 								</div>
-								<h3 class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white">
+								<h3
+									class="mb-2 line-clamp-2 text-lg font-semibold leading-snug text-gray-900 dark:text-white"
+								>
 									Get the latest local-first updates
 								</h3>
 								<p class="mb-3 line-clamp-2 text-sm text-gray-600 dark:text-gray-300">
@@ -180,47 +214,12 @@
 				</section>
 
 				<!-- Folks to Follow Section -->
-				<section class="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800/50">
+				<section
+					class="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800/50"
+				>
 					<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Folks to Follow</h2>
 					<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-						{#each [
-							{
-								name: "Peter van Hardenberg",
-								handle: "@pvh",
-								url: "https://twitter.com/pvh",
-								image: "https://pbs.twimg.com/profile_images/1328185619030306817/E4HOEB1f_200x200.jpg"
-							},
-							{
-								name: "Johannes Schickling",
-								handle: "@schickling",
-								url: "https://twitter.com/schickling",
-								image: "https://pbs.twimg.com/profile_images/1624092671739408417/GGvOzADg_200x200.jpg"
-							},
-							{
-								name: "Geoffrey Litt",
-								handle: "@geoffreylitt",
-								url: "https://twitter.com/geoffreylitt",
-								image: "https://pbs.twimg.com/profile_images/722626068293763072/4erM-SPN_200x200.jpg"
-							},
-							{
-								name: "Yonz",
-								handle: "@devYonz",
-								url: "https://twitter.com/devYonz",
-								image: "https://pbs.twimg.com/profile_images/1144723583492489216/P_w9bGIW_200x200.png"
-							},
-							{
-								name: "Matt Wonlaw",
-								handle: "@tantaman",
-								url: "https://twitter.com/tantaman",
-								image: "https://pbs.twimg.com/profile_images/1534358445083791367/cQxb9f9X_200x200.jpg"
-							},
-							{
-								name: "James Pearce",
-								handle: "@jamespearce",
-								url: "https://twitter.com/jamespearce",
-								image: "https://avatars.githubusercontent.com/u/90942?v=4"
-							}
-						] as person}
+						{#each [{ name: 'Peter van Hardenberg', handle: '@pvh', url: 'https://twitter.com/pvh', image: 'https://pbs.twimg.com/profile_images/1328185619030306817/E4HOEB1f_200x200.jpg' }, { name: 'Johannes Schickling', handle: '@schickling', url: 'https://twitter.com/schickling', image: 'https://pbs.twimg.com/profile_images/1624092671739408417/GGvOzADg_200x200.jpg' }, { name: 'Geoffrey Litt', handle: '@geoffreylitt', url: 'https://twitter.com/geoffreylitt', image: 'https://pbs.twimg.com/profile_images/722626068293763072/4erM-SPN_200x200.jpg' }, { name: 'Yonz', handle: '@devYonz', url: 'https://twitter.com/devYonz', image: 'https://pbs.twimg.com/profile_images/1144723583492489216/P_w9bGIW_200x200.png' }, { name: 'Matt Wonlaw', handle: '@tantaman', url: 'https://twitter.com/tantaman', image: 'https://pbs.twimg.com/profile_images/1534358445083791367/cQxb9f9X_200x200.jpg' }, { name: 'James Pearce', handle: '@jamespearce', url: 'https://twitter.com/jamespearce', image: 'https://avatars.githubusercontent.com/u/90942?v=4' }] as person}
 							<a
 								href={person.url}
 								class="group flex items-center gap-3 rounded-lg border border-gray-200 p-3 transition-all hover:border-primary/20 hover:shadow-md dark:border-gray-700 dark:hover:border-primary/20"

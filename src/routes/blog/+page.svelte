@@ -4,12 +4,7 @@
 	export let data: PageData;
 	const { posts, sponsorsData } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
-	const sponsors = rawSponsors as {
-		url: string;
-		image: string;
-		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
-	}[];
+	const sponsors = rawSponsors;
 
 	function formatDate(dateStr: string) {
 		const date = new Date(dateStr);
