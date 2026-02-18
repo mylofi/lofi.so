@@ -105,7 +105,11 @@
 					<div
 						class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950 sm:p-3"
 					>
-						<EventGraphic eventData={eventDataForGraphic} eventSpec={eventSpecForGraphic} />
+						<EventGraphic
+							eventData={eventDataForGraphic}
+							eventSpec={eventSpecForGraphic}
+							layoutMode="homepage"
+						/>
 					</div>
 				</section>
 

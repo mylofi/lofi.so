@@ -46,24 +46,42 @@
 	$: activeEventNumber = eventSpec?.event.number || eventNumber;
 	$: activeSponsors = (eventSpec?.sponsors || []).slice(0, 4);
 
+	const normalizeXHandle = (value: string): string => {
+		const stripped = value
+			.trim()
+			.replace(/^https?:\/\/(www\.)?x\.com\//i, '')
+			.replace(/^@+/, '');
+		return stripped ? `@${stripped}` : '';
+	};
+
+	const normalizeBlueskyHandle = (value: string): string => {
+		return value
+			.trim()
+			.replace(/^https?:\/\/(www\.)?bsky\.app\/profile\//i, '')
+			.replace(/^@+/, '');
+	};
+
 	const getSpeakerHandle = (): string => {
 		if (!resolvedSpeaker) return '';
-		const primary = resolvedSpeaker.primarySocialPlatform;
-		return (
-			resolvedSpeaker.socials[primary] ||
-			resolvedSpeaker.socials.x ||
-			resolvedSpeaker.socials.bluesky ||
-			''
-		);
+		const xHandle = normalizeXHandle(resolvedSpeaker.socials.x || '');
+		if (xHandle) return xHandle;
+		const blueskyHandle = normalizeBlueskyHandle(resolvedSpeaker.socials.bluesky || '');
+		if (blueskyHandle) return blueskyHandle;
+		return resolvedSpeaker.socials[resolvedSpeaker.primarySocialPlatform] || '';
 	};
 
 	const getSpeakerLink = (): string => {
-		const handle = getSpeakerHandle();
-		if (!handle) return '#';
-		if (resolvedSpeaker?.primarySocialPlatform === 'bluesky') {
-			return `https://bsky.app/profile/${handle.replace(/^@/, '')}`;
+		if (!resolvedSpeaker) return '#';
+		const xHandle = normalizeXHandle(resolvedSpeaker.socials.x || '');
+		if (xHandle) {
+			return `https://x.com/${xHandle.replace(/^@/, '')}`;
 		}
-		return `https://x.com/${handle.replace(/^@/, '')}`;
+		const blueskyHandle = normalizeBlueskyHandle(resolvedSpeaker.socials.bluesky || '');
+		if (blueskyHandle) {
+			return `https://bsky.app/profile/${blueskyHandle}`;
+		}
+		const handle = getSpeakerHandle();
+		return handle ? `https://x.com/${handle.replace(/^@/, '')}` : '#';
 	};
 </script>
 

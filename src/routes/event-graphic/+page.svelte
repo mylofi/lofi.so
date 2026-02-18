@@ -4,7 +4,6 @@
 	import { onMount, tick } from 'svelte';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
-	import SponsorCard from '$lib/components/SponsorCard.svelte';
 	import { buildStartTimeISO, tzOffsetMap } from '$lib/utils/date';
 	import fixturesData from '$lib/data/event-graphic-fixtures.json';
 	import type {
@@ -18,7 +17,6 @@
 		buildAgendaAltText,
 		buildCaptionsMarkdown,
 		buildManifest,
-		buildSponsorAltText,
 		buildSpeakerAltText,
 		DEFAULT_EXPORT_TARGETS,
 		getExtensionForFormat,
@@ -30,14 +28,15 @@
 
 	type SocialPlatform = 'twitter' | 'bluesky' | 'linkedin';
 	type ProfileImagePlatform = 'twitter' | 'bluesky' | 'custom';
-	type PreviewScope = 'all' | 'event' | 'sponsor' | 'speaker';
-	const previewScopeOptions: PreviewScope[] = ['all', 'event', 'sponsor', 'speaker'];
+	type PreviewScope = 'all' | 'announcement' | 'agenda';
+	const previewScopeOptions: PreviewScope[] = ['all', 'announcement', 'agenda'];
 
 	interface SpeakerFormData {
 		name: string;
 		socialPlatform: SocialPlatform;
 		socialHandle: string;
 		twitterHandle: string;
+		blueskyHandle: string;
 		profileImagePlatform: ProfileImagePlatform;
 		profileImageHandle: string;
 		customImageUrl: string;
@@ -94,8 +93,9 @@
 	const createSpeaker = (): SpeakerFormData => ({
 		name: '',
 		socialPlatform: 'twitter',
-		socialHandle: '@',
-		twitterHandle: '@',
+		socialHandle: '',
+		twitterHandle: '',
+		blueskyHandle: '',
 		profileImagePlatform: 'twitter',
 		profileImageHandle: '',
 		customImageUrl: '',
@@ -119,7 +119,6 @@
 		discordUrl: string;
 		calendarUrl: string;
 		logoUrl: string;
-		includeLegacyTargets: boolean;
 	} = {
 		title: 'Watch Party',
 		eventNumber: 1,
@@ -130,8 +129,7 @@
 		registrationUrl: 'https://lofi.so',
 		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-		logoUrl: '/images/logo.png',
-		includeLegacyTargets: true
+		logoUrl: '/images/logo.png'
 	};
 
 	let isExporting = false;
@@ -144,9 +142,8 @@
 	let selectedTargetIds: EventGraphicExportTargetId[] = [];
 	let hasInitializedTargetSelection = false;
 	let previewScope: PreviewScope = 'all';
-	let previewEventTargetId: EventGraphicExportTargetId = 'x_feed';
-	let previewSponsorTargetId: EventGraphicExportTargetId = 'sponsor_x_feed';
-	let previewSpeakerTargetId: EventGraphicExportTargetId = 'speaker_x_feed';
+	let previewAnnouncementTargetId: EventGraphicExportTargetId = 'announcement_regular';
+	let previewAgendaTargetId: EventGraphicExportTargetId = 'agenda_regular';
 	let selectedFixtureId = '';
 
 	$: startTimeISO =
@@ -166,6 +163,7 @@
 			socialPlatform: speaker.socialPlatform,
 			socialHandle: speaker.socialHandle,
 			twitterHandle: speaker.twitterHandle,
+			blueskyHandle: speaker.blueskyHandle,
 			talk: speaker.talk,
 			bio: speaker.bio,
 			talkPoints: speaker.talkPoints,
@@ -180,9 +178,7 @@
 
 	$: eventSpec = toEventGraphicSpec(basePayload);
 	$: allTargets = eventSpec?.exports || DEFAULT_EXPORT_TARGETS;
-	$: availableTargets = allTargets.filter(
-		(target) => formData.includeLegacyTargets || !target.id.startsWith('legacy')
-	);
+	$: availableTargets = allTargets;
 	$: if (!hasInitializedTargetSelection && availableTargets.length > 0) {
 		selectedTargetIds = availableTargets.map((target) => target.id);
 		hasInitializedTargetSelection = true;
@@ -196,43 +192,33 @@
 		}
 	}
 	$: selectedTargets = availableTargets.filter((target) => selectedTargetIds.includes(target.id));
-	$: eventTargets = selectedTargets.filter((target) => target.scope === 'event');
-	$: sponsorTargets = selectedTargets.filter((target) => target.scope === 'sponsor');
-	$: speakerTargets = selectedTargets.filter((target) => target.scope === 'speaker');
-	$: showEventPreview = previewScope === 'all' || previewScope === 'event';
-	$: showSponsorPreview = previewScope === 'all' || previewScope === 'sponsor';
-	$: showSpeakerPreview = previewScope === 'all' || previewScope === 'speaker';
-	$: previewEventTarget =
-		eventTargets.find((target) => target.id === previewEventTargetId) ||
-		eventTargets[0] ||
+	$: announcementTargets = selectedTargets.filter(
+		(target) => target.scope === 'announcement' || target.scope === 'event'
+	);
+	$: agendaTargets = selectedTargets.filter(
+		(target) => target.scope === 'agenda' || target.scope === 'speaker'
+	);
+	$: showAnnouncementPreview = previewScope === 'all' || previewScope === 'announcement';
+	$: showAgendaPreview = previewScope === 'all' || previewScope === 'agenda';
+	$: previewAnnouncementTarget =
+		announcementTargets.find((target) => target.id === previewAnnouncementTargetId) ||
+		announcementTargets[0] ||
 		DEFAULT_EXPORT_TARGETS[0];
-	$: previewSponsorTarget =
-		sponsorTargets.find((target) => target.id === previewSponsorTargetId) ||
-		sponsorTargets[0] ||
-		DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'sponsor_x_feed') ||
+	$: previewAgendaTarget =
+		agendaTargets.find((target) => target.id === previewAgendaTargetId) ||
+		agendaTargets[0] ||
+		DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'agenda_regular') ||
 		DEFAULT_EXPORT_TARGETS[0];
-	$: previewSpeakerTarget =
-		speakerTargets.find((target) => target.id === previewSpeakerTargetId) ||
-		speakerTargets[0] ||
-		DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'speaker_x_feed') ||
-		DEFAULT_EXPORT_TARGETS[0];
-
-	$: if (!eventTargets.find((target) => target.id === previewEventTargetId) && eventTargets[0]) {
-		previewEventTargetId = eventTargets[0].id;
-	}
 
 	$: if (
-		!sponsorTargets.find((target) => target.id === previewSponsorTargetId) &&
-		sponsorTargets[0]
+		!announcementTargets.find((target) => target.id === previewAnnouncementTargetId) &&
+		announcementTargets[0]
 	) {
-		previewSponsorTargetId = sponsorTargets[0].id;
+		previewAnnouncementTargetId = announcementTargets[0].id;
 	}
 
-	$: if (
-		!speakerTargets.find((target) => target.id === previewSpeakerTargetId) &&
-		speakerTargets[0]
-	) {
-		previewSpeakerTargetId = speakerTargets[0].id;
+	$: if (!agendaTargets.find((target) => target.id === previewAgendaTargetId) && agendaTargets[0]) {
+		previewAgendaTargetId = agendaTargets[0].id;
 	}
 
 	const areTargetIdsEqual = (
@@ -289,8 +275,7 @@
 			registrationUrl: 'https://lofi.so',
 			discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-			logoUrl: '/images/logo.png',
-			includeLegacyTargets: true
+			logoUrl: '/images/logo.png'
 		};
 		runArtifacts = [];
 		runManifest = null;
@@ -308,31 +293,77 @@
 		formData = { ...formData };
 	}
 
+	const normalizeXHandle = (value: string): string => {
+		const stripped = value
+			.trim()
+			.replace(/^https?:\/\/(www\.)?x\.com\//i, '')
+			.replace(/^@+/, '');
+		return stripped ? `@${stripped}` : '';
+	};
+
+	const normalizeBlueskyHandle = (value: string): string => {
+		return value
+			.trim()
+			.replace(/^https?:\/\/(www\.)?bsky\.app\/profile\//i, '')
+			.replace(/^@+/, '');
+	};
+
 	function handleSocialHandleInput(event: Event, index: number) {
 		const input = event.target as HTMLInputElement;
 		const platform = formData.speakers[index].socialPlatform;
-		let value = input.value;
-
-		if (platform === 'twitter' && value && !value.startsWith('@')) {
-			value = `@${value}`;
-		}
+		let value = input.value.trim();
+		if (platform === 'twitter') value = normalizeXHandle(value);
+		if (platform === 'bluesky') value = normalizeBlueskyHandle(value);
 
 		formData.speakers[index].socialHandle = value;
 		if (platform === 'twitter') {
 			formData.speakers[index].twitterHandle = value;
 		}
+		if (platform === 'bluesky') {
+			formData.speakers[index].blueskyHandle = value;
+		}
+		formData = { ...formData };
+		handleSocialHandleChange(index);
+	}
+
+	function handleSpeakerNetworkHandleInput(
+		index: number,
+		platform: 'twitter' | 'bluesky',
+		event: Event
+	) {
+		const input = event.target as HTMLInputElement;
+		const speaker = formData.speakers[index];
+		const value =
+			platform === 'twitter' ? normalizeXHandle(input.value) : normalizeBlueskyHandle(input.value);
+
+		if (platform === 'twitter') {
+			speaker.twitterHandle = value;
+		} else {
+			speaker.blueskyHandle = value;
+			if (!speaker.profileImageHandle) {
+				speaker.profileImageHandle = value;
+			}
+		}
+
+		if (speaker.socialPlatform === platform) {
+			speaker.socialHandle = value;
+		}
+
 		formData = { ...formData };
 		handleSocialHandleChange(index);
 	}
 
 	function handleSocialPlatformChange(index: number) {
 		const speaker = formData.speakers[index];
-		if (
-			speaker.socialPlatform === 'twitter' &&
-			speaker.socialHandle &&
-			!speaker.socialHandle.startsWith('@')
-		) {
-			speaker.socialHandle = `@${speaker.socialHandle}`;
+		if (speaker.socialPlatform === 'twitter') {
+			speaker.socialHandle = speaker.twitterHandle || normalizeXHandle(speaker.socialHandle);
+			speaker.twitterHandle = speaker.socialHandle;
+		} else if (speaker.socialPlatform === 'bluesky') {
+			speaker.socialHandle = speaker.blueskyHandle || normalizeBlueskyHandle(speaker.socialHandle);
+			speaker.blueskyHandle = speaker.socialHandle;
+			if (!speaker.profileImageHandle) {
+				speaker.profileImageHandle = speaker.socialHandle;
+			}
 		}
 
 		if (speaker.socialPlatform === 'twitter' || speaker.socialPlatform === 'bluesky') {
@@ -397,7 +428,7 @@
 
 		const preferredHandle =
 			speaker.profileImagePlatform === 'bluesky'
-				? speaker.profileImageHandle || speaker.socialHandle
+				? speaker.profileImageHandle || speaker.blueskyHandle || speaker.socialHandle
 				: speaker.twitterHandle || speaker.socialHandle;
 
 		if (!preferredHandle || preferredHandle === '@') {
@@ -434,8 +465,16 @@
 				...createSpeaker(),
 				name: speaker.name,
 				socialPlatform: speaker.socialPlatform,
-				socialHandle: speaker.socialHandle,
-				twitterHandle: speaker.socialPlatform === 'twitter' ? speaker.socialHandle : '@',
+				socialHandle:
+					speaker.socialPlatform === 'twitter'
+						? normalizeXHandle(speaker.socialHandle)
+						: speaker.socialPlatform === 'bluesky'
+							? normalizeBlueskyHandle(speaker.socialHandle)
+							: speaker.socialHandle,
+				twitterHandle:
+					speaker.socialPlatform === 'twitter' ? normalizeXHandle(speaker.socialHandle) : '',
+				blueskyHandle:
+					speaker.socialPlatform === 'bluesky' ? normalizeBlueskyHandle(speaker.socialHandle) : '',
 				talk: speaker.talk,
 				bio: speaker.bio,
 				talkPoints: [...speaker.talkPoints]
@@ -443,8 +482,7 @@
 			registrationUrl: fixture.event.registrationUrl,
 			discordUrl: fixture.event.discordUrl,
 			calendarUrl: fixture.event.calendarUrl,
-			logoUrl: fixture.event.logoUrl,
-			includeLegacyTargets: true
+			logoUrl: fixture.event.logoUrl
 		};
 	}
 
@@ -476,7 +514,8 @@
 					speaker.socials.x ||
 					speaker.socials.bluesky ||
 					'',
-				twitterHandle: speaker.socials.x || '@',
+				twitterHandle: speaker.socials.x || '',
+				blueskyHandle: speaker.socials.bluesky || '',
 				profileImagePlatform: speaker.socials.bluesky ? 'bluesky' : 'twitter',
 				profileImageHandle: speaker.socials.bluesky || '',
 				talk: speaker.talkTitle,
@@ -487,8 +526,7 @@
 			registrationUrl: spec.event.links.registrationUrl,
 			discordUrl: spec.event.links.discordUrl,
 			calendarUrl: spec.event.links.calendarUrl,
-			logoUrl: spec.event.links.logoUrl || '/images/logo.png',
-			includeLegacyTargets: true
+			logoUrl: spec.event.links.logoUrl || '/images/logo.png'
 		};
 	}
 
@@ -508,37 +546,24 @@
 
 	const getSpeakerNodeId = (index: number): string => `speaker-card-${index}`;
 
-	const buildAgendaFilename = (target: EventGraphicExportTarget): string => {
+	const buildAnnouncementFilename = (target: EventGraphicExportTarget): string => {
 		switch (target.id) {
-			case 'x_feed':
-				return 'event-agenda.x-bsky.jpg';
-			case 'discord_feed':
-				return 'event-agenda.discord.png';
-			case 'legacy_event':
-				return 'event-agenda.legacy-1120x630.png';
+			case 'announcement_regular':
+				return 'announcement.regular.jpg';
+			case 'announcement_discord':
+				return 'announcement.discord-800x320.png';
 			default:
-				return `event-agenda.${target.id}.${getExtensionForFormat(target.format)}`;
+				return `announcement.${target.id}.${getExtensionForFormat(target.format)}`;
 		}
-	};
-
-	const buildSponsorFilename = (target: EventGraphicExportTarget): string => {
-		if (target.id === 'sponsor_x_feed') {
-			return 'event-sponsor.x.png';
-		}
-		return `event-sponsor.${target.id}.${getExtensionForFormat(target.format)}`;
 	};
 
 	const buildSpeakerFilename = (target: EventGraphicExportTarget, speakerName: string): string => {
 		const safeName = slugify(speakerName || 'speaker');
 		switch (target.id) {
-			case 'speaker_x_feed':
-				return `speaker-${safeName}.x.png`;
-			case 'speaker_discord_cover':
-				return `speaker-${safeName}.discord-cover.png`;
-			case 'legacy_speaker':
-				return `speaker-${safeName}.legacy-800x450.png`;
+			case 'agenda_regular':
+				return `agenda-${safeName}.regular.png`;
 			default:
-				return `speaker-${safeName}.${target.id}.${getExtensionForFormat(target.format)}`;
+				return `agenda-${safeName}.${target.id}.${getExtensionForFormat(target.format)}`;
 		}
 	};
 
@@ -753,6 +778,74 @@
 		altText
 	});
 
+	async function handleDownloadAnnouncementPreview() {
+		exportError = '';
+		exportSuccess = '';
+
+		if (!eventSpec) {
+			exportError = 'Event spec is incomplete. Fill required fields before downloading.';
+			return;
+		}
+
+		const announcementNode = document.querySelector('#announcement-preview-node');
+		if (!announcementNode) {
+			exportError = 'Announcement preview node is missing.';
+			return;
+		}
+
+		try {
+			const filename = buildAnnouncementFilename(previewAnnouncementTarget);
+			const rendered = await renderArtifact(
+				announcementNode,
+				previewAnnouncementTarget,
+				filename,
+				buildAgendaAltText(eventSpec)
+			);
+			downloadBlob(filename, rendered.blob);
+			exportSuccess = `Downloaded ${filename}.`;
+		} catch (error) {
+			exportError =
+				error instanceof Error ? error.message : 'Failed to download selected announcement output.';
+		}
+	}
+
+	async function handleDownloadAgendaSpeaker(index: number) {
+		exportError = '';
+		exportSuccess = '';
+
+		if (!eventSpec) {
+			exportError = 'Event spec is incomplete. Fill required fields before downloading.';
+			return;
+		}
+
+		const speaker = eventSpec.speakers[index];
+		if (!speaker) {
+			exportError = 'Speaker preview is not available.';
+			return;
+		}
+
+		const speakerNode = document.querySelector(`#${getSpeakerNodeId(index)}`);
+		if (!speakerNode) {
+			exportError = 'Speaker preview node is missing.';
+			return;
+		}
+
+		try {
+			const filename = buildSpeakerFilename(previewAgendaTarget, speaker.name);
+			const rendered = await renderArtifact(
+				speakerNode,
+				previewAgendaTarget,
+				filename,
+				buildSpeakerAltText(eventSpec, speaker)
+			);
+			downloadBlob(filename, rendered.blob);
+			exportSuccess = `Downloaded ${filename}.`;
+		} catch (error) {
+			exportError =
+				error instanceof Error ? error.message : 'Failed to download selected agenda output.';
+		}
+	}
+
 	async function saveEventPayload(spec: EventGraphicSpec) {
 		const payload = {
 			...basePayload,
@@ -851,8 +944,8 @@
 			return;
 		}
 
-		if (speakerTargets.length === 0) {
-			exportError = 'Select at least one speaker export target before generating speaker graphics.';
+		if (agendaTargets.length === 0) {
+			exportError = 'Select at least one agenda export target before generating speaker graphics.';
 			return;
 		}
 
@@ -866,7 +959,7 @@
 
 		try {
 			await saveEventPayload(eventSpec);
-			await exportSpeakerArtifacts(eventSpec, speakerTargets, artifacts);
+			await exportSpeakerArtifacts(eventSpec, agendaTargets, artifacts);
 
 			runArtifacts = artifacts;
 			runManifest = buildManifest(eventSpec, artifacts);
@@ -875,7 +968,7 @@
 
 			const warningCount = artifacts.filter((entry) => entry.status === 'warning').length;
 			const errorCount = artifacts.filter((entry) => entry.status === 'error').length;
-			exportSuccess = `Exported ${artifacts.length} speaker artifacts (${warningCount} warnings, ${errorCount} errors).`;
+			exportSuccess = `Exported ${artifacts.length} agenda speaker artifacts (${warningCount} warnings, ${errorCount} errors).`;
 		} catch (error) {
 			exportError = error instanceof Error ? error.message : 'Failed to generate speaker graphics.';
 		} finally {
@@ -905,15 +998,14 @@
 		previewScope = 'all';
 		await tick();
 
-		const agendaNode = eventTargets.length ? document.querySelector('#agenda-preview-node') : null;
-		if (eventTargets.length > 0 && !agendaNode) {
-			exportError = 'Agenda preview node is missing.';
+		const announcementNode = announcementTargets.length
+			? document.querySelector('#announcement-preview-node')
+			: null;
+		if (announcementTargets.length > 0 && !announcementNode) {
+			exportError = 'Announcement preview node is missing.';
 			previewScope = previousPreviewScope;
 			return;
 		}
-		const sponsorNode = sponsorTargets.length
-			? document.querySelector('#sponsor-preview-node')
-			: null;
 
 		isExporting = true;
 		const artifacts: ExportArtifactEntry[] = [];
@@ -921,11 +1013,11 @@
 		try {
 			await saveEventPayload(eventSpec);
 
-			for (const target of eventTargets) {
-				const filename = buildAgendaFilename(target);
+			for (const target of announcementTargets) {
+				const filename = buildAnnouncementFilename(target);
 				try {
 					const rendered = await renderArtifact(
-						agendaNode as Element,
+						announcementNode as Element,
 						target,
 						filename,
 						buildAgendaAltText(eventSpec)
@@ -937,49 +1029,14 @@
 						buildErrorEntry(
 							target,
 							filename,
-							error instanceof Error ? error.message : 'Agenda export failed.',
+							error instanceof Error ? error.message : 'Announcement export failed.',
 							buildAgendaAltText(eventSpec)
 						)
 					);
 				}
 			}
 
-			for (const target of sponsorTargets) {
-				const filename = buildSponsorFilename(target);
-				if (!sponsorNode) {
-					artifacts.push(
-						buildErrorEntry(
-							target,
-							filename,
-							'Sponsor preview node is missing.',
-							buildSponsorAltText(eventSpec)
-						)
-					);
-					continue;
-				}
-
-				try {
-					const rendered = await renderArtifact(
-						sponsorNode,
-						target,
-						filename,
-						buildSponsorAltText(eventSpec)
-					);
-					artifacts.push(rendered.entry);
-					downloadBlob(filename, rendered.blob);
-				} catch (error) {
-					artifacts.push(
-						buildErrorEntry(
-							target,
-							filename,
-							error instanceof Error ? error.message : 'Sponsor export failed.',
-							buildSponsorAltText(eventSpec)
-						)
-					);
-				}
-			}
-
-			await exportSpeakerArtifacts(eventSpec, speakerTargets, artifacts);
+			await exportSpeakerArtifacts(eventSpec, agendaTargets, artifacts);
 
 			runArtifacts = artifacts;
 			runManifest = buildManifest(eventSpec, artifacts);
@@ -1004,7 +1061,7 @@
 		<div>
 			<h1 class="text-3xl font-bold">Event Graphic Generator</h1>
 			<p class="mt-2 text-sm text-slate-300">
-				Spec-driven bundle export for X + Bluesky (shared), Discord, and homepage sync.
+				Spec-driven bundle export for announcement and agenda outputs with homepage sync.
 			</p>
 		</div>
 		<div class="flex flex-wrap items-center gap-3 text-black">
@@ -1106,7 +1163,7 @@
 			</div>
 
 			<div class="space-y-4 rounded-lg bg-white p-6 shadow-md xl:col-span-1">
-				<h2 class="text-lg font-semibold">Links and Export Rules</h2>
+				<h2 class="text-lg font-semibold">Links</h2>
 
 				<div>
 					<label for="event-join-url" class="block text-sm font-medium text-gray-700"
@@ -1158,83 +1215,6 @@
 						required
 						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
 					/>
-				</div>
-
-				<label class="flex items-center gap-2 text-sm">
-					<input type="checkbox" bind:checked={formData.includeLegacyTargets} class="h-4 w-4" />
-					Include legacy exports (1120x630 and 800x450)
-				</label>
-
-				<p class="rounded-md border border-blue-200 bg-blue-50 px-3 py-2 text-xs text-blue-800">
-					Sponsors are loaded from <span class="font-mono">src/lib/data/sponsors.json</span>.
-				</p>
-
-				<details class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-700">
-					<summary class="cursor-pointer text-sm font-semibold text-gray-800">
-						Choose export formats ({selectedTargetIds.length}/{availableTargets.length} selected)
-					</summary>
-					<div class="mt-3 space-y-3">
-						<div class="flex flex-wrap gap-2">
-							<button
-								type="button"
-								on:click={selectAllExportTargets}
-								class="rounded-md border border-gray-300 bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 hover:bg-gray-100"
-							>
-								Select all
-							</button>
-							<button
-								type="button"
-								on:click={clearExportTargets}
-								class="rounded-md border border-gray-300 bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 hover:bg-gray-100"
-							>
-								Clear
-							</button>
-						</div>
-
-						<div class="space-y-2">
-							{#each availableTargets as target}
-								<label
-									class="flex cursor-pointer items-start gap-2 rounded border border-gray-200 bg-white p-2"
-								>
-									<input
-										type="checkbox"
-										checked={selectedTargetIds.includes(target.id)}
-										on:change={() => toggleExportTarget(target.id)}
-										class="mt-0.5 h-3.5 w-3.5"
-									/>
-									<span class="min-w-0">
-										<span class="block font-mono text-[11px] text-gray-900">{target.id}</span>
-										<span class="block text-[11px] text-gray-600">
-											{target.width}x{target.height}
-											{target.format.toUpperCase()}
-											{#if target.maxBytes}
-												(max {target.maxBytes.toLocaleString()} bytes)
-											{/if}
-										</span>
-									</span>
-								</label>
-							{/each}
-						</div>
-					</div>
-				</details>
-
-				<div class="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs text-gray-600">
-					<p class="font-semibold text-gray-700">Active targets</p>
-					<ul class="mt-2 space-y-1">
-						{#if selectedTargets.length > 0}
-							{#each selectedTargets as target}
-								<li>
-									<span class="font-mono">{target.id}</span> - {target.width}x{target.height}
-									{target.format.toUpperCase()}
-									{#if target.maxBytes}
-										(max {target.maxBytes.toLocaleString()} bytes)
-									{/if}
-								</li>
-							{/each}
-						{:else}
-							<li class="text-red-600">No export targets selected.</li>
-						{/if}
-					</ul>
 				</div>
 			</div>
 		</div>
@@ -1299,6 +1279,23 @@
 								</div>
 
 								<div class="grid grid-cols-2 gap-2">
+									<input
+										type="text"
+										bind:value={speaker.twitterHandle}
+										on:change={(event) => handleSpeakerNetworkHandleInput(index, 'twitter', event)}
+										placeholder="X handle (@username)"
+										class="rounded-md border border-gray-300 px-3 py-2 text-sm"
+									/>
+									<input
+										type="text"
+										bind:value={speaker.blueskyHandle}
+										on:change={(event) => handleSpeakerNetworkHandleInput(index, 'bluesky', event)}
+										placeholder="Bluesky handle"
+										class="rounded-md border border-gray-300 px-3 py-2 text-sm"
+									/>
+								</div>
+
+								<div class="grid grid-cols-2 gap-2">
 									<select
 										bind:value={speaker.profileImagePlatform}
 										on:change={() => handleSocialHandleChange(index)}
@@ -1328,7 +1325,8 @@
 										<input
 											type="text"
 											bind:value={speaker.twitterHandle}
-											on:change={() => handleSocialHandleChange(index)}
+											on:change={(event) =>
+												handleSpeakerNetworkHandleInput(index, 'twitter', event)}
 											placeholder="@username"
 											class="rounded-md border border-gray-300 px-3 py-2 text-sm"
 										/>
@@ -1381,10 +1379,10 @@
 			<button
 				type="button"
 				on:click={handleGenerateSpeakerGraphics}
-				disabled={isExporting || isSaving || speakerTargets.length === 0}
+				disabled={isExporting || isSaving || agendaTargets.length === 0}
 				class="rounded-md bg-discord px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-discord/90 disabled:cursor-not-allowed disabled:opacity-60"
 			>
-				{isExportingSpeakersOnly ? 'Generating speakers...' : 'Generate Speaker Graphics'}
+				{isExportingSpeakersOnly ? 'Generating agenda...' : 'Generate Agenda Graphics'}
 			</button>
 			<button
 				type="submit"
@@ -1394,8 +1392,92 @@
 				{isExporting ? 'Generating bundle...' : 'Generate Full Bundle'}
 			</button>
 			<span class="text-sm text-slate-300">
-				Exports agenda + sponsor + speaker assets + manifest + captions in one run.
+				Exports announcement + agenda assets + manifest + captions in one run.
 			</span>
+		</div>
+
+		<div class="rounded-lg border border-slate-700 bg-slate-900/60 p-5 text-slate-100">
+			<div class="mb-3 flex flex-wrap items-center justify-between gap-3">
+				<h2 class="text-lg font-semibold">Generation Settings</h2>
+			</div>
+
+			<p
+				class="mb-4 rounded-md border border-slate-600 bg-slate-800/70 px-3 py-2 text-xs text-slate-300"
+			>
+				Sponsors are loaded from <span class="font-mono">src/lib/data/sponsors.json</span>.
+			</p>
+
+			<details
+				class="rounded-md border border-slate-600 bg-slate-800/70 p-3 text-xs text-slate-200"
+			>
+				<summary class="cursor-pointer text-sm font-semibold text-slate-100">
+					Choose export formats ({selectedTargetIds.length}/{availableTargets.length} selected)
+				</summary>
+				<div class="mt-3 space-y-3">
+					<div class="flex flex-wrap gap-2">
+						<button
+							type="button"
+							on:click={selectAllExportTargets}
+							class="rounded-md border border-slate-500 bg-slate-700 px-2.5 py-1 text-[11px] font-semibold text-slate-100 hover:bg-slate-600"
+						>
+							Select all
+						</button>
+						<button
+							type="button"
+							on:click={clearExportTargets}
+							class="rounded-md border border-slate-500 bg-slate-700 px-2.5 py-1 text-[11px] font-semibold text-slate-100 hover:bg-slate-600"
+						>
+							Clear
+						</button>
+					</div>
+
+					<div class="space-y-2">
+						{#each availableTargets as target}
+							<label
+								class="flex cursor-pointer items-start gap-2 rounded border border-slate-600 bg-slate-800 p-2"
+							>
+								<input
+									type="checkbox"
+									checked={selectedTargetIds.includes(target.id)}
+									on:change={() => toggleExportTarget(target.id)}
+									class="mt-0.5 h-3.5 w-3.5"
+								/>
+								<span class="min-w-0">
+									<span class="block font-mono text-[11px] text-slate-100">{target.id}</span>
+									<span class="block text-[11px] text-slate-300">
+										{target.width}x{target.height}
+										{target.format.toUpperCase()}
+										{#if target.maxBytes}
+											(max {target.maxBytes.toLocaleString()} bytes)
+										{/if}
+									</span>
+								</span>
+							</label>
+						{/each}
+					</div>
+				</div>
+			</details>
+
+			<div
+				class="mt-3 rounded-md border border-slate-600 bg-slate-800/70 p-3 text-xs text-slate-300"
+			>
+				<p class="font-semibold text-slate-100">Active targets</p>
+				<ul class="mt-2 space-y-1">
+					{#if selectedTargets.length > 0}
+						{#each selectedTargets as target}
+							<li>
+								<span class="font-mono">{target.id}</span> - {target.width}x{target.height}
+								{target.format.toUpperCase()}
+								{#if target.maxBytes}
+									(max {target.maxBytes.toLocaleString()} bytes)
+								{/if}
+							</li>
+						{/each}
+					{:else}
+						<li class="text-red-300">No export targets selected.</li>
+					{/if}
+				</ul>
+			</div>
 		</div>
 	</form>
 
@@ -1439,74 +1521,52 @@
 			{/if}
 		</div>
 
-		{#if showEventPreview && eventTargets.length > 0}
+		{#if showAnnouncementPreview && announcementTargets.length > 0}
+			<div>
+				<div class="mb-3 flex items-center justify-between gap-2">
+					<h2 class="text-xl font-semibold">Announcement Preview</h2>
+					<div class="flex flex-wrap items-center gap-2">
+						{#each announcementTargets as target}
+							<button
+								type="button"
+								on:click={() => (previewAnnouncementTargetId = target.id)}
+								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewAnnouncementTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+							>
+								{target.id}
+							</button>
+						{/each}
+						<button
+							type="button"
+							on:click={handleDownloadAnnouncementPreview}
+							class="rounded-md border border-green-400/50 bg-green-500/20 px-3 py-1.5 text-xs font-semibold text-green-200 hover:bg-green-500/30"
+						>
+							Download selected
+						</button>
+					</div>
+				</div>
+
+				<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
+					<div
+						id="announcement-preview-node"
+						class="origin-top-left"
+						style={`width: ${previewAnnouncementTarget.width}px; min-width: ${previewAnnouncementTarget.width}px; height: ${previewAnnouncementTarget.height}px; min-height: ${previewAnnouncementTarget.height}px;`}
+					>
+						<EventGraphic {eventSpec} renderTarget={previewAnnouncementTarget.id} />
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		{#if showAgendaPreview && agendaTargets.length > 0}
 			<div>
 				<div class="mb-3 flex items-center justify-between gap-2">
 					<h2 class="text-xl font-semibold">Agenda Preview</h2>
 					<div class="flex flex-wrap gap-2">
-						{#each eventTargets as target}
+						{#each agendaTargets as target}
 							<button
 								type="button"
-								on:click={() => (previewEventTargetId = target.id)}
-								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewEventTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-							>
-								{target.id}
-							</button>
-						{/each}
-					</div>
-				</div>
-
-				<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-					<div
-						id="agenda-preview-node"
-						class="origin-top-left"
-						style={`width: ${previewEventTarget.width}px; min-width: ${previewEventTarget.width}px; height: ${previewEventTarget.height}px; min-height: ${previewEventTarget.height}px;`}
-					>
-						<EventGraphic {eventSpec} renderTarget={previewEventTarget.id} />
-					</div>
-				</div>
-			</div>
-		{/if}
-
-		{#if showSponsorPreview && sponsorTargets.length > 0}
-			<div>
-				<div class="mb-3 flex items-center justify-between gap-2">
-					<h2 class="text-xl font-semibold">Sponsor Companion Preview</h2>
-					<div class="flex flex-wrap gap-2">
-						{#each sponsorTargets as target}
-							<button
-								type="button"
-								on:click={() => (previewSponsorTargetId = target.id)}
-								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSponsorTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
-							>
-								{target.id}
-							</button>
-						{/each}
-					</div>
-				</div>
-
-				<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-					<div
-						id="sponsor-preview-node"
-						class="origin-top-left"
-						style={`width: ${previewSponsorTarget.width}px; min-width: ${previewSponsorTarget.width}px; height: ${previewSponsorTarget.height}px; min-height: ${previewSponsorTarget.height}px;`}
-					>
-						<SponsorCard {eventSpec} />
-					</div>
-				</div>
-			</div>
-		{/if}
-
-		{#if showSpeakerPreview && speakerTargets.length > 0}
-			<div>
-				<div class="mb-3 flex items-center justify-between gap-2">
-					<h2 class="text-xl font-semibold">Speaker Spotlight Preview</h2>
-					<div class="flex flex-wrap gap-2">
-						{#each speakerTargets as target}
-							<button
-								type="button"
-								on:click={() => (previewSpeakerTargetId = target.id)}
-								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewSpeakerTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
+								on:click={() => (previewAgendaTargetId = target.id)}
+								class={`rounded-md px-3 py-1.5 text-xs font-semibold ${previewAgendaTargetId === target.id ? 'bg-primary text-white' : 'bg-white/20 text-white hover:bg-white/30'}`}
 							>
 								{target.id}
 							</button>
@@ -1518,13 +1578,22 @@
 					{#if eventSpec}
 						{#each eventSpec.speakers as speaker, index}
 							<div class="overflow-x-auto rounded-lg border border-slate-700 bg-slate-900/70 p-5">
-								<p class="mb-3 text-sm font-semibold text-slate-200">
-									{speaker.name || `Speaker ${index + 1}`}
-								</p>
+								<div class="mb-3 flex items-center justify-between gap-3">
+									<p class="text-sm font-semibold text-slate-200">
+										{speaker.name || `Speaker ${index + 1}`}
+									</p>
+									<button
+										type="button"
+										on:click={() => handleDownloadAgendaSpeaker(index)}
+										class="rounded-md border border-green-400/50 bg-green-500/20 px-3 py-1 text-xs font-semibold text-green-200 hover:bg-green-500/30"
+									>
+										Download
+									</button>
+								</div>
 								<div
 									id={getSpeakerNodeId(index)}
 									class="origin-top-left"
-									style={`width: ${previewSpeakerTarget.width}px; min-width: ${previewSpeakerTarget.width}px; height: ${previewSpeakerTarget.height}px; min-height: ${previewSpeakerTarget.height}px;`}
+									style={`width: ${previewAgendaTarget.width}px; min-width: ${previewAgendaTarget.width}px; height: ${previewAgendaTarget.height}px; min-height: ${previewAgendaTarget.height}px;`}
 								>
 									<SpeakerCard {eventSpec} {speaker} />
 								</div>

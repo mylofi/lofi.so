@@ -11,6 +11,7 @@
 		(m) => m && m.type === 'video' && (m.platform === 'YouTube' || m.platform === 'TikTok')
 	);
 	const readMentions = mentions.mentions.filter((m) => !m.type || m.type === 'read');
+	const folksToFollow = mentions.folksToFollow;
 
 	// Debug logging
 	console.log('All mentions:', mentions.mentions);
@@ -219,7 +220,7 @@
 				>
 					<h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Folks to Follow</h2>
 					<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-						{#each [{ name: 'Peter van Hardenberg', handle: '@pvh', url: 'https://twitter.com/pvh', image: 'https://pbs.twimg.com/profile_images/1328185619030306817/E4HOEB1f_200x200.jpg' }, { name: 'Johannes Schickling', handle: '@schickling', url: 'https://twitter.com/schickling', image: 'https://pbs.twimg.com/profile_images/1624092671739408417/GGvOzADg_200x200.jpg' }, { name: 'Geoffrey Litt', handle: '@geoffreylitt', url: 'https://twitter.com/geoffreylitt', image: 'https://pbs.twimg.com/profile_images/722626068293763072/4erM-SPN_200x200.jpg' }, { name: 'Yonz', handle: '@devYonz', url: 'https://twitter.com/devYonz', image: 'https://pbs.twimg.com/profile_images/1144723583492489216/P_w9bGIW_200x200.png' }, { name: 'Matt Wonlaw', handle: '@tantaman', url: 'https://twitter.com/tantaman', image: 'https://pbs.twimg.com/profile_images/1534358445083791367/cQxb9f9X_200x200.jpg' }, { name: 'James Pearce', handle: '@jamespearce', url: 'https://twitter.com/jamespearce', image: 'https://avatars.githubusercontent.com/u/90942?v=4' }] as person}
+						{#each folksToFollow as person}
 							<a
 								href={person.url}
 								class="group flex items-center gap-3 rounded-lg border border-gray-200 p-3 transition-all hover:border-primary/20 hover:shadow-md dark:border-gray-700 dark:hover:border-primary/20"

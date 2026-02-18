@@ -3,6 +3,9 @@ export type SocialPlatform = 'x' | 'bluesky' | 'linkedin' | 'discord' | 'website
 export type EventGraphicVariant = 'agenda' | 'spotlight' | 'sponsor';
 
 export type EventGraphicExportTargetId =
+	| 'announcement_regular'
+	| 'announcement_discord'
+	| 'agenda_regular'
 	| 'x_feed'
 	| 'bsky_feed'
 	| 'discord_feed'
@@ -14,7 +17,7 @@ export type EventGraphicExportTargetId =
 
 export type EventGraphicImageFormat = 'png' | 'jpg' | 'webp';
 
-export type EventGraphicExportScope = 'event' | 'speaker' | 'sponsor';
+export type EventGraphicExportScope = 'announcement' | 'agenda' | 'event' | 'speaker' | 'sponsor';
 
 export interface EventGraphicLinks {
 	registrationUrl: string;
@@ -84,6 +87,7 @@ export interface EventGraphicSpec {
 export interface LegacySpeakerInput {
 	name: string;
 	twitterHandle?: string;
+	blueskyHandle?: string;
 	socialPlatform?: string;
 	socialHandle?: string;
 	talk: string;

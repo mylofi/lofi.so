@@ -158,7 +158,7 @@
 												rel="noopener noreferrer"
 											>
 												<svg
-													class="h-4 w-4 text-red-500 transition-colors group-hover:text-primary"
+													class="h-4 w-4 text-red-300 transition-colors group-hover:text-primary"
 													viewBox="0 0 24 24"
 													fill="currentColor"
 												>
@@ -194,7 +194,7 @@
 											rel="noopener noreferrer"
 										>
 											<svg
-												class="h-4 w-4 text-red-500 transition-colors group-hover:text-primary"
+												class="h-4 w-4 text-red-300 transition-colors group-hover:text-primary"
 												viewBox="0 0 24 24"
 												fill="currentColor"
 											>
@@ -262,7 +262,7 @@
 								rel="noopener noreferrer"
 							>
 								<svg
-									class="h-4 w-4 text-red-500 transition-colors group-hover:text-primary"
+									class="h-4 w-4 text-red-300 transition-colors group-hover:text-primary"
 									viewBox="0 0 24 24"
 									fill="currentColor"
 								>
@@ -279,7 +279,7 @@
 								rel="noopener noreferrer"
 							>
 								<svg
-									class="h-4 w-4 text-red-500 transition-colors group-hover:text-primary"
+									class="h-4 w-4 text-red-300 transition-colors group-hover:text-primary"
 									viewBox="0 0 24 24"
 									fill="currentColor"
 								>

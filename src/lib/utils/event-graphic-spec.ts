@@ -1,6 +1,7 @@
 import sponsorsData from '$lib/data/sponsors.json';
 import { buildStartTimeISO, formatHHMM12, formatYMDLong } from '$lib/utils/date';
 import type {
+	EventGraphicExportTargetId,
 	EventGraphicExportTarget,
 	EventGraphicImageFormat,
 	EventGraphicManifest,
@@ -29,9 +30,9 @@ const DEFAULT_THEME: EventGraphicTheme = {
 
 export const DEFAULT_EXPORT_TARGETS: EventGraphicExportTarget[] = [
 	{
-		id: 'x_feed',
+		id: 'announcement_regular',
 		template: 'agenda',
-		scope: 'event',
+		scope: 'announcement',
 		width: 1200,
 		height: 675,
 		format: 'jpg',
@@ -39,39 +40,9 @@ export const DEFAULT_EXPORT_TARGETS: EventGraphicExportTarget[] = [
 		recommendedBytes: 950_000
 	},
 	{
-		id: 'discord_feed',
+		id: 'announcement_discord',
 		template: 'agenda',
-		scope: 'event',
-		width: 1280,
-		height: 720,
-		format: 'png',
-		maxBytes: 10_000_000,
-		recommendedBytes: 9_000_000
-	},
-	{
-		id: 'sponsor_x_feed',
-		template: 'sponsor',
-		scope: 'sponsor',
-		width: 1200,
-		height: 675,
-		format: 'png',
-		maxBytes: 5_000_000,
-		recommendedBytes: 4_500_000
-	},
-	{
-		id: 'speaker_x_feed',
-		template: 'spotlight',
-		scope: 'speaker',
-		width: 1200,
-		height: 675,
-		format: 'png',
-		maxBytes: 5_000_000,
-		recommendedBytes: 4_500_000
-	},
-	{
-		id: 'speaker_discord_cover',
-		template: 'spotlight',
-		scope: 'speaker',
+		scope: 'announcement',
 		width: 800,
 		height: 320,
 		format: 'png',
@@ -79,21 +50,11 @@ export const DEFAULT_EXPORT_TARGETS: EventGraphicExportTarget[] = [
 		recommendedBytes: 9_000_000
 	},
 	{
-		id: 'legacy_event',
-		template: 'agenda',
-		scope: 'event',
-		width: 1120,
-		height: 630,
-		format: 'png',
-		maxBytes: 5_000_000,
-		recommendedBytes: 4_500_000
-	},
-	{
-		id: 'legacy_speaker',
+		id: 'agenda_regular',
 		template: 'spotlight',
-		scope: 'speaker',
-		width: 800,
-		height: 450,
+		scope: 'agenda',
+		width: 1200,
+		height: 675,
 		format: 'png',
 		maxBytes: 5_000_000,
 		recommendedBytes: 4_500_000
@@ -150,7 +111,28 @@ const buildSocialRecord = (
 		socials.x = xHandle;
 	}
 
+	const blueskyHandle = normalizeHandleValue(speaker.blueskyHandle || '', 'bluesky');
+	if (blueskyHandle) {
+		socials.bluesky = blueskyHandle;
+	}
+
 	return socials;
+};
+
+const normalizeSocialsRecord = (
+	socials: Partial<Record<SocialPlatform, string>> | undefined
+): Partial<Record<SocialPlatform, string>> => {
+	const normalized: Partial<Record<SocialPlatform, string>> = {};
+	if (!socials) return normalized;
+
+	for (const [rawPlatform, rawHandle] of Object.entries(socials)) {
+		const platform = mapSocialPlatform(rawPlatform);
+		const handle = normalizeHandleValue(rawHandle || '', platform);
+		if (!handle) continue;
+		normalized[platform] = handle;
+	}
+
+	return normalized;
 };
 
 const getPrimarySocialPlatform = (
@@ -184,6 +166,33 @@ const sortSponsors = (sponsors: EventGraphicSponsor[]): EventGraphicSponsor[] =>
 	});
 };
 
+const getTargetById = (id: EventGraphicExportTargetId): EventGraphicExportTarget | undefined =>
+	DEFAULT_EXPORT_TARGETS.find((target) => target.id === id);
+
+const mapLegacyTargetId = (
+	targetId: EventGraphicExportTargetId
+): EventGraphicExportTargetId | null => {
+	switch (targetId) {
+		case 'announcement_regular':
+		case 'announcement_discord':
+		case 'agenda_regular':
+			return targetId;
+		case 'x_feed':
+		case 'bsky_feed':
+		case 'sponsor_x_feed':
+		case 'legacy_event':
+			return 'announcement_regular';
+		case 'discord_feed':
+			return 'announcement_discord';
+		case 'speaker_x_feed':
+		case 'speaker_discord_cover':
+		case 'legacy_speaker':
+			return 'agenda_regular';
+		default:
+			return null;
+	}
+};
+
 const normalizeExportTargets = (
 	targets: EventGraphicExportTarget[] | undefined
 ): EventGraphicExportTarget[] => {
@@ -192,47 +201,21 @@ const normalizeExportTargets = (
 	}
 
 	const normalized: EventGraphicExportTarget[] = [];
-	const seen = new Set<string>();
+	const seen = new Set<EventGraphicExportTargetId>();
 
 	for (const target of targets) {
-		if (target.id === 'bsky_feed') {
-			continue;
-		}
-
-		if (target.id === 'x_feed') {
-			if (seen.has('x_feed')) continue;
-			normalized.push({
-				...target,
-				width: 1200,
-				height: 675,
-				format: 'jpg',
-				maxBytes: 1_000_000,
-				recommendedBytes: 950_000
-			});
-			seen.add('x_feed');
-			continue;
-		}
-
-		if (seen.has(target.id)) continue;
-		normalized.push(target);
-		seen.add(target.id);
+		const mappedId = mapLegacyTargetId(target.id);
+		if (!mappedId || seen.has(mappedId)) continue;
+		const mappedTarget = getTargetById(mappedId);
+		if (!mappedTarget) continue;
+		normalized.push(mappedTarget);
+		seen.add(mappedId);
 	}
 
-	if (!seen.has('x_feed')) {
-		const sharedEventTarget = DEFAULT_EXPORT_TARGETS.find((target) => target.id === 'x_feed');
-		if (sharedEventTarget) {
-			normalized.unshift(sharedEventTarget);
-			seen.add('x_feed');
-		}
-	}
-
-	if (!seen.has('speaker_discord_cover')) {
-		const speakerDiscordCoverTarget = DEFAULT_EXPORT_TARGETS.find(
-			(target) => target.id === 'speaker_discord_cover'
-		);
-		if (speakerDiscordCoverTarget) {
-			normalized.push(speakerDiscordCoverTarget);
-			seen.add('speaker_discord_cover');
+	for (const requiredTarget of DEFAULT_EXPORT_TARGETS) {
+		if (!seen.has(requiredTarget.id)) {
+			normalized.push(requiredTarget);
+			seen.add(requiredTarget.id);
 		}
 	}
 
@@ -316,16 +299,22 @@ export const toEventGraphicSpec = (
 					logoUrl: spec.event.links.logoUrl || '/images/logo.png'
 				}
 			},
-			speakers: (spec.speakers || []).map((speaker) => ({
-				name: speaker.name,
-				socials: speaker.socials || {},
-				primarySocialPlatform:
-					speaker.primarySocialPlatform || getPrimarySocialPlatform(speaker.socials || {}),
-				talkTitle: speaker.talkTitle,
-				bio: speaker.bio || '',
-				bullets: (speaker.bullets || []).filter(Boolean),
-				avatarUrl: speaker.avatarUrl || ''
-			})),
+			speakers: (spec.speakers || []).map((speaker) => {
+				const socials = normalizeSocialsRecord(speaker.socials || {});
+				const mappedPrimary = mapSocialPlatform(speaker.primarySocialPlatform);
+				const primarySocialPlatform = socials[mappedPrimary]
+					? mappedPrimary
+					: getPrimarySocialPlatform(socials);
+				return {
+					name: speaker.name,
+					socials,
+					primarySocialPlatform,
+					talkTitle: speaker.talkTitle,
+					bio: speaker.bio || '',
+					bullets: (speaker.bullets || []).filter(Boolean),
+					avatarUrl: speaker.avatarUrl || ''
+				};
+			}),
 			sponsors: normalizeSponsors(spec.sponsors),
 			theme: spec.theme || DEFAULT_THEME,
 			exports: normalizeExportTargets(spec.exports)
@@ -398,6 +387,7 @@ export const fromEventGraphicSpec = (spec: EventGraphicSpec): LegacyEventData =>
 		speakers: spec.speakers.map((speaker) => ({
 			name: speaker.name,
 			twitterHandle: speaker.socials.x || '',
+			blueskyHandle: speaker.socials.bluesky || '',
 			socialPlatform: speaker.primarySocialPlatform,
 			socialHandle: primaryHandleFromSpeaker(speaker),
 			talk: speaker.talkTitle,
@@ -450,16 +440,10 @@ export const buildCaptionsMarkdown = (spec: EventGraphicSpec): string => {
 	return [
 		'# Captions',
 		'',
-		'## X',
+		'## Announcement (X / Bluesky / Reddit / YouTube Live)',
 		`${base}\n\nJoin Discord: ${spec.event.links.discordUrl}\nAdd to Calendar: ${spec.event.links.calendarUrl}`,
 		'',
-		'## X Sponsor Reply',
-		`Thanks to our sponsors: ${spec.sponsors.map((sponsor) => sponsor.name).join(', ')}.`,
-		'',
-		'## Bluesky',
-		`${base}\n\nJoin: ${spec.event.links.discordUrl}`,
-		'',
-		'## Discord',
+		'## Discord Event',
 		`${base}\n\nRegistration: ${spec.event.links.registrationUrl}`
 	].join('\n');
 };
