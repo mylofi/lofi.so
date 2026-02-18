@@ -9,6 +9,10 @@
 :root {
   --navbar-height: 70px;
   --vertical-tabs-offset: 200px;
+  --signal-brand: 76 98 255;
+  --signal-accent: 255 178 29;
+  --signal-ink: 16 24 40;
+  --signal-paper: 248 250 252;
 }
 
 :root[data-banner="true"] {
@@ -26,5 +30,13 @@
 @layer base {
   html {
     font-family: 'Archivo', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-paper text-slate-900 antialiased dark:bg-gray-900 dark:text-slate-100;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-ink;
   }
 }

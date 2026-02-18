@@ -50,14 +50,14 @@
 				"slug": "actual",
 				"author": "James Long & contributors",
 				"url": "https://actualbudget.org",
-				"icon": "https://actualbudget.org/img/actual.png",
+				"icon": "https://avatars.githubusercontent.com/u/37879538?s=200&v=4",
 				"description": "Actual | Actual Budget Documentation",
 				"Categories": ["L", 37, 38],
 				"Uses": null
 			}
 		},
 		{
-			"id": 6,
+			"id": 2,
 			"fields": {
 				"Main_Category": 3,
 				"Title": "Evolu",
@@ -109,20 +109,6 @@
 				"icon": "https://tweek.so/icons/favicon.ico",
 				"description": "Tweek is a FREE personal and shared to do list app to organize your tasks and collaborate on them online with your team or family. It provides a weekly calendar view mode and a reminder app. Tweek is an online daily and weekly planner that boosts your productivity to the best level. Instantly plan and organize your week todos!",
 				"Categories": ["L", 43],
-				"Uses": null
-			}
-		},
-		{
-			"id": 6,
-			"fields": {
-				"Main_Category": 3,
-				"Title": "PowerSync",
-				"slug": "powersync",
-				"author": "JourneyApps",
-				"url": "https://www.powersync.com",
-				"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png",
-				"description": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
-				"Categories": ["L", 37, 41, 40],
 				"Uses": null
 			}
 		},
@@ -472,20 +458,6 @@
 				"url": "https://signaldb.js.org",
 				"icon": "https://signaldb.js.org/logo.svg",
 				"description": "SignalDB is a reactive, local-first JavaScript database with real-time sync, Optimistic UI and signal-based reactivity",
-				"Categories": ["L", 39],
-				"Uses": null
-			}
-		},
-		{
-			"id": 32,
-			"fields": {
-				"Main_Category": 3,
-				"Title": "Socket Runtime",
-				"slug": "socket-runtime",
-				"author": "Socket Runtime Team",
-				"url": "https://github.com/socketsupply/socket",
-				"icon": "https://socketsupply.co/images/monogram.svg",
-				"description": "A cross-platform runtime for Web developers to build desktop & mobile apps for any OS using any frontend library. - socketsupply/socket",
 				"Categories": ["L", 39],
 				"Uses": null
 			}
