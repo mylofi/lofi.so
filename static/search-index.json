@@ -198,12 +198,6 @@
     "category": "Library"
   },
   {
-    "title": "Socket Runtime",
-    "url": "/directory/projects/socket-runtime",
-    "excerpt": "A cross-platform runtime for Web developers to build desktop & mobile apps for any OS using any frontend library. - socketsupply/socket",
-    "category": "Library"
-  },
-  {
     "title": "SyncedStore",
     "url": "/directory/projects/syncedstore",
     "excerpt": "SyncedStore - Javascript CRDT based real-time sync",
@@ -639,12 +633,6 @@
     "title": "SignalDB",
     "url": "https://signaldb.js.org",
     "excerpt": "SignalDB by Max Nowack",
-    "category": "External Resource"
-  },
-  {
-    "title": "Socket Runtime",
-    "url": "https://github.com/socketsupply/socket",
-    "excerpt": "Socket Runtime by Socket Runtime Team",
     "category": "External Resource"
   },
   {

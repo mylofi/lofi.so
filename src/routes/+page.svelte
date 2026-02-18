@@ -232,22 +232,25 @@
 						{/each}
 					</div>
 
+					<!-- Tab Content -->
 					{#each tabs as tab}
 						{#if activeTab === tab.id}
 							<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 								{#each tab.items.slice(0, 6) as item}
 									<a
 										href={item.url}
-										class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/30 hover:bg-slate-50 hover:shadow-sm dark:border-slate-600/70 dark:bg-slate-800/75 dark:hover:border-primary/30 dark:hover:bg-slate-800/95"
+													class="group relative overflow-hidden rounded-lg border border-gray-200 bg-white p-3 transition-all hover:border-primary/20 hover:shadow-sm dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-primary/20"
 									>
 										<div class="flex items-start gap-3">
 											<img
 												src={item.icon}
 												alt={item.title}
-												class="h-12 w-12 rounded-xl border border-slate-200 bg-slate-100 object-cover dark:border-slate-700 dark:bg-slate-900"
+															class="h-12 w-12 rounded-xl"
 											/>
-											<div class="min-w-0">
-												<h4 class="truncate text-base font-semibold text-slate-900 dark:text-slate-100">
+														<div class="flex-1">
+															<h4
+																class="mb-1 text-base font-semibold text-gray-900 dark:text-white"
+															>
 													{item.title}
 												</h4>
 												<p class="mt-1 line-clamp-1 text-sm text-slate-500 dark:text-slate-400">

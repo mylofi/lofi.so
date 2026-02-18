@@ -463,20 +463,6 @@
 			}
 		},
 		{
-			"id": 32,
-			"fields": {
-				"Main_Category": 3,
-				"Title": "Socket Runtime",
-				"slug": "socket-runtime",
-				"author": "Socket Runtime Team",
-				"url": "https://github.com/socketsupply/socket",
-				"icon": "https://socketsupply.co/images/monogram.svg",
-				"description": "A cross-platform runtime for Web developers to build desktop & mobile apps for any OS using any frontend library. - socketsupply/socket",
-				"Categories": ["L", 39],
-				"Uses": null
-			}
-		},
-		{
 			"id": 33,
 			"fields": {
 				"Main_Category": 3,
