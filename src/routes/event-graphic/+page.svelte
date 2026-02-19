@@ -2,7 +2,21 @@
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
+	import SponsorCard from '$lib/components/SponsorCard.svelte';
 	import { buildStartTimeISO, tzOffsetMap } from '$lib/utils/date';
+	import { toEventGraphicSpec, getExportPresets, getLegacyExportPresets } from '$lib/utils/event-graphic-spec';
+	import {
+		captureTarget,
+		validateExport,
+		generateFilename,
+		buildManifest,
+		buildCaptions,
+		bundleExports
+	} from '$lib/utils/event-graphic-export';
+	import type { EventGraphicSpec, EventGraphicExportTarget, ExportTargetId } from '$lib/types/event-graphic';
+	import type { ExportResult } from '$lib/utils/event-graphic-export';
+	import sponsorsData from '$lib/data/sponsors.json';
+	import fixtureData from '$lib/data/event-graphic-fixtures.json';
 	import { onMount } from 'svelte';
 
 	function getLastTuesdayOfMonth() {
@@ -46,16 +60,53 @@
 		logoUrl: '/images/logo.png'
 	};
 
-
-
 	$: startTimeISO = formData.date && formData.time
 		? new Date(buildStartTimeISO(formData.date, formData.time, formData.timezone)).toISOString()
 		: '';
 
+	// Derive EventGraphicSpec reactively from form data
+	$: spec = toEventGraphicSpec(
+		{
+			eventNumber: formData.eventNumber,
+			title: formData.title,
+			startTimeISO,
+			date: formData.date,
+			time: formData.time,
+			timezone: formData.timezone,
+			speakers: formData.speakers.map((s) => ({
+				name: s.name,
+				twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
+				talk: s.talk,
+				image: s.image
+			})),
+			registrationUrl: formData.registrationUrl,
+			discordUrl: formData.discordUrl,
+			calendarUrl: formData.calendarUrl,
+			logoUrl: formData.logoUrl
+		},
+		formData.speakers as any,
+		sponsorsData.sponsors
+	) as EventGraphicSpec;
+
+	// Export state
+	let exportTargets = getExportPresets();
+	let enabledTargets: Record<ExportTargetId, boolean> = {
+		announcement_regular: true,
+		announcement_discord: true,
+		agenda_regular: true
+	};
+	let isExporting = false;
+	let exportResults: ExportResult[] = [];
+	let exportError = '';
+
+	// Preview target selector
+	let activePreviewTarget: ExportTargetId = 'announcement_regular';
+	$: previewTarget = exportTargets.find((t) => t.id === activePreviewTarget) || exportTargets[0];
+
 	// Update the date when the month changes
 	function updateToLastTuesday() {
 		formData.date = getLastTuesdayOfMonth();
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 	}
 
 	function handleTwitterHandleInput(event: Event, index: number) {
@@ -67,7 +118,7 @@
 		}
 
 		formData.speakers[index].twitterHandle = value;
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -77,18 +128,16 @@
 		let value = input.value;
 		const platform = formData.speakers[index].socialPlatform;
 
-		// Add @ prefix for Twitter handles
 		if (platform === 'twitter' && !value.startsWith('@')) {
 			value = '@' + value;
 		}
 
 		formData.speakers[index].socialHandle = value;
-		// Also update twitterHandle for backward compatibility
 		if (platform === 'twitter') {
 			formData.speakers[index].twitterHandle = value;
 		}
 
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -97,20 +146,17 @@
 		const speaker = formData.speakers[index];
 		const platform = speaker.socialPlatform;
 
-		// Update profileImagePlatform based on social platform
 		if (platform === 'twitter' || platform === 'bluesky') {
 			speaker.profileImagePlatform = platform;
 		} else if (platform === 'linkedin') {
-			// For LinkedIn, we might want to use custom image or Twitter as fallback
 			speaker.profileImagePlatform = 'twitter';
 		}
 
-		// Update placeholder and handle format
 		if (platform === 'twitter' && !speaker.socialHandle.startsWith('@')) {
 			speaker.socialHandle = '@' + speaker.socialHandle;
 		}
 
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -118,7 +164,6 @@
 	onMount(async () => {
 		updateToLastTuesday();
 
-		// Load latest event data
 		try {
 			const response = await fetch('/api/latest-event');
 			if (response.ok) {
@@ -186,7 +231,6 @@
 				return null;
 			}
 			const data = await response.json();
-			// Proxy the avatar URL through our endpoint
 			return data.profile_image_url ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.profile_image_url)}` : null;
 		} catch (error) {
 			console.error('Error fetching Bluesky profile:', error);
@@ -200,19 +244,14 @@
 
 		formData.speakers[index].error = '';
 
-		// Handle custom image URL
 		if (speaker.profileImagePlatform === 'custom') {
 			if (speaker.customImageUrl) {
 				try {
-					// Proxy the custom image URL through our endpoint
 					const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(speaker.customImageUrl)}`;
-
-					// Verify the image is accessible
 					const response = await fetch(proxyUrl);
 					if (!response.ok) {
 						throw new Error('Failed to load image');
 					}
-
 					formData.speakers[index].image = proxyUrl;
 					formData.speakers[index].error = '';
 				} catch (error) {
@@ -227,7 +266,6 @@
 			return;
 		}
 
-		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
 			formData = { ...formData };
@@ -253,14 +291,13 @@
 
 			if (profileImageUrl) {
 				formData.speakers[index].image = profileImageUrl;
-				formData.speakers[index].error = ''; // Clear any previous errors
+				formData.speakers[index].error = '';
 			} else {
 				formData.speakers[index].image = '';
 				formData.speakers[index].error = 'Could not fetch profile image';
 			}
 		} catch (error) {
 			formData.speakers[index].image = '';
-			// Use the exact error message from the API
 			formData.speakers[index].error = error instanceof Error ? error.message : 'An unexpected error occurred';
 		}
 
@@ -319,23 +356,55 @@
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 			logoUrl: '/images/logo.png'
 		};
+		exportResults = [];
+		exportError = '';
 	}
 
+	function loadFixture() {
+		const fixture = fixtureData.lofi33;
+		formData = {
+			title: fixture.event.title,
+			eventNumber: fixture.event.number,
+			date: fixture.event.startTimeISO.split('T')[0],
+			time: '08:00',
+			timezone: 'PST',
+			speakers: fixture.speakers.map((s) => {
+				const social = s.social as Record<string, string | undefined>;
+				return {
+				name: s.name,
+				socialPlatform: (social.twitter ? 'twitter' : social.bluesky ? 'bluesky' : 'linkedin') as string,
+				socialHandle: social.twitter || social.bluesky || '',
+				twitterHandle: social.twitter || '',
+				profileImagePlatform: 'twitter',
+				profileImageHandle: '',
+				customImageUrl: '',
+				talk: s.talk,
+				bio: s.bio,
+				talkPoints: [...s.bullets, ...Array(Math.max(0, 3 - s.bullets.length)).fill('')].slice(0, 3),
+				image: s.avatar,
+				error: ''
+			}; }),
+			registrationUrl: fixture.event.links.registration,
+			discordUrl: fixture.event.links.discord,
+			calendarUrl: fixture.event.links.calendar,
+			logoUrl: fixture.event.links.logo
+		};
+		exportResults = [];
+		exportError = '';
+	}
+
+	// Legacy export: save + single event graphic PNG
 	async function handleSubmit() {
 		try {
 			const payload = { ...formData, startTimeISO };
-			// save the JSON data
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
 
-			// generate the image
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
 
@@ -356,21 +425,18 @@
 		}
 	}
 
+	// Legacy export: speaker cards
 	async function handleGenerateSpeakerCards() {
 		try {
 			const payload = { ...formData, startTimeISO };
-			// save the JSON data first
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
 
-			// generate images for each speaker
 			for (let i = 0; i < formData.speakers.length; i++) {
 				const speaker = formData.speakers[i];
 				const speakerCardElement = document.querySelector(`#speaker-card-${i}`);
@@ -393,6 +459,99 @@
 			console.error('Error:', error);
 			alert('Failed to generate speaker cards');
 		}
+	}
+
+	// New: Multi-platform bundle export
+	async function handleGenerateBundle() {
+		isExporting = true;
+		exportResults = [];
+		exportError = '';
+
+		try {
+			// Save event data first
+			const payload = { ...formData, startTimeISO };
+			const saveResponse = await fetch('/api/save-event', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+			if (!saveResponse.ok) throw new Error('Failed to save event data');
+
+			const results: ExportResult[] = [];
+			const activeTargets = exportTargets.filter((t) => enabledTargets[t.id]);
+
+			// Capture event graphic for each enabled target
+			for (const target of activeTargets) {
+				const el = document.querySelector('#graphic') as HTMLElement;
+				if (!el) continue;
+
+				const blob = await captureTarget(el, target);
+				const filename = generateFilename(spec, target);
+				const validation = validateExport(blob, target);
+
+				results.push({ target, blob, filename, validation });
+			}
+
+			// Capture speaker cards at agenda_regular target
+			const speakerTarget = activeTargets.find((t) => t.id === 'agenda_regular') || activeTargets[0];
+			if (speakerTarget) {
+				for (let i = 0; i < formData.speakers.length; i++) {
+					const el = document.querySelector(`#speaker-card-${i}`) as HTMLElement;
+					if (!el) continue;
+
+					const blob = await captureTarget(el, speakerTarget);
+					const filename = generateFilename(spec, speakerTarget, formData.speakers[i].name);
+					const validation = validateExport(blob, speakerTarget);
+
+					results.push({
+						target: speakerTarget,
+						blob,
+						filename,
+						validation,
+						speakerName: formData.speakers[i].name
+					});
+				}
+			}
+
+			// Capture sponsor card
+			const sponsorTarget = activeTargets.find((t) => t.id === 'announcement_regular') || activeTargets[0];
+			if (sponsorTarget) {
+				const el = document.querySelector('#sponsor-card') as HTMLElement;
+				if (el) {
+					const blob = await captureTarget(el, sponsorTarget);
+					const filename = `lofi-${spec.event.number}-sponsors-${sponsorTarget.id}.${sponsorTarget.format}`;
+					const validation = validateExport(blob, sponsorTarget);
+					results.push({ target: sponsorTarget, blob, filename, validation });
+				}
+			}
+
+			exportResults = results;
+
+			// Build manifest and captions
+			const manifest = await buildManifest(results, spec);
+			const captions = buildCaptions(spec);
+
+			// Bundle into zip
+			const zipBlob = await bundleExports(results, manifest, captions);
+
+			// Download
+			const link = document.createElement('a');
+			link.download = `lofi-${spec.event.number}-export-bundle.zip`;
+			link.href = URL.createObjectURL(zipBlob);
+			link.click();
+			URL.revokeObjectURL(link.href);
+		} catch (error) {
+			console.error('Export error:', error);
+			exportError = error instanceof Error ? error.message : 'Export failed';
+		} finally {
+			isExporting = false;
+		}
+	}
+
+	function formatBytes(bytes: number): string {
+		if (bytes < 1024) return `${bytes}B`;
+		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+		return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
 	}
 </script>
 
@@ -677,19 +836,55 @@
 			{/each}
 		</div>
 
-		<div class="flex gap-4">
+		<!-- Export Targets -->
+		<div class="rounded-lg bg-white p-6 shadow-md">
+			<h2 class="mb-4 text-xl font-semibold">Export Targets</h2>
+			<div class="space-y-2">
+				{#each exportTargets as target}
+					<label class="flex items-center gap-3">
+						<input
+							type="checkbox"
+							bind:checked={enabledTargets[target.id]}
+							class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+						/>
+						<span class="text-sm">
+							{target.label}
+							<span class="text-xs text-gray-500">({target.width}x{target.height} {target.format.toUpperCase()}{target.maxBytes ? `, max ${formatBytes(target.maxBytes)}` : ''})</span>
+						</span>
+					</label>
+				{/each}
+			</div>
+		</div>
+
+		<!-- Action Buttons -->
+		<div class="flex flex-wrap gap-4">
+			<button
+				type="button"
+				on:click={handleGenerateBundle}
+				disabled={isExporting}
+				class="flex-1 rounded-md bg-green-600 px-4 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
+			>
+				{isExporting ? 'Generating...' : 'Generate Bundle'}
+			</button>
 			<button
 				type="submit"
-				class="flex-1 rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+				class="rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
 			>
-				Generate Event Graphic
+				Legacy: Event Graphic
 			</button>
 			<button
 				type="button"
 				on:click={handleGenerateSpeakerCards}
-				class="flex-1 rounded-md bg-discord px-4 py-2 text-white shadow-sm hover:bg-discord/90 focus:outline-none focus:ring-2 focus:ring-discord focus:ring-offset-2"
+				class="rounded-md bg-discord px-4 py-2 text-white shadow-sm hover:bg-discord/90 focus:outline-none focus:ring-2 focus:ring-discord focus:ring-offset-2"
 			>
-				Generate Speaker Cards
+				Legacy: Speaker Cards
+			</button>
+			<button
+				type="button"
+				on:click={loadFixture}
+				class="rounded-md bg-gray-600 px-4 py-2 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+			>
+				Load Fixture (LoFi/33)
 			</button>
 			<button
 				type="button"
@@ -701,23 +896,73 @@
 		</div>
 	</form>
 
+	<!-- Export Summary -->
+	{#if exportResults.length > 0 || exportError}
+		<div class="mb-8 rounded-lg bg-white p-6 text-black shadow-md">
+			<h2 class="mb-4 text-xl font-semibold">Export Summary</h2>
+			{#if exportError}
+				<p class="text-red-600">{exportError}</p>
+			{/if}
+			{#if exportResults.length > 0}
+				<table class="w-full text-sm">
+					<thead>
+						<tr class="border-b border-gray-200 text-left">
+							<th class="py-2 pr-4">Filename</th>
+							<th class="py-2 pr-4">Dimensions</th>
+							<th class="py-2 pr-4">Size</th>
+							<th class="py-2">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each exportResults as result}
+							<tr class="border-b border-gray-100">
+								<td class="py-2 pr-4 font-mono text-xs">{result.filename}</td>
+								<td class="py-2 pr-4">{result.target.width}x{result.target.height}</td>
+								<td class="py-2 pr-4" class:text-green-600={result.validation.valid} class:text-red-600={!result.validation.valid}>
+									{formatBytes(result.validation.sizeBytes)}
+								</td>
+								<td class="py-2">
+									{#if result.validation.valid}
+										<span class="text-green-600">Pass</span>
+									{:else}
+										<span class="text-red-600">Fail</span>
+									{/if}
+									{#each result.validation.warnings as warning}
+										<span class="ml-1 text-xs text-yellow-600">({warning})</span>
+									{/each}
+									{#each result.validation.errors as error}
+										<span class="ml-1 text-xs text-red-600">({error})</span>
+									{/each}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			{/if}
+		</div>
+	{/if}
+
 	<!-- Preview Section -->
 	<div class="mt-8 space-y-8">
+		<!-- Preview Target Selector -->
+		<div class="flex items-center gap-4">
+			<span class="text-sm font-medium">Preview as:</span>
+			{#each exportTargets as target}
+				<button
+					type="button"
+					on:click={() => (activePreviewTarget = target.id)}
+					class="rounded-md px-3 py-1 text-sm transition {activePreviewTarget === target.id ? 'bg-primary text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+				>
+					{target.label.split('(')[0].trim()}
+				</button>
+			{/each}
+		</div>
+
 		<div>
-			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
+			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">({previewTarget.width}x{previewTarget.height})</span></h2>
 			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
-				<!-- Fixed width wrapper ensures lg: breakpoints apply for export -->
-				<div id="graphic" class="origin-center" style="width: 1120px; min-width: 1120px; height: 630px; min-height: 630px;">
-					<EventGraphic eventData={{
-						...formData,
-						startTimeISO,
-						speakers: formData.speakers.map(s => ({
-							name: s.name,
-							twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
-							talk: s.talk,
-							image: s.image
-						}))
-					}} />
+				<div id="graphic" class="origin-center" style="width: {previewTarget.width}px; min-width: {previewTarget.width}px; height: {previewTarget.height}px; min-height: {previewTarget.height}px;">
+					<EventGraphic {spec} />
 				</div>
 			</div>
 		</div>
@@ -730,22 +975,25 @@
 						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
 						<div id="speaker-card-{i}" class="origin-center">
 							<SpeakerCard
-								speakerData={{
-									name: speaker.name,
-									twitterHandle: speaker.socialPlatform === 'twitter' ? speaker.socialHandle : speaker.twitterHandle,
-									talk: speaker.talk,
-									bio: speaker.bio,
-									talkPoints: speaker.talkPoints,
-									image: speaker.image
-								}}
-								eventNumber={formData.eventNumber}
-								date={formData.date}
-								time={formData.time}
-								timezone={formData.timezone}
+								{spec}
+								speakerIndex={i}
 							/>
 						</div>
 					</div>
 				{/each}
+			</div>
+		</div>
+
+		<div>
+			<h2 class="mb-4 text-xl font-semibold">Sponsor Card Preview</h2>
+			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
+				<div id="sponsor-card" class="origin-center">
+					<SponsorCard
+						sponsors={spec.sponsors}
+						eventNumber={spec.event.number}
+						displayDateTime={spec.event.displayDateTime}
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
