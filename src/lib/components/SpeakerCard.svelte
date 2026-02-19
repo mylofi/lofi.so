@@ -117,7 +117,7 @@
 							<img
 								src={eventSpec?.event.links.logoUrl || '/images/logo.png'}
 								alt="LoFi"
-								class="h-8 w-8 rounded-md bg-white/90 p-1"
+								class="h-9 w-9 rounded-md bg-white/90 p-1"
 							/>
 							<p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
 								Spotlight
@@ -187,7 +187,17 @@
 				</section>
 
 				<aside class="col-span-12 flex min-h-0 flex-col gap-3 md:col-span-4">
-					<SponsorLockup sponsors={activeSponsors} compact={true} className="flex-1" />
+					<div class="min-h-0 flex-1 overflow-hidden">
+						<SponsorLockup
+							sponsors={activeSponsors}
+							compact={false}
+							inline={false}
+							singleRow={false}
+							showHeader={true}
+							minimal={true}
+							className="h-full"
+						/>
+					</div>
 					<div class="rounded-2xl border border-white/35 bg-black/10 p-3 backdrop-blur-sm">
 						<div class="space-y-2">
 							<a
