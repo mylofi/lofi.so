@@ -64,124 +64,135 @@
 				return `${fd} @ ${ft} ${timezone}`;
 			})();
 
-	// Calculate total content length to determine font sizes
 	$: filteredPoints = speaker?.talkPoints.filter((p) => p) || [];
-	$: totalTalkPointsLength = filteredPoints.reduce((sum, p) => sum + p.length, 0);
-	$: isShortContent = (speaker?.talk.length || 0) < 30 && totalTalkPointsLength < 80;
-	$: bulletTextSize = isShortContent ? 'text-base' : 'text-sm';
-	$: bulletDotSize = isShortContent ? 'h-4 w-4 mt-1' : 'h-3 w-3 mt-1.5';
-	$: bulletSpacing = isShortContent ? 'space-y-4' : 'space-y-2';
+
+	// Conic gradient rotation offset per speaker for visual variety
+	$: haloRotation = speakerIndex * 120;
 </script>
 
 {#if speaker}
 <main class="inline-block">
+	<!--
+		Fixed 1200×675 card for agenda_regular export target.
+		Two-column layout: left=avatar+identity, right=talk content.
+	-->
 	<div
-		class="relative flex w-[800px] h-[450px] flex-col rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white"
+		class="relative flex h-[675px] w-[1200px] overflow-hidden rounded-3xl"
+		style="background: #0d1117;"
 	>
-		<!-- Background Pattern -->
-		<div class="pointer-events-none absolute inset-0 rounded-3xl opacity-10">
-			<svg width="100%" height="100%">
+		<!-- ── Gradient layers ─────────────────────────────── -->
+		<div
+			class="pointer-events-none absolute inset-0"
+			style="background: radial-gradient(ellipse 70% 90% at -5% 50%, #5865f2 0%, transparent 55%), radial-gradient(ellipse 60% 60% at 110% 100%, #4f46e5 0%, transparent 50%);"
+		></div>
+
+		<!-- ── Dot texture ─────────────────────────────────── -->
+		<div class="pointer-events-none absolute inset-0 opacity-[0.05]">
+			<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
 				<defs>
-					<pattern
-						id="dot-pattern-speaker"
-						x="0"
-						y="0"
-						width="30"
-						height="30"
-						patternUnits="userSpaceOnUse"
-					>
-						<circle cx="2" cy="2" r="1.2" fill="currentColor" />
+					<pattern id="dot-pattern-speaker" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+						<circle cx="1.5" cy="1.5" r="1.5" fill="white" />
 					</pattern>
 				</defs>
 				<rect width="100%" height="100%" fill="url(#dot-pattern-speaker)" />
 			</svg>
 		</div>
 
-		<!-- Main Content Section -->
-		<section class="flex-1 rounded-xl p-5">
-			<div class="h-full rounded-xl bg-gray-100 p-4 shadow-md dark:bg-gray-800">
-				<!-- Speaker Content -->
-				<div class="h-full rounded-xl bg-white p-5 shadow-xl dark:bg-gray-900">
-					<div class="flex w-full h-full gap-12">
-						<!-- Speaker Column -->
-						<div class="w-[300px] flex flex-col gap-4 h-full">
-							<!-- Speaker Image and Info -->
-							<div class="flex flex-col gap-4">
-								<div class="relative">
-									{#if speaker.image}
-										<div class="aspect-square h-44 w-44 overflow-hidden rounded-full bg-gray-200 shadow-lg dark:bg-gray-700">
-											<img
-												src={speaker.image}
-												alt={speaker.name}
-												class="h-full w-full object-cover"
-											/>
-										</div>
-										<div class="absolute -bottom-2 left-[100px] min-w-[120px] max-w-[200px] rounded-xl bg-white/95 px-3 py-2 shadow-lg backdrop-blur-sm dark:bg-gray-900/95">
-											<h2 class="line-clamp-2 text-lg font-bold leading-tight">{speaker.name}</h2>
-											<a
-												href={speaker.handleUrl}
-												target="_blank"
-												rel="noopener noreferrer"
-												class="text-sm text-gray-600 hover:text-discord dark:text-gray-400"
-											>
-												{speaker.handle}
-											</a>
-										</div>
-									{/if}
-								</div>
-							</div>
-							<!-- Bio -->
-							<p class="line-clamp-5 text-sm text-gray-700 dark:text-gray-300">
-								{speaker.bio}
-							</p>
-						</div>
+		<!-- ── Left column: avatar + identity ─────────────── -->
+		<div class="relative flex w-[380px] flex-shrink-0 flex-col items-center justify-center px-12 py-12">
 
-						<!-- Talk Details Column -->
-						<div class="w-[400px] flex flex-col gap-8 h-full">
-							<!-- Header with Logo -->
-							<div>
-								<div class="mb-2 flex items-center gap-2">
-									<img src="/images/logo.png" alt="LoFi" class="h-10 w-10" />
-									<h1 class="m-0 text-2xl font-bold">
-										LoFi/{resolvedEventNumber}
-									</h1>
-								</div>
-								<h2 class="mb-1 text-xl font-bold text-gray-800 dark:text-gray-200">
-									Local First Meetup #{resolvedEventNumber}
-								</h2>
-								<p class="text-base font-bold text-discord">
-									{formattedDateTime}
-								</p>
-							</div>
-
-							<!-- Talk Info -->
-							<div class="flex flex-col gap-3">
-								<h1 class="line-clamp-2 font-bold text-gray-900 dark:text-white {speaker.talk.length > 40 ? 'text-xl' : 'text-2xl'}">
-									{speaker.talk}
-								</h1>
-								<div class={bulletSpacing}>
-									{#each filteredPoints as point}
-										<div class="flex items-start gap-2">
-											<div class="flex-shrink-0 rounded-full bg-discord {bulletDotSize}" />
-											<p class="line-clamp-2 text-gray-800 dark:text-gray-200 {bulletTextSize}">
-												{point}
-											</p>
-										</div>
-									{/each}
-								</div>
-							</div>
+			<!-- Large avatar with conic halo -->
+			<div class="relative mb-6" style="width: 220px; height: 220px;">
+				<!-- Halo ring -->
+				<div
+					class="absolute inset-[-4px] rounded-full"
+					style="background: conic-gradient(from {haloRotation}deg, #5865f2, #818cf8, #a78bfa, #4f46e5, #5865f2);"
+				></div>
+				<!-- Dark gap ring -->
+				<div class="absolute inset-[3px] rounded-full bg-[#0d1117]"></div>
+				<!-- Photo -->
+				<div class="absolute inset-[8px] overflow-hidden rounded-full">
+					{#if speaker.image}
+						<img
+							src={speaker.image}
+							alt={speaker.name}
+							class="h-full w-full object-cover object-center"
+						/>
+					{:else}
+						<div class="flex h-full w-full items-center justify-center bg-white/5">
+							<svg class="h-16 w-16 text-white/20" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+							</svg>
 						</div>
-					</div>
+					{/if}
 				</div>
 			</div>
-		</section>
+
+			<!-- Name + handle -->
+			<div class="text-center">
+				<h2 class="mb-1 text-2xl font-extrabold leading-tight text-white">
+					{speaker.name}
+				</h2>
+				{#if speaker.handle}
+					<p class="text-sm font-medium text-[#818cf8]">{speaker.handle}</p>
+				{/if}
+			</div>
+
+			<!-- Bio -->
+			{#if speaker.bio}
+				<p class="mt-4 line-clamp-4 text-center text-sm leading-relaxed text-white/50">
+					{speaker.bio}
+				</p>
+			{/if}
+
+			<!-- LoFi branding at bottom of left column -->
+			<div class="absolute bottom-10 flex items-center gap-2">
+				<img src="/images/logo.png" alt="LoFi" class="h-5 w-5 opacity-60" />
+				<span class="text-xs font-bold tracking-wider text-white/30">
+					LoFi/<span class="text-[#5865f2]">{resolvedEventNumber}</span>
+				</span>
+			</div>
+		</div>
+
+		<!-- ── Vertical divider ────────────────────────────── -->
+		<div class="my-12 w-px flex-shrink-0 bg-white/10"></div>
+
+		<!-- ── Right column: talk details ─────────────────── -->
+		<div class="relative flex flex-1 flex-col justify-center px-12 py-12">
+
+			<!-- Event label + date -->
+			<div class="mb-6">
+				<p class="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/30">
+					Speaking at LoFi/{resolvedEventNumber}
+				</p>
+				<p class="text-sm font-semibold text-[#5865f2]">{formattedDateTime}</p>
+			</div>
+
+			<!-- Accent bar + Talk title -->
+			<div class="mb-6">
+				<div class="mb-4 h-0.5 w-10 rounded-full bg-[#5865f2]"></div>
+				<h1 class="text-[2rem] font-extrabold leading-tight tracking-tight text-white">
+					{speaker.talk}
+				</h1>
+			</div>
+
+			<!-- Bullet points -->
+			{#if filteredPoints.length > 0}
+				<div class="space-y-3">
+					{#each filteredPoints as point}
+						<div class="flex items-start gap-3">
+							<div class="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#5865f2]"></div>
+							<p class="text-base leading-snug text-white/65">{point}</p>
+						</div>
+					{/each}
+				</div>
+			{/if}
+
+			<!-- lofi.so wordmark bottom-right -->
+			<div class="absolute bottom-10 right-12">
+				<span class="text-[10px] font-semibold tracking-[0.15em] text-white/15 uppercase">lofi.so</span>
+			</div>
+		</div>
 	</div>
 </main>
 {/if}
-
-<style>
-	.speaker-card {
-		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-			Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	}
-</style>

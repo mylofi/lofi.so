@@ -271,10 +271,20 @@
 						{/if}
 
 						<!-- Mobile sponsors strip -->
-						<div class="mt-2 flex items-center justify-center gap-4 opacity-60">
-							{#each sponsors.slice(0, 4) as sponsor}
-								<img src={sponsor.logoLight} alt={sponsor.name} class="h-5 w-auto object-contain" />
-							{/each}
+						<div class="mt-3 border-t border-white/10 pt-3">
+							<p class="mb-2 text-center text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Sponsored by</p>
+							<div class="flex items-center justify-center gap-3">
+								{#each sponsors.slice(0, 4) as sponsor}
+									<a
+										href={sponsor.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="flex items-center justify-center rounded-lg px-2 py-1.5 transition active:bg-white/10"
+									>
+										<img src={sponsor.logoLight} alt={sponsor.name} class="h-7 w-auto object-contain" />
+									</a>
+								{/each}
+							</div>
 						</div>
 					</div>
 

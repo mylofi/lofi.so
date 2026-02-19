@@ -220,52 +220,127 @@ function buildAltText(spec: EventGraphicSpec, speakerName?: string): string {
 
 export function buildCaptions(spec: EventGraphicSpec): string {
 	const { event, speakers, sponsors } = spec;
-	const speakerList = speakers
-		.map((s) => {
+
+	const speakerLines = speakers.map((s, i) => {
+		const primary = getPrimarySocial(s);
+		const handle = primary ? primary.handle : s.name;
+		return `${i + 1}. ${handle} — "${s.talk}"`;
+	});
+
+	const sponsorHandles = sponsors.map((s) => s.name).join(', ');
+	const rsvpUrl = event.links.registration || event.links.discord;
+
+	// ── X / Bluesky post ──────────────────────────────────────────────────
+	// Style: hook line, numbered speaker list, date + RSVP, hashtags
+	const xPost = [
+		`LoFi/${event.number} — ${event.title} 🎙️`,
+		``,
+		...speakerLines,
+		``,
+		`📅 ${event.displayDateTime}`,
+		`🔗 ${rsvpUrl}`,
+		``,
+		`#localfirst #lofi`
+	].join('\n');
+
+	// ── Bluesky post ──────────────────────────────────────────────────────
+	// Same content, Bluesky handles don't need @ prefix adjustments
+	const bskyPost = xPost;
+
+	// ── Discord announcement ───────────────────────────────────────────────
+	const discordPost = [
+		`**LoFi/${event.number} — ${event.title}**`,
+		``,
+		`📅 ${event.displayDateTime}`,
+		``,
+		`**Speakers:**`,
+		...speakers.map((s) => {
 			const primary = getPrimarySocial(s);
 			const handle = primary ? ` (${primary.handle})` : '';
-			return `- ${s.name}${handle}: "${s.talk}"`;
-		})
-		.join('\n');
+			return `• **${s.name}**${handle} — ${s.talk}`;
+		}),
+		``,
+		`Sponsored by ${sponsorHandles} 🙏`,
+		``,
+		`RSVP → ${rsvpUrl}`,
+	].join('\n');
 
-	const sponsorNames = sponsors.map((s) => s.name).join(', ');
+	// ── LinkedIn post ──────────────────────────────────────────────────────
+	const linkedinPost = [
+		`Excited to announce LoFi/${event.number} — ${event.title}! 🚀`,
+		``,
+		`We've got an incredible lineup for this month's Local First Software meetup:`,
+		``,
+		...speakers.map((s) => {
+			const primary = getPrimarySocial(s);
+			const handle = primary ? ` (${primary.handle})` : '';
+			return `→ ${s.name}${handle}: "${s.talk}"`;
+		}),
+		``,
+		`📅 ${event.displayDateTime}`,
+		`🔗 RSVP: ${rsvpUrl}`,
+		``,
+		`Huge thanks to our sponsors: ${sponsorHandles}`,
+		``,
+		`#LocalFirst #SoftwareEngineering #LoFi #OfflineFirst`
+	].join('\n');
 
+	// ── Full captions doc ──────────────────────────────────────────────────
 	return `# LoFi/${event.number} — ${event.title}
-
-## Event
-${event.displayDateTime}
-
-## Speakers
-${speakerList}
-
-## Sponsors
-${sponsorNames}
+_Generated: ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}_
 
 ---
 
-## X / Bluesky Post
-LoFi/${event.number} — ${event.title}
+## 🐦 X Post (copy & paste)
+
+\`\`\`
+${xPost}
+\`\`\`
+
+---
+
+## 🦋 Bluesky Post (copy & paste)
+
+\`\`\`
+${bskyPost}
+\`\`\`
+
+---
+
+## 💬 Discord Announcement (copy & paste)
+
+\`\`\`
+${discordPost}
+\`\`\`
+
+---
+
+## 💼 LinkedIn Post (copy & paste)
+
+\`\`\`
+${linkedinPost}
+\`\`\`
+
+---
+
+## 📋 Event Details
+
+- **Event:** LoFi/${event.number} — ${event.title}
+- **Date:** ${event.displayDateTime}
+- **RSVP:** ${rsvpUrl}
+- **Discord:** ${event.links.discord}
+
+## 👥 Speakers
 
 ${speakers.map((s) => {
 	const primary = getPrimarySocial(s);
-	return `${primary?.handle || s.name}: "${s.talk}"`;
-}).join('\n')}
+	const handle = primary ? ` · ${primary.handle}` : '';
+	return `### ${s.name}${handle}\n**Talk:** ${s.talk}\n${s.bio ? `**Bio:** ${s.bio}` : ''}`;
+}).join('\n\n')}
 
-Join us: ${event.links.discord}
-#localfirst #lofi
+## 🤝 Sponsors
 
----
-
-## Discord Announcement
-**LoFi/${event.number} — ${event.title}**
-${event.displayDateTime}
-
-**Speakers:**
-${speakerList}
-
-Sponsored by: ${sponsorNames}
-
-RSVP: ${event.links.registration}
+${sponsors.map((s) => `- [${s.name}](${s.url})`).join('\n')}
 `;
 }
 
