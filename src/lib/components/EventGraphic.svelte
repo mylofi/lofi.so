@@ -103,7 +103,7 @@
 				class={`grid h-full ${isHomepageLayout ? 'grid-cols-1 md:grid-cols-[minmax(0,1fr)_17rem]' : 'grid-cols-12'} ${isAnnouncementDiscord ? 'gap-3' : 'gap-4'}`}
 			>
 				<section
-					class={`${isHomepageLayout ? '' : 'col-span-12 md:col-span-9'} flex min-h-0 min-w-0 flex-col rounded-2xl border border-white/45 bg-white/95 text-gray-900 shadow-xl ${isAnnouncementDiscord ? 'p-3' : 'p-4 lg:p-5'}`}
+					class={`${isHomepageLayout ? '' : 'col-span-9'} flex min-h-0 min-w-0 flex-col rounded-2xl border border-white/45 bg-white/95 text-gray-900 shadow-xl ${isAnnouncementDiscord ? 'p-3' : 'p-4 lg:p-5'}`}
 				>
 					<header class={isAnnouncementDiscord ? 'mb-2' : 'mb-4'}>
 						<div class={`mb-2 flex items-center gap-2 ${isAnnouncementDiscord ? 'mb-1.5' : ''}`}>
@@ -261,20 +261,24 @@
 					</aside>
 				{:else}
 					<aside
-						class={`col-span-12 flex flex-col md:col-span-3 ${isAnnouncementDiscord ? 'gap-2' : 'gap-3'}`}
+						class={`col-span-3 flex min-h-0 flex-col ${isAnnouncementDiscord ? 'gap-2' : 'gap-3'}`}
 					>
-						<SponsorLockup
-							sponsors={resolvedSpec.sponsors}
-							compact={isAnnouncementDiscord || renderTarget === 'legacy_event'}
-							inline={true}
-						/>
+						<div class="min-h-0 flex-1 overflow-hidden">
+							<SponsorLockup
+								sponsors={resolvedSpec.sponsors}
+								compact={false}
+								inline={false}
+								singleRow={false}
+								showHeader={true}
+								minimal={true}
+								className="h-full"
+							/>
+						</div>
 
 						<div
 							class={`rounded-2xl border border-white/35 bg-black/10 backdrop-blur-sm ${isAnnouncementDiscord ? 'p-2.5' : 'p-3'}`}
 						>
-							<div
-								class={isAnnouncementDiscord ? 'grid grid-cols-1 gap-2' : 'grid grid-cols-2 gap-2'}
-							>
+							<div class="grid grid-cols-1 gap-2">
 								<a
 									href={resolvedSpec.event.links.discordUrl}
 									target="_blank"
