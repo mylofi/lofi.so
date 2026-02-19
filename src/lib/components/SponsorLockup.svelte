@@ -8,10 +8,12 @@
 	export let minimal = false;
 	export let singleRow = false;
 	export let className = '';
+	export let logoHeightPx: number | null = null;
 
 	$: orderedSponsors = [...sponsors].sort((a, b) => a.order - b.order);
 
 	const getLogoClasses = (): string => {
+		if (logoHeightPx) return 'h-auto max-h-full';
 		if (singleRow) return 'max-h-6 min-h-4 sm:max-h-7';
 		if (inline) return 'max-h-7 min-h-5 sm:max-h-8';
 		if (minimal && !compact) {
@@ -28,10 +30,14 @@
 			isRowItem || inline
 				? 'min-h-10 px-2 py-1.5'
 				: minimal && !compact
-					? 'h-full min-h-0 px-2.5 py-1.5 md:px-3 md:py-2'
+					? 'h-full min-h-0 overflow-hidden px-2 py-1 md:px-2.5 md:py-1.5'
 					: 'min-h-12 px-3 py-2';
 		return `${surfaceClasses} flex items-center justify-center rounded-lg border transition ${sizeClasses}`;
 	};
+
+	$: logoStyle = logoHeightPx
+		? `height:min(${logoHeightPx}px,100%);max-height:${logoHeightPx}px;width:auto;`
+		: '';
 </script>
 
 <div
@@ -58,6 +64,7 @@
 							src={sponsor.logoLight}
 							alt={sponsor.name}
 							class={`h-auto w-auto max-w-full object-contain ${getLogoClasses()}`}
+							style={logoStyle}
 						/>
 					</a>
 				{/each}
@@ -84,6 +91,7 @@
 							src={sponsor.logoLight}
 							alt={sponsor.name}
 							class={`h-auto w-auto max-w-full object-contain ${getLogoClasses()}`}
+							style={logoStyle}
 						/>
 					</a>
 				{/each}

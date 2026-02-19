@@ -100,10 +100,10 @@
 
 		<div class={`relative h-full ${isAnnouncementDiscord ? 'p-3' : 'p-4 sm:p-5 lg:p-6'}`}>
 			<div
-				class={`grid h-full ${isHomepageLayout ? 'grid-cols-1 md:grid-cols-[minmax(0,1fr)_17rem]' : 'grid-cols-12'} ${isAnnouncementDiscord ? 'gap-3' : 'gap-4'}`}
+				class={`grid h-full ${isHomepageLayout ? 'grid-cols-1 md:grid-cols-[minmax(0,1fr)_17rem]' : 'grid-cols-[minmax(0,1fr)_280px]'} ${isAnnouncementDiscord ? 'gap-3' : 'gap-4'}`}
 			>
 				<section
-					class={`${isHomepageLayout ? '' : 'col-span-9'} flex min-h-0 min-w-0 flex-col rounded-2xl border border-white/45 bg-white/95 text-gray-900 shadow-xl ${isAnnouncementDiscord ? 'p-3' : 'p-4 lg:p-5'}`}
+					class={`flex min-h-0 min-w-0 flex-col rounded-2xl border border-white/45 bg-white/95 text-gray-900 shadow-xl ${isAnnouncementDiscord ? 'p-3' : 'p-4 lg:p-5'}`}
 				>
 					<header class={isAnnouncementDiscord ? 'mb-2' : 'mb-4'}>
 						<div class={`mb-2 flex items-center gap-2 ${isAnnouncementDiscord ? 'mb-1.5' : ''}`}>
@@ -260,9 +260,7 @@
 						</div>
 					</aside>
 				{:else}
-					<aside
-						class={`col-span-3 flex min-h-0 flex-col ${isAnnouncementDiscord ? 'gap-2' : 'gap-3'}`}
-					>
+					<aside class={`flex min-h-0 flex-col ${isAnnouncementDiscord ? 'gap-2' : 'gap-3'}`}>
 						<div class="min-h-0 flex-1 overflow-hidden">
 							<SponsorLockup
 								sponsors={resolvedSpec.sponsors}
@@ -272,6 +270,7 @@
 								showHeader={true}
 								minimal={true}
 								className="h-full"
+								logoHeightPx={42}
 							/>
 						</div>
 

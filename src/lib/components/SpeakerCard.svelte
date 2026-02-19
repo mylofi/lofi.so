@@ -108,9 +108,9 @@
 		</div>
 
 		<div class="relative h-full min-h-[420px] p-4">
-			<div class="grid h-full grid-cols-12 gap-3">
+			<div class="grid h-full grid-cols-[minmax(0,1fr)_280px] gap-3">
 				<section
-					class="col-span-12 flex min-h-0 flex-col rounded-2xl border border-white/45 bg-white/95 p-3 text-gray-900 shadow-xl md:col-span-8"
+					class="flex min-h-0 flex-col rounded-2xl border border-white/45 bg-white/95 p-3 text-gray-900 shadow-xl"
 				>
 					<header class="mb-3">
 						<div class="mb-2 flex items-center gap-2">
@@ -186,7 +186,7 @@
 					</div>
 				</section>
 
-				<aside class="col-span-12 flex min-h-0 flex-col gap-3 md:col-span-4">
+				<aside class="flex min-h-0 flex-col gap-3">
 					<div class="min-h-0 flex-1 overflow-hidden">
 						<SponsorLockup
 							sponsors={activeSponsors}
@@ -196,6 +196,7 @@
 							showHeader={true}
 							minimal={true}
 							className="h-full"
+							logoHeightPx={42}
 						/>
 					</div>
 					<div class="rounded-2xl border border-white/35 bg-black/10 p-3 backdrop-blur-sm">
