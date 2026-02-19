@@ -1,0 +1,120 @@
+{
+	"lofi33": {
+		"event": {
+			"title": "Watch Party",
+			"number": 33,
+			"startTimeISO": "2026-01-27T16:00:00.000Z",
+			"displayDateTime": "Tuesday, January 27 2026 · 8:00AM PST",
+			"links": {
+				"registration": "https://lofi.so",
+				"discord": "https://discord.gg/ZRrwZxn4rW",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Benjamin Hindman",
+				"social": {
+					"twitter": "@beaboringname"
+				},
+				"talk": "Durable Objects for Local-First Sync",
+				"bio": "Creator of Apache Mesos, now building replicated state machines on Cloudflare Durable Objects.",
+				"bullets": [
+					"How Durable Objects map to local-first sync primitives",
+					"Conflict resolution at the edge",
+					"Scaling from prototype to production"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Robel Estifanos",
+				"social": {
+					"twitter": "@roaboringname"
+				},
+				"talk": "Building Offline-First Mobile Apps",
+				"bio": "Mobile engineer focused on offline-first architectures and sync engines for React Native.",
+				"bullets": [
+					"SQLite as a sync layer for mobile apps",
+					"Handling merge conflicts in offline edits",
+					"User experience patterns for connectivity states"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Glauber Costa",
+				"social": {
+					"twitter": "@glaboringname"
+				},
+				"talk": "Turso and the Edge Database Revolution",
+				"bio": "CEO of Turso, bringing SQLite to the edge with libSQL and embedded replicas.",
+				"bullets": [
+					"libSQL as a local-first database primitive",
+					"Embedded replicas for zero-latency reads",
+					"Why SQLite is the future of application databases"
+				],
+				"avatar": ""
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"tier": "Gold",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"tier": "Gold",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"tier": "Gold",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"tier": "Gold",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 320,
+				"format": "png",
+				"maxBytes": 10000000,
+				"label": "Discord Banner (800x320 PNG)"
+			},
+			{
+				"id": "agenda_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Speaker Spotlight (1200x675 PNG)"
+			}
+		]
+	}
+}

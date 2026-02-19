@@ -2,35 +2,72 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import type { EventData } from '$lib/server/kv';
+	import type { EventGraphicSpec, EventGraphicSponsor } from '$lib/types/event-graphic';
+	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
 	import sponsorsData from '$lib/data/sponsors.json';
 	import { formatYMDLong, formatHHMM12 } from '$lib/utils/date';
 
-	interface Speaker {
-		name: string;
-		twitterHandle: string;
-		talk: string;
-		image: string;
-	}
-
 	export let eventData: EventData | null = null;
-	$: title = eventData?.title || 'Meetup';
+	export let spec: EventGraphicSpec | null = null;
 
-	// Get sponsors from the data file
-	const sponsors = sponsorsData.sponsors;
+	// Derive spec from eventData if not provided directly
+	$: resolvedSpec = spec
+		? spec
+		: eventData
+			? toEventGraphicSpec(eventData, undefined, sponsorsData.sponsors)
+			: null;
 
-	$: formattedDate = eventData?.date ? formatYMDLong(eventData.date) : '';
-	$: formattedTime = eventData?.time ? formatHHMM12(eventData.time) : '';
-	$: formattedDateTime = eventData ? `${formattedDate} @ ${formattedTime} ${eventData.timezone}` : '';
-	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
-	$: displayDateTime = formattedDateTime;
+	$: title = resolvedSpec?.event.title || eventData?.title || 'Meetup';
+	$: eventNumber = resolvedSpec?.event.number || eventData?.eventNumber || 0;
+	$: logoUrl = resolvedSpec?.event.links.logo || eventData?.logoUrl || '/images/logo.png';
+
+	// Sponsors from spec (order-sorted) or fallback to raw data
+	$: sponsors = resolvedSpec?.sponsors || normalizeSponsors(sponsorsData.sponsors);
+
+	// Date/time display
+	$: displayDateTime = resolvedSpec
+		? resolvedSpec.event.displayDateTime
+		: eventData
+			? `${eventData.date ? formatYMDLong(eventData.date) : ''} @ ${eventData.time ? formatHHMM12(eventData.time) : ''} ${eventData.timezone || ''}`
+			: '';
+
+	// Event passed detection
+	$: startTimeISO = resolvedSpec?.event.startTimeISO || eventData?.startTimeISO;
+	$: startTimeDate = startTimeISO ? new Date(startTimeISO) : null;
 	$: isEventPassed = startTimeDate
 		? startTimeDate.getTime() <= Date.now()
 		: eventData?.date
 			? new Date(eventData.date) < new Date()
 			: false;
+
+	// Speakers from spec or legacy
+	$: speakers = resolvedSpec
+		? resolvedSpec.speakers.map((s) => {
+				const primary = getPrimarySocial(s);
+				return {
+					name: s.name,
+					handle: primary?.handle || '',
+					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
+					talk: s.talk,
+					image: s.avatar
+				};
+			})
+		: (eventData?.speakers || []).map((s) => ({
+				name: s.name,
+				handle: s.twitterHandle || '',
+				handleUrl: s.twitterHandle ? `https://x.com/${s.twitterHandle.replace(/^@/, '')}` : '#',
+				talk: s.talk,
+				image: s.image
+			}));
+
+	// Links
+	$: registrationUrl = resolvedSpec?.event.links.registration || eventData?.registrationUrl || '';
+	$: discordUrl = resolvedSpec?.event.links.discord || eventData?.discordUrl || '';
+	$: calendarUrl = resolvedSpec?.event.links.calendar || eventData?.calendarUrl || '';
 </script>
 
-{#if eventData && eventData.eventNumber}
+{#if (resolvedSpec || eventData) && eventNumber}
 	<main id="graphic" class="flex h-full items-center justify-center">
 		<div
 			class="relative flex h-full w-full max-w-[1200px] flex-col items-stretch rounded-3xl bg-gradient-to-t from-primary to-discord text-black shadow-[0_0_30px_-10px_theme(colors.primary)] dark:text-white lg:flex-row"
@@ -38,7 +75,7 @@
 			<!-- Past Event Ribbon -->
 			{#if isEventPassed}
 				<div class="absolute -left-2 top-8 z-10 rotate-[-45deg] transform">
-					<div class="bg-red-600 px-8 py-0.5 text-center text-xs font-semibold rounded-sm uppercase tracking-wider text-white shadow-lg">
+					<div class="rounded-sm bg-red-600 px-8 py-0.5 text-center text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
 						Past Event
 					</div>
 				</div>
@@ -70,12 +107,12 @@
 						<!-- Header with Logo -->
 						<div class="mb-3 flex items-center gap-2">
 							<img
-								src={eventData.logoUrl || '/images/logo.png'}
+								src={logoUrl}
 								alt="LoFi"
 								class="h-8 w-8 flex-shrink-0 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
 							/>
 							<h2 class="m-0 text-xl font-bold leading-tight sm:text-2xl lg:text-3xl">
-							LoFi/{eventData.eventNumber} - {title}
+							LoFi/{eventNumber} - {title}
 						</h2>
 					</div>
 
@@ -99,12 +136,12 @@
 						{/if}
 						<div class="mb-4 h-0.5 border-b border-gray-500"></div>
 						<div class="flex-1">
-							{#if eventData.speakers && eventData.speakers.length > 0}
-							{#each eventData.speakers as speaker}
+							{#if speakers.length > 0}
+							{#each speakers as speaker}
 								<!-- Speaker Card -->
 								<div class="group flex items-center gap-2 sm:gap-4">
 									<a
-										href={`https://x.com/${speaker.twitterHandle?.substring(1)}`}
+										href={speaker.handleUrl}
 										target="_blank"
 										rel="noopener noreferrer"
 										class="flex w-[180px] min-w-[180px] flex-shrink-0 cursor-pointer items-center gap-2 rounded-full bg-gray-50 p-1 shadow-sm transition hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 sm:w-[230px] sm:min-w-[230px] lg:w-[260px] lg:min-w-[260px] lg:gap-3"
@@ -120,14 +157,14 @@
 											/>
 										</div>
 										<!-- Speaker Info -->
-										<div class="pr-2">
-											<h3 class="m-0 text-sm font-semibold">{speaker.name}</h3>
-											<span class="text-xs text-gray-600 dark:text-gray-400">{speaker.twitterHandle}</span>
+										<div class="min-w-0 pr-2">
+											<h3 class="m-0 truncate text-sm font-semibold">{speaker.name}</h3>
+											<span class="truncate text-xs text-gray-600 dark:text-gray-400">{speaker.handle}</span>
 										</div>
 									</a>
 									<!-- Talk Title -->
 									<p
-										class="flex-1 min-w-0 text-sm font-semibold italic leading-tight transition group-hover:text-discord"
+										class="line-clamp-2 min-w-0 flex-1 text-sm font-semibold italic leading-tight transition group-hover:text-discord"
 									>
 										{speaker.talk}
 									</p>
@@ -145,24 +182,8 @@
 			<!-- Call to Action Section -->
 			<section class="relative flex w-full flex-col p-3 lg:w-[240px] lg:min-w-[200px] lg:flex-shrink-0 lg:p-4">
 				<!-- Sponsors Section -->
-				<div class="hidden flex-1 flex-col items-center pt-4 lg:flex">
-					<h4 class="whitespace-nowrap text-center text-lg font-bold text-white/90">Sponsored by</h4>
-					<div class="flex flex-1 flex-col items-center justify-around py-2">
-						{#each sponsors as sponsor}
-							<a
-								href={sponsor.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="transition hover:opacity-90"
-							>
-								<img
-									src={sponsor.image}
-									alt={sponsor.name}
-									class="h-auto w-20 max-h-16 object-contain {sponsor.tier === 'Partner' ? 'max-h-16 w-28' : ''}"
-								/>
-							</a>
-						{/each}
-					</div>
+				<div class="hidden lg:flex">
+					<SponsorLockup {sponsors} variant="strip" showTierLabel={true} />
 				</div>
 
 				<!-- Action Buttons -->
@@ -180,7 +201,7 @@
 							Watch Recording
 						</a>
 						<a
-							href={eventData.discordUrl}
+							href={discordUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="flex w-full items-center justify-center gap-2 rounded-lg bg-white/20 px-6 py-3 text-white backdrop-blur-sm transition hover:bg-white/30"
@@ -199,7 +220,7 @@
 						</a>
 					{:else}
 						<a
-							href={eventData.registrationUrl}
+							href={registrationUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="flex w-full items-center justify-center gap-2 rounded-lg bg-white/20 px-6 py-3 text-white backdrop-blur-sm transition hover:bg-white/30"
@@ -217,7 +238,7 @@
 							Join on Discord
 						</a>
 						<a
-							href={eventData.calendarUrl}
+							href={calendarUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 							class="flex w-full items-center justify-center gap-2 rounded-lg bg-white/20 px-6 py-3 text-white backdrop-blur-sm transition hover:bg-white/30"
