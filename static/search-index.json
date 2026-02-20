@@ -1,8 +1,92 @@
 [
   {
-    "title": "Zero",
-    "url": "/directory/projects/zero",
-    "excerpt": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+    "title": "Home",
+    "url": "/",
+    "excerpt": "Explore\n\t\t\t\t\t\n\t\t\t\t\t\tEverything You Need to Build and Discover Local-First\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\tDiscover curated tools, connect w...",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/mentions",
+    "excerpt": "Local-First Community Mentions\n\t\t\t\t\t\tDiscover what developers, thought leaders, and community members are saying ab...",
+    "category": "Page"
+  },
+  {
+    "title": "Learn - Local-First Web",
+    "url": "/learn",
+    "excerpt": "Resources to learn about local-first software development",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/event-graphic",
+    "excerpt": "Generate Event Graphic\n\n\t\n\t\t\n\t\t\t\n\t\t\t\n\t\t\t\tEvent Details\n\n\t\t\t\t\n\t\t\t\t\tEvent Title\n\t\t\t\t\t\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\tEvent Number\n\t\t\t\t\t\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\tDate...",
+    "category": "Event"
+  },
+  {
+    "title": "Home",
+    "url": "/directory",
+    "excerpt": "Local-First Directory\n\t\t\t\t\n\t\t\t\t\tApps, Products, Platforms, and Databases\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\tDiscover software that keeps user data local, wo...",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/directory/projects",
+    "excerpt": "Directory / Projects\n\t\tProjects\n\t\t\n\t\t\tLocal-first platforms and building blocks that power apps, data sync, and developer workflows....",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/directory/projects/[slug]",
+    "excerpt": "{#if project}\n\t\n\t\t\n\t\t\tDirectory\n\t\t\t/\n\t\t\tProjects\n\t\t\t/\n\t\t\t{project.fields.Title}\n\t\t\n\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\tProject...",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/directory/apps",
+    "excerpt": "Directory / Apps\n\t\tApps\n\t\t\n\t\t\tLocal-first applications that put users first....",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/directory/apps/[slug]",
+    "excerpt": "{#if app}\n\t\n\t\t\n\t\t\tDirectory\n\t\t\t/\n\t\t\tApps\n\t\t\t/\n\t\t\t{app.fields.Title}\n\t\t\n\n\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\tApp\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t{app.fields.Tit...",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/blog",
+    "excerpt": "Latest From the Blog\n\t\t\t\t\t\n\n\t\t\t\t\t\n\t\t\t\t\t\t{#each posts as post}\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t{formatDate(post.date)}...",
+    "category": "Page"
+  },
+  {
+    "title": "Home",
+    "url": "/blog/[slug]",
+    "excerpt": "{post.title}\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t{post.author}\n\t\t\t\t\t\t·\n\t\t\t\t\t\t{formatDate(post.date)}\n\t\t\t\t\t\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\t{@html post.content}...",
+    "category": "Page"
+  },
+  {
+    "title": "I wrote a static web page and accidentally started a community",
+    "url": "/blog/i-wrote-a-static-web-page",
+    "excerpt": "The flap of a butterfly’s wings on one continent, so the story goes, can cause a tornado a year later in another. Here’s my story of how something like that can happen on the web too.",
+    "category": "Blog Post"
+  },
+  {
+    "title": "Jazz Tools",
+    "url": "/directory/projects/jazz-tools",
+    "excerpt": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
+    "category": "Library"
+  },
+  {
+    "title": "ElectricSQL",
+    "url": "/directory/projects/electricsql",
+    "excerpt": "Sync little subsets of your Postgres data into local apps and services.",
+    "category": "Library"
+  },
+  {
+    "title": "PowerSync",
+    "url": "/directory/projects/powersync",
+    "excerpt": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
     "category": "Library"
   },
   {
@@ -33,18 +117,6 @@
     "title": "Tweek",
     "url": "/directory/apps/tweek",
     "excerpt": "Tweek is a FREE personal and shared to do list app to organize your tasks and collaborate on them online with your team or family. It provides a weekly calendar view mode and a reminder app. Tweek is an online daily and weekly planner that boosts your productivity to the best level. Instantly plan and organize your week todos!",
-    "category": "Library"
-  },
-  {
-    "title": "PowerSync",
-    "url": "/directory/projects/powersync",
-    "excerpt": "Sync engine for building local-first apps with instantly-responsive UI/UX and simplified state transfer. Connects to Postgres, MongoDB and MySQL backend databases.",
-    "category": "Library"
-  },
-  {
-    "title": "MySQLSync",
-    "url": "/directory/projects/mysqlsync",
-    "excerpt": "A synchronization solution that connects MySQL with mobile applications, which can reuse the same database schema in a local SQLite instance and sync automatically in both directions.",
     "category": "Library"
   },
   {
@@ -114,6 +186,12 @@
     "category": "Library"
   },
   {
+    "title": "Dexie Cloud",
+    "url": "/directory/projects/dexie-cloud",
+    "excerpt": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
+    "category": "Library"
+  },
+  {
     "title": "Dexie.js",
     "url": "/directory/projects/dexie.js",
     "excerpt": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
@@ -129,12 +207,6 @@
     "title": "Dat Stack",
     "url": "/directory/projects/dat-stack",
     "excerpt": "dat-ecosystem is a post-web p2p community of projects - Most projects are self funded. Some of the projects contribute maintainance and development to core pieces of the Dat ecosystem while others create high level applications built on top of p2p protocols.",
-    "category": "Library"
-  },
-  {
-    "title": "ElectricSQL",
-    "url": "/directory/projects/electricsql",
-    "excerpt": "Sync little subsets of your Postgres data into local apps and services.",
     "category": "Library"
   },
   {
@@ -204,6 +276,12 @@
     "category": "Library"
   },
   {
+    "title": "Zero",
+    "url": "/directory/projects/zero",
+    "excerpt": "Zero is a new kind of sync engine powered by queries. Rather than syncing entire tables, you write queries directly in your client code that can access the entire backend database. Zero caches query data locally and reuses it automatically, making almost all queries instant while falling back to the server when needed.",
+    "category": "Library"
+  },
+  {
     "title": "Triplit",
     "url": "/directory/projects/triplit",
     "excerpt": "Triplit is a complete solution to data persistence, state management, and realtime synchronization for web applications that want to go fast.",
@@ -243,12 +321,6 @@
     "title": "Collabs",
     "url": "/directory/projects/collabs",
     "excerpt": "Collabs Documentation — Collabs  documentation",
-    "category": "Library"
-  },
-  {
-    "title": "Dexie Cloud",
-    "url": "/directory/projects/dexie-cloud",
-    "excerpt": "The easiest way to use IndexedDB. A lightweight, minimalistic wrapper that provides a straightforward API for developers using IndexedDB.",
     "category": "Library"
   },
   {
@@ -348,12 +420,6 @@
     "category": "Directory Entry"
   },
   {
-    "title": "Gnocchi.club",
-    "url": "/directory/apps/gnocchi-club",
-    "excerpt": "Your grocery list, done better",
-    "category": "Directory Entry"
-  },
-  {
     "title": "Strut.io",
     "url": "/directory/apps/strut-io",
     "excerpt": "An editor for creating web based presentations",
@@ -378,12 +444,6 @@
     "category": "Library"
   },
   {
-    "title": "Jazz Tools",
-    "url": "/directory/projects/jazz-tools",
-    "excerpt": "Jazz Tools provides a suite of tools for building local-first applications with seamless sync capabilities.",
-    "category": "Library"
-  },
-  {
     "title": "Soukai",
     "url": "/directory/projects/soukai",
     "excerpt": "A refreshing JavaScript ODM for Solid, IndexedDB, and more.",
@@ -399,6 +459,30 @@
     "title": "Umai",
     "url": "/directory/apps/umai",
     "excerpt": "A local-first recipe manager application.",
+    "category": "Library"
+  },
+  {
+    "title": "MySQLSync",
+    "url": "/directory/projects/mysqlsync",
+    "excerpt": "A synchronization solution that connects MySQL with mobile applications, which can reuse the same database schema in a local SQLite instance and sync automatically in both directions.",
+    "category": "Library"
+  },
+  {
+    "title": "Expensinator",
+    "url": "/directory/apps/expensinator",
+    "excerpt": "Expensinator is a simple, local first expense management tool that helps you track, categorize, and analyze your spending habits with ease.",
+    "category": "Library"
+  },
+  {
+    "title": "MyInvoices",
+    "url": "/directory/apps/myinvoices",
+    "excerpt": "The perfect billing solution designed specifically for freelancers, small business owners, and independent developers. Manage your invoices professionally without the complexity of enterprise software.",
+    "category": "Library"
+  },
+  {
+    "title": "Locu",
+    "url": "/directory/apps/locu",
+    "excerpt": "The next-generation productivity app built for makers. Combine your tasks, notes, and focus sessions into one unified workspace designed for maximum execution and deep work.",
     "category": "Library"
   },
   {
@@ -540,144 +624,6 @@
     "category": "Section"
   },
   {
-    "title": "Storing data",
-    "url": "/#apps-storing-data",
-    "excerpt": "Build - Storing data",
-    "category": "Development Resource"
-  },
-  {
-    "title": "ElectricSQL",
-    "url": "https://electric-sql.com",
-    "excerpt": "ElectricSQL by ElectricSQL team",
-    "category": "External Resource"
-  },
-  {
-    "title": "Dexie.js",
-    "url": "https://dexie.org/",
-    "excerpt": "Dexie.js by David Fahlander",
-    "category": "External Resource"
-  },
-  {
-    "title": "DXOS",
-    "url": "https://dxos.org",
-    "excerpt": "DXOS by dxos.org",
-    "category": "External Resource"
-  },
-  {
-    "title": "Dat Stack",
-    "url": "https://dat-ecosystem.org/",
-    "excerpt": "Dat Stack by hyper- core/bee/store/drive (by dat-ecosystem)",
-    "category": "External Resource"
-  },
-  {
-    "title": "Evolu",
-    "url": "https://www.evolu.dev/",
-    "excerpt": "Evolu by Daniel Steigerwald",
-    "category": "External Resource"
-  },
-  {
-    "title": "Liveblocks",
-    "url": "https://liveblocks.io/",
-    "excerpt": "Liveblocks by Liveblocks team",
-    "category": "External Resource"
-  },
-  {
-    "title": "Fireproof",
-    "url": "https://use-fireproof.com/",
-    "excerpt": "Fireproof by Fireproof team",
-    "category": "External Resource"
-  },
-  {
-    "title": "Gun",
-    "url": "https://gun.eco",
-    "excerpt": "Gun by Mark Nadal",
-    "category": "External Resource"
-  },
-  {
-    "title": "Instant",
-    "url": "https://www.instantdb.com",
-    "excerpt": "Instant by Stepan Parunashvili",
-    "category": "External Resource"
-  },
-  {
-    "title": "m-ld",
-    "url": "https://m-ld.org/",
-    "excerpt": "m-ld by George Svarovsky et al.",
-    "category": "External Resource"
-  },
-  {
-    "title": "NextGraph",
-    "url": "https://nextgraph.org/",
-    "excerpt": "NextGraph by Niko Bonnieure",
-    "category": "External Resource"
-  },
-  {
-    "title": "PouchDB",
-    "url": "https://pouchdb.com",
-    "excerpt": "PouchDB by PouchDB contributors",
-    "category": "External Resource"
-  },
-  {
-    "title": "remoteStorage",
-    "url": "https://remotestorage.io",
-    "excerpt": "remoteStorage by remoteStorage contributors",
-    "category": "External Resource"
-  },
-  {
-    "title": "RxDB",
-    "url": "https://rxdb.info",
-    "excerpt": "RxDB by Daniel Meyer",
-    "category": "External Resource"
-  },
-  {
-    "title": "SignalDB",
-    "url": "https://signaldb.js.org",
-    "excerpt": "SignalDB by Max Nowack",
-    "category": "External Resource"
-  },
-  {
-    "title": "Soukai",
-    "url": "https://soukai.js.org",
-    "excerpt": "Soukai by Noel De Martin",
-    "category": "External Resource"
-  },
-  {
-    "title": "SyncedStore",
-    "url": "https://syncedstore.org",
-    "excerpt": "SyncedStore by Yousef El-Dardiry",
-    "category": "External Resource"
-  },
-  {
-    "title": "TinyBase",
-    "url": "https://tinybase.org",
-    "excerpt": "TinyBase by James Pearce",
-    "category": "External Resource"
-  },
-  {
-    "title": "Triplit",
-    "url": "https://triplit.dev",
-    "excerpt": "Triplit by Aspen Cloud",
-    "category": "External Resource"
-  },
-  {
-    "title": "Verdant",
-    "url": "https://verdant.dev",
-    "excerpt": "Verdant by Grant Forrest",
-    "category": "External Resource"
-  },
-  {
-    "title": "VLCN",
-    "url": "https://vlcn.io",
-    "excerpt": "VLCN by Matt Wonlaw",
-    "category": "External Resource"
-  },
-  {
-    "title": "WatermelonDB",
-    "url": "https://watermelondb.dev",
-    "excerpt": "WatermelonDB by Radek Pietruszewski / Nozbe",
-    "category": "External Resource"
-  },
-  {
     "title": "Syncing data",
     "url": "/#apps-syncing-data",
     "excerpt": "Build - Syncing data",
@@ -690,15 +636,21 @@
     "category": "External Resource"
   },
   {
-    "title": "Zero",
-    "url": "https://zero.rocicorp.dev",
-    "excerpt": "Zero by Rocicorp",
+    "title": "ElectricSQL",
+    "url": "https://electric-sql.com",
+    "excerpt": "ElectricSQL by ElectricSQL team",
     "category": "External Resource"
   },
   {
-    "title": "Amplify DataStore",
-    "url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
-    "excerpt": "Amplify DataStore by Amazon Web Services",
+    "title": "PowerSync",
+    "url": "https://www.powersync.com",
+    "excerpt": "PowerSync by JourneyApps",
+    "category": "External Resource"
+  },
+  {
+    "title": "Yjs",
+    "url": "https://yjs.dev",
+    "excerpt": "Yjs by Kevin Jahns & contributors",
     "category": "External Resource"
   },
   {
@@ -729,6 +681,12 @@
     "title": "Ditto",
     "url": "https://ditto.live",
     "excerpt": "Ditto by Ditto Live, Inc",
+    "category": "External Resource"
+  },
+  {
+    "title": "Dat Stack",
+    "url": "https://dat-ecosystem.org/",
+    "excerpt": "Dat Stack by hyper- swarm/dht & autobase (by dat-ecosystem)",
     "category": "External Resource"
   },
   {
@@ -768,9 +726,27 @@
     "category": "External Resource"
   },
   {
-    "title": "PowerSync",
-    "url": "https://www.powersync.com",
-    "excerpt": "PowerSync by JourneyApps",
+    "title": "MySQLSync",
+    "url": "https://mysqlsync.com",
+    "excerpt": "MySQLSync by DidiSoft",
+    "category": "External Resource"
+  },
+  {
+    "title": "m-ld",
+    "url": "https://m-ld.org/",
+    "excerpt": "m-ld by George Svarovsky et al.",
+    "category": "External Resource"
+  },
+  {
+    "title": "NextGraph",
+    "url": "https://nextgraph.org/",
+    "excerpt": "NextGraph by Niko Bonnieure",
+    "category": "External Resource"
+  },
+  {
+    "title": "p2panda",
+    "url": "https://p2panda.org/",
+    "excerpt": "p2panda by adzialocha",
     "category": "External Resource"
   },
   {
@@ -786,9 +762,21 @@
     "category": "External Resource"
   },
   {
-    "title": "Yjs",
-    "url": "https://yjs.dev",
-    "excerpt": "Yjs by Kevin Jahns & contributors",
+    "title": "TinyBase",
+    "url": "https://tinybase.org",
+    "excerpt": "TinyBase by James Pearce",
+    "category": "External Resource"
+  },
+  {
+    "title": "Verdant",
+    "url": "https://verdant.dev",
+    "excerpt": "Verdant by Grant Forrest",
+    "category": "External Resource"
+  },
+  {
+    "title": "VLCN",
+    "url": "https://vlcn.io",
+    "excerpt": "VLCN by Matt Wonlaw",
     "category": "External Resource"
   },
   {
@@ -807,6 +795,108 @@
     "title": "Legend State",
     "url": "https://github.com/LegendApp/legend-state",
     "excerpt": "Legend State by Jay Meistrich",
+    "category": "External Resource"
+  },
+  {
+    "title": "Amplify DataStore",
+    "url": "https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/",
+    "excerpt": "Amplify DataStore by Amazon Web Services",
+    "category": "External Resource"
+  },
+  {
+    "title": "Storing data",
+    "url": "/#apps-storing-data",
+    "excerpt": "Build - Storing data",
+    "category": "Development Resource"
+  },
+  {
+    "title": "Dexie.js",
+    "url": "https://dexie.org/",
+    "excerpt": "Dexie.js by David Fahlander",
+    "category": "External Resource"
+  },
+  {
+    "title": "WatermelonDB",
+    "url": "https://watermelondb.dev",
+    "excerpt": "WatermelonDB by Radek Pietruszewski / Nozbe",
+    "category": "External Resource"
+  },
+  {
+    "title": "remoteStorage",
+    "url": "https://remotestorage.io",
+    "excerpt": "remoteStorage by remoteStorage contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "RxDB",
+    "url": "https://rxdb.info",
+    "excerpt": "RxDB by Daniel Meyer",
+    "category": "External Resource"
+  },
+  {
+    "title": "Gun",
+    "url": "https://gun.eco",
+    "excerpt": "Gun by Mark Nadal",
+    "category": "External Resource"
+  },
+  {
+    "title": "DXOS",
+    "url": "https://dxos.org",
+    "excerpt": "DXOS by dxos.org",
+    "category": "External Resource"
+  },
+  {
+    "title": "Evolu",
+    "url": "https://www.evolu.dev/",
+    "excerpt": "Evolu by Daniel Steigerwald",
+    "category": "External Resource"
+  },
+  {
+    "title": "Liveblocks",
+    "url": "https://liveblocks.io/",
+    "excerpt": "Liveblocks by Liveblocks team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Fireproof",
+    "url": "https://use-fireproof.com/",
+    "excerpt": "Fireproof by Fireproof team",
+    "category": "External Resource"
+  },
+  {
+    "title": "Instant",
+    "url": "https://www.instantdb.com",
+    "excerpt": "Instant by Stepan Parunashvili",
+    "category": "External Resource"
+  },
+  {
+    "title": "PouchDB",
+    "url": "https://pouchdb.com",
+    "excerpt": "PouchDB by PouchDB contributors",
+    "category": "External Resource"
+  },
+  {
+    "title": "SignalDB",
+    "url": "https://signaldb.js.org",
+    "excerpt": "SignalDB by Max Nowack",
+    "category": "External Resource"
+  },
+  {
+    "title": "Soukai",
+    "url": "https://soukai.js.org",
+    "excerpt": "Soukai by Noel De Martin",
+    "category": "External Resource"
+  },
+  {
+    "title": "SyncedStore",
+    "url": "https://syncedstore.org",
+    "excerpt": "SyncedStore by Yousef El-Dardiry",
+    "category": "External Resource"
+  },
+  {
+    "title": "Triplit",
+    "url": "https://triplit.dev",
+    "excerpt": "Triplit by Aspen Cloud",
     "category": "External Resource"
   },
   {
@@ -1020,6 +1110,12 @@
     "category": "Application"
   },
   {
+    "title": "Kinopio",
+    "url": "https://kinopio.club",
+    "excerpt": "Kinopio by Piri",
+    "category": "Application"
+  },
+  {
     "title": "Strut.io",
     "url": "https://strut.io",
     "excerpt": "Strut.io by Strut contributors",
@@ -1050,45 +1146,33 @@
     "category": "Application"
   },
   {
-    "title": "Vella.ai",
-    "url": "https://vella.ai?utm_source=lofi_so",
-    "excerpt": "Vella.ai - Gold of Local-First Web",
+    "title": "Focus",
+    "url": "https://focus.noeldemartin.com",
+    "excerpt": "Focus by Noel De Martin",
+    "category": "Application"
+  },
+  {
+    "title": "Jazz",
+    "url": "https://jazz.tools?utm_source=lofi_so",
+    "excerpt": "Jazz - 'Sponsor of LoFi.so'",
     "category": "Sponsor"
   },
   {
     "title": "Electric SQL",
     "url": "https://electric-sql.com?utm_source=lofi_so",
-    "excerpt": "Electric SQL - Gold of Local-First Web",
+    "excerpt": "Electric SQL - 'Sponsor of LoFi.so'",
     "category": "Sponsor"
   },
   {
-    "title": "Jazz",
-    "url": "https://jazz.tools?utm_source=lofi_so",
-    "excerpt": "Jazz - Gold of Local-First Web",
+    "title": "PowerSync",
+    "url": "https://powersync.com?utm_source=lofi_so",
+    "excerpt": "PowerSync - 'Sponsor of LoFi.so'",
     "category": "Sponsor"
   },
   {
-    "title": "Zero",
-    "url": "https://zero.rocicorp.dev/?utm_source=lofi_so",
-    "excerpt": "Zero - Gold of Local-First Web",
+    "title": "Vella.ai",
+    "url": "https://vella.ai?utm_source=lofi_so",
+    "excerpt": "Vella.ai - 'Sponsor of LoFi.so'",
     "category": "Sponsor"
-  },
-  {
-    "title": "Home",
-    "url": "/",
-    "excerpt": "Local-first software for the web - Build apps that work offline and sync when online",
-    "category": "Page"
-  },
-  {
-    "title": "Directory",
-    "url": "/directory",
-    "excerpt": "Explore local-first applications and tools for developers and users",
-    "category": "Page"
-  },
-  {
-    "title": "Blog",
-    "url": "/blog",
-    "excerpt": "Latest news and articles about local-first development and the ecosystem",
-    "category": "Page"
   }
 ]
