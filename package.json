@@ -3,6 +3,7 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "yarn@3.6.3",
 	"scripts": {
 		"dev": "vite dev",
 		"dev:cf": "npx wrangler pages dev .svelte-kit/cloudflare",
@@ -31,6 +32,7 @@
 		"glob": "^10.4.5",
 		"gray-matter": "^4.0.3",
 		"jsdom": "^26.0.0",
+		"jszip": "^3.10.1",
 		"marked": "^15.0.7",
 		"mdsvex": "^0.12.3",
 		"postcss": "^8.5.3",
@@ -47,7 +49,6 @@
 	"dependencies": {
 		"@google/generative-ai": "^0.22.0",
 		"fuse.js": "^7.1.0",
-		"jszip": "^3.10.1",
 		"modern-screenshot": "^4.5.5",
 		"openai": "^4.86.2"
 	}
