@@ -34,3 +34,4 @@ output/
 /graphic-*.png
 /audit-*.jpg
 /graphic-*.jpg
+.session/
