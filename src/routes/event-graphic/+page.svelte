@@ -461,6 +461,32 @@
 		}
 	}
 
+	// Save event data to KV (updates homepage) without generating images
+	let isSaving = false;
+	let saveStatus: 'idle' | 'saved' | 'error' = 'idle';
+
+	async function handleSave() {
+		isSaving = true;
+		saveStatus = 'idle';
+		try {
+			const payload = { ...formData, startTimeISO };
+			const response = await fetch('/api/save-event', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+			if (!response.ok) throw new Error('Failed to save event data');
+			saveStatus = 'saved';
+			setTimeout(() => (saveStatus = 'idle'), 3000);
+		} catch (error) {
+			console.error('Save error:', error);
+			saveStatus = 'error';
+			setTimeout(() => (saveStatus = 'idle'), 4000);
+		} finally {
+			isSaving = false;
+		}
+	}
+
 	// New: Multi-platform bundle export
 	async function handleGenerateBundle() {
 		isExporting = true;
@@ -861,10 +887,39 @@
 			<button
 				type="button"
 				on:click={handleGenerateBundle}
-				disabled={isExporting}
+				disabled={isExporting || isSaving}
 				class="flex-1 rounded-md bg-green-600 px-4 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
 			>
 				{isExporting ? 'Generating...' : 'Generate Bundle'}
+			</button>
+			<button
+				type="button"
+				on:click={handleSave}
+				disabled={isSaving || isExporting}
+				class="flex items-center gap-2 rounded-md px-4 py-3 text-lg font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50
+					{saveStatus === 'saved' ? 'bg-emerald-600 focus:ring-emerald-500' : saveStatus === 'error' ? 'bg-red-600 focus:ring-red-500' : 'bg-[#5865f2] hover:bg-[#4752c4] focus:ring-[#5865f2]'}"
+			>
+				{#if isSaving}
+					<svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+					</svg>
+					Saving…
+				{:else if saveStatus === 'saved'}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+					</svg>
+					Saved!
+				{:else if saveStatus === 'error'}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+					</svg>
+					Save Failed
+				{:else}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16a3 3 0 110-6 3 3 0 010 6zm3-10H5V5h10v4z"/>
+					</svg>
+					Save to Homepage
+				{/if}
 			</button>
 			<button
 				type="submit"
