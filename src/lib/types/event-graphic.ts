@@ -19,7 +19,6 @@ export interface EventGraphicSpeaker {
 
 export interface EventGraphicSponsor {
 	name: string;
-	tier: 'Partner' | 'Platinum' | 'Gold';
 	order: number;
 	url: string;
 	logoLight: string;
@@ -86,7 +85,5 @@ export interface RawSponsor {
 	name: string;
 	image: string;
 	url: string;
-	tier: string;
-	amount: number;
 	order?: number;
 }

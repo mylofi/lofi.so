@@ -56,7 +56,7 @@
 						<img
 							src={sponsor.logoLight}
 							alt={sponsor.name}
-							class="h-auto max-h-20 w-auto max-w-[200px] object-contain {sponsor.tier === 'Partner' ? 'max-h-24 max-w-[250px]' : ''}"
+							class="h-auto max-h-20 w-auto max-w-[200px] object-contain"
 						/>
 					</div>
 				{/each}

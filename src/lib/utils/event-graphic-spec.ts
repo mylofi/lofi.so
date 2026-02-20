@@ -58,7 +58,6 @@ export function normalizeSponsors(raw: RawSponsor[]): EventGraphicSponsor[] {
 	return raw
 		.map((s, i) => ({
 			name: s.name,
-			tier: normalizeTier(s.tier),
 			order: s.order ?? i,
 			url: s.url,
 			logoLight: s.image,
@@ -67,12 +66,7 @@ export function normalizeSponsors(raw: RawSponsor[]): EventGraphicSponsor[] {
 		.sort((a, b) => a.order - b.order);
 }
 
-function normalizeTier(tier: string): 'Partner' | 'Platinum' | 'Gold' {
-	const t = tier.toLowerCase();
-	if (t === 'partner') return 'Partner';
-	if (t === 'platinum') return 'Platinum';
-	return 'Gold';
-}
+
 
 // ---------------------------------------------------------------------------
 // Social handle normalization
