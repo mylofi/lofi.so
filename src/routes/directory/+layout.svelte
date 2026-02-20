@@ -12,7 +12,6 @@
 		url: string;
 		image: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
 	}[];
 
 	const apps = items.filter((item) => item.fields.Main_Category === 1);

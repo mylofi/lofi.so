@@ -11,7 +11,6 @@
 		image: string;
 		imageDark?: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
 		order?: number;
 	}[];
 
@@ -35,8 +34,6 @@
 		registrationUrl: string;
 		startTimeISO?: string;
 	} | null = null;
-
-	type TierType = 'Partner' | 'Platinum' | 'Gold';
 
 	let isMeetupsOpen = true;
 	let isConferencesOpen = true;
@@ -92,8 +89,6 @@
 			name: s.name,
 			image: s.image,
 			url: s.url,
-			tier: s.tier,
-			amount: 0,
 			order: s.order
 		}))
 	) as EventGraphicSponsor[];

@@ -15,7 +15,6 @@
 		url: string;
 		image: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
 	}[];
 
 	let activeTab = 'storage';

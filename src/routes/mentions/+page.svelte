@@ -8,7 +8,6 @@
 		url: string;
 		image: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
 	}[];
 
 	// Filter mentions by type with explicit type checking

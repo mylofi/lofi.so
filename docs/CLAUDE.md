@@ -262,7 +262,7 @@ Legacy target IDs (`x_feed`, `bsky_feed`, `discord_feed`, `speaker_x_feed`, etc.
 
 ### Sponsor Ordering
 
-Sponsors use **order-based sorting** (not tier-based). Each sponsor has an `order: number` field. `normalizeSponsors()` sorts ascending. Default sponsors loaded from `$lib/data/sponsors.json`.
+Sponsors use **order-based sorting**. Each sponsor has an `order: number` field. `normalizeSponsors()` sorts ascending. Default sponsors loaded from `$lib/data/sponsors.json`.
 
 ### Homepage Integration
 
@@ -348,7 +348,7 @@ No test framework is currently configured. Quality checks available:
 1. **Always normalize event data** through `toEventGraphicSpec()` before rendering or persisting
 2. **Use `$lib/` imports** — never use relative paths that escape the current directory
 3. **Guard client-only code** with `import { browser } from '$app/environment'`
-4. **Sponsors are order-based** — set `order` field, never use tier/priority semantics
+4. **Sponsors are order-based** — set `order` field and avoid category-based sizing logic
 5. **Export targets map to three canonical formats** — don't create new dimensions without updating the type system
 6. **KV operations normalize on both save and read** — idempotent round-trip
 7. **Static data lives in `$lib/data/`** as JSON — import directly, don't fetch at runtime

@@ -2,24 +2,11 @@
 	import { theme } from '$lib/stores/themeStore';
 	import type { EventGraphicSponsor } from '$lib/types/event-graphic';
 
-	export let sponsors: EventGraphicSponsor[] = [];
-	export let variant: 'strip' | 'grid' | 'sidebar' = 'strip';
-	export let maxVisible: number = 8;
-	export let showTierLabel: boolean = false;
-
-	type TierType = 'Partner' | 'Platinum' | 'Gold';
-
-	const tierHeights: Record<TierType, number> = {
-		Partner: 120,
-		Platinum: 100,
-		Gold: 80
-	};
-
-	const tierLogoClass: Record<TierType, string> = {
-		Partner: 'max-h-16 w-28',
-		Platinum: 'max-h-16 w-24',
-		Gold: 'max-h-16 w-20'
-	};
+export let sponsors: EventGraphicSponsor[] = [];
+export let variant: 'strip' | 'grid' | 'sidebar' = 'strip';
+export let maxVisible: number = 8;
+export let showSponsorLabel: boolean = false;
+const SIDEBAR_CARD_HEIGHT = 88;
 
 	function getSponsorImage(sponsor: EventGraphicSponsor): string {
 		if (sponsor.logoDark && $theme === 'dark') {
@@ -34,7 +21,7 @@
 {#if variant === 'strip'}
 	<!-- Horizontal strip for inside event graphic cards -->
 	<div class="flex flex-1 flex-col items-center pt-4">
-		{#if showTierLabel}
+		{#if showSponsorLabel}
 			<h4 class="whitespace-nowrap text-center text-lg font-bold text-white/90">Sponsored by</h4>
 		{/if}
 		<div class="flex flex-1 flex-col items-center justify-around py-2">
@@ -48,7 +35,7 @@
 					<img
 						src={getSponsorImage(sponsor)}
 						alt={sponsor.name}
-						class="h-auto object-contain {tierLogoClass[sponsor.tier]}"
+						class="h-auto max-h-16 w-28 object-contain"
 					/>
 				</a>
 			{/each}
@@ -89,7 +76,7 @@
 					class="group block overflow-hidden border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900/90 dark:hover:bg-gray-800/80"
 					class:rounded-t-xl={i === 0}
 					class:rounded-b-xl={i === sorted.length - 1 && sorted.length >= 4}
-					style="height: {tierHeights[sponsor.tier]}px"
+					style="height: {SIDEBAR_CARD_HEIGHT}px"
 				>
 					<div class="flex h-full w-full items-center justify-center p-4">
 						<img
@@ -108,7 +95,7 @@
 						class="block overflow-hidden border border-dashed border-slate-200/90 bg-white/70 backdrop-blur-sm transition-colors dark:border-gray-800 dark:bg-gray-900/60"
 						class:rounded-t-xl={sorted.length === 0 && i === 0}
 						class:rounded-b-xl={i === 3 - sorted.length}
-						style="height: 80px"
+						style="height: {SIDEBAR_CARD_HEIGHT}px"
 					>
 						<div class="flex h-full w-full items-center justify-center p-4"></div>
 					</div>
