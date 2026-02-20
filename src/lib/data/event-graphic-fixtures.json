@@ -1,0 +1,230 @@
+{
+	"lofi33": {
+		"event": {
+			"title": "Watch Party",
+			"number": 33,
+			"startTimeISO": "2026-01-27T16:00:00.000Z",
+			"displayDateTime": "Tuesday, January 27 2026 · 8:00AM PST",
+			"links": {
+				"registration": "https://lofi.so",
+				"discord": "https://discord.gg/ZRrwZxn4rW",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Benjamin Hindman",
+				"social": {
+					"twitter": "@beaboringname"
+				},
+				"talk": "Durable Objects for Local-First Sync",
+				"bio": "Creator of Apache Mesos, now building replicated state machines on Cloudflare Durable Objects.",
+				"bullets": [
+					"How Durable Objects map to local-first sync primitives",
+					"Conflict resolution at the edge",
+					"Scaling from prototype to production"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Robel Estifanos",
+				"social": {
+					"twitter": "@roaboringname"
+				},
+				"talk": "Building Offline-First Mobile Apps",
+				"bio": "Mobile engineer focused on offline-first architectures and sync engines for React Native.",
+				"bullets": [
+					"SQLite as a sync layer for mobile apps",
+					"Handling merge conflicts in offline edits",
+					"User experience patterns for connectivity states"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Glauber Costa",
+				"social": {
+					"twitter": "@glaboringname"
+				},
+				"talk": "Turso and the Edge Database Revolution",
+				"bio": "CEO of Turso, bringing SQLite to the edge with libSQL and embedded replicas.",
+				"bullets": [
+					"libSQL as a local-first database primitive",
+					"Embedded replicas for zero-latency reads",
+					"Why SQLite is the future of application databases"
+				],
+				"avatar": ""
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 320,
+				"format": "png",
+				"maxBytes": 10000000,
+				"label": "Discord Banner (800x320 PNG)"
+			},
+			{
+				"id": "agenda_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Speaker Spotlight (1200x675 PNG)"
+			}
+		]
+	},
+	"lofi34": {
+		"event": {
+			"title": "Meetup",
+			"number": 34,
+			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
+			"links": {
+				"registration": "https://discord.gg/Y57f7vwf6R?event=1466179954470420678",
+				"discord": "https://discord.gg/ZRrwZxn4rW",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=MDJhMzIyZjNkZTRmNDE2ODgwZmEwYzY3MjNkMjU1YzAgZjgwNGE4ZjU3MGNiZThiOWNmZDk1MTg3MzJmMjcyM2E1MzcxMWEyMTc1OTYyZTkwZDU4NTgxN2MzYWNlMjllM0Bn&tmsrc=f804a8f570cbe8b9cfd9518732f2723a53711a2175962e90d585817c3ace29e3%40group.calendar.google.com",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Martin Kleppmann",
+				"social": {
+					"bluesky": "martin.kleppmann.com"
+				},
+				"talk": "Local-first software and geopolitical risk",
+				"bio": "Associate Professor at University of Cambridge and co-author of the original local-first paper.",
+				"bullets": [
+					"The risk of a conflict between Europe and the US over Greenland has grown",
+					"What if Europe suddenly gets locked out of US cloud services?",
+					"How local-first can support technological sovereignty"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Nate Hardt",
+				"social": {
+					"bluesky": "natehardt.bsky.social"
+				},
+				"talk": "Footnote: P2P tool for Knowledge Sharing",
+				"bio": "Funemployed solo dev working on local-first tools after 3 decades in industry.",
+				"bullets": [
+					"User-owned, peer-to-peer, local-first",
+					"Best case use case",
+					"Cool stuff: Pairing, Peering and Sharing"
+				],
+				"avatar": "https://cdn.discordapp.com/attachments/1470851243688853504/1471313920391118931/IMG_2916.jpg?ex=6999b01e&is=69985e9e&hm=aae301754f03a1515a80ce8870a8bdd12af4bce326c6e8b66d820fb1a66f9461"
+			},
+			{
+				"name": "Brendan O'Brien",
+				"social": {
+					"bluesky": "b5.bsky.social"
+				},
+				"talk": "local first from the network up",
+				"bio": "Caretaker at number 0.",
+				"bullets": [
+					"Dialing by keys is a net win for user agency, no brainer for local first",
+					"Networking doing more for us opens up new possibilities",
+					"Devops inside apps might give us back credible exit"
+				],
+				"avatar": "https://avatars.githubusercontent.com/u/1154390?v=4"
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 320,
+				"format": "png",
+				"maxBytes": 10000000,
+				"label": "Discord Banner (800x320 PNG)"
+			},
+			{
+				"id": "agenda_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Speaker Spotlight (1200x675 PNG)"
+			}
+		]
+	}
+}

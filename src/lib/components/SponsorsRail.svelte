@@ -2,13 +2,16 @@
 	import { theme } from '$lib/stores/themeStore';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
+	import { normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import type { EventGraphicSponsor } from '$lib/types/event-graphic';
 
 	export let sponsors: {
 		url: string;
 		image: string;
 		imageDark?: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
+		order?: number;
 	}[];
 
 	// Get the appropriate image based on current theme
@@ -31,8 +34,6 @@
 		registrationUrl: string;
 		startTimeISO?: string;
 	} | null = null;
-
-	type TierType = 'Partner' | 'Platinum' | 'Gold';
 
 	let isMeetupsOpen = true;
 	let isConferencesOpen = true;
@@ -82,24 +83,15 @@
 			? (parseYMDAsLocalDate(eventData.date) || new Date(eventData.date + 'T00:00:00')).getTime() < Date.now()
 			: false;
 
-	// $: sponsorsByTier = sponsors.reduce(
-	// 	(acc, sponsor) => {
-	// 		if (!acc[sponsor.tier]) {
-	// 			acc[sponsor.tier] = [];
-	// 		}
-	// 		acc[sponsor.tier].push(sponsor);
-	// 		return acc;
-	// 	},
-	// 	{} as Record<TierType, typeof sponsors>
-	// );
-
-	const tierHeights: Record<TierType, number> = {
-		Partner: 120,
-		Platinum: 100,
-		Gold: 80
-	};
-
-	// const tierOrder: TierType[] = ['Partner', 'Platinum', 'Gold'];
+	// Adapt legacy sponsors to EventGraphicSponsor for SponsorLockup
+	$: normalizedSponsors = normalizeSponsors(
+		sponsors.map((s) => ({
+			name: s.name,
+			image: s.image,
+			url: s.url,
+			order: s.order
+		}))
+	) as EventGraphicSponsor[];
 </script>
 
 {#if variant === 'sidebar'}
@@ -314,41 +306,7 @@
 					{/if}
 				</div>
 
-					<div class="space-y-2 [&_img]:transition-all [&_img]:duration-300">
-						{#each sponsors as sponsor, i}
-							<div class="space-y-1">
-								<a
-									href={sponsor.url}
-									class="group block overflow-hidden border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900/90 dark:hover:bg-gray-800/80"
-									class:rounded-t-xl={i === 0}
-									class:rounded-b-xl={i === sponsors.length - 1 && sponsors.length >= 4}
-									style="height: {tierHeights[sponsor.tier]}px"
-								>
-								<div class="flex h-full w-full items-center justify-center p-4">
-										<img
-											src={getSponsorImage(sponsor)}
-											alt={sponsor.name}
-											class="max-h-full max-w-full object-contain transition duration-300 group-hover:scale-[1.03]"
-										/>
-									</div>
-								</a>
-						</div>
-					{/each}
-					{#if sponsors.length < 4}
-							{#each Array(4 - sponsors.length) as _, i}
-								<div class="space-y-1">
-									<div
-										class="block overflow-hidden border border-dashed border-slate-200/90 bg-white/70 backdrop-blur-sm transition-colors dark:border-gray-800 dark:bg-gray-900/60"
-										class:rounded-t-xl={sponsors.length === 0 && i === 0}
-										class:rounded-b-xl={i === 3 - sponsors.length}
-										style="height: 80px"
-								>
-									<div class="flex h-full w-full items-center justify-center p-4"></div>
-								</div>
-							</div>
-						{/each}
-					{/if}
-				</div>
+					<SponsorLockup sponsors={normalizedSponsors} variant="sidebar" />
 			</div>
 		</div>
 	</div>

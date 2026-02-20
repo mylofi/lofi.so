@@ -12,29 +12,26 @@
 			"name": "Jazz",
 			"image": "/images/sponsors/jazz.png",
 			"url": "https://jazz.tools?utm_source=lofi_so",
-			"tier": "Gold",
-			"amount": 1000
+
+			"order": 0
 		},
 		{
 			"name": "Electric SQL",
 			"image": "/images/sponsors/electric.png",
 			"url": "https://electric-sql.com?utm_source=lofi_so",
-			"tier": "Gold",
-			"amount": 1000
+			"order": 1
 		},
 		{
 			"name": "PowerSync",
 			"image": "/images/sponsors/powersync.png",
 			"url": "https://powersync.com?utm_source=lofi_so",
-			"tier": "Gold",
-			"amount": 1000
+			"order": 2
 		},
 		{
 			"name": "Vella.ai",
 			"image": "/images/sponsors/vella.png",
 			"url": "https://vella.ai?utm_source=lofi_so",
-			"tier": "Gold",
-			"amount": 5000
+			"order": 3
 		}
 	]
 }

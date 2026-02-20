@@ -3,7 +3,6 @@
 		url: string;
 		image: string;
 		name: string;
-		tier: string;
 	}[] = [];
 </script>
 

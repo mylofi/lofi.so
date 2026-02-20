@@ -1,4 +1,7 @@
 import { getKVBinding } from '$lib/server/context';
+import type { EventGraphicSpec } from '$lib/types/event-graphic';
+import { toEventGraphicSpec, fromEventGraphicSpec, normalizeSponsors } from '$lib/utils/event-graphic-spec';
+import sponsorsData from '$lib/data/sponsors.json';
 
 export interface EventData {
 	eventNumber: number;
@@ -47,4 +50,15 @@ export async function getLatestEvent(): Promise<EventData | null> {
 		console.error('Error getting event:', error);
 		return null;
 	}
+}
+
+export async function getLatestEventSpec(): Promise<EventGraphicSpec | null> {
+	const legacy = await getLatestEvent();
+	if (!legacy) return null;
+	return toEventGraphicSpec(legacy, undefined, sponsorsData.sponsors);
+}
+
+export async function saveEventFromSpec(spec: EventGraphicSpec): Promise<EventData | null> {
+	const legacy = fromEventGraphicSpec(spec);
+	return saveEvent(legacy);
 }

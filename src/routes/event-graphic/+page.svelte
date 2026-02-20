@@ -2,8 +2,44 @@
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
+	import SponsorCard from '$lib/components/SponsorCard.svelte';
 	import { buildStartTimeISO, tzOffsetMap } from '$lib/utils/date';
+	import { toEventGraphicSpec, getExportPresets, getLegacyExportPresets } from '$lib/utils/event-graphic-spec';
+	import {
+		captureTarget,
+		validateExport,
+		generateFilename,
+		buildManifest,
+		buildCaptions,
+		bundleExports
+	} from '$lib/utils/event-graphic-export';
+	import type { EventGraphicSpec, EventGraphicExportTarget, ExportTargetId } from '$lib/types/event-graphic';
+	import type { ExportResult } from '$lib/utils/event-graphic-export';
+	import sponsorsData from '$lib/data/sponsors.json';
+	import fixtureData from '$lib/data/event-graphic-fixtures.json';
 	import { onMount } from 'svelte';
+
+	type EventFixture = {
+		event: {
+			title: string;
+			number: number;
+			startTimeISO: string;
+			links: {
+				registration: string;
+				discord: string;
+				calendar: string;
+				logo: string;
+			};
+		};
+		speakers: Array<{
+			name: string;
+			social: Record<string, string | undefined>;
+			talk: string;
+			bio: string;
+			bullets: string[];
+			avatar: string;
+		}>;
+	};
 
 	function getLastTuesdayOfMonth() {
 		const today = new Date();
@@ -17,6 +53,15 @@
 	}
 
 	const lastTuesday = getLastTuesdayOfMonth();
+	const fixtures = fixtureData as Record<string, EventFixture>;
+	const fixtureOptions = Object.entries(fixtures)
+		.map(([key, fixture]) => ({
+			key,
+			label: `LoFi/${fixture.event.number}`,
+			number: fixture.event.number
+		}))
+		.sort((a, b) => a.number - b.number);
+	let selectedFixtureKey = '';
 
 	let formData = {
 		title: 'Watch Party',
@@ -46,16 +91,78 @@
 		logoUrl: '/images/logo.png'
 	};
 
-
-
 	$: startTimeISO = formData.date && formData.time
 		? new Date(buildStartTimeISO(formData.date, formData.time, formData.timezone)).toISOString()
 		: '';
 
+	// Derive EventGraphicSpec reactively from form data
+	$: spec = toEventGraphicSpec(
+		{
+			eventNumber: formData.eventNumber,
+			title: formData.title,
+			startTimeISO,
+			date: formData.date,
+			time: formData.time,
+			timezone: formData.timezone,
+			speakers: formData.speakers.map((s) => ({
+				name: s.name,
+				twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
+				talk: s.talk,
+				image: s.image
+			})),
+			registrationUrl: formData.registrationUrl,
+			discordUrl: formData.discordUrl,
+			calendarUrl: formData.calendarUrl,
+			logoUrl: formData.logoUrl
+		},
+		formData.speakers as any,
+		sponsorsData.sponsors
+	) as EventGraphicSpec;
+
+	// Export state
+	let exportTargets = getExportPresets();
+	let enabledTargets: Record<ExportTargetId, boolean> = {
+		announcement_regular: true,
+		announcement_discord: true,
+		agenda_regular: true
+	};
+	let isExporting = false;
+	let exportResults: ExportResult[] = [];
+	let exportError = '';
+
+	// Preview category filter
+	type PreviewCategory = 'event' | 'discord' | 'homepage' | 'speakers' | 'sponsor';
+	const previewCategories: { id: PreviewCategory; label: string }[] = [
+		{ id: 'event', label: 'Event Graphic' },
+		{ id: 'discord', label: 'Discord Banner' },
+		{ id: 'homepage', label: 'Homepage Preview' },
+		{ id: 'speakers', label: 'Speaker Cards' },
+		{ id: 'sponsor', label: 'Sponsor Card' }
+	];
+	let activeCategories: Record<PreviewCategory, boolean> = {
+		event: true,
+		discord: true,
+		homepage: true,
+		speakers: true,
+		sponsor: true
+	};
+	$: allActive = Object.values(activeCategories).every(Boolean);
+	function toggleAll() {
+		const next = !allActive;
+		for (const k of Object.keys(activeCategories) as PreviewCategory[]) {
+			activeCategories[k] = next;
+		}
+		activeCategories = activeCategories;
+	}
+	function toggleCategory(id: PreviewCategory) {
+		activeCategories[id] = !activeCategories[id];
+		activeCategories = activeCategories;
+	}
+
 	// Update the date when the month changes
 	function updateToLastTuesday() {
 		formData.date = getLastTuesdayOfMonth();
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 	}
 
 	function handleTwitterHandleInput(event: Event, index: number) {
@@ -67,7 +174,7 @@
 		}
 
 		formData.speakers[index].twitterHandle = value;
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -77,18 +184,16 @@
 		let value = input.value;
 		const platform = formData.speakers[index].socialPlatform;
 
-		// Add @ prefix for Twitter handles
 		if (platform === 'twitter' && !value.startsWith('@')) {
 			value = '@' + value;
 		}
 
 		formData.speakers[index].socialHandle = value;
-		// Also update twitterHandle for backward compatibility
 		if (platform === 'twitter') {
 			formData.speakers[index].twitterHandle = value;
 		}
 
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -97,20 +202,17 @@
 		const speaker = formData.speakers[index];
 		const platform = speaker.socialPlatform;
 
-		// Update profileImagePlatform based on social platform
 		if (platform === 'twitter' || platform === 'bluesky') {
 			speaker.profileImagePlatform = platform;
 		} else if (platform === 'linkedin') {
-			// For LinkedIn, we might want to use custom image or Twitter as fallback
 			speaker.profileImagePlatform = 'twitter';
 		}
 
-		// Update placeholder and handle format
 		if (platform === 'twitter' && !speaker.socialHandle.startsWith('@')) {
 			speaker.socialHandle = '@' + speaker.socialHandle;
 		}
 
-		formData = { ...formData }; // Trigger reactivity
+		formData = { ...formData };
 
 		handleSocialHandleChange(index);
 	}
@@ -118,7 +220,6 @@
 	onMount(async () => {
 		updateToLastTuesday();
 
-		// Load latest event data
 		try {
 			const response = await fetch('/api/latest-event');
 			if (response.ok) {
@@ -186,7 +287,6 @@
 				return null;
 			}
 			const data = await response.json();
-			// Proxy the avatar URL through our endpoint
 			return data.profile_image_url ? `/api/proxy-bsky-image?url=${encodeURIComponent(data.profile_image_url)}` : null;
 		} catch (error) {
 			console.error('Error fetching Bluesky profile:', error);
@@ -200,19 +300,14 @@
 
 		formData.speakers[index].error = '';
 
-		// Handle custom image URL
 		if (speaker.profileImagePlatform === 'custom') {
 			if (speaker.customImageUrl) {
 				try {
-					// Proxy the custom image URL through our endpoint
 					const proxyUrl = `/api/proxy-image?url=${encodeURIComponent(speaker.customImageUrl)}`;
-
-					// Verify the image is accessible
 					const response = await fetch(proxyUrl);
 					if (!response.ok) {
 						throw new Error('Failed to load image');
 					}
-
 					formData.speakers[index].image = proxyUrl;
 					formData.speakers[index].error = '';
 				} catch (error) {
@@ -227,7 +322,6 @@
 			return;
 		}
 
-		// Clear the image when switching platforms or clearing handles
 		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
 			formData.speakers[index].image = '';
 			formData = { ...formData };
@@ -253,14 +347,13 @@
 
 			if (profileImageUrl) {
 				formData.speakers[index].image = profileImageUrl;
-				formData.speakers[index].error = ''; // Clear any previous errors
+				formData.speakers[index].error = '';
 			} else {
 				formData.speakers[index].image = '';
 				formData.speakers[index].error = 'Could not fetch profile image';
 			}
 		} catch (error) {
 			formData.speakers[index].image = '';
-			// Use the exact error message from the API
 			formData.speakers[index].error = error instanceof Error ? error.message : 'An unexpected error occurred';
 		}
 
@@ -319,23 +412,80 @@
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 			logoUrl: '/images/logo.png'
 		};
+		selectedFixtureKey = '';
+		exportResults = [];
+		exportError = '';
 	}
 
+	function loadFixture(fixtureKey = selectedFixtureKey) {
+		const fixture = fixtures[fixtureKey];
+		if (!fixture) return;
+
+		selectedFixtureKey = fixtureKey;
+		formData = {
+			title: fixture.event.title,
+			eventNumber: fixture.event.number,
+			date: fixture.event.startTimeISO.split('T')[0],
+			time: '08:00',
+			timezone: 'PST',
+			speakers: fixture.speakers.map((s) => {
+				const social = s.social as Record<string, string | undefined>;
+				return {
+					name: s.name,
+					socialPlatform: (social.twitter ? 'twitter' : social.bluesky ? 'bluesky' : 'linkedin') as string,
+					socialHandle: social.twitter || social.bluesky || social.linkedin || '',
+					twitterHandle: social.twitter || '',
+					profileImagePlatform: social.bluesky && !social.twitter ? 'bluesky' : 'twitter',
+					profileImageHandle: '',
+					customImageUrl: '',
+					talk: s.talk,
+					bio: s.bio,
+					talkPoints: [...s.bullets, ...Array(Math.max(0, 3 - s.bullets.length)).fill('')].slice(0, 3),
+					image: s.avatar,
+					error: ''
+				};
+			}),
+			registrationUrl: fixture.event.links.registration,
+			discordUrl: fixture.event.links.discord,
+			calendarUrl: fixture.event.links.calendar,
+			logoUrl: fixture.event.links.logo
+		};
+		exportResults = [];
+		exportError = '';
+	}
+
+	function handleFixtureSelection(event: Event) {
+		const key = (event.target as HTMLSelectElement).value;
+		loadFixture(key);
+	}
+
+	// Ensure all preview categories are visible (for export DOM access)
+	async function showAllCategories(): Promise<Record<PreviewCategory, boolean>> {
+		const saved = { ...activeCategories };
+		for (const k of Object.keys(activeCategories) as PreviewCategory[]) {
+			activeCategories[k] = true;
+		}
+		activeCategories = activeCategories;
+		await new Promise((r) => setTimeout(r, 100));
+		return saved;
+	}
+	function restoreCategories(saved: Record<PreviewCategory, boolean>) {
+		activeCategories = saved;
+	}
+
+	// Legacy export: save + single event graphic PNG
 	async function handleSubmit() {
+		const saved = await showAllCategories();
 		try {
 			const payload = { ...formData, startTimeISO };
-			// save the JSON data
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
 
-			// generate the image
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
 
@@ -353,24 +503,24 @@
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Failed to generate event graphic');
+		} finally {
+			restoreCategories(saved);
 		}
 	}
 
+	// Legacy export: speaker cards
 	async function handleGenerateSpeakerCards() {
+		const saved = await showAllCategories();
 		try {
 			const payload = { ...formData, startTimeISO };
-			// save the JSON data first
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload)
 			});
 
 			if (!response.ok) throw new Error('Failed to save event data');
 
-			// generate images for each speaker
 			for (let i = 0; i < formData.speakers.length; i++) {
 				const speaker = formData.speakers[i];
 				const speakerCardElement = document.querySelector(`#speaker-card-${i}`);
@@ -392,12 +542,160 @@
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Failed to generate speaker cards');
+		} finally {
+			restoreCategories(saved);
 		}
+	}
+
+	// Save event data to KV (updates homepage) without generating images
+	let isSaving = false;
+	let saveStatus: 'idle' | 'saved' | 'error' = 'idle';
+
+	async function handleSave() {
+		isSaving = true;
+		saveStatus = 'idle';
+		try {
+			const payload = { ...formData, startTimeISO };
+			const response = await fetch('/api/save-event', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+			if (!response.ok) throw new Error('Failed to save event data');
+			saveStatus = 'saved';
+			setTimeout(() => (saveStatus = 'idle'), 3000);
+		} catch (error) {
+			console.error('Save error:', error);
+			saveStatus = 'error';
+			setTimeout(() => (saveStatus = 'idle'), 4000);
+		} finally {
+			isSaving = false;
+		}
+	}
+
+	// New: Multi-platform bundle export
+	async function handleGenerateBundle() {
+		isExporting = true;
+		exportResults = [];
+		exportError = '';
+
+		// Ensure all preview sections are visible so DOM elements exist for capture
+		const savedCategories = await showAllCategories();
+
+		try {
+			// Save event data first
+			const payload = { ...formData, startTimeISO };
+			const saveResponse = await fetch('/api/save-event', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload)
+			});
+			if (!saveResponse.ok) throw new Error('Failed to save event data');
+
+			const results: ExportResult[] = [];
+			const activeTargets = exportTargets.filter((t) => enabledTargets[t.id]);
+
+			// Capture event graphic for each enabled target
+			for (const target of activeTargets) {
+				const el = document.querySelector('#graphic') as HTMLElement;
+				if (!el) continue;
+
+				const blob = await captureTarget(el, target);
+				const filename = generateFilename(spec, target);
+				const validation = validateExport(blob, target);
+
+				results.push({ target, blob, filename, validation });
+			}
+
+			// Capture speaker cards at agenda_regular target
+			const speakerTarget = activeTargets.find((t) => t.id === 'agenda_regular') || activeTargets[0];
+			if (speakerTarget) {
+				for (let i = 0; i < formData.speakers.length; i++) {
+					const el = document.querySelector(`#speaker-card-${i}`) as HTMLElement;
+					if (!el) continue;
+
+					const blob = await captureTarget(el, speakerTarget);
+					const filename = generateFilename(spec, speakerTarget, formData.speakers[i].name);
+					const validation = validateExport(blob, speakerTarget);
+
+					results.push({
+						target: speakerTarget,
+						blob,
+						filename,
+						validation,
+						speakerName: formData.speakers[i].name
+					});
+				}
+			}
+
+			// Capture sponsor card
+			const sponsorTarget = activeTargets.find((t) => t.id === 'announcement_regular') || activeTargets[0];
+			if (sponsorTarget) {
+				const el = document.querySelector('#sponsor-card') as HTMLElement;
+				if (el) {
+					const blob = await captureTarget(el, sponsorTarget);
+					const filename = `lofi-${spec.event.number}-sponsors-${sponsorTarget.id}.${sponsorTarget.format}`;
+					const validation = validateExport(blob, sponsorTarget);
+					results.push({ target: sponsorTarget, blob, filename, validation });
+				}
+			}
+
+			exportResults = results;
+
+			// Build manifest and captions
+			const manifest = await buildManifest(results, spec);
+			const captions = buildCaptions(spec);
+
+			// Bundle into zip
+			const zipBlob = await bundleExports(results, manifest, captions);
+
+			// Download
+			const link = document.createElement('a');
+			link.download = `lofi-${spec.event.number}-export-bundle.zip`;
+			link.href = URL.createObjectURL(zipBlob);
+			link.click();
+			URL.revokeObjectURL(link.href);
+		} catch (error) {
+			console.error('Export error:', error);
+			exportError = error instanceof Error ? error.message : 'Export failed';
+		} finally {
+			restoreCategories(savedCategories);
+			isExporting = false;
+		}
+	}
+
+	function formatBytes(bytes: number): string {
+		if (bytes < 1024) return `${bytes}B`;
+		if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+		return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
 	}
 </script>
 
 <div class="container mx-auto p-20 text-white">
-	<h1 class="mb-8 text-3xl font-bold">Generate Event Graphic</h1>
+	<div class="mb-8 flex flex-wrap items-center justify-between gap-3">
+		<h1 class="text-3xl font-bold">Generate Event Graphic</h1>
+		<div class="flex items-center gap-3">
+			<label class="sr-only" for="fixture-select">Load fixture</label>
+			<select
+				id="fixture-select"
+				bind:value={selectedFixtureKey}
+				on:change={handleFixtureSelection}
+				class="rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-black shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+			>
+				<option value="" disabled>Load fixture</option>
+				{#each fixtureOptions as fixtureOption}
+					<option value={fixtureOption.key}>{fixtureOption.label}</option>
+				{/each}
+			</select>
+			<button
+				type="button"
+				on:click={resetForm}
+				class="rounded-md bg-gray-500 px-4 py-2 font-semibold text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+			>
+				Reset
+			</button>
+		</div>
+	</div>
 
 	<form on:submit|preventDefault={handleSubmit} class="mb-8 space-y-6 text-black">
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -677,76 +975,333 @@
 			{/each}
 		</div>
 
-		<div class="flex gap-4">
+		<!-- Export Targets -->
+		<div class="rounded-lg bg-white p-6 shadow-md">
+			<h2 class="mb-4 text-xl font-semibold">Export Targets</h2>
+			<div class="space-y-2">
+				{#each exportTargets as target}
+					<label class="flex items-center gap-3">
+						<input
+							type="checkbox"
+							bind:checked={enabledTargets[target.id]}
+							class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+						/>
+						<span class="text-sm">
+							{target.label}
+							<span class="text-xs text-gray-500">({target.width}x{target.height} {target.format.toUpperCase()}{target.maxBytes ? `, max ${formatBytes(target.maxBytes)}` : ''})</span>
+						</span>
+					</label>
+				{/each}
+			</div>
+		</div>
+
+		<!-- Action Buttons -->
+		<div class="flex flex-wrap gap-4">
+			<button
+				type="button"
+				on:click={handleGenerateBundle}
+				disabled={isExporting || isSaving}
+				class="flex-1 rounded-md bg-green-600 px-4 py-3 text-lg font-semibold text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
+			>
+				{isExporting ? 'Generating...' : 'Generate Bundle'}
+			</button>
+			<button
+				type="button"
+				on:click={handleSave}
+				disabled={isSaving || isExporting}
+				class="flex items-center gap-2 rounded-md px-4 py-3 text-lg font-semibold text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50
+					{saveStatus === 'saved' ? 'bg-emerald-600 focus:ring-emerald-500' : saveStatus === 'error' ? 'bg-red-600 focus:ring-red-500' : 'bg-[#5865f2] hover:bg-[#4752c4] focus:ring-[#5865f2]'}"
+			>
+				{#if isSaving}
+					<svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+					</svg>
+					Saving…
+				{:else if saveStatus === 'saved'}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+					</svg>
+					Saved!
+				{:else if saveStatus === 'error'}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+					</svg>
+					Save Failed
+				{:else}
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+						<path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16a3 3 0 110-6 3 3 0 010 6zm3-10H5V5h10v4z"/>
+					</svg>
+					Save to Homepage
+				{/if}
+			</button>
 			<button
 				type="submit"
-				class="flex-1 rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+				class="rounded-md bg-primary px-4 py-2 text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
 			>
-				Generate Event Graphic
+				Legacy: Event Graphic
 			</button>
 			<button
 				type="button"
 				on:click={handleGenerateSpeakerCards}
-				class="flex-1 rounded-md bg-discord px-4 py-2 text-white shadow-sm hover:bg-discord/90 focus:outline-none focus:ring-2 focus:ring-discord focus:ring-offset-2"
+				class="rounded-md bg-discord px-4 py-2 text-white shadow-sm hover:bg-discord/90 focus:outline-none focus:ring-2 focus:ring-discord focus:ring-offset-2"
 			>
-				Generate Speaker Cards
-			</button>
-			<button
-				type="button"
-				on:click={resetForm}
-				class="rounded-md bg-gray-500 px-4 py-2 text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-			>
-				Reset
+				Legacy: Speaker Cards
 			</button>
 		</div>
 	</form>
 
+	<!-- Export Summary -->
+	{#if exportResults.length > 0 || exportError}
+		<div class="mb-8 rounded-lg bg-white p-6 text-black shadow-md">
+			<h2 class="mb-4 text-xl font-semibold">Export Summary</h2>
+			{#if exportError}
+				<p class="text-red-600">{exportError}</p>
+			{/if}
+			{#if exportResults.length > 0}
+				<table class="w-full text-sm">
+					<thead>
+						<tr class="border-b border-gray-200 text-left">
+							<th class="py-2 pr-4">Filename</th>
+							<th class="py-2 pr-4">Dimensions</th>
+							<th class="py-2 pr-4">Size</th>
+							<th class="py-2">Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						{#each exportResults as result}
+							<tr class="border-b border-gray-100">
+								<td class="py-2 pr-4 font-mono text-xs">{result.filename}</td>
+								<td class="py-2 pr-4">{result.target.width}x{result.target.height}</td>
+								<td class="py-2 pr-4" class:text-green-600={result.validation.valid} class:text-red-600={!result.validation.valid}>
+									{formatBytes(result.validation.sizeBytes)}
+								</td>
+								<td class="py-2">
+									{#if result.validation.valid}
+										<span class="text-green-600">Pass</span>
+									{:else}
+										<span class="text-red-600">Fail</span>
+									{/if}
+									{#each result.validation.warnings as warning}
+										<span class="ml-1 text-xs text-yellow-600">({warning})</span>
+									{/each}
+									{#each result.validation.errors as error}
+										<span class="ml-1 text-xs text-red-600">({error})</span>
+									{/each}
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			{/if}
+		</div>
+	{/if}
+
 	<!-- Preview Section -->
-	<div class="mt-8 space-y-8">
-		<div>
-			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview</h2>
-			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
-				<!-- Fixed width wrapper ensures lg: breakpoints apply for export -->
-				<div id="graphic" class="origin-center" style="width: 1120px; min-width: 1120px; height: 630px; min-height: 630px;">
-					<EventGraphic eventData={{
-						...formData,
-						startTimeISO,
-						speakers: formData.speakers.map(s => ({
-							name: s.name,
-							twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
-							talk: s.talk,
-							image: s.image
-						}))
-					}} />
-				</div>
-			</div>
+	<div class="mt-8 space-y-12">
+
+		<!-- Category filter buttons -->
+		<div class="flex flex-wrap items-center gap-2">
+			<span class="mr-1 text-sm font-medium text-gray-400">Show:</span>
+			<button
+				type="button"
+				on:click={toggleAll}
+				class="rounded-md px-3 py-1 text-sm font-medium transition {allActive ? 'bg-primary text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+			>
+				All
+			</button>
+			{#each previewCategories as cat}
+				<button
+					type="button"
+					on:click={() => toggleCategory(cat.id)}
+					class="rounded-md px-3 py-1 text-sm transition {activeCategories[cat.id] ? 'bg-primary/80 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+				>
+					{cat.label}
+				</button>
+			{/each}
 		</div>
 
-		<div>
-			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
-			<div class="space-y-8">
-				{#each formData.speakers as speaker, i}
-					<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
-						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
-						<div id="speaker-card-{i}" class="origin-center">
-							<SpeakerCard
-								speakerData={{
-									name: speaker.name,
-									twitterHandle: speaker.socialPlatform === 'twitter' ? speaker.socialHandle : speaker.twitterHandle,
-									talk: speaker.talk,
-									bio: speaker.bio,
-									talkPoints: speaker.talkPoints,
-									image: speaker.image
-								}}
-								eventNumber={formData.eventNumber}
-								date={formData.date}
-								time={formData.time}
-								timezone={formData.timezone}
-							/>
+		<!-- ── 1. Event Graphic (X / Bluesky Feed) ── -->
+		{#if activeCategories.event}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
+					<div id="graphic" class="origin-center" style="width: 1200px; min-width: 1200px; height: 675px; min-height: 675px;">
+						<EventGraphic {spec} />
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- ── 2. Discord Banner ── -->
+		{#if activeCategories.discord}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
+					<div id="graphic-discord" class="origin-center" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
+						<EventGraphic {spec} />
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- ── 3. Homepage Preview (Mobile / Tablet / Desktop in one row) ── -->
+		{#if activeCategories.homepage}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Homepage Preview <span class="text-sm font-normal text-gray-400">(how &ldquo;Save to Homepage&rdquo; will look)</span></h2>
+				<div class="flex gap-6 overflow-x-auto pb-4">
+
+					<!-- Mobile (375px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Mobile <span class="text-xs text-gray-400">(375px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div
+								data-preview="mobile"
+								class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950"
+								style="width: 375px;"
+							>
+								<EventGraphic {spec} />
+							</div>
 						</div>
 					</div>
-				{/each}
+
+					<!-- Tablet (768px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Tablet <span class="text-xs text-gray-400">(768px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 768px;">
+								<EventGraphic {spec} />
+							</div>
+						</div>
+					</div>
+
+					<!-- Desktop (1120px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Desktop <span class="text-xs text-gray-400">(1120px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 1120px;">
+								<EventGraphic {spec} />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		{/if}
+
+		<!-- ── 4. Speaker Cards ── -->
+		{#if activeCategories.speakers}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+				<div class="space-y-8">
+					{#each formData.speakers as speaker, i}
+						<div class="overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h3 class="mb-4 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
+							<div class="flex justify-center">
+								<div id="speaker-card-{i}" class="origin-center" style="width: 1200px; min-width: 1200px; height: 675px; min-height: 675px;">
+									<SpeakerCard
+										{spec}
+										speakerIndex={i}
+									/>
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- ── 5. Sponsor Card ── -->
+		{#if activeCategories.sponsor}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Sponsor Card Preview</h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
+					<div id="sponsor-card" class="origin-center">
+						<SponsorCard
+							sponsors={spec.sponsors}
+							eventNumber={spec.event.number}
+							displayDateTime={spec.event.displayDateTime}
+						/>
+					</div>
+				</div>
+			</div>
+		{/if}
 	</div>
 </div>
+
+<style>
+	/*
+	 * Mobile homepage preview fix.
+	 * EventGraphic uses Tailwind `sm:` media-query breakpoints, which check the
+	 * viewport width — not the container width.  When we render the component
+	 * inside a 375px container on a wide screen the mobile layout never kicks
+	 * in.  These overrides force the mobile branch of the responsive layout
+	 * inside [data-preview="mobile"].
+	 */
+
+	/* Main layout: keep column (override sm:flex-row) */
+	:global([data-preview="mobile"] .sm\:flex-row) {
+		flex-direction: column !important;
+	}
+
+	/* Sidebar: hide (it has `hidden sm:flex sm:flex-col`) */
+	:global([data-preview="mobile"] .hidden.sm\:flex.sm\:flex-col) {
+		display: none !important;
+	}
+
+	/* Mobile CTA strip: keep visible (override sm:hidden) */
+	:global([data-preview="mobile"] .sm\:hidden) {
+		display: flex !important;
+	}
+
+	/* Diagonal stripe: keep hidden on mobile (override sm:block) */
+	:global([data-preview="mobile"] .hidden.sm\:block) {
+		display: none !important;
+	}
+
+	/* Reset desktop-only spacing overrides */
+	:global([data-preview="mobile"] .sm\:px-\[4\%\]) {
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:pb-\[4\%\]) {
+		padding-bottom: 1rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:pt-\[5\%\]) {
+		padding-top: 2rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-3) {
+		gap: 0.5rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:mb-\[3\%\]) {
+		margin-bottom: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:mb-\[4\%\]) {
+		margin-bottom: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-\[3\%\]) {
+		gap: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-\[2\%\]) {
+		gap: 0.75rem !important;
+	}
+
+	/* Font size resets to mobile sizes */
+	:global([data-preview="mobile"] .sm\:text-xl) {
+		font-size: 1rem !important;
+		line-height: 1.5rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-xs) {
+		font-size: 10px !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-\[10px\]) {
+		font-size: 9px !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-\[9px\]) {
+		font-size: 9px !important;
+	}
+	:global([data-preview="mobile"] .sm\:h-9) {
+		height: 1.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:w-9) {
+		width: 1.75rem !important;
+	}
+</style>

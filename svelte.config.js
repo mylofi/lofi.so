@@ -17,6 +17,10 @@ const config = {
 			// Enable Node.js compatibility
 			cloudflare: {
 				nodejs_compat: true
+			},
+			routes: {
+				include: ['/*'],
+				exclude: ['<all>']
 			}
 		})
 	},

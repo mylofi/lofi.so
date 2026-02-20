@@ -8,14 +8,13 @@
 
 	export let data: PageData;
 
-	const { content, sponsorsData, mentions, eventDataForGraphic } = data;
+	const { content, sponsorsData, mentions, eventDataForGraphic, eventSpec } = data;
 	const { sponsors: rawSponsors, nextEvent } = sponsorsData;
 
 	const sponsors = rawSponsors as {
 		url: string;
 		image: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
 	}[];
 
 	let activeTab = 'storage';
@@ -95,7 +94,7 @@
 
 					</div>
 					<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950 sm:p-3">
-						<EventGraphic eventData={eventDataForGraphic} />
+						<EventGraphic spec={eventSpec} eventData={eventDataForGraphic} />
 					</div>
 				</section>
 
