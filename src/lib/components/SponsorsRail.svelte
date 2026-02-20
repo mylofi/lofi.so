@@ -2,13 +2,16 @@
 	import { theme } from '$lib/stores/themeStore';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
+	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
+	import { normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import type { EventGraphicSponsor } from '$lib/types/event-graphic';
 
 	export let sponsors: {
 		url: string;
 		image: string;
 		imageDark?: string;
 		name: string;
-		tier: 'Partner' | 'Platinum' | 'Gold';
+		order?: number;
 	}[];
 
 	// Get the appropriate image based on current theme
@@ -32,10 +35,15 @@
 		startTimeISO?: string;
 	} | null = null;
 
-	type TierType = 'Partner' | 'Platinum' | 'Gold';
-
 	let isMeetupsOpen = true;
 	let isConferencesOpen = true;
+
+	const parseYMDAsLocalDate = (dateStr: string): Date | null => {
+		const [year, month, day] = dateStr.split('-').map(Number);
+		if (!year || !month || !day) return null;
+		const parsed = new Date(year, month - 1, day);
+		return Number.isNaN(parsed.getTime()) ? null : parsed;
+	};
 
 	onMount(() => {
 		if (window.innerHeight < 900) {
@@ -48,18 +56,22 @@
 
 	$: nextEventFromKV = eventData
 		? {
-			url: eventData.registrationUrl,
-			name: 'Local First Meetup',
-			date: (startTimeDate || new Date(eventData.date)).toLocaleDateString('en-US', {
-				weekday: 'long',
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric'
-			}),
-			time: startTimeDate
-				? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-				: `${eventData.time} ${eventData.timezone}`
-		}
+				url: eventData.registrationUrl,
+				name: 'Local First Meetup',
+				date: (
+					startTimeDate ||
+					parseYMDAsLocalDate(eventData.date) ||
+					new Date(eventData.date + 'T00:00:00')
+				).toLocaleDateString('en-US', {
+					weekday: 'long',
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				}),
+				time: startTimeDate
+					? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+					: `${eventData.time} ${eventData.timezone}`
+			}
 		: undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
@@ -68,41 +80,32 @@
 	$: isEventPassed = startTimeDate
 		? startTimeDate.getTime() < Date.now()
 		: eventData
-			? new Date(eventData.date) < new Date()
+			? (parseYMDAsLocalDate(eventData.date) || new Date(eventData.date + 'T00:00:00')).getTime() < Date.now()
 			: false;
 
-	// $: sponsorsByTier = sponsors.reduce(
-	// 	(acc, sponsor) => {
-	// 		if (!acc[sponsor.tier]) {
-	// 			acc[sponsor.tier] = [];
-	// 		}
-	// 		acc[sponsor.tier].push(sponsor);
-	// 		return acc;
-	// 	},
-	// 	{} as Record<TierType, typeof sponsors>
-	// );
-
-	const tierHeights: Record<TierType, number> = {
-		Partner: 120,
-		Platinum: 100,
-		Gold: 80
-	};
-
-	// const tierOrder: TierType[] = ['Partner', 'Platinum', 'Gold'];
+	// Adapt legacy sponsors to EventGraphicSponsor for SponsorLockup
+	$: normalizedSponsors = normalizeSponsors(
+		sponsors.map((s) => ({
+			name: s.name,
+			image: s.image,
+			url: s.url,
+			order: s.order
+		}))
+	) as EventGraphicSponsor[];
 </script>
 
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
 		<div class="absolute top-24 bottom-5 right-0 z-20 w-[19.5rem] pr-4">
 			<div class="sticky top-24 h-[calc(100vh-9rem)] overflow-y-auto">
-				{#if showNextEvent && activeNextEvent}
-					<div
-						class="mb-4 overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200 shadow-lg dark:shadow-xl transition-colors duration-300"
-					>
-						<button
-							class="flex w-full items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
-							on:click={() => (isMeetupsOpen = !isMeetupsOpen)}
+					{#if showNextEvent && activeNextEvent}
+						<div
+							class="mb-4 overflow-hidden rounded-xl border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900/90"
 						>
+							<button
+								class="flex w-full items-center justify-between p-6 transition-colors hover:bg-slate-50 dark:hover:bg-gray-800/80"
+								on:click={() => (isMeetupsOpen = !isMeetupsOpen)}
+							>
 							<div class="flex items-center gap-3">
 								<div
 									class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 ring-1 ring-primary/20"
@@ -147,26 +150,26 @@
 
 						{#if isMeetupsOpen}
 							<div transition:slide class="px-6 pb-6">
-								<a href={activeNextEvent.url} class="group mb-4 block">
-									<h3
-										class="mb-2 text-lg font-semibold text-gray-900 dark:text-white transition group-hover:text-primary"
-									>
-										{activeNextEvent.name}
-									</h3>
-									<p class="text-sm text-gray-500 dark:text-gray-400">
-										{activeNextEvent.date} • {activeNextEvent.time}
-									</p>
-								</a>
+									<a href={activeNextEvent.url} class="group mb-4 block">
+										<h3
+											class="mb-2 text-lg font-semibold text-slate-900 transition group-hover:text-primary dark:text-white"
+										>
+											{activeNextEvent.name}
+										</h3>
+										<p class="text-sm text-slate-500 dark:text-slate-300">
+											{activeNextEvent.date} • {activeNextEvent.time}
+										</p>
+									</a>
 
-								<div class="border-t dark:border-white/10 border-gray-200 pt-4">
-									{#if isEventPassed}
-										<div class="flex flex-col gap-2">
-											<a
-												href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
-												class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-												target="_blank"
-												rel="noopener noreferrer"
-											>
+									<div class="border-t border-slate-200 pt-4 dark:border-gray-800">
+										{#if isEventPassed}
+											<div class="flex flex-col gap-2">
+												<a
+													href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
+													class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
 												<svg
 													class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
 													viewBox="0 0 24 24"
@@ -178,12 +181,12 @@
 												</svg>
 												Catch up on this event
 											</a>
-											<a
-												href="https://discord.gg/lofi-so"
-												class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-												target="_blank"
-												rel="noopener noreferrer"
-											>
+												<a
+													href="https://discord.gg/lofi-so"
+													class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+													target="_blank"
+													rel="noopener noreferrer"
+												>
 												<svg
 													class="h-4 w-4 text-discord group-hover:text-primary transition-colors"
 													viewBox="0 0 24 24"
@@ -197,12 +200,12 @@
 											</a>
 										</div>
 									{:else}
-										<a
-											href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
-											class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-											target="_blank"
-											rel="noopener noreferrer"
-										>
+											<a
+												href="https://www.youtube.com/playlist?list=PLTbD2QA-VMnXFsLbuPGz1H-Najv9MD2-H"
+												class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+												target="_blank"
+												rel="noopener noreferrer"
+											>
 											<svg
 												class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
 												viewBox="0 0 24 24"
@@ -222,13 +225,13 @@
 				{/if}
 
 				<!-- Upcoming Conference Section -->
-				<div
-					class="mb-4 overflow-hidden rounded-lg bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200 shadow-lg dark:shadow-xl transition-colors duration-300"
-				>
-					<button
-						class="flex w-full items-center justify-between p-6 hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
-						on:click={() => (isConferencesOpen = !isConferencesOpen)}
+					<div
+						class="mb-4 overflow-hidden rounded-xl border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900/90"
 					>
+						<button
+							class="flex w-full items-center justify-between p-6 transition-colors hover:bg-slate-50 dark:hover:bg-gray-800/80"
+							on:click={() => (isConferencesOpen = !isConferencesOpen)}
+						>
 						<div class="flex items-center gap-3">
 							<div
 								class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 ring-1 ring-blue-500/30"
@@ -263,14 +266,14 @@
 						</svg>
 					</button>
 
-					{#if isConferencesOpen}
-						<div transition:slide class="flex flex-col gap-2 px-6 pb-6">
-							<a
-								href="https://www.youtube.com/playlist?list=PL4isNRKAwz2NCmk5oQq4qIBXreLLdAAJ_"
-								class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
+						{#if isConferencesOpen}
+							<div transition:slide class="flex flex-col gap-2 px-6 pb-6">
+								<a
+									href="https://www.youtube.com/playlist?list=PL4isNRKAwz2NCmk5oQq4qIBXreLLdAAJ_"
+									class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 								<svg
 									class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
 									viewBox="0 0 24 24"
@@ -282,12 +285,12 @@
 								</svg>
 								Sync Conf SF Recap
 							</a>
-							<a
-								href="https://www.youtube.com/watch?v=0rndR9DbWTs&list=PL4isNRKAwz2MabH6AMhUz1yS3j1DqGdtT"
-								class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors group"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
+								<a
+									href="https://www.youtube.com/watch?v=0rndR9DbWTs&list=PL4isNRKAwz2MabH6AMhUz1yS3j1DqGdtT"
+									class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 								<svg
 									class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
 									viewBox="0 0 24 24"
@@ -303,90 +306,56 @@
 					{/if}
 				</div>
 
-				<div class="space-y-2 [&_img]:transition-all [&_img]:duration-300">
-					{#each sponsors as sponsor, i}
-						<div class="space-y-1">
-							<a
-								href={sponsor.url}
-								class="group block overflow-hidden bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200 shadow-lg dark:shadow-xl transition-colors hover:bg-gray-50 dark:hover:bg-white/10"
-								class:rounded-t-xl={i === 0}
-								class:rounded-b-xl={i === sponsors.length - 1 && sponsors.length >= 4}
-								style="height: {tierHeights[sponsor.tier]}px"
-							>
-								<div class="flex h-full w-full items-center justify-center p-4">
-									<img
-										src={getSponsorImage(sponsor)}
-										alt={sponsor.name}
-										class="max-h-full max-w-full object-contain opacity-50 dark:opacity-50 grayscale dark:brightness-0 dark:invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0"
-									/>
-								</div>
-							</a>
-						</div>
-					{/each}
-					{#if sponsors.length < 4}
-						{#each Array(4 - sponsors.length) as _, i}
-							<div class="space-y-1">
-								<div
-									class="block overflow-hidden bg-white/5 backdrop-blur-sm border dark:border-white/10 border-gray-200/50 transition-colors"
-									class:rounded-t-xl={sponsors.length === 0 && i === 0}
-									class:rounded-b-xl={i === 3 - sponsors.length}
-									style="height: 80px"
-								>
-									<div class="flex h-full w-full items-center justify-center p-4"></div>
-								</div>
-							</div>
-						{/each}
-					{/if}
-				</div>
+					<SponsorLockup sponsors={normalizedSponsors} variant="sidebar" />
 			</div>
 		</div>
 	</div>
-{:else if variant === 'horizontal'}
-	<div class="w-full {className}">
-		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-			{#each sponsors as sponsor}
-				<a
-					href={sponsor.url}
-					class="aspect-video group flex items-center justify-center rounded-lg bg-gray-800/50 p-4 transition-colors hover:bg-white"
-				>
-					<img
-						src={getSponsorImage(sponsor)}
-						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain opacity-50 grayscale invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0"
-					/>
-				</a>
-			{/each}
-			{#if sponsors.length < 4}
-				{#each Array(4 - sponsors.length) as _}
-					<div
-						class="aspect-video flex items-center justify-center rounded-lg bg-gray-800/20 dark:bg-gray-600/20 transition-colors hover:bg-gray-700/30 dark:hover:bg-gray-500/30 p-4"
-					></div>
+	{:else if variant === 'horizontal'}
+		<div class="w-full {className}">
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+				{#each sponsors as sponsor}
+					<a
+						href={sponsor.url}
+						class="group flex aspect-video items-center justify-center rounded-lg border border-slate-200 bg-white p-4 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
+					>
+						<img
+							src={getSponsorImage(sponsor)}
+							alt={sponsor.name}
+							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+						/>
+					</a>
 				{/each}
-			{/if}
+				{#if sponsors.length < 4}
+					{#each Array(4 - sponsors.length) as _}
+						<div
+							class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-gray-800 dark:bg-gray-900/70"
+						></div>
+					{/each}
+				{/if}
 		</div>
 	</div>
-{:else}
-	<div class="w-full {className}">
-		<div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
-			{#each sponsors as sponsor}
-				<a
-					href={sponsor.url}
-					class="aspect-video group flex items-center justify-center rounded-lg bg-gray-800/50 p-3 transition-colors hover:bg-white"
-				>
-					<img
-						src={getSponsorImage(sponsor)}
-						alt={sponsor.name}
-						class="max-h-full max-w-full object-contain opacity-50 grayscale invert transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-hover:invert-0"
-					/>
-				</a>
-			{/each}
-			{#if sponsors.length < 4}
-				{#each Array(4 - sponsors.length) as _}
-					<div
-						class="aspect-video flex items-center justify-center rounded-lg bg-gray-800/20 dark:bg-gray-600/20 transition-colors hover:bg-gray-700/30 dark:hover:bg-gray-500/30 p-3"
-					></div>
+	{:else}
+		<div class="w-full {className}">
+			<div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+				{#each sponsors as sponsor}
+					<a
+						href={sponsor.url}
+						class="group flex aspect-video items-center justify-center rounded-lg border border-slate-200 bg-white p-3 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
+					>
+						<img
+							src={getSponsorImage(sponsor)}
+							alt={sponsor.name}
+							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+						/>
+					</a>
 				{/each}
-			{/if}
+				{#if sponsors.length < 4}
+					{#each Array(4 - sponsors.length) as _}
+						<div
+							class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 dark:border-gray-800 dark:bg-gray-900/70"
+						></div>
+					{/each}
+				{/if}
 		</div>
 	</div>
 {/if}

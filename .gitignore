@@ -26,3 +26,13 @@ vite.config.ts.timestamp-*
 
 .yarn
 plan*.md
+.playwright-cli/
+output/
+
+# Audit/debug screenshots captured at repo root
+/audit-*.png
+/graphic-*.png
+/audit-*.jpg
+/graphic-*.jpg
+.session/
+.playwright-*/

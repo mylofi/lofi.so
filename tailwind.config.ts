@@ -7,8 +7,11 @@ export default {
 	theme: {
 		extend: {
 			colors: {
-				primary: '#5865F2',
-				discord: '#f8b23a'
+				primary: '#4C62FF',
+				discord: '#FFB21D',
+				ink: '#101828',
+				paper: '#F8FAFC',
+				panel: '#EEF2FF'
 			},
 			fontFamily: {
 				sans: ['Archivo', 'system-ui', 'sans-serif']

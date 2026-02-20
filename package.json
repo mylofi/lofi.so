@@ -19,7 +19,7 @@
 		"deploy": "npx wrangler pages deploy .svelte-kit/cloudflare"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-cloudflare": "^7.0.1",
+		"@sveltejs/adapter-cloudflare": "^7.2.8",
 		"@sveltejs/adapter-node": "^5.2.11",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
@@ -32,6 +32,7 @@
 		"glob": "^10.4.5",
 		"gray-matter": "^4.0.3",
 		"jsdom": "^26.0.0",
+		"jszip": "^3.10.1",
 		"marked": "^15.0.7",
 		"mdsvex": "^0.12.3",
 		"postcss": "^8.5.3",

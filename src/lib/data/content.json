@@ -426,12 +426,6 @@
 								"icon": "https://signaldb.js.org/logo.svg"
 							},
 							{
-								"title": "Socket Runtime",
-								"author": "Socket Runtime Team",
-								"url": "https://github.com/socketsupply/socket",
-								"icon": "https://socketsupply.co/images/monogram.svg"
-							},
-							{
 								"title": "Soukai",
 								"author": "Noel De Martin",
 								"url": "https://soukai.js.org",
