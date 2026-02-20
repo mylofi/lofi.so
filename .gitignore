@@ -35,3 +35,4 @@ output/
 /audit-*.jpg
 /graphic-*.jpg
 .session/
+.playwright-*/

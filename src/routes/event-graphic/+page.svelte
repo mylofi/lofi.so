@@ -19,6 +19,28 @@
 	import fixtureData from '$lib/data/event-graphic-fixtures.json';
 	import { onMount } from 'svelte';
 
+	type EventFixture = {
+		event: {
+			title: string;
+			number: number;
+			startTimeISO: string;
+			links: {
+				registration: string;
+				discord: string;
+				calendar: string;
+				logo: string;
+			};
+		};
+		speakers: Array<{
+			name: string;
+			social: Record<string, string | undefined>;
+			talk: string;
+			bio: string;
+			bullets: string[];
+			avatar: string;
+		}>;
+	};
+
 	function getLastTuesdayOfMonth() {
 		const today = new Date();
 		const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -31,6 +53,15 @@
 	}
 
 	const lastTuesday = getLastTuesdayOfMonth();
+	const fixtures = fixtureData as Record<string, EventFixture>;
+	const fixtureOptions = Object.entries(fixtures)
+		.map(([key, fixture]) => ({
+			key,
+			label: `LoFi/${fixture.event.number}`,
+			number: fixture.event.number
+		}))
+		.sort((a, b) => a.number - b.number);
+	let selectedFixtureKey = '';
 
 	let formData = {
 		title: 'Watch Party',
@@ -99,9 +130,34 @@
 	let exportResults: ExportResult[] = [];
 	let exportError = '';
 
-	// Preview target selector
-	let activePreviewTarget: ExportTargetId = 'announcement_regular';
-	$: previewTarget = exportTargets.find((t) => t.id === activePreviewTarget) || exportTargets[0];
+	// Preview category filter
+	type PreviewCategory = 'event' | 'discord' | 'homepage' | 'speakers' | 'sponsor';
+	const previewCategories: { id: PreviewCategory; label: string }[] = [
+		{ id: 'event', label: 'Event Graphic' },
+		{ id: 'discord', label: 'Discord Banner' },
+		{ id: 'homepage', label: 'Homepage Preview' },
+		{ id: 'speakers', label: 'Speaker Cards' },
+		{ id: 'sponsor', label: 'Sponsor Card' }
+	];
+	let activeCategories: Record<PreviewCategory, boolean> = {
+		event: true,
+		discord: true,
+		homepage: true,
+		speakers: true,
+		sponsor: true
+	};
+	$: allActive = Object.values(activeCategories).every(Boolean);
+	function toggleAll() {
+		const next = !allActive;
+		for (const k of Object.keys(activeCategories) as PreviewCategory[]) {
+			activeCategories[k] = next;
+		}
+		activeCategories = activeCategories;
+	}
+	function toggleCategory(id: PreviewCategory) {
+		activeCategories[id] = !activeCategories[id];
+		activeCategories = activeCategories;
+	}
 
 	// Update the date when the month changes
 	function updateToLastTuesday() {
@@ -356,12 +412,16 @@
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
 			logoUrl: '/images/logo.png'
 		};
+		selectedFixtureKey = '';
 		exportResults = [];
 		exportError = '';
 	}
 
-	function loadFixture() {
-		const fixture = fixtureData.lofi33;
+	function loadFixture(fixtureKey = selectedFixtureKey) {
+		const fixture = fixtures[fixtureKey];
+		if (!fixture) return;
+
+		selectedFixtureKey = fixtureKey;
 		formData = {
 			title: fixture.event.title,
 			eventNumber: fixture.event.number,
@@ -371,19 +431,20 @@
 			speakers: fixture.speakers.map((s) => {
 				const social = s.social as Record<string, string | undefined>;
 				return {
-				name: s.name,
-				socialPlatform: (social.twitter ? 'twitter' : social.bluesky ? 'bluesky' : 'linkedin') as string,
-				socialHandle: social.twitter || social.bluesky || '',
-				twitterHandle: social.twitter || '',
-				profileImagePlatform: 'twitter',
-				profileImageHandle: '',
-				customImageUrl: '',
-				talk: s.talk,
-				bio: s.bio,
-				talkPoints: [...s.bullets, ...Array(Math.max(0, 3 - s.bullets.length)).fill('')].slice(0, 3),
-				image: s.avatar,
-				error: ''
-			}; }),
+					name: s.name,
+					socialPlatform: (social.twitter ? 'twitter' : social.bluesky ? 'bluesky' : 'linkedin') as string,
+					socialHandle: social.twitter || social.bluesky || social.linkedin || '',
+					twitterHandle: social.twitter || '',
+					profileImagePlatform: social.bluesky && !social.twitter ? 'bluesky' : 'twitter',
+					profileImageHandle: '',
+					customImageUrl: '',
+					talk: s.talk,
+					bio: s.bio,
+					talkPoints: [...s.bullets, ...Array(Math.max(0, 3 - s.bullets.length)).fill('')].slice(0, 3),
+					image: s.avatar,
+					error: ''
+				};
+			}),
 			registrationUrl: fixture.event.links.registration,
 			discordUrl: fixture.event.links.discord,
 			calendarUrl: fixture.event.links.calendar,
@@ -393,8 +454,28 @@
 		exportError = '';
 	}
 
+	function handleFixtureSelection(event: Event) {
+		const key = (event.target as HTMLSelectElement).value;
+		loadFixture(key);
+	}
+
+	// Ensure all preview categories are visible (for export DOM access)
+	async function showAllCategories(): Promise<Record<PreviewCategory, boolean>> {
+		const saved = { ...activeCategories };
+		for (const k of Object.keys(activeCategories) as PreviewCategory[]) {
+			activeCategories[k] = true;
+		}
+		activeCategories = activeCategories;
+		await new Promise((r) => setTimeout(r, 100));
+		return saved;
+	}
+	function restoreCategories(saved: Record<PreviewCategory, boolean>) {
+		activeCategories = saved;
+	}
+
 	// Legacy export: save + single event graphic PNG
 	async function handleSubmit() {
+		const saved = await showAllCategories();
 		try {
 			const payload = { ...formData, startTimeISO };
 			const response = await fetch('/api/save-event', {
@@ -422,11 +503,14 @@
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Failed to generate event graphic');
+		} finally {
+			restoreCategories(saved);
 		}
 	}
 
 	// Legacy export: speaker cards
 	async function handleGenerateSpeakerCards() {
+		const saved = await showAllCategories();
 		try {
 			const payload = { ...formData, startTimeISO };
 			const response = await fetch('/api/save-event', {
@@ -458,6 +542,8 @@
 		} catch (error) {
 			console.error('Error:', error);
 			alert('Failed to generate speaker cards');
+		} finally {
+			restoreCategories(saved);
 		}
 	}
 
@@ -492,6 +578,9 @@
 		isExporting = true;
 		exportResults = [];
 		exportError = '';
+
+		// Ensure all preview sections are visible so DOM elements exist for capture
+		const savedCategories = await showAllCategories();
 
 		try {
 			// Save event data first
@@ -570,6 +659,7 @@
 			console.error('Export error:', error);
 			exportError = error instanceof Error ? error.message : 'Export failed';
 		} finally {
+			restoreCategories(savedCategories);
 			isExporting = false;
 		}
 	}
@@ -582,7 +672,30 @@
 </script>
 
 <div class="container mx-auto p-20 text-white">
-	<h1 class="mb-8 text-3xl font-bold">Generate Event Graphic</h1>
+	<div class="mb-8 flex flex-wrap items-center justify-between gap-3">
+		<h1 class="text-3xl font-bold">Generate Event Graphic</h1>
+		<div class="flex items-center gap-3">
+			<label class="sr-only" for="fixture-select">Load fixture</label>
+			<select
+				id="fixture-select"
+				bind:value={selectedFixtureKey}
+				on:change={handleFixtureSelection}
+				class="rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-black shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary"
+			>
+				<option value="" disabled>Load fixture</option>
+				{#each fixtureOptions as fixtureOption}
+					<option value={fixtureOption.key}>{fixtureOption.label}</option>
+				{/each}
+			</select>
+			<button
+				type="button"
+				on:click={resetForm}
+				class="rounded-md bg-gray-500 px-4 py-2 font-semibold text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+			>
+				Reset
+			</button>
+		</div>
+	</div>
 
 	<form on:submit|preventDefault={handleSubmit} class="mb-8 space-y-6 text-black">
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -934,20 +1047,6 @@
 			>
 				Legacy: Speaker Cards
 			</button>
-			<button
-				type="button"
-				on:click={loadFixture}
-				class="rounded-md bg-gray-600 px-4 py-2 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-			>
-				Load Fixture (LoFi/33)
-			</button>
-			<button
-				type="button"
-				on:click={resetForm}
-				class="rounded-md bg-gray-500 px-4 py-2 text-white shadow-sm hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-			>
-				Reset
-			</button>
 		</div>
 	</form>
 
@@ -998,58 +1097,211 @@
 	{/if}
 
 	<!-- Preview Section -->
-	<div class="mt-8 space-y-8">
-		<!-- Preview Target Selector -->
-		<div class="flex items-center gap-4">
-			<span class="text-sm font-medium">Preview as:</span>
-			{#each exportTargets as target}
+	<div class="mt-8 space-y-12">
+
+		<!-- Category filter buttons -->
+		<div class="flex flex-wrap items-center gap-2">
+			<span class="mr-1 text-sm font-medium text-gray-400">Show:</span>
+			<button
+				type="button"
+				on:click={toggleAll}
+				class="rounded-md px-3 py-1 text-sm font-medium transition {allActive ? 'bg-primary text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+			>
+				All
+			</button>
+			{#each previewCategories as cat}
 				<button
 					type="button"
-					on:click={() => (activePreviewTarget = target.id)}
-					class="rounded-md px-3 py-1 text-sm transition {activePreviewTarget === target.id ? 'bg-primary text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
+					on:click={() => toggleCategory(cat.id)}
+					class="rounded-md px-3 py-1 text-sm transition {activeCategories[cat.id] ? 'bg-primary/80 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}"
 				>
-					{target.label.split('(')[0].trim()}
+					{cat.label}
 				</button>
 			{/each}
 		</div>
 
-		<div>
-			<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">({previewTarget.width}x{previewTarget.height})</span></h2>
-			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
-				<div id="graphic" class="origin-center" style="width: {previewTarget.width}px; min-width: {previewTarget.width}px; height: {previewTarget.height}px; min-height: {previewTarget.height}px;">
-					<EventGraphic {spec} />
+		<!-- ── 1. Event Graphic (X / Bluesky Feed) ── -->
+		{#if activeCategories.event}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
+					<div id="graphic" class="origin-center" style="width: 1200px; min-width: 1200px; height: 675px; min-height: 675px;">
+						<EventGraphic {spec} />
+					</div>
 				</div>
 			</div>
-		</div>
+		{/if}
 
-		<div>
-			<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview</h2>
-			<div class="space-y-8">
-				{#each formData.speakers as speaker, i}
-					<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
-						<h3 class="absolute left-4 top-4 mb-2 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
-						<div id="speaker-card-{i}" class="origin-center">
-							<SpeakerCard
-								{spec}
-								speakerIndex={i}
-							/>
+		<!-- ── 2. Discord Banner ── -->
+		{#if activeCategories.discord}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
+					<div id="graphic-discord" class="origin-center" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
+						<EventGraphic {spec} />
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- ── 3. Homepage Preview (Mobile / Tablet / Desktop in one row) ── -->
+		{#if activeCategories.homepage}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Homepage Preview <span class="text-sm font-normal text-gray-400">(how &ldquo;Save to Homepage&rdquo; will look)</span></h2>
+				<div class="flex gap-6 overflow-x-auto pb-4">
+
+					<!-- Mobile (375px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Mobile <span class="text-xs text-gray-400">(375px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div
+								data-preview="mobile"
+								class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950"
+								style="width: 375px;"
+							>
+								<EventGraphic {spec} />
+							</div>
 						</div>
 					</div>
-				{/each}
-			</div>
-		</div>
 
-		<div>
-			<h2 class="mb-4 text-xl font-semibold">Sponsor Card Preview</h2>
-			<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
-				<div id="sponsor-card" class="origin-center">
-					<SponsorCard
-						sponsors={spec.sponsors}
-						eventNumber={spec.event.number}
-						displayDateTime={spec.event.displayDateTime}
-					/>
+					<!-- Tablet (768px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Tablet <span class="text-xs text-gray-400">(768px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 768px;">
+								<EventGraphic {spec} />
+							</div>
+						</div>
+					</div>
+
+					<!-- Desktop (1120px) -->
+					<div class="flex-shrink-0">
+						<h3 class="mb-2 text-sm font-medium text-gray-500">Desktop <span class="text-xs text-gray-400">(1120px)</span></h3>
+						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 1120px;">
+								<EventGraphic {spec} />
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		{/if}
+
+		<!-- ── 4. Speaker Cards ── -->
+		{#if activeCategories.speakers}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Speaker Cards Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+				<div class="space-y-8">
+					{#each formData.speakers as speaker, i}
+						<div class="overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h3 class="mb-4 text-lg font-medium">{speaker.name || 'Speaker ' + (i + 1)}</h3>
+							<div class="flex justify-center">
+								<div id="speaker-card-{i}" class="origin-center" style="width: 1200px; min-width: 1200px; height: 675px; min-height: 675px;">
+									<SpeakerCard
+										{spec}
+										speakerIndex={i}
+									/>
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{/if}
+
+		<!-- ── 5. Sponsor Card ── -->
+		{#if activeCategories.sponsor}
+			<div>
+				<h2 class="mb-4 text-xl font-semibold">Sponsor Card Preview</h2>
+				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900">
+					<div id="sponsor-card" class="origin-center">
+						<SponsorCard
+							sponsors={spec.sponsors}
+							eventNumber={spec.event.number}
+							displayDateTime={spec.event.displayDateTime}
+						/>
+					</div>
+				</div>
+			</div>
+		{/if}
 	</div>
 </div>
+
+<style>
+	/*
+	 * Mobile homepage preview fix.
+	 * EventGraphic uses Tailwind `sm:` media-query breakpoints, which check the
+	 * viewport width — not the container width.  When we render the component
+	 * inside a 375px container on a wide screen the mobile layout never kicks
+	 * in.  These overrides force the mobile branch of the responsive layout
+	 * inside [data-preview="mobile"].
+	 */
+
+	/* Main layout: keep column (override sm:flex-row) */
+	:global([data-preview="mobile"] .sm\:flex-row) {
+		flex-direction: column !important;
+	}
+
+	/* Sidebar: hide (it has `hidden sm:flex sm:flex-col`) */
+	:global([data-preview="mobile"] .hidden.sm\:flex.sm\:flex-col) {
+		display: none !important;
+	}
+
+	/* Mobile CTA strip: keep visible (override sm:hidden) */
+	:global([data-preview="mobile"] .sm\:hidden) {
+		display: flex !important;
+	}
+
+	/* Diagonal stripe: keep hidden on mobile (override sm:block) */
+	:global([data-preview="mobile"] .hidden.sm\:block) {
+		display: none !important;
+	}
+
+	/* Reset desktop-only spacing overrides */
+	:global([data-preview="mobile"] .sm\:px-\[4\%\]) {
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:pb-\[4\%\]) {
+		padding-bottom: 1rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:pt-\[5\%\]) {
+		padding-top: 2rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-3) {
+		gap: 0.5rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:mb-\[3\%\]) {
+		margin-bottom: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:mb-\[4\%\]) {
+		margin-bottom: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-\[3\%\]) {
+		gap: 0.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:gap-\[2\%\]) {
+		gap: 0.75rem !important;
+	}
+
+	/* Font size resets to mobile sizes */
+	:global([data-preview="mobile"] .sm\:text-xl) {
+		font-size: 1rem !important;
+		line-height: 1.5rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-xs) {
+		font-size: 10px !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-\[10px\]) {
+		font-size: 9px !important;
+	}
+	:global([data-preview="mobile"] .sm\:text-\[9px\]) {
+		font-size: 9px !important;
+	}
+	:global([data-preview="mobile"] .sm\:h-9) {
+		height: 1.75rem !important;
+	}
+	:global([data-preview="mobile"] .sm\:w-9) {
+		width: 1.75rem !important;
+	}
+</style>
