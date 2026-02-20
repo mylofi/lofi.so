@@ -1,27 +1,27 @@
 {
-  "eventNumber": 23,
-  "startTimeISO": "2025-02-28T05:00:00.000Z",
-  "date": "2025-02-28",
-  "time": "05:00",
+  "eventNumber": 34,
+  "startTimeISO": "2026-02-24T16:00:00.000Z",
+  "date": "2026-02-24",
+  "time": "08:00",
   "timezone": "PST",
   "speakers": [
     {
-      "name": "Sarah Chen",
-      "handle": "@sarahchen",
-      "talk": "Building Offline-First Apps with CRDTs: A Practical Guide",
-      "image": "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?semt=ais_hybrid"
+      "name": "Martin Kleppmann",
+      "handle": "@martin.kleppmann.com",
+      "talk": "Local-first software and geopolitical risk",
+      "image": ""
     },
     {
-      "name": "Someone Great",
-      "handle": "@someone",
-      "talk": "Building apps the local first way, you own your data to the fullest.",
-      "image": "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"
+      "name": "Nate Hardt",
+      "handle": "@natehardt.bsky.social",
+      "talk": "Footnote: P2P tool for Knowledge Sharing",
+      "image": ""
     },
     {
-      "name": "Alex Garcia",
-      "handle": "@avatar",
-      "talk": "Building Trust in P2P Systems: Security Best Practices for Local-First Apps",
-      "image": "https://static.vecteezy.com/system/resources/previews/024/183/525/non_2x/avatar-of-a-man-portrait-of-a-young-guy-illustration-of-male-character-in-modern-color-style-vector.jpg"
+      "name": "Brendan O'Brien",
+      "handle": "@b5.bsky.social",
+      "talk": "local first from the network up",
+      "image": "https://avatars.githubusercontent.com/u/1154390?v=4"
     }
   ],
   "registrationUrl": "https://lofi.so",

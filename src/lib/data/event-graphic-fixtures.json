@@ -1,4 +1,111 @@
 {
+	"lofi34": {
+		"event": {
+			"title": "Local First Software",
+			"number": 34,
+			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
+			"links": {
+				"registration": "https://lu.ma/lofi-34",
+				"discord": "https://discord.gg/lofi-so",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Martin Kleppmann",
+				"social": {
+					"bsky": "@martin.kleppmann.com"
+				},
+				"talk": "Local-first software and geopolitical risk",
+				"bio": "Associate Professor at University of Cambridge and co-author of the original local-first paper. Researching decentralised systems and security protocols. Advisor to the Bluesky team.",
+				"bullets": [
+					"The risk of a conflict between Europe and the US over Greenland has grown",
+					"What if Europe suddenly gets locked out of US cloud services?",
+					"How local-first can support technological sovereignty"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Nate Hardt",
+				"social": {
+					"bsky": "@natehardt.bsky.social"
+				},
+				"talk": "Footnote: P2P tool for Knowledge Sharing",
+				"bio": "Funemployed solo dev working on local-first tools after 3 decades in industry.",
+				"bullets": [
+					"User-owned, peer-to-peer, local-first",
+					"Best case use case",
+					"Cool stuff: Pairing, Peering and Sharing"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Brendan O'Brien",
+				"social": {
+					"bsky": "@b5.bsky.social"
+				},
+				"talk": "local first from the network up",
+				"bio": "Worker crayon at n0.computer, we make iroh.computer. Caretaker at number 0.",
+				"bullets": [
+					"dialing by keys is a net win for user agency",
+					"networking doing more for us opens up new possibilities",
+					"devops inside apps might give us back credible exit",
+					"quick tour of n0pe (number 0 piped events)"
+				],
+				"avatar": "https://avatars.githubusercontent.com/u/1154390?v=4"
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 450,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "Discord (800x450 JPG)"
+			}
+		]
+	},
 	"lofi33": {
 		"event": {
 			"title": "Watch Party",
