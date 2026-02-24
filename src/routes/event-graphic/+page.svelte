@@ -29,6 +29,7 @@
 				discord: string;
 				calendar: string;
 				logo: string;
+				youtube?: string;
 			};
 		};
 		speakers: Array<{
@@ -88,7 +89,8 @@
 		registrationUrl: 'https://lofi.so',
 		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-		logoUrl: '/images/logo.png'
+		logoUrl: '/images/logo.png',
+		youtubeUrl: ''
 	};
 
 	$: startTimeISO = formData.date && formData.time
@@ -113,7 +115,8 @@
 			registrationUrl: formData.registrationUrl,
 			discordUrl: formData.discordUrl,
 			calendarUrl: formData.calendarUrl,
-			logoUrl: formData.logoUrl
+			logoUrl: formData.logoUrl,
+			youtubeUrl: formData.youtubeUrl
 		},
 		formData.speakers as any,
 		sponsorsData.sponsors
@@ -448,7 +451,8 @@
 			registrationUrl: fixture.event.links.registration,
 			discordUrl: fixture.event.links.discord,
 			calendarUrl: fixture.event.links.calendar,
-			logoUrl: fixture.event.links.logo
+			logoUrl: fixture.event.links.logo,
+			youtubeUrl: fixture.event.links.youtube || ''
 		};
 		exportResults = [];
 		exportError = '';
@@ -789,6 +793,16 @@
 						bind:value={formData.calendarUrl}
 						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 						required
+					/>
+				</div>
+
+				<div>
+					<label class="block text-sm font-medium text-gray-700">YouTube URL</label>
+					<input
+						type="url"
+						bind:value={formData.youtubeUrl}
+						placeholder="https://www.youtube.com/watch?v=..."
+						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 					/>
 				</div>
 
