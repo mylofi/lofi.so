@@ -56,6 +56,7 @@ export interface EventGraphicSpec {
 			discord: string;
 			calendar: string;
 			logo: string;
+			youtube?: string;
 		};
 	};
 	speakers: EventGraphicSpeaker[];
