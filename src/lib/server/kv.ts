@@ -20,6 +20,7 @@ export interface EventData {
 	discordUrl: string;
 	calendarUrl: string;
 	logoUrl: string;
+	youtubeUrl?: string;
 }
 
 export async function saveEvent(event: EventData) {
