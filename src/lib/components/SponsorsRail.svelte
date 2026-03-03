@@ -46,10 +46,15 @@
 	};
 
 	onMount(() => {
-		if (window.innerHeight < 900) {
-			isMeetupsOpen = false;
-			isConferencesOpen = false;
-		}
+		const checkHeight = () => {
+			if (window.innerHeight < 900) {
+				isMeetupsOpen = false;
+				isConferencesOpen = false;
+			}
+		};
+		checkHeight();
+		window.addEventListener('resize', checkHeight);
+		return () => window.removeEventListener('resize', checkHeight);
 	});
 
 	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
@@ -96,8 +101,8 @@
 
 {#if variant === 'sidebar'}
 	<div class="hidden xl:block {className}">
-		<div class="absolute top-24 bottom-5 right-0 z-20 w-[19.5rem] pr-4">
-			<div class="sticky top-24 h-[calc(100vh-9rem)] overflow-y-auto">
+		<div class="absolute top-16 bottom-5 right-0 z-20 w-[19.5rem] pr-4">
+			<div class="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto">
 					{#if showNextEvent && activeNextEvent}
 						<div
 							class="mb-4 overflow-hidden rounded-xl border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900/90"
@@ -180,7 +185,7 @@
 													/>
 												</svg>
 												Catch up on this event
-											</a>
+											<!-- </a>
 												<a
 													href="https://discord.gg/lofi-so"
 													class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
@@ -197,7 +202,7 @@
 													/>
 												</svg>
 												Join Discord for updates
-											</a>
+											</a> -->
 										</div>
 									{:else}
 											<a
