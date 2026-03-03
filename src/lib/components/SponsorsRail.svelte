@@ -268,13 +268,50 @@
 
 						{#if isConferencesOpen}
 							<div transition:slide class="flex flex-col gap-2 px-6 pb-6">
+								<a href="https://www.localfirstconf.com/" class="group block" target="_blank" rel="noopener noreferrer">
+									<h3
+										class="mb-2 text-lg font-semibold text-slate-900 transition group-hover:text-primary dark:text-white"
+									>
+										Local-First Conf
+									</h3>
+									<p class="text-sm text-slate-500 dark:text-slate-300">
+										🇩🇪 Berlin • July 12 - 14
+									</p>
+
+								</a>
 								<a
-									href="https://www.youtube.com/playlist?list=PL4isNRKAwz2NCmk5oQq4qIBXreLLdAAJ_"
-									class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-								<svg
+										href="https://www.localfirstconf.com/?tito=%2Flfc%2Flocal-first-conf-2026%2Fen%2Fregistrations%2Fnew%3Fprefill%3D%257B%257D"
+										class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										<svg
+											class="h-4 w-4 text-blue-500 transition-colors group-hover:text-primary"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+											<path d="M13 5v2"/>
+											<path d="M13 17v2"/>
+											<path d="M13 11v2"/>
+										</svg>
+										Get Tickets
+									</a>
+
+								<div class="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-gray-800">
+
+									<a
+										href="https://www.youtube.com/playlist?list=PL4isNRKAwz2NCmk5oQq4qIBXreLLdAAJ_"
+										class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+									<svg
 									class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
 									viewBox="0 0 24 24"
 									fill="currentColor"
@@ -300,8 +337,26 @@
 										d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
 									/>
 								</svg>
-								LoFi Berlin Recap
+								LoFi Berlin 2025
 							</a>
+							<a
+									href="https://www.youtube.com/watch?v=NMq0vncHJvU&list=PL4isNRKAwz2O9FxP97_EbOivIWWwSWt5j"
+									class="group flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-primary dark:text-slate-300"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+								<svg
+									class="h-4 w-4 text-red-500 group-hover:text-primary transition-colors"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+								>
+									<path
+										d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+									/>
+								</svg>
+								LoFi Berlin 2024
+							</a>
+							</div>
 						</div>
 					{/if}
 				</div>
