@@ -1,8 +1,10 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import itemJson from '$lib/data/directory/Item.json';
 	import categoryJson from '$lib/data/directory/Category.json';
 	import type { DirectoryData, CategoryData } from '$lib/types/directory';
-	import { activeCategory } from '$lib/stores/categoryStore';
+	import { CATEGORY_PARAM, DEFAULT_CATEGORY } from '$lib/stores/categoryStore';
 	import { searchQuery } from '$lib/stores/directorySearchStore';
 
 	const items = (itemJson as DirectoryData).records;
@@ -22,11 +24,13 @@
 
 	const allCategories = ['All', ...categoryNames].sort();
 
+	$: activeCategory = $page.url.searchParams.get(CATEGORY_PARAM) || DEFAULT_CATEGORY;
+
 	$: filteredItems = items.filter((item) => {
 		const categoryFilter =
-			$activeCategory === 'All' ||
+			activeCategory === 'All' ||
 			(() => {
-				const categoryId = categories.find((c) => c.fields.Name === $activeCategory)?.id;
+				const categoryId = categories.find((c) => c.fields.Name === activeCategory)?.id;
 				return categoryId && item.fields.Categories?.includes(categoryId);
 			})();
 
@@ -38,6 +42,16 @@
 
 		return categoryFilter && searchFilter;
 	});
+
+	function setCategory(category: string) {
+		const url = new URL($page.url);
+		if (category === DEFAULT_CATEGORY) {
+			url.searchParams.delete(CATEGORY_PARAM);
+		} else {
+			url.searchParams.set(CATEGORY_PARAM, category);
+		}
+		goto(url.toString(), { replaceState: true, noScroll: true });
+	}
 </script>
 
 <div class="mx-auto max-w-7xl py-8">
@@ -74,11 +88,11 @@
 			{#each allCategories as category}
 				<button
 					class={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-						$activeCategory === category
+						activeCategory === category
 							? 'bg-primary text-white'
 							: 'border border-slate-300 bg-white text-slate-700 hover:border-primary/30 hover:text-primary dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-200 dark:hover:bg-slate-800'
 					}`}
-					on:click={() => activeCategory.set(category)}
+					on:click={() => setCategory(category)}
 				>
 					{category}
 				</button>
@@ -86,7 +100,7 @@
 		</div>
 
 		<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-			{#each filteredItems as item}
+			{#each filteredItems as item (item.id)}
 				<a
 					href="/directory/{item.fields.Main_Category === 1 ? 'apps' : 'projects'}/{item.fields.slug}"
 					class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/80"

@@ -1,20 +1,9 @@
-import { writable } from 'svelte/store';
-import { browser } from '$app/environment';
-
-const getInitialCategory = (): string => {
-    if (browser) {
-        const savedCategory = localStorage.getItem('activeCategory');
-        if (savedCategory) {
-            return savedCategory;
-        }
-    }
-    return 'All';
-};
-
-export const activeCategory = writable<string>(getInitialCategory());
-
-if (browser) {
-    activeCategory.subscribe((value) => {
-        localStorage.setItem('activeCategory', value);
-    });
-} 
+/**
+ * Category filtering is now driven by the URL search param `?category=`.
+ * See /routes/directory/+page.svelte for usage.
+ *
+ * This file is kept as a central reference for the param name
+ * so it stays consistent if referenced elsewhere.
+ */
+export const CATEGORY_PARAM = 'category';
+export const DEFAULT_CATEGORY = 'All';

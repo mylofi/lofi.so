@@ -12,7 +12,7 @@
 			{emptyMessage}
 		</div>
 	{:else}
-		{#each items as item}
+		{#each items as item (item.id)}
 			<a
 				href={`${hrefPrefix}/${item.fields.slug}`}
 				class="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-primary/20 hover:shadow-sm dark:border-slate-700 dark:bg-slate-900/80 dark:hover:border-primary/30 dark:hover:bg-slate-800/90"
