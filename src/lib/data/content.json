@@ -703,7 +703,14 @@
                         "author": "Noel De Martin",
                         "url": "https://focus.noeldemartin.com",
                         "icon": "https://noeldemartin.com/logos/focus-small.svg"
-                    }
+                    },
+					{
+					    "title": "BulkPicTools",
+					    "author": "Genglin Zheng",
+					    "url": "https://bulkpictools.com",
+					    "icon": "https://bulkpictools.com/favicon.svg",
+					    "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+					}
                 ]
             }
         ]
