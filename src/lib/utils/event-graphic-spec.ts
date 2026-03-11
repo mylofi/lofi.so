@@ -186,7 +186,8 @@ export function toEventGraphicSpec(
 				registration: legacy.registrationUrl,
 				discord: legacy.discordUrl,
 				calendar: legacy.calendarUrl,
-				logo: legacy.logoUrl
+				logo: legacy.logoUrl,
+				youtube: legacy.youtubeUrl
 			}
 		},
 		speakers,
@@ -234,6 +235,7 @@ export function fromEventGraphicSpec(spec: EventGraphicSpec): EventData {
 		registrationUrl: spec.event.links.registration,
 		discordUrl: spec.event.links.discord,
 		calendarUrl: spec.event.links.calendar,
-		logoUrl: spec.event.links.logo
+		logoUrl: spec.event.links.logo,
+		youtubeUrl: spec.event.links.youtube
 	};
 }

@@ -20,7 +20,7 @@
   {
     "title": "Home",
     "url": "/event-graphic",
-    "excerpt": "Generate Event Graphic\n\n\t\n\t\t\n\t\t\t\n\t\t\t\n\t\t\t\tEvent Details\n\n\t\t\t\t\n\t\t\t\t\tEvent Title\n\t\t\t\t\t\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\tEvent Number\n\t\t\t\t\t\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\t\tDate...",
+    "excerpt": "Generate Event Graphic\n\t\t\n\t\t\tLoad fixture\n\t\t\t\n\t\t\t\tLoad fixture\n\t\t\t\t{#each fixtureOptions as fixtureOption}\n\t\t\t\t\t{fixtureOption.label}\n\t\t\t\t{/each}...",
     "category": "Event"
   },
   {

@@ -63,6 +63,7 @@
 	$: registrationUrl = resolvedSpec?.event.links.registration || eventData?.registrationUrl || '';
 	$: discordUrl = resolvedSpec?.event.links.discord || eventData?.discordUrl || '';
 	$: calendarUrl = resolvedSpec?.event.links.calendar || eventData?.calendarUrl || '';
+	$: youtubeUrl = resolvedSpec?.event.links.youtube || eventData?.youtubeUrl || '';
 </script>
 
 {#if (resolvedSpec || eventData) && eventNumber}
@@ -257,6 +258,19 @@
 								</svg>
 								Join on Discord
 							</a>
+							{#if youtubeUrl}
+								<a
+									href={youtubeUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex w-full items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-xs font-semibold text-white"
+								>
+									<svg class="h-4 w-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+										<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+									</svg>
+									Join on YouTube
+								</a>
+							{/if}
 							<a
 								href={calendarUrl}
 								target="_blank"
@@ -359,6 +373,19 @@
 									</svg>
 									Join on Discord
 								</a>
+								{#if youtubeUrl}
+									<a
+										href={youtubeUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="flex w-full items-center justify-center gap-1.5 rounded-lg bg-red-600 px-2 py-1.5 text-[9px] font-semibold text-white transition hover:bg-red-700 sm:text-[10px]"
+									>
+										<svg class="h-3 w-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+											<path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+										</svg>
+										Join on YouTube
+									</a>
+								{/if}
 								<a
 									href={calendarUrl}
 									target="_blank"
