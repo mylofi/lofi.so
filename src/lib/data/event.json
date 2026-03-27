@@ -1,31 +1,50 @@
 {
-  "eventNumber": 34,
-  "startTimeISO": "2026-02-24T16:00:00.000Z",
-  "date": "2026-02-24",
-  "time": "08:00",
-  "timezone": "PST",
-  "speakers": [
-    {
-      "name": "Martin Kleppmann",
-      "handle": "@martin.kleppmann.com",
-      "talk": "Local-first software and geopolitical risk",
-      "image": ""
-    },
-    {
-      "name": "Nate Hardt",
-      "handle": "@natehardt.bsky.social",
-      "talk": "Footnote: P2P tool for Knowledge Sharing",
-      "image": ""
-    },
-    {
-      "name": "Brendan O'Brien",
-      "handle": "@b5.bsky.social",
-      "talk": "local first from the network up",
-      "image": "https://avatars.githubusercontent.com/u/1154390?v=4"
-    }
-  ],
-  "registrationUrl": "https://lofi.so",
-  "discordUrl": "https://discord.gg/lofi-so",
-  "calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE",
-  "logoUrl": "/images/logo.png"
+	"eventNumber": 35,
+	"title": "Local First Web",
+	"startTimeISO": "2026-03-31T15:00:00.000Z",
+	"date": "2026-03-31",
+	"time": "08:00",
+	"timezone": "PDT",
+	"speakers": [
+		{
+			"name": "Sai Vishwak Korimerla",
+			"twitterHandle": "@sai_vishwak_k",
+			"talk": "Building Edge-First AI Agents with Rust",
+			"bio": "",
+			"talkPoints": [
+				"Why edge-first AI agents matter for privacy, latency, and reliability",
+				"How and Why I built AutoAgents: multi-agent framework in Rust",
+				"A live demo of real local AI agent running on-device optimised for the hardware"
+			],
+			"image": ""
+		},
+		{
+			"name": "Riken Shah",
+			"twitterHandle": "@_RikenShah",
+			"talk": "The Memory Problem Nobody Talks About in Local-First",
+			"bio": "Founding engineer at Tasks (4.8+ rating, 700K+ users), built the entire sync engine from scratch",
+			"talkPoints": [
+				"How do you work with large datasets in local-first without bloating user RAM?",
+				"Why are your IDB reads slow even though everything is local?",
+				"Gotchas when working with large datasets, plus a live demo"
+			],
+			"image": ""
+		},
+		{
+			"name": "Arushi Bandi",
+			"twitterHandle": "",
+			"talk": "The Power of ATProtocol Local-First",
+			"bio": "Left Figma to build Habitat, a platform for user data agency. Cares about building an internet that protects users' privacy by default.",
+			"talkPoints": [
+				"What is user data ownership and can we have it?",
+				"Why local-first needs ATProtocol (or something like it)",
+				"Live demo of Habitat and what you can build on it"
+			],
+			"image": ""
+		}
+	],
+	"registrationUrl": "https://lofi.so",
+	"discordUrl": "https://discord.gg/ZRrwZxn4rW",
+	"calendarUrl": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+	"logoUrl": "/images/logo.png"
 }
