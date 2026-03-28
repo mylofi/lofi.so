@@ -1,4 +1,111 @@
 {
+	"lofi35": {
+		"event": {
+			"title": "Local First Web",
+			"number": 35,
+			"startTimeISO": "2026-03-31T15:00:00.000Z",
+			"displayDateTime": "Tuesday, March 31, 2026 · 8:00AM PT",
+			"links": {
+				"registration": "https://lofi.so",
+				"discord": "https://discord.gg/ZRrwZxn4rW",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Sai Vishwak Korimerla",
+				"social": {
+					"twitter": "@sai_vishwak_k"
+				},
+				"talk": "Building Edge-First AI Agents with Rust",
+				"bio": "",
+				"bullets": [
+					"Why edge-first AI agents matter for privacy, latency, and reliability",
+					"How and Why I built AutoAgents: multi-agent framework in Rust",
+					"A live demo of real local AI agent running on-device optimised for the hardware"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Riken Shah",
+				"social": {
+					"twitter": "@_RikenShah",
+					"bluesky": "rikenshah.bsky.social"
+				},
+				"talk": "The Memory Problem Nobody Talks About in Local-First",
+				"bio": "Founding engineer at Tasks (4.8+ rating, 700K+ users), built the entire sync engine from scratch",
+				"bullets": [
+					"How do you work with large datasets in local-first without bloating user RAM?",
+					"Why are your IDB reads slow even though everything is local?",
+					"Gotchas when working with large datasets, plus a live demo"
+				],
+				"avatar": ""
+			},
+			{
+				"name": "Arushi Bandi",
+				"social": {
+					"bluesky": "offline.arushibandi.com"
+				},
+				"talk": "The Power of ATProtocol Local-First",
+				"bio": "Left Figma to build Habitat, a platform for user data agency. Cares about building an internet that protects users' privacy by default.",
+				"bullets": [
+					"What is user data ownership and can we have it?",
+					"Why local-first needs ATProtocol (or something like it)",
+					"Live demo of Habitat and what you can build on it"
+				],
+				"avatar": ""
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 450,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "Discord (800x450 JPG)"
+			}
+		]
+	},
 	"lofi34": {
 		"event": {
 			"title": "Local First Software",
