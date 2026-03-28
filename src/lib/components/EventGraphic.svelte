@@ -43,9 +43,14 @@
 	$: speakers = resolvedSpec
 		? resolvedSpec.speakers.map((s) => {
 				const primary = getPrimarySocial(s);
+				const handle = primary?.handle || '';
+				// Ensure @ prefix for all social platforms
+				const displayHandle = handle && !handle.startsWith('@') ? `@${handle}` : handle;
 				return {
 					name: s.name,
-					handle: primary?.handle || '',
+					platform: primary?.platform || 'twitter',
+					handle,
+					displayHandle,
 					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
 					talk: s.talk,
 					image: s.avatar
@@ -53,7 +58,9 @@
 			})
 		: (eventData?.speakers || []).map((s) => ({
 				name: s.name,
+				platform: 'twitter',
 				handle: s.twitterHandle || '',
+				displayHandle: s.twitterHandle || '',
 				handleUrl: s.twitterHandle ? `https://x.com/${s.twitterHandle.replace(/^@/, '')}` : '#',
 				talk: s.talk,
 				image: s.image
@@ -164,7 +171,12 @@
 					<!-- ── SPEAKERS ──────────────────────────────── -->
 					<div class="flex flex-1 flex-col justify-around gap-3 sm:gap-[2%]">
 						{#each speakers as speaker, i}
-							<div class="flex items-center gap-3 sm:gap-[3%]">
+							<a
+							href={speaker.handleUrl !== '#' ? speaker.handleUrl : undefined}
+							target={speaker.handleUrl !== '#' ? '_blank' : undefined}
+							rel={speaker.handleUrl !== '#' ? 'noopener noreferrer' : undefined}
+							class="flex items-center gap-3 rounded-lg transition-opacity sm:gap-[3%] {speaker.handleUrl !== '#' ? 'cursor-pointer hover:opacity-80' : ''}"
+						>
 
 								<!-- Avatar -->
 								<div
@@ -206,9 +218,9 @@
 										<h3 class="text-sm font-bold leading-tight text-white sm:text-base">
 											{speaker.name}
 										</h3>
-										{#if speaker.handle}
+										{#if speaker.displayHandle}
 											<span class="text-[10px] font-medium text-white/35 sm:text-[11px]">
-												{speaker.handle}
+												{speaker.displayHandle}
 											</span>
 										{/if}
 									</div>
@@ -216,7 +228,7 @@
 										{speaker.talk}
 									</p>
 								</div>
-							</div>
+							</a>
 						{/each}
 					</div>
 
