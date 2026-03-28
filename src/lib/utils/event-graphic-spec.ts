@@ -166,7 +166,10 @@ export function toEventGraphicSpec(
 			}))
 		: legacy.speakers.map((ls) => ({
 				name: ls.name,
-				social: { twitter: ls.twitterHandle || undefined },
+				social: {
+					twitter: ls.twitterHandle || undefined,
+					bluesky: ls.blueskyHandle || undefined
+				},
 				talk: ls.talk,
 				bio: '',
 				bullets: [],
@@ -228,6 +231,7 @@ export function fromEventGraphicSpec(spec: EventGraphicSpec): EventData {
 		speakers: spec.speakers.map((s) => ({
 			name: s.name,
 			twitterHandle: s.social.twitter ?? '',
+			blueskyHandle: s.social.bluesky ?? '',
 			talk: s.talk,
 			image: s.avatar
 		})),

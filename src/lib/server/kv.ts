@@ -13,6 +13,7 @@ export interface EventData {
 	speakers: Array<{
 		name: string;
 		twitterHandle: string;
+		blueskyHandle?: string;
 		talk: string;
 		image: string;
 	}>;

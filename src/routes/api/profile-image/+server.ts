@@ -13,8 +13,9 @@ export const GET: RequestHandler = async ({ url }) => {
 		let profileImageUrl;
 
 		if (platform === 'bluesky') {
+			const actor = username.replace(/^@/, '');
 			const response = await fetch(
-				`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(username)}`
+				`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(actor)}`
 			);
 
 			if (!response.ok) {

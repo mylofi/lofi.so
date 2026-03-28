@@ -231,20 +231,26 @@
 						date: eventData.date || formData.date,
 						time: eventData.time || '08:00',
 						timezone: eventData.timezone || 'PST',
-						speakers: eventData.speakers?.map((s: any) => ({
-							name: s.name || '',
-							socialPlatform: 'twitter',
-							socialHandle: s.twitterHandle || '@',
-							twitterHandle: s.twitterHandle || '@',
-							profileImagePlatform: 'twitter',
-							profileImageHandle: '',
-							customImageUrl: '',
-							talk: s.talk || '',
-							bio: s.bio || '',
-							talkPoints: s.talkPoints || ['', '', ''],
-							image: s.image || '',
-							error: ''
-						})) || formData.speakers,
+						speakers: eventData.speakers?.map((s: any) => {
+							const hasBsky = !!s.blueskyHandle;
+							const hasTwitter = !!s.twitterHandle;
+							const socialPlatform = hasTwitter ? 'twitter' : hasBsky ? 'bluesky' : 'twitter';
+							const socialHandle = hasTwitter ? s.twitterHandle : s.blueskyHandle || '@';
+							return {
+								name: s.name || '',
+								socialPlatform,
+								socialHandle,
+								twitterHandle: s.twitterHandle || '',
+								profileImagePlatform: hasBsky && !hasTwitter ? 'bluesky' : 'twitter',
+								profileImageHandle: '',
+								customImageUrl: '',
+								talk: s.talk || '',
+								bio: s.bio || '',
+								talkPoints: s.talkPoints || ['', '', ''],
+								image: s.image || '',
+								error: ''
+							};
+						}) || formData.speakers,
 						registrationUrl: eventData.registrationUrl || 'https://lofi.so',
 						discordUrl: eventData.discordUrl || 'https://discord.gg/ZRrwZxn4rW',
 						calendarUrl: eventData.calendarUrl || 'https://calendar.google.com/calendar/event?action=TEMPLATE',
@@ -322,15 +328,16 @@
 			return;
 		}
 
-		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
+		const bskyFallback = speaker.socialPlatform === 'bluesky' ? speaker.socialHandle : '';
+		if (!speaker.profileImageHandle && !speaker.twitterHandle && !bskyFallback) {
 			formData.speakers[index].image = '';
 			formData = { ...formData };
 			return;
 		}
 
-		const handleToUse = speaker.profileImagePlatform === 'bluesky' ?
-			speaker.profileImageHandle || speaker.twitterHandle :
-			speaker.twitterHandle;
+		const handleToUse = speaker.profileImagePlatform === 'bluesky'
+			? speaker.profileImageHandle || bskyFallback || speaker.twitterHandle
+			: speaker.twitterHandle;
 
 		if (!handleToUse) {
 			formData.speakers[index].image = '';
