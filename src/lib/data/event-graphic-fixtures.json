@@ -19,7 +19,7 @@
 					"twitter": "@sai_vishwak_k"
 				},
 				"talk": "Building Edge-First AI Agents with Rust",
-				"bio": "",
+				"bio": "Building Liquidos.ai, a secure runtime for autonomous AI agents that can run across cloud and edge devices, focused on agentic systems, local-first AI, and production infrastructure for autonomous software.",
 				"bullets": [
 					"Why edge-first AI agents matter for privacy, latency, and reliability",
 					"How and Why I built AutoAgents: multi-agent framework in Rust",
