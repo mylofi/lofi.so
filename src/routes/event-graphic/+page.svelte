@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
+	import DiscordBanner from '$lib/components/DiscordBanner.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
 	import SponsorCard from '$lib/components/SponsorCard.svelte';
 	import { toUnixTime, fromUnixTime, EVENT_TZ, TIMEZONE_OPTIONS } from '$lib/utils/time';
@@ -624,7 +625,8 @@
 
 			// Capture event graphic for each enabled target
 			for (const target of activeTargets) {
-				const el = document.querySelector('#graphic') as HTMLElement;
+				const selector = target.id === 'announcement_discord' ? '#graphic-discord' : '#graphic';
+				const el = document.querySelector(selector) as HTMLElement;
 				if (!el) continue;
 
 				const blob = await captureTarget(el, target);
@@ -1187,8 +1189,8 @@
 			<div>
 				<h2 class="mb-4 text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
 				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
-					<div id="graphic-discord" class="origin-center" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
-						<EventGraphic {spec} />
+					<div id="graphic-discord" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
+						<DiscordBanner {spec} />
 					</div>
 				</div>
 			</div>
