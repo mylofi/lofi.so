@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { domToPng } from 'modern-screenshot';
 	import EventGraphic from '$lib/components/EventGraphic.svelte';
+	import DiscordBanner from '$lib/components/DiscordBanner.svelte';
 	import SpeakerCard from '$lib/components/SpeakerCard.svelte';
 	import SponsorCard from '$lib/components/SponsorCard.svelte';
-	import { buildStartTimeISO, tzOffsetMap } from '$lib/utils/date';
+	import { toUnixTime, fromUnixTime, EVENT_TZ, TIMEZONE_OPTIONS } from '$lib/utils/time';
 	import { toEventGraphicSpec, getExportPresets, getLegacyExportPresets } from '$lib/utils/event-graphic-spec';
 	import {
 		captureTarget,
@@ -23,7 +24,7 @@
 		event: {
 			title: string;
 			number: number;
-			startTimeISO: string;
+			startTime: number;
 			links: {
 				registration: string;
 				discord: string;
@@ -68,7 +69,7 @@
 		eventNumber: 1,
 		date: lastTuesday,
 		time: '08:00',
-		timezone: 'PST',
+		timezone: EVENT_TZ,
 		speakers: [
 			{
 				name: '',
@@ -91,25 +92,41 @@
 		logoUrl: '/images/logo.png'
 	};
 
-	$: startTimeISO = formData.date && formData.time
-		? new Date(buildStartTimeISO(formData.date, formData.time, formData.timezone)).toISOString()
-		: '';
+	$: startTime = formData.date && formData.time
+		? toUnixTime(formData.date, formData.time, formData.timezone)
+		: 0;
+
+	/** Map form speakers to EventData-shaped speakers for KV persistence */
+	function mapFormSpeakersToEventData(speakers: typeof formData.speakers) {
+		return speakers.map((s) => ({
+			name: s.name,
+			twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : (s.twitterHandle || ''),
+			blueskyHandle: s.socialPlatform === 'bluesky' ? s.socialHandle : undefined,
+			talk: s.talk,
+			image: s.image
+		}));
+	}
+
+	function buildSavePayload() {
+		return {
+			eventNumber: formData.eventNumber,
+			title: formData.title,
+			startTime,
+			speakers: mapFormSpeakersToEventData(formData.speakers),
+			registrationUrl: formData.registrationUrl,
+			discordUrl: formData.discordUrl,
+			calendarUrl: formData.calendarUrl,
+			logoUrl: formData.logoUrl
+		};
+	}
 
 	// Derive EventGraphicSpec reactively from form data
 	$: spec = toEventGraphicSpec(
 		{
 			eventNumber: formData.eventNumber,
 			title: formData.title,
-			startTimeISO,
-			date: formData.date,
-			time: formData.time,
-			timezone: formData.timezone,
-			speakers: formData.speakers.map((s) => ({
-				name: s.name,
-				twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
-				talk: s.talk,
-				image: s.image
-			})),
+			startTime,
+			speakers: mapFormSpeakersToEventData(formData.speakers),
 			registrationUrl: formData.registrationUrl,
 			discordUrl: formData.discordUrl,
 			calendarUrl: formData.calendarUrl,
@@ -225,26 +242,35 @@
 			if (response.ok) {
 				const eventData = await response.json();
 				if (eventData && eventData.eventNumber) {
+					const loaded = eventData.startTime
+						? fromUnixTime(eventData.startTime)
+						: { date: formData.date, time: '08:00' };
 					formData = {
 						title: eventData.title || 'Watch Party',
 						eventNumber: eventData.eventNumber || 1,
-						date: eventData.date || formData.date,
-						time: eventData.time || '08:00',
-						timezone: eventData.timezone || 'PST',
-						speakers: eventData.speakers?.map((s: any) => ({
-							name: s.name || '',
-							socialPlatform: 'twitter',
-							socialHandle: s.twitterHandle || '@',
-							twitterHandle: s.twitterHandle || '@',
-							profileImagePlatform: 'twitter',
-							profileImageHandle: '',
-							customImageUrl: '',
-							talk: s.talk || '',
-							bio: s.bio || '',
-							talkPoints: s.talkPoints || ['', '', ''],
-							image: s.image || '',
-							error: ''
-						})) || formData.speakers,
+						date: loaded.date,
+						time: loaded.time,
+						timezone: EVENT_TZ,
+						speakers: eventData.speakers?.map((s: any) => {
+							const hasBsky = !!s.blueskyHandle;
+							const hasTwitter = !!s.twitterHandle;
+							const socialPlatform = hasTwitter ? 'twitter' : hasBsky ? 'bluesky' : 'twitter';
+							const socialHandle = hasTwitter ? s.twitterHandle : s.blueskyHandle || '@';
+							return {
+								name: s.name || '',
+								socialPlatform,
+								socialHandle,
+								twitterHandle: s.twitterHandle || '',
+								profileImagePlatform: hasBsky && !hasTwitter ? 'bluesky' : 'twitter',
+								profileImageHandle: '',
+								customImageUrl: '',
+								talk: s.talk || '',
+								bio: s.bio || '',
+								talkPoints: s.talkPoints || ['', '', ''],
+								image: s.image || '',
+								error: ''
+							};
+						}) || formData.speakers,
 						registrationUrl: eventData.registrationUrl || 'https://lofi.so',
 						discordUrl: eventData.discordUrl || 'https://discord.gg/ZRrwZxn4rW',
 						calendarUrl: eventData.calendarUrl || 'https://calendar.google.com/calendar/event?action=TEMPLATE',
@@ -322,15 +348,16 @@
 			return;
 		}
 
-		if (!speaker.profileImageHandle && !speaker.twitterHandle) {
+		const bskyFallback = speaker.socialPlatform === 'bluesky' ? speaker.socialHandle : '';
+		if (!speaker.profileImageHandle && !speaker.twitterHandle && !bskyFallback) {
 			formData.speakers[index].image = '';
 			formData = { ...formData };
 			return;
 		}
 
-		const handleToUse = speaker.profileImagePlatform === 'bluesky' ?
-			speaker.profileImageHandle || speaker.twitterHandle :
-			speaker.twitterHandle;
+		const handleToUse = speaker.profileImagePlatform === 'bluesky'
+			? speaker.profileImageHandle || bskyFallback || speaker.twitterHandle
+			: speaker.twitterHandle;
 
 		if (!handleToUse) {
 			formData.speakers[index].image = '';
@@ -390,7 +417,7 @@
 			eventNumber: 1,
 			date: getLastTuesdayOfMonth(),
 			time: '08:00',
-			timezone: 'PST',
+			timezone: EVENT_TZ,
 			speakers: [
 				{
 					name: '',
@@ -422,12 +449,13 @@
 		if (!fixture) return;
 
 		selectedFixtureKey = fixtureKey;
+		const fixtureTime = fromUnixTime(fixture.event.startTime);
 		formData = {
 			title: fixture.event.title,
 			eventNumber: fixture.event.number,
-			date: fixture.event.startTimeISO.split('T')[0],
-			time: '08:00',
-			timezone: 'PST',
+			date: fixtureTime.date,
+			time: fixtureTime.time,
+			timezone: EVENT_TZ,
 			speakers: fixture.speakers.map((s) => {
 				const social = s.social as Record<string, string | undefined>;
 				return {
@@ -477,7 +505,7 @@
 	async function handleSubmit() {
 		const saved = await showAllCategories();
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -512,7 +540,7 @@
 	async function handleGenerateSpeakerCards() {
 		const saved = await showAllCategories();
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -555,7 +583,7 @@
 		isSaving = true;
 		saveStatus = 'idle';
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -584,7 +612,7 @@
 
 		try {
 			// Save event data first
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const saveResponse = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -597,7 +625,8 @@
 
 			// Capture event graphic for each enabled target
 			for (const target of activeTargets) {
-				const el = document.querySelector('#graphic') as HTMLElement;
+				const selector = target.id === 'announcement_discord' ? '#graphic-discord' : '#graphic';
+				const el = document.querySelector(selector) as HTMLElement;
 				if (!el) continue;
 
 				const blob = await captureTarget(el, target);
@@ -750,10 +779,9 @@
 						bind:value={formData.timezone}
 						class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
 					>
-						<option value="PST">PST</option>
-						<option value="EST">EST</option>
-						<option value="GMT">GMT</option>
-						<option value="UTC">UTC</option>
+						{#each TIMEZONE_OPTIONS as tz}
+							<option value={tz.value}>{tz.label}</option>
+						{/each}
 					</select>
 				</div>
 			</div>
@@ -824,6 +852,18 @@
 						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
 					</svg>
 					Add Speaker
+				</button>
+				<button
+					type="button"
+					on:click={() => {
+						formData.speakers.forEach((_, i) => handleSocialHandleChange(i));
+					}}
+					class="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200"
+				>
+					<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+					</svg>
+					Load All Images
 				</button>
 			</div>
 
@@ -933,6 +973,18 @@
 											/>
 										</div>
 									{/if}
+
+									<button
+										type="button"
+										on:click={() => handleSocialHandleChange(i)}
+										class="mt-1 inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-200"
+										aria-label="Load profile image for speaker {i + 1}"
+									>
+										<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+										</svg>
+										Load Image
+									</button>
 								</div>
 							</div>
 						</div>
@@ -1137,8 +1189,8 @@
 			<div>
 				<h2 class="mb-4 text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
 				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
-					<div id="graphic-discord" class="origin-center" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
-						<EventGraphic {spec} />
+					<div id="graphic-discord" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
+						<DiscordBanner {spec} />
 					</div>
 				</div>
 			</div>

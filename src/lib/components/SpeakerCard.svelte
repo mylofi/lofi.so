@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { EventGraphicSpec } from '$lib/types/event-graphic';
-	import { getPrimarySocial, getSocialUrl } from '$lib/utils/event-graphic-spec';
+	import { getPrimarySocial, getSocialUrl, getDisplayHandle } from '$lib/utils/event-graphic-spec';
 
 	// Legacy props (backward compat)
 	export let speakerData: {
@@ -27,7 +27,7 @@
 				const primary = getPrimarySocial(s);
 				return {
 					name: s.name,
-					handle: primary?.handle || '',
+					displayHandle: getDisplayHandle(s),
 					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
 					talk: s.talk,
 					bio: s.bio,
@@ -36,15 +36,29 @@
 				};
 			})()
 		: speakerData
-			? {
-					name: speakerData.name,
-					handle: speakerData.twitterHandle || '',
-					handleUrl: speakerData.twitterHandle ? `https://x.com/${speakerData.twitterHandle.replace(/^@/, '')}` : '#',
-					talk: speakerData.talk,
-					bio: speakerData.bio,
-					talkPoints: speakerData.talkPoints,
-					image: speakerData.image
-				}
+			? (() => {
+					const tempSpeaker = {
+						name: speakerData.name,
+						social: {
+							twitter: speakerData.twitterHandle || undefined,
+							bluesky: undefined as string | undefined
+						},
+						talk: speakerData.talk,
+						bio: speakerData.bio,
+						bullets: speakerData.talkPoints,
+						avatar: speakerData.image
+					};
+					const primary = getPrimarySocial(tempSpeaker);
+					return {
+						name: speakerData.name,
+						displayHandle: getDisplayHandle(tempSpeaker),
+						handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
+						talk: speakerData.talk,
+						bio: speakerData.bio,
+						talkPoints: speakerData.talkPoints,
+						image: speakerData.image
+					};
+				})()
 			: null;
 
 	// Resolve event metadata
@@ -133,8 +147,12 @@
 				<h2 class="mb-1 text-2xl font-extrabold leading-tight text-white">
 					{speaker.name}
 				</h2>
-				{#if speaker.handle}
-					<p class="text-sm font-medium text-[#818cf8]">{speaker.handle}</p>
+				{#if speaker.displayHandle}
+					{#if speaker.handleUrl !== '#'}
+						<a href={speaker.handleUrl} target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-[#818cf8] transition-colors hover:text-[#a78bfa]">{speaker.displayHandle}</a>
+					{:else}
+						<p class="text-sm font-medium text-[#818cf8]">{speaker.displayHandle}</p>
+					{/if}
 				{/if}
 			</div>
 

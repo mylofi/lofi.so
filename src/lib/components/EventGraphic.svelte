@@ -2,9 +2,8 @@
 <script lang="ts">
 	import type { EventData } from '$lib/server/kv';
 	import type { EventGraphicSpec } from '$lib/types/event-graphic';
-	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, getDisplayHandle, normalizeSponsors } from '$lib/utils/event-graphic-spec';
 	import sponsorsData from '$lib/data/sponsors.json';
-	import { formatYMDLong, formatHHMM12 } from '$lib/utils/date';
 
 	export let eventData: EventData | null = null;
 	export let spec: EventGraphicSpec | null = null;
@@ -23,21 +22,12 @@
 	// Sponsors from spec (order-sorted) or fallback to raw data
 	$: sponsors = resolvedSpec?.sponsors || normalizeSponsors(sponsorsData.sponsors);
 
-	// Date/time display
-	$: displayDateTime = resolvedSpec
-		? resolvedSpec.event.displayDateTime
-		: eventData
-			? `${eventData.date ? formatYMDLong(eventData.date) : ''} @ ${eventData.time ? formatHHMM12(eventData.time) : ''} ${eventData.timezone || ''}`
-			: '';
+	// Date/time display — spec always has displayDateTime precomputed
+	$: displayDateTime = resolvedSpec?.event.displayDateTime || '';
 
-	// Event passed detection
-	$: startTimeISO = resolvedSpec?.event.startTimeISO || eventData?.startTimeISO;
-	$: startTimeDate = startTimeISO ? new Date(startTimeISO) : null;
-	$: isEventPassed = startTimeDate
-		? startTimeDate.getTime() <= Date.now()
-		: eventData?.date
-			? new Date(eventData.date) < new Date()
-			: false;
+	// Event passed detection — mark as passed 2 hours after start
+	$: startTime = resolvedSpec?.event.startTime || eventData?.startTime || 0;
+	$: isEventPassed = startTime ? (startTime + 7200) * 1000 <= Date.now() : false;
 
 	// Speakers from spec or legacy
 	$: speakers = resolvedSpec
@@ -45,19 +35,34 @@
 				const primary = getPrimarySocial(s);
 				return {
 					name: s.name,
-					handle: primary?.handle || '',
+					displayHandle: getDisplayHandle(s),
 					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
 					talk: s.talk,
 					image: s.avatar
 				};
 			})
-		: (eventData?.speakers || []).map((s) => ({
-				name: s.name,
-				handle: s.twitterHandle || '',
-				handleUrl: s.twitterHandle ? `https://x.com/${s.twitterHandle.replace(/^@/, '')}` : '#',
-				talk: s.talk,
-				image: s.image
-			}));
+		: (eventData?.speakers || []).map((s) => {
+				// Build a temp speaker to reuse shared social logic
+				const tempSpeaker = {
+					name: s.name,
+					social: {
+						twitter: s.twitterHandle || undefined,
+						bluesky: s.blueskyHandle || undefined
+					},
+					talk: s.talk,
+					bio: '',
+					bullets: [] as string[],
+					avatar: s.image
+				};
+				const primary = getPrimarySocial(tempSpeaker);
+				return {
+					name: s.name,
+					displayHandle: getDisplayHandle(tempSpeaker),
+					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
+					talk: s.talk,
+					image: s.image
+				};
+			});
 
 	// Links
 	$: registrationUrl = resolvedSpec?.event.links.registration || eventData?.registrationUrl || '';
@@ -164,7 +169,12 @@
 					<!-- ── SPEAKERS ──────────────────────────────── -->
 					<div class="flex flex-1 flex-col justify-around gap-3 sm:gap-[2%]">
 						{#each speakers as speaker, i}
-							<div class="flex items-center gap-3 sm:gap-[3%]">
+							<a
+							href={speaker.handleUrl !== '#' ? speaker.handleUrl : undefined}
+							target={speaker.handleUrl !== '#' ? '_blank' : undefined}
+							rel={speaker.handleUrl !== '#' ? 'noopener noreferrer' : undefined}
+							class="flex items-center gap-3 rounded-lg transition-opacity sm:gap-[3%] {speaker.handleUrl !== '#' ? 'cursor-pointer hover:opacity-80' : ''}"
+						>
 
 								<!-- Avatar -->
 								<div
@@ -206,9 +216,9 @@
 										<h3 class="text-sm font-bold leading-tight text-white sm:text-base">
 											{speaker.name}
 										</h3>
-										{#if speaker.handle}
+										{#if speaker.displayHandle}
 											<span class="text-[10px] font-medium text-white/35 sm:text-[11px]">
-												{speaker.handle}
+												{speaker.displayHandle}
 											</span>
 										{/if}
 									</div>
@@ -216,7 +226,7 @@
 										{speaker.talk}
 									</p>
 								</div>
-							</div>
+							</a>
 						{/each}
 					</div>
 

@@ -5,14 +5,12 @@ import sponsorsData from '$lib/data/sponsors.json';
 
 export interface EventData {
 	eventNumber: number;
-    title: string;
-	startTimeISO?: string;
-	date: string;
-	time: string;
-	timezone: string;
+	title: string;
+	startTime: number; // Unix seconds
 	speakers: Array<{
 		name: string;
 		twitterHandle: string;
+		blueskyHandle?: string;
 		talk: string;
 		image: string;
 	}>;
@@ -20,6 +18,29 @@ export interface EventData {
 	discordUrl: string;
 	calendarUrl: string;
 	logoUrl: string;
+}
+
+/** Migrate legacy KV shape (startTimeISO / date+time+timezone) to startTime */
+function migrateEventData(raw: Record<string, unknown>): EventData {
+	if (typeof raw.startTime === 'number') return raw as unknown as EventData;
+
+	let startTime = 0;
+	if (typeof raw.startTimeISO === 'string') {
+		startTime = Math.floor(new Date(raw.startTimeISO).getTime() / 1000);
+	} else if (typeof raw.date === 'string' && typeof raw.time === 'string') {
+		startTime = Math.floor(new Date(`${raw.date}T${raw.time}:00Z`).getTime() / 1000);
+	}
+
+	return {
+		eventNumber: raw.eventNumber as number,
+		title: raw.title as string,
+		startTime,
+		speakers: raw.speakers as EventData['speakers'],
+		registrationUrl: raw.registrationUrl as string,
+		discordUrl: raw.discordUrl as string,
+		calendarUrl: raw.calendarUrl as string,
+		logoUrl: raw.logoUrl as string
+	};
 }
 
 export async function saveEvent(event: EventData) {
@@ -45,7 +66,7 @@ export async function getLatestEvent(): Promise<EventData | null> {
 	try {
 		const data = await kv.get('current_event');
 		if (!data) return null;
-		return JSON.parse(data) as EventData;
+		return migrateEventData(JSON.parse(data));
 	} catch (error) {
 		console.error('Error getting event:', error);
 		return null;

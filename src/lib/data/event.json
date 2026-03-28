@@ -1,10 +1,8 @@
 {
 	"eventNumber": 35,
 	"title": "Local First Web",
-	"startTimeISO": "2026-03-31T15:00:00.000Z",
-	"date": "2026-03-31",
-	"time": "08:00",
-	"timezone": "PDT",
+	"startTime": 1774969200,
+	"displayTime": "Tuesday, March 31, 2026 · 8:00 AM PDT",
 	"speakers": [
 		{
 			"name": "Sai Vishwak Korimerla",
@@ -33,6 +31,7 @@
 		{
 			"name": "Arushi Bandi",
 			"twitterHandle": "",
+			"blueskyHandle": "offline.arushibandi.com",
 			"talk": "The Power of ATProtocol Local-First",
 			"bio": "Left Figma to build Habitat, a platform for user data agency. Cares about building an internet that protects users' privacy by default.",
 			"talkPoints": [

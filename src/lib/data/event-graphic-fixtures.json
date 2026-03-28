@@ -3,7 +3,7 @@
 		"event": {
 			"title": "Local First Web",
 			"number": 35,
-			"startTimeISO": "2026-03-31T15:00:00.000Z",
+			"startTime": 1774969200,
 			"displayDateTime": "Tuesday, March 31, 2026 · 8:00AM PT",
 			"links": {
 				"registration": "https://lofi.so",
@@ -19,7 +19,7 @@
 					"twitter": "@sai_vishwak_k"
 				},
 				"talk": "Building Edge-First AI Agents with Rust",
-				"bio": "",
+				"bio": "Building Liquidos.ai, a secure runtime for autonomous AI agents that can run across cloud and edge devices, focused on agentic systems, local-first AI, and production infrastructure for autonomous software.",
 				"bullets": [
 					"Why edge-first AI agents matter for privacy, latency, and reliability",
 					"How and Why I built AutoAgents: multi-agent framework in Rust",
@@ -110,7 +110,7 @@
 		"event": {
 			"title": "Local First Software",
 			"number": 34,
-			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"startTime": 1771948800,
 			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://lu.ma/lofi-34",
@@ -123,7 +123,7 @@
 			{
 				"name": "Martin Kleppmann",
 				"social": {
-					"bsky": "@martin.kleppmann.com"
+					"bluesky": "martin.kleppmann.com"
 				},
 				"talk": "Local-first software and geopolitical risk",
 				"bio": "Associate Professor at University of Cambridge and co-author of the original local-first paper. Researching decentralised systems and security protocols. Advisor to the Bluesky team.",
@@ -137,7 +137,7 @@
 			{
 				"name": "Nate Hardt",
 				"social": {
-					"bsky": "@natehardt.bsky.social"
+					"bluesky": "natehardt.bsky.social"
 				},
 				"talk": "Footnote: P2P tool for Knowledge Sharing",
 				"bio": "Funemployed solo dev working on local-first tools after 3 decades in industry.",
@@ -151,7 +151,7 @@
 			{
 				"name": "Brendan O'Brien",
 				"social": {
-					"bsky": "@b5.bsky.social"
+					"bluesky": "b5.bsky.social"
 				},
 				"talk": "local first from the network up",
 				"bio": "Worker crayon at n0.computer, we make iroh.computer. Caretaker at number 0.",
@@ -217,7 +217,7 @@
 		"event": {
 			"title": "Watch Party",
 			"number": 33,
-			"startTimeISO": "2026-01-27T16:00:00.000Z",
+			"startTime": 1769529600,
 			"displayDateTime": "Tuesday, January 27 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://lofi.so",
@@ -331,7 +331,7 @@
 		"event": {
 			"title": "Meetup",
 			"number": 34,
-			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"startTime": 1771948800,
 			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://discord.gg/Y57f7vwf6R?event=1466179954470420678",

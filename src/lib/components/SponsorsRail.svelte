@@ -4,6 +4,7 @@
 	import { slide } from 'svelte/transition';
 	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
 	import { normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import { EVENT_TZ } from '$lib/utils/time';
 	import type { EventGraphicSponsor } from '$lib/types/event-graphic';
 
 	export let sponsors: {
@@ -27,23 +28,13 @@
 		undefined;
 	export let className: string = '';
 	export let eventData: {
-		date: string;
-		time: string;
-		timezone: string;
+		startTime: number;
 		discordUrl: string;
 		registrationUrl: string;
-		startTimeISO?: string;
 	} | null = null;
 
 	let isMeetupsOpen = true;
 	let isConferencesOpen = true;
-
-	const parseYMDAsLocalDate = (dateStr: string): Date | null => {
-		const [year, month, day] = dateStr.split('-').map(Number);
-		if (!year || !month || !day) return null;
-		const parsed = new Date(year, month - 1, day);
-		return Number.isNaN(parsed.getTime()) ? null : parsed;
-	};
 
 	onMount(() => {
 		const checkHeight = () => {
@@ -57,36 +48,32 @@
 		return () => window.removeEventListener('resize', checkHeight);
 	});
 
-	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
+	$: startTimeMs = eventData?.startTime ? eventData.startTime * 1000 : null;
 
-	$: nextEventFromKV = eventData
+	$: nextEventFromKV = eventData && startTimeMs
 		? {
 				url: eventData.registrationUrl,
 				name: 'Local First Meetup',
-				date: (
-					startTimeDate ||
-					parseYMDAsLocalDate(eventData.date) ||
-					new Date(eventData.date + 'T00:00:00')
-				).toLocaleDateString('en-US', {
+				date: new Date(startTimeMs).toLocaleDateString('en-US', {
+					timeZone: EVENT_TZ,
 					weekday: 'long',
 					year: 'numeric',
 					month: 'long',
 					day: 'numeric'
 				}),
-				time: startTimeDate
-					? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-					: `${eventData.time} ${eventData.timezone}`
+				time: new Date(startTimeMs).toLocaleTimeString('en-US', {
+					timeZone: EVENT_TZ,
+					hour: 'numeric',
+					minute: '2-digit',
+					timeZoneName: 'short'
+				})
 			}
 		: undefined;
 
 	$: activeNextEvent = nextEventFromKV || nextEvent;
 
-	// Check if the event date has passed
-	$: isEventPassed = startTimeDate
-		? startTimeDate.getTime() < Date.now()
-		: eventData
-			? (parseYMDAsLocalDate(eventData.date) || new Date(eventData.date + 'T00:00:00')).getTime() < Date.now()
-			: false;
+	// Check if the event date has passed (2 hours after start)
+	$: isEventPassed = startTimeMs ? startTimeMs + 7200000 < Date.now() : false;
 
 	// Adapt legacy sponsors to EventGraphicSponsor for SponsorLockup
 	$: normalizedSponsors = normalizeSponsors(
