@@ -8,7 +8,7 @@ import type {
 	FormSpeaker,
 	RawSponsor
 } from '$lib/types/event-graphic';
-import { formatYMDLong, formatHHMM12 } from '$lib/utils/date';
+import { EVENT_TZ } from '$lib/utils/time';
 
 // ---------------------------------------------------------------------------
 // Export presets
@@ -132,28 +132,23 @@ export function getDisplayHandle(speaker: EventGraphicSpeaker): string {
 // Display date/time builder
 // ---------------------------------------------------------------------------
 
-function buildDisplayDateTime(
-	startTimeISO?: string,
-	date?: string,
-	time?: string,
-	timezone?: string
-): string {
-	if (date && time) {
-		const datePart = formatYMDLong(date);
-		const timePart = formatHHMM12(time);
-		const tz = timezone ?? '';
-		return `${datePart} · ${timePart} ${tz}`.trim();
-	}
-	if (startTimeISO) {
-		const d = new Date(startTimeISO);
-		return d.toLocaleDateString('en-US', {
-			weekday: 'long',
-			month: 'long',
-			day: 'numeric',
-			year: 'numeric'
-		});
-	}
-	return '';
+function buildDisplayDateTime(startTime: number): string {
+	if (!startTime) return '';
+	const d = new Date(startTime * 1000);
+	const datePart = d.toLocaleDateString('en-US', {
+		timeZone: EVENT_TZ,
+		weekday: 'long',
+		month: 'long',
+		day: 'numeric',
+		year: 'numeric'
+	});
+	const timePart = d.toLocaleTimeString('en-US', {
+		timeZone: EVENT_TZ,
+		hour: 'numeric',
+		minute: '2-digit',
+		timeZoneName: 'short'
+	});
+	return `${datePart} · ${timePart}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -165,12 +160,7 @@ export function toEventGraphicSpec(
 	formSpeakers?: FormSpeaker[],
 	rawSponsors?: RawSponsor[]
 ): EventGraphicSpec {
-	const displayDateTime = buildDisplayDateTime(
-		legacy.startTimeISO,
-		legacy.date,
-		legacy.time,
-		legacy.timezone
-	);
+	const displayDateTime = buildDisplayDateTime(legacy.startTime);
 
 	// Map speakers
 	const speakers: EventGraphicSpeaker[] = formSpeakers
@@ -201,7 +191,7 @@ export function toEventGraphicSpec(
 		event: {
 			title: legacy.title,
 			number: legacy.eventNumber,
-			startTimeISO: legacy.startTimeISO ?? '',
+			startTime: legacy.startTime,
 			displayDateTime,
 			links: {
 				registration: legacy.registrationUrl,
@@ -225,27 +215,10 @@ export function toEventGraphicSpec(
 // ---------------------------------------------------------------------------
 
 export function fromEventGraphicSpec(spec: EventGraphicSpec): EventData {
-	// Extract date/time/timezone from startTimeISO
-	let date = '';
-	let time = '';
-	let timezone = 'PST';
-
-	if (spec.event.startTimeISO) {
-		const d = new Date(spec.event.startTimeISO);
-		if (!isNaN(d.getTime())) {
-			date = d.toISOString().split('T')[0];
-			time = `${String(d.getUTCHours()).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')}`;
-			timezone = 'UTC';
-		}
-	}
-
 	return {
 		eventNumber: spec.event.number,
 		title: spec.event.title,
-		startTimeISO: spec.event.startTimeISO || undefined,
-		date,
-		time,
-		timezone,
+		startTime: spec.event.startTime,
 		speakers: spec.speakers.map((s) => ({
 			name: s.name,
 			twitterHandle: s.social.twitter ?? '',

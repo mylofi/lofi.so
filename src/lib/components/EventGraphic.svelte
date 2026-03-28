@@ -4,7 +4,6 @@
 	import type { EventGraphicSpec } from '$lib/types/event-graphic';
 	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, getDisplayHandle, normalizeSponsors } from '$lib/utils/event-graphic-spec';
 	import sponsorsData from '$lib/data/sponsors.json';
-	import { formatYMDLong, formatHHMM12 } from '$lib/utils/date';
 
 	export let eventData: EventData | null = null;
 	export let spec: EventGraphicSpec | null = null;
@@ -23,21 +22,12 @@
 	// Sponsors from spec (order-sorted) or fallback to raw data
 	$: sponsors = resolvedSpec?.sponsors || normalizeSponsors(sponsorsData.sponsors);
 
-	// Date/time display
-	$: displayDateTime = resolvedSpec
-		? resolvedSpec.event.displayDateTime
-		: eventData
-			? `${eventData.date ? formatYMDLong(eventData.date) : ''} @ ${eventData.time ? formatHHMM12(eventData.time) : ''} ${eventData.timezone || ''}`
-			: '';
+	// Date/time display — spec always has displayDateTime precomputed
+	$: displayDateTime = resolvedSpec?.event.displayDateTime || '';
 
-	// Event passed detection
-	$: startTimeISO = resolvedSpec?.event.startTimeISO || eventData?.startTimeISO;
-	$: startTimeDate = startTimeISO ? new Date(startTimeISO) : null;
-	$: isEventPassed = startTimeDate
-		? startTimeDate.getTime() <= Date.now()
-		: eventData?.date
-			? new Date(eventData.date) < new Date()
-			: false;
+	// Event passed detection — mark as passed 2 hours after start
+	$: startTime = resolvedSpec?.event.startTime || eventData?.startTime || 0;
+	$: isEventPassed = startTime ? (startTime + 7200) * 1000 <= Date.now() : false;
 
 	// Speakers from spec or legacy
 	$: speakers = resolvedSpec

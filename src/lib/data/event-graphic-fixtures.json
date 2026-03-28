@@ -3,7 +3,7 @@
 		"event": {
 			"title": "Local First Web",
 			"number": 35,
-			"startTimeISO": "2026-03-31T15:00:00.000Z",
+			"startTime": 1774969200,
 			"displayDateTime": "Tuesday, March 31, 2026 · 8:00AM PT",
 			"links": {
 				"registration": "https://lofi.so",
@@ -110,7 +110,7 @@
 		"event": {
 			"title": "Local First Software",
 			"number": 34,
-			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"startTime": 1771948800,
 			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://lu.ma/lofi-34",
@@ -217,7 +217,7 @@
 		"event": {
 			"title": "Watch Party",
 			"number": 33,
-			"startTimeISO": "2026-01-27T16:00:00.000Z",
+			"startTime": 1769529600,
 			"displayDateTime": "Tuesday, January 27 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://lofi.so",
@@ -331,7 +331,7 @@
 		"event": {
 			"title": "Meetup",
 			"number": 34,
-			"startTimeISO": "2026-02-24T16:00:00.000Z",
+			"startTime": 1771948800,
 			"displayDateTime": "Tuesday, February 24 2026 · 8:00AM PST",
 			"links": {
 				"registration": "https://discord.gg/Y57f7vwf6R?event=1466179954470420678",

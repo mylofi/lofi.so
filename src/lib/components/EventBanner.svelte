@@ -3,28 +3,30 @@
 	import { isBannerVisible, dismissBanner } from '$lib/stores/bannerStore';
 	import { onMount } from 'svelte';
 	import type { EventData } from '$lib/server/kv';
-	import { formatEventDate, formatHHMM12 } from '$lib/utils/date';
 
 	export let eventData: EventData | null = null;
 
-	$: startTimeDate = eventData?.startTimeISO ? new Date(eventData.startTimeISO) : null;
+	$: startTimeMs = eventData?.startTime ? eventData.startTime * 1000 : null;
 
-	// Check if event date is in the future
-	$: isUpcomingEvent = startTimeDate
-		? startTimeDate.getTime() > Date.now()
-		: eventData?.date
-			? new Date(eventData.date) > new Date()
-			: false;
+	// Check if event is upcoming (hide banner 2 hours after start)
+	$: isUpcomingEvent = startTimeMs ? startTimeMs + 7200000 > Date.now() : false;
 	$: shouldShowBanner = $isBannerVisible && eventData?.eventNumber && isUpcomingEvent;
 
-	$: formattedDate = startTimeDate
-		? startTimeDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })
-		: formatEventDate(eventData);
-	$: formattedTime = eventData?.time
-		? formatHHMM12(eventData.time) + (eventData.timezone ? ' ' + eventData.timezone : '')
-		: startTimeDate
-			? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-			: '';
+	// Display in the viewer's local timezone with tz abbreviation so they know what tz they're in
+	$: formattedDate = startTimeMs
+		? new Date(startTimeMs).toLocaleDateString('en-US', {
+				weekday: 'short',
+				month: 'short',
+				day: 'numeric'
+			})
+		: '';
+	$: formattedTime = startTimeMs
+		? new Date(startTimeMs).toLocaleTimeString('en-US', {
+				hour: 'numeric',
+				minute: '2-digit',
+				timeZoneName: 'short'
+			})
+		: '';
 	$: title = eventData?.title || 'Meetup';
 
 	onMount(() => {

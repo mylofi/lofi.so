@@ -49,7 +49,7 @@ export interface EventGraphicSpec {
 	event: {
 		title: string;
 		number: number;
-		startTimeISO: string;
+		startTime: number;
 		displayDateTime: string;
 		links: {
 			registration: string;
