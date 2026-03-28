@@ -3,7 +3,7 @@
 	import { isBannerVisible, dismissBanner } from '$lib/stores/bannerStore';
 	import { onMount } from 'svelte';
 	import type { EventData } from '$lib/server/kv';
-	import { formatEventDate } from '$lib/utils/date';
+	import { formatEventDate, formatHHMM12 } from '$lib/utils/date';
 
 	export let eventData: EventData | null = null;
 
@@ -20,10 +20,10 @@
 	$: formattedDate = startTimeDate
 		? startTimeDate.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' })
 		: formatEventDate(eventData);
-	$: formattedTime = startTimeDate
-		? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-		: eventData?.time
-			? eventData.time.split(':')[0] + ' ' + eventData.timezone
+	$: formattedTime = eventData?.time
+		? formatHHMM12(eventData.time) + (eventData.timezone ? ' ' + eventData.timezone : '')
+		: startTimeDate
+			? startTimeDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
 			: '';
 	$: title = eventData?.title || 'Meetup';
 
