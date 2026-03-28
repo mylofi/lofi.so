@@ -2,7 +2,7 @@
 <script lang="ts">
 	import type { EventData } from '$lib/server/kv';
 	import type { EventGraphicSpec } from '$lib/types/event-graphic';
-	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, normalizeSponsors } from '$lib/utils/event-graphic-spec';
+	import { toEventGraphicSpec, getPrimarySocial, getSocialUrl, getDisplayHandle, normalizeSponsors } from '$lib/utils/event-graphic-spec';
 	import sponsorsData from '$lib/data/sponsors.json';
 	import { formatYMDLong, formatHHMM12 } from '$lib/utils/date';
 
@@ -43,28 +43,36 @@
 	$: speakers = resolvedSpec
 		? resolvedSpec.speakers.map((s) => {
 				const primary = getPrimarySocial(s);
-				const handle = primary?.handle || '';
-				// Ensure @ prefix for all social platforms
-				const displayHandle = handle && !handle.startsWith('@') ? `@${handle}` : handle;
 				return {
 					name: s.name,
-					platform: primary?.platform || 'twitter',
-					handle,
-					displayHandle,
+					displayHandle: getDisplayHandle(s),
 					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
 					talk: s.talk,
 					image: s.avatar
 				};
 			})
-		: (eventData?.speakers || []).map((s) => ({
-				name: s.name,
-				platform: 'twitter',
-				handle: s.twitterHandle || '',
-				displayHandle: s.twitterHandle || '',
-				handleUrl: s.twitterHandle ? `https://x.com/${s.twitterHandle.replace(/^@/, '')}` : '#',
-				talk: s.talk,
-				image: s.image
-			}));
+		: (eventData?.speakers || []).map((s) => {
+				// Build a temp speaker to reuse shared social logic
+				const tempSpeaker = {
+					name: s.name,
+					social: {
+						twitter: s.twitterHandle || undefined,
+						bluesky: s.blueskyHandle || undefined
+					},
+					talk: s.talk,
+					bio: '',
+					bullets: [] as string[],
+					avatar: s.image
+				};
+				const primary = getPrimarySocial(tempSpeaker);
+				return {
+					name: s.name,
+					displayHandle: getDisplayHandle(tempSpeaker),
+					handleUrl: primary ? getSocialUrl(primary.platform, primary.handle) : '#',
+					talk: s.talk,
+					image: s.image
+				};
+			});
 
 	// Links
 	$: registrationUrl = resolvedSpec?.event.links.registration || eventData?.registrationUrl || '';

@@ -95,6 +95,33 @@
 		? new Date(buildStartTimeISO(formData.date, formData.time, formData.timezone)).toISOString()
 		: '';
 
+	/** Map form speakers to EventData-shaped speakers for KV persistence */
+	function mapFormSpeakersToEventData(speakers: typeof formData.speakers) {
+		return speakers.map((s) => ({
+			name: s.name,
+			twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : (s.twitterHandle || ''),
+			blueskyHandle: s.socialPlatform === 'bluesky' ? s.socialHandle : undefined,
+			talk: s.talk,
+			image: s.image
+		}));
+	}
+
+	function buildSavePayload() {
+		return {
+			eventNumber: formData.eventNumber,
+			title: formData.title,
+			startTimeISO,
+			date: formData.date,
+			time: formData.time,
+			timezone: formData.timezone,
+			speakers: mapFormSpeakersToEventData(formData.speakers),
+			registrationUrl: formData.registrationUrl,
+			discordUrl: formData.discordUrl,
+			calendarUrl: formData.calendarUrl,
+			logoUrl: formData.logoUrl
+		};
+	}
+
 	// Derive EventGraphicSpec reactively from form data
 	$: spec = toEventGraphicSpec(
 		{
@@ -104,12 +131,7 @@
 			date: formData.date,
 			time: formData.time,
 			timezone: formData.timezone,
-			speakers: formData.speakers.map((s) => ({
-				name: s.name,
-				twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : s.twitterHandle,
-				talk: s.talk,
-				image: s.image
-			})),
+			speakers: mapFormSpeakersToEventData(formData.speakers),
 			registrationUrl: formData.registrationUrl,
 			discordUrl: formData.discordUrl,
 			calendarUrl: formData.calendarUrl,
@@ -484,7 +506,7 @@
 	async function handleSubmit() {
 		const saved = await showAllCategories();
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -519,7 +541,7 @@
 	async function handleGenerateSpeakerCards() {
 		const saved = await showAllCategories();
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -562,7 +584,7 @@
 		isSaving = true;
 		saveStatus = 'idle';
 		try {
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const response = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -591,7 +613,7 @@
 
 		try {
 			// Save event data first
-			const payload = { ...formData, startTimeISO };
+			const payload = buildSavePayload();
 			const saveResponse = await fetch('/api/save-event', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },

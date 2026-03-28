@@ -110,6 +110,24 @@ export function getSocialUrl(platform: string, handle: string): string {
 	}
 }
 
+/** Format a speaker's primary social handle for visual display.
+ *  Convention: Twitter → @handle, Bluesky → $handle, LinkedIn → [in]/handle */
+export function getDisplayHandle(speaker: EventGraphicSpeaker): string {
+	const primary = getPrimarySocial(speaker);
+	if (!primary) return '';
+	const clean = primary.handle.replace(/^@/, '');
+	switch (primary.platform) {
+		case 'twitter':
+			return `@/${clean}`;
+		case 'bluesky':
+			return `$/${clean}`;
+		case 'linkedin':
+			return `[in]/${clean}`;
+		default:
+			return primary.handle;
+	}
+}
+
 // ---------------------------------------------------------------------------
 // Display date/time builder
 // ---------------------------------------------------------------------------

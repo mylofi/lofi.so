@@ -123,7 +123,7 @@
 			{
 				"name": "Martin Kleppmann",
 				"social": {
-					"bsky": "@martin.kleppmann.com"
+					"bluesky": "martin.kleppmann.com"
 				},
 				"talk": "Local-first software and geopolitical risk",
 				"bio": "Associate Professor at University of Cambridge and co-author of the original local-first paper. Researching decentralised systems and security protocols. Advisor to the Bluesky team.",
@@ -137,7 +137,7 @@
 			{
 				"name": "Nate Hardt",
 				"social": {
-					"bsky": "@natehardt.bsky.social"
+					"bluesky": "natehardt.bsky.social"
 				},
 				"talk": "Footnote: P2P tool for Knowledge Sharing",
 				"bio": "Funemployed solo dev working on local-first tools after 3 decades in industry.",
@@ -151,7 +151,7 @@
 			{
 				"name": "Brendan O'Brien",
 				"social": {
-					"bsky": "@b5.bsky.social"
+					"bluesky": "b5.bsky.social"
 				},
 				"talk": "local first from the network up",
 				"bio": "Worker crayon at n0.computer, we make iroh.computer. Caretaker at number 0.",
