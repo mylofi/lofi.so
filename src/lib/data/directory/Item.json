@@ -965,6 +965,20 @@
 				"Categories": ["L", 2, 43],
 				"Uses": [54]
 			}
+		},
+		{
+			"id": 83,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Beetroot",
+				"slug": "beetroot",
+				"author": "Max Nardit",
+				"url": "https://max.nardit.com/beetroot",
+				"icon": "https://raw.githubusercontent.com/mnardit/beetroot-releases/main/icons/64x64.png",
+				"description": "A free, local-first clipboard manager for Windows. All data stored in local SQLite (WAL mode), zero cloud, zero telemetry, no account required. AI features use BYOK (your own API keys), OCR runs on-device. Built with Tauri v2, Rust, and React.",
+				"Categories": null,
+				"Uses": null
+			}
 		}
 	]
 }
