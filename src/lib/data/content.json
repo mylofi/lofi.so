@@ -703,6 +703,12 @@
                         "author": "Noel De Martin",
                         "url": "https://focus.noeldemartin.com",
                         "icon": "https://noeldemartin.com/logos/focus-small.svg"
+                    },
+                    {
+                        "title": "Backwater Finance",
+                        "author": "Backwater Systems",
+                        "url": "https://backwater.systems/finance/",
+                        "icon": "https://backwater.systems/finance/images/logo.256.png"
                     }
                 ]
             }
