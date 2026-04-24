@@ -72,7 +72,6 @@ src/
 │   │   └── SponsorsRail.svelte     # Homepage sidebar with event + sponsors
 │   ├── data/                       # Static JSON content
 │   │   ├── content.json            # Sections, readings, videos
-│   │   ├── heading.json            # Page intro text
 │   │   ├── sponsors.json           # Sponsor list (order-based)
 │   │   ├── event.json              # Event configuration
 │   │   ├── mentions.json           # Social testimonials
