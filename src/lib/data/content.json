@@ -704,13 +704,19 @@
                         "url": "https://focus.noeldemartin.com",
                         "icon": "https://noeldemartin.com/logos/focus-small.svg"
                     },
-					{
-					    "title": "BulkPicTools",
-					    "author": "Genglin Zheng",
-					    "url": "https://bulkpictools.com",
-					    "icon": "https://bulkpictools.com/favicon.svg",
-					    "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
-					}
+                    {
+                        "title": "Backwater Finance",
+                        "author": "Backwater Systems",
+                        "url": "https://backwater.systems/finance/",
+                        "icon": "https://backwater.systems/finance/images/logo.256.png"
+                    },
+                    {
+                        "title": "BulkPicTools",
+                        "author": "Genglin Zheng",
+                        "url": "https://bulkpictools.com",
+                        "icon": "https://bulkpictools.com/favicon.svg",
+                        "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    }
                 ]
             }
         ]

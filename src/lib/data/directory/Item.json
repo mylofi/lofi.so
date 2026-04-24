@@ -965,6 +965,20 @@
 				"Categories": ["L", 2, 43],
 				"Uses": [54]
 			}
+		},
+		{
+			"id": 83,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Backwater Finance",
+				"slug": "backwater-finance",
+				"author": "Backwater Systems",
+				"url": "https://backwater.systems/finance/",
+				"icon": "https://backwater.systems/finance/images/logo.256.png",
+				"description": "A simple, powerful local-first personal finance tool",
+				"Categories": ["L", 38],
+				"Uses": null
+			}
 		}
 	]
 }
