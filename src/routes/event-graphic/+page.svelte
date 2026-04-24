@@ -278,7 +278,8 @@
 						registrationUrl: eventData.registrationUrl || 'https://lofi.so',
 						discordUrl: eventData.discordUrl || 'https://discord.gg/ZRrwZxn4rW',
 						calendarUrl: eventData.calendarUrl || 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-						logoUrl: eventData.logoUrl || '/images/logo.png'
+						logoUrl: eventData.logoUrl || '/images/logo.png',
+						youtubeUrl: eventData.youtubeUrl || ''
 					};
 				}
 			}
@@ -441,7 +442,8 @@
 			registrationUrl: 'https://lofi.so',
 			discordUrl: 'https://discord.gg/ZRrwZxn4rW',
 			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-			logoUrl: '/images/logo.png'
+			logoUrl: '/images/logo.png',
+			youtubeUrl: ''
 		};
 		selectedFixtureKey = '';
 		exportResults = [];
