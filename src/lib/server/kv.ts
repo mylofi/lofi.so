@@ -18,6 +18,7 @@ export interface EventData {
 	discordUrl: string;
 	calendarUrl: string;
 	logoUrl: string;
+	youtubeUrl?: string;
 }
 
 /** Migrate legacy KV shape (startTimeISO / date+time+timezone) to startTime */
