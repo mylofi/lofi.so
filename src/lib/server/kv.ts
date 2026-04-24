@@ -1,6 +1,10 @@
 import { getKVBinding } from '$lib/server/context';
 import type { EventGraphicSpec } from '$lib/types/event-graphic';
-import { toEventGraphicSpec, fromEventGraphicSpec, normalizeSponsors } from '$lib/utils/event-graphic-spec';
+import {
+	toEventGraphicSpec,
+	fromEventGraphicSpec,
+	normalizeSponsors
+} from '$lib/utils/event-graphic-spec';
 import sponsorsData from '$lib/data/sponsors.json';
 
 export interface EventData {
@@ -13,6 +17,13 @@ export interface EventData {
 		blueskyHandle?: string;
 		talk: string;
 		image: string;
+		bio?: string;
+		talkPoints?: string[];
+		socialPlatform?: string;
+		socialHandle?: string;
+		profileImagePlatform?: string;
+		profileImageHandle?: string;
+		customImageUrl?: string;
 	}>;
 	registrationUrl: string;
 	discordUrl: string;
@@ -47,7 +58,9 @@ function migrateEventData(raw: Record<string, unknown>): EventData {
 export async function saveEvent(event: EventData) {
 	const kv = getKVBinding();
 	if (!kv) {
-		console.warn('KV binding (eventData) not found. Ensure it is bound in Cloudflare Dashboard and wrangler.toml.');
+		console.warn(
+			'KV binding (eventData) not found. Ensure it is bound in Cloudflare Dashboard and wrangler.toml.'
+		);
 		return null;
 	}
 

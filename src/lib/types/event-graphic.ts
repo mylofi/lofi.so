@@ -26,7 +26,13 @@ export interface EventGraphicSponsor {
 }
 
 // Export target identifiers — three canonical formats
-export type ExportTargetId = 'announcement_regular' | 'announcement_discord' | 'agenda_regular';
+export type ExportTargetId =
+	| 'announcement_regular'
+	| 'announcement_discord'
+	| 'agenda_regular'
+	| 'homepage_mobile'
+	| 'homepage_tablet'
+	| 'homepage_desktop';
 
 export interface EventGraphicExportTarget {
 	id: ExportTargetId;

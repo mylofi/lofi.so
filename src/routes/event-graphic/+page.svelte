@@ -105,7 +105,14 @@
 			twitterHandle: s.socialPlatform === 'twitter' ? s.socialHandle : (s.twitterHandle || ''),
 			blueskyHandle: s.socialPlatform === 'bluesky' ? s.socialHandle : undefined,
 			talk: s.talk,
-			image: s.image
+			image: s.image,
+			bio: s.bio,
+			talkPoints: s.talkPoints,
+			socialPlatform: s.socialPlatform,
+			socialHandle: s.socialHandle,
+			profileImagePlatform: s.profileImagePlatform,
+			profileImageHandle: s.profileImageHandle,
+			customImageUrl: s.customImageUrl
 		}));
 	}
 
@@ -145,6 +152,9 @@
 	let enabledTargets: Record<ExportTargetId, boolean> = {
 		announcement_regular: true,
 		announcement_discord: true,
+		homepage_mobile: false,
+		homepage_tablet: true,
+		homepage_desktop: false,
 		agenda_regular: true
 	};
 	let isExporting = false;
@@ -258,20 +268,25 @@
 						speakers: eventData.speakers?.map((s: any) => {
 							const hasBsky = !!s.blueskyHandle;
 							const hasTwitter = !!s.twitterHandle;
-							const socialPlatform = hasTwitter ? 'twitter' : hasBsky ? 'bluesky' : 'twitter';
-							const socialHandle = hasTwitter ? s.twitterHandle : s.blueskyHandle || '@';
+							const socialPlatform = s.socialPlatform || (hasTwitter ? 'twitter' : hasBsky ? 'bluesky' : 'twitter');
+							const socialHandle = s.socialHandle || (hasTwitter ? s.twitterHandle : s.blueskyHandle || '@');
+							const profileImagePlatform = s.profileImagePlatform || (hasBsky && !hasTwitter ? 'bluesky' : 'twitter');
+							const customImageUrl = s.customImageUrl || '';
+							const customImage = profileImagePlatform === 'custom' && customImageUrl
+								? `/api/proxy-image?url=${encodeURIComponent(customImageUrl)}`
+								: '';
 							return {
 								name: s.name || '',
 								socialPlatform,
 								socialHandle,
 								twitterHandle: s.twitterHandle || '',
-								profileImagePlatform: hasBsky && !hasTwitter ? 'bluesky' : 'twitter',
-								profileImageHandle: '',
-								customImageUrl: '',
+								profileImagePlatform,
+								profileImageHandle: s.profileImageHandle || '',
+								customImageUrl,
 								talk: s.talk || '',
 								bio: s.bio || '',
 								talkPoints: s.talkPoints || ['', '', ''],
-								image: s.image || '',
+								image: s.image || customImage,
 								error: ''
 							};
 						}) || formData.speakers,
@@ -448,6 +463,71 @@
 		selectedFixtureKey = '';
 		exportResults = [];
 		exportError = '';
+	}
+
+	const homepagePreviewTargets: Record<'mobile' | 'tablet' | 'desktop', EventGraphicExportTarget> = {
+		mobile: {
+			id: 'homepage_mobile',
+			width: 375,
+			height: 667,
+			format: 'png',
+			maxBytes: 5_000_000,
+			label: 'Homepage Mobile (375x667 PNG)'
+		},
+		tablet: {
+			id: 'homepage_tablet',
+			width: 768,
+			height: 432,
+			format: 'png',
+			maxBytes: 5_000_000,
+			label: 'Homepage Tablet (768x432 PNG)'
+		},
+		desktop: {
+			id: 'homepage_desktop',
+			width: 1120,
+			height: 630,
+			format: 'png',
+			maxBytes: 10_000_000,
+			label: 'Homepage Desktop (1120x630 PNG)'
+		}
+	};
+
+	function getCaptureSelector(target: EventGraphicExportTarget): string {
+		if (target.id === 'announcement_discord') return '#graphic-discord';
+		if (target.id === 'homepage_mobile') return '#graphic-homepage-mobile';
+		if (target.id === 'homepage_tablet') return '#graphic-homepage-tablet';
+		if (target.id === 'homepage_desktop') return '#graphic-homepage-desktop';
+		return '#graphic';
+	}
+
+	function getExportTarget(id: ExportTargetId): EventGraphicExportTarget {
+		const target = exportTargets.find((t) => t.id === id);
+		if (!target) throw new Error(`Export target not found: ${id}`);
+		return target;
+	}
+
+	function downloadBlob(blob: Blob, filename: string) {
+		const link = document.createElement('a');
+		link.download = filename;
+		link.href = URL.createObjectURL(blob);
+		link.click();
+		URL.revokeObjectURL(link.href);
+	}
+
+	async function handleDownloadPreview(selector: string, target: EventGraphicExportTarget) {
+		const el = document.querySelector(selector) as HTMLElement;
+		if (!el) {
+			exportError = 'Preview element not found';
+			return;
+		}
+
+		try {
+			const blob = await captureTarget(el, target);
+			downloadBlob(blob, generateFilename(spec, target));
+		} catch (error) {
+			console.error('Download error:', error);
+			exportError = error instanceof Error ? error.message : 'Download failed';
+		}
 	}
 
 	function loadFixture(fixtureKey = selectedFixtureKey) {
@@ -632,7 +712,7 @@
 
 			// Capture event graphic for each enabled target
 			for (const target of activeTargets) {
-				const selector = target.id === 'announcement_discord' ? '#graphic-discord' : '#graphic';
+				const selector = getCaptureSelector(target);
 				const el = document.querySelector(selector) as HTMLElement;
 				if (!el) continue;
 
@@ -686,11 +766,7 @@
 			const zipBlob = await bundleExports(results, manifest, captions);
 
 			// Download
-			const link = document.createElement('a');
-			link.download = `lofi-${spec.event.number}-export-bundle.zip`;
-			link.href = URL.createObjectURL(zipBlob);
-			link.click();
-			URL.revokeObjectURL(link.href);
+			downloadBlob(zipBlob, `lofi-${spec.event.number}-export-bundle.zip`);
 		} catch (error) {
 			console.error('Export error:', error);
 			exportError = error instanceof Error ? error.message : 'Export failed';
@@ -1133,7 +1209,8 @@
 							<th class="py-2 pr-4">Filename</th>
 							<th class="py-2 pr-4">Dimensions</th>
 							<th class="py-2 pr-4">Size</th>
-							<th class="py-2">Status</th>
+							<th class="py-2 pr-4">Status</th>
+							<th class="py-2">Download</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -1144,7 +1221,7 @@
 								<td class="py-2 pr-4" class:text-green-600={result.validation.valid} class:text-red-600={!result.validation.valid}>
 									{formatBytes(result.validation.sizeBytes)}
 								</td>
-								<td class="py-2">
+								<td class="py-2 pr-4">
 									{#if result.validation.valid}
 										<span class="text-green-600">Pass</span>
 									{:else}
@@ -1156,6 +1233,15 @@
 									{#each result.validation.errors as error}
 										<span class="ml-1 text-xs text-red-600">({error})</span>
 									{/each}
+								</td>
+								<td class="py-2">
+									<button
+										type="button"
+										on:click={() => downloadBlob(result.blob, result.filename)}
+										class="rounded-md bg-primary px-3 py-1 text-xs font-semibold text-white hover:bg-primary/90"
+									>
+										Download
+									</button>
 								</td>
 							</tr>
 						{/each}
@@ -1192,7 +1278,16 @@
 		<!-- ── 1. Event Graphic (X / Bluesky Feed) ── -->
 		{#if activeCategories.event}
 			<div>
-				<h2 class="mb-4 text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+				<div class="mb-4 flex items-center justify-between gap-3">
+					<h2 class="text-xl font-semibold">Event Graphic Preview <span class="text-sm font-normal text-gray-400">(1200x675)</span></h2>
+					<button
+						type="button"
+						on:click={() => handleDownloadPreview('#graphic', getExportTarget('announcement_regular'))}
+						class="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary/90"
+					>
+						Download
+					</button>
+				</div>
 				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 600px;">
 					<div id="graphic" class="origin-center" style="width: 1200px; min-width: 1200px; height: 675px; min-height: 675px;">
 						<EventGraphic {spec} />
@@ -1204,7 +1299,16 @@
 		<!-- ── 2. Discord Banner ── -->
 		{#if activeCategories.discord}
 			<div>
-				<h2 class="mb-4 text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
+				<div class="mb-4 flex items-center justify-between gap-3">
+					<h2 class="text-xl font-semibold">Discord Banner Preview <span class="text-sm font-normal text-gray-400">(800x320)</span></h2>
+					<button
+						type="button"
+						on:click={() => handleDownloadPreview('#graphic-discord', getExportTarget('announcement_discord'))}
+						class="rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary/90"
+					>
+						Download
+					</button>
+				</div>
 				<div class="flex items-center justify-center overflow-x-auto rounded-lg border border-gray-200 bg-gray-50 p-8 shadow-md dark:border-gray-700 dark:bg-gray-900" style="min-height: 400px;">
 					<div id="graphic-discord" style="width: 800px; min-width: 800px; height: 320px; min-height: 320px;">
 						<DiscordBanner {spec} />
@@ -1221,12 +1325,22 @@
 
 					<!-- Mobile (375px) -->
 					<div class="flex-shrink-0">
-						<h3 class="mb-2 text-sm font-medium text-gray-500">Mobile <span class="text-xs text-gray-400">(375px)</span></h3>
+						<div class="mb-2 flex items-center justify-between gap-3">
+							<h3 class="text-sm font-medium text-gray-500">Mobile <span class="text-xs text-gray-400">(375px)</span></h3>
+							<button
+								type="button"
+								on:click={() => handleDownloadPreview('#graphic-homepage-mobile', homepagePreviewTargets.mobile)}
+								class="rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-white hover:bg-primary/90"
+							>
+								Download
+							</button>
+						</div>
 						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div
+								id="graphic-homepage-mobile"
 								data-preview="mobile"
 								class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 dark:border-gray-700 dark:bg-gray-950"
-								style="width: 375px;"
+								style="width: 375px; height: 667px;"
 							>
 								<EventGraphic {spec} />
 							</div>
@@ -1235,9 +1349,22 @@
 
 					<!-- Tablet (768px) -->
 					<div class="flex-shrink-0">
-						<h3 class="mb-2 text-sm font-medium text-gray-500">Tablet <span class="text-xs text-gray-400">(768px)</span></h3>
+						<div class="mb-2 flex items-center justify-between gap-3">
+							<h3 class="text-sm font-medium text-gray-500">Tablet <span class="text-xs text-gray-400">(768px)</span></h3>
+							<button
+								type="button"
+								on:click={() => handleDownloadPreview('#graphic-homepage-tablet', homepagePreviewTargets.tablet)}
+								class="rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-white hover:bg-primary/90"
+							>
+								Download
+							</button>
+						</div>
 						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 768px;">
+							<div
+								id="graphic-homepage-tablet"
+								class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950"
+								style="width: 768px; height: 432px;"
+							>
 								<EventGraphic {spec} />
 							</div>
 						</div>
@@ -1245,9 +1372,22 @@
 
 					<!-- Desktop (1120px) -->
 					<div class="flex-shrink-0">
-						<h3 class="mb-2 text-sm font-medium text-gray-500">Desktop <span class="text-xs text-gray-400">(1120px)</span></h3>
+						<div class="mb-2 flex items-center justify-between gap-3">
+							<h3 class="text-sm font-medium text-gray-500">Desktop <span class="text-xs text-gray-400">(1120px)</span></h3>
+							<button
+								type="button"
+								on:click={() => handleDownloadPreview('#graphic-homepage-desktop', homepagePreviewTargets.desktop)}
+								class="rounded-md bg-primary px-2.5 py-1 text-xs font-semibold text-white hover:bg-primary/90"
+							>
+								Download
+							</button>
+						</div>
 						<div class="rounded-lg border border-gray-200 bg-gray-50 p-3 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950" style="width: 1120px;">
+							<div
+								id="graphic-homepage-desktop"
+								class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-gray-700 dark:bg-gray-950"
+								style="width: 1120px; height: 630px;"
+							>
 								<EventGraphic {spec} />
 							</div>
 						</div>
