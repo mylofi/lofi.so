@@ -118,7 +118,8 @@
 			registrationUrl: formData.registrationUrl,
 			discordUrl: formData.discordUrl,
 			calendarUrl: formData.calendarUrl,
-			logoUrl: formData.logoUrl
+			logoUrl: formData.logoUrl,
+			youtubeUrl: formData.youtubeUrl
 		};
 	}
 
