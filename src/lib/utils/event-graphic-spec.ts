@@ -33,6 +33,14 @@ export function getExportPresets(): EventGraphicExportTarget[] {
 			label: 'Discord Banner (800x320 PNG)'
 		},
 		{
+			id: 'homepage_tablet',
+			width: 768,
+			height: 432,
+			format: 'png',
+			maxBytes: 5_000_000,
+			label: 'Homepage Tablet (768x432 PNG)'
+		},
+		{
 			id: 'agenda_regular',
 			width: 1200,
 			height: 675,
@@ -65,8 +73,6 @@ export function normalizeSponsors(raw: RawSponsor[]): EventGraphicSponsor[] {
 		}))
 		.sort((a, b) => a.order - b.order);
 }
-
-
 
 // ---------------------------------------------------------------------------
 // Social handle normalization
