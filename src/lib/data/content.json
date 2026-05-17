@@ -716,6 +716,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Filarr",
+                        "author": "Mathis Belouar-Pruvot",
+                        "url": "https://filarr.com",
+                        "icon": "https://filarr.com/favicon-32x32.png",
+                        "description": "Encrypted local-first workspace combining notes, files, knowledge graph and canvas — AES-256-GCM per-file encryption, optional zero-knowledge cloud sync."
                     }
                 ]
             }
