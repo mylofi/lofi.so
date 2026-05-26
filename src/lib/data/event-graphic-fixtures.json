@@ -29,7 +29,7 @@
 				"avatar": "https://dongdongbh.tech/assets/images/profile.jpg"
 			},
 			{
-				"name": "Jermsam",
+				"name": "Samson Ssali",
 				"social": {
 					"twitter": "@ssali_samson"
 				},
@@ -50,9 +50,9 @@
 				"talk": "Local-First Modular Tools with CoCube",
 				"bio": "Software engineer at Visa, then Google. Now working on CoCube.",
 				"bullets": [
-					"Background with note-taking and personal knowledge management tools",
 					"The importance of owning not just your data, but your system",
-					"Using CoCube to create and share flexible, personal, and private tools"
+					"Using CoCube to create and share flexible, personal, and private tools",
+					"Background with note-taking and personal knowledge management tools"
 				],
 				"avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:le4emzpnlik4yc2ozptasmif/bafkreihso6po6ecks6nyh55l2hvpujzyfivfy54fskjgwcqdaaig4xurgy"
 			}
