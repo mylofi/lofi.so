@@ -1,4 +1,127 @@
 {
+	"lofi37": {
+		"event": {
+			"title": "Local First Web",
+			"number": 37,
+			"startTime": 1779807600,
+			"displayDateTime": "Tuesday, May 26, 2026 · 8:00 AM PT",
+			"links": {
+				"registration": "https://lofi.so",
+				"discord": "https://discord.gg/lofi-so",
+				"calendar": "https://calendar.google.com/calendar/event?action=TEMPLATE",
+				"logo": "/images/logo.png"
+			}
+		},
+		"speakers": [
+			{
+				"name": "Dongda Li",
+				"social": {
+					"twitter": "@dongdongbh",
+					"linkedin": "dongda-li-509334247"
+				},
+				"talk": "Building a Cross-Platform Local-First GTD App as a Solo Dev",
+				"bio": "PhD candidate at Syracuse University researching multimodal AI. Creator and solo maintainer of Mindwtr, a free, open-source, local-first GTD app for iOS, Android, macOS, Windows, and Linux.",
+				"bullets": [
+					"Sharing a TypeScript core across Tauri and React Native",
+					"Sync without a server: tradeoffs of file-based, WebDAV, iCloud, and Dropbox",
+					"Shipping a free, open-source app solo across five platforms"
+				],
+				"avatar": "https://dongdongbh.tech/assets/images/profile.jpg"
+			},
+			{
+				"name": "Jermsam",
+				"social": {
+					"twitter": "@ssali_samson"
+				},
+				"talk": "SEYFR — Send Your Files Right: Building a Cross-Platform File Sharing App with iroh",
+				"bio": "Software Developer at JITPOMI LLC, building local-first tools including SEYFR and JFFI.",
+				"bullets": [
+					"Direct, not cloud: using iroh modules to communicate directly between devices, punching through firewalls with zero middlemen",
+					"Write once, feel native: one shared Rust core powering native apps across platforms with JFFI",
+					"Live demo: watching SEYFR transfer files seamlessly between devices in real time"
+				],
+				"avatar": "https://unavatar.io/x/ssali_samson"
+			},
+			{
+				"name": "Bryan Reilly",
+				"social": {
+					"bluesky": "bryrei.bsky.social"
+				},
+				"talk": "Local-First Modular Tools with CoCube",
+				"bio": "Software engineer at Visa, then Google. Now working on CoCube.",
+				"bullets": [
+					"Background with note-taking and personal knowledge management tools",
+					"The importance of owning not just your data, but your system",
+					"Using CoCube to create and share flexible, personal, and private tools"
+				],
+				"avatar": "https://cdn.bsky.app/img/avatar/plain/did:plc:le4emzpnlik4yc2ozptasmif/bafkreihso6po6ecks6nyh55l2hvpujzyfivfy54fskjgwcqdaaig4xurgy"
+			}
+		],
+		"sponsors": [
+			{
+				"name": "Jazz",
+				"order": 0,
+				"url": "https://jazz.tools?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/jazz.png"
+			},
+			{
+				"name": "Electric SQL",
+				"order": 1,
+				"url": "https://electric-sql.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/electric.png"
+			},
+			{
+				"name": "PowerSync",
+				"order": 2,
+				"url": "https://powersync.com?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/powersync.png"
+			},
+			{
+				"name": "Vella.ai",
+				"order": 3,
+				"url": "https://vella.ai?utm_source=lofi_so",
+				"logoLight": "/images/sponsors/vella.png"
+			}
+		],
+		"theme": {
+			"variant": "agenda",
+			"tokens": {}
+		},
+		"exports": [
+			{
+				"id": "announcement_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "jpg",
+				"maxBytes": 5000000,
+				"label": "X / Bluesky Feed (1200x675 JPG)"
+			},
+			{
+				"id": "announcement_discord",
+				"width": 800,
+				"height": 320,
+				"format": "png",
+				"maxBytes": 10000000,
+				"label": "Discord Banner (800x320 PNG)"
+			},
+			{
+				"id": "homepage_tablet",
+				"width": 768,
+				"height": 432,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Homepage Tablet (768x432 PNG)"
+			},
+			{
+				"id": "agenda_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Speaker Spotlight (1200x675 PNG)"
+			}
+		]
+	},
 	"lofi36": {
 		"event": {
 			"title": "Local First Web",
@@ -100,10 +223,26 @@
 			{
 				"id": "announcement_discord",
 				"width": 800,
-				"height": 450,
-				"format": "jpg",
+				"height": 320,
+				"format": "png",
+				"maxBytes": 10000000,
+				"label": "Discord Banner (800x320 PNG)"
+			},
+			{
+				"id": "homepage_tablet",
+				"width": 768,
+				"height": 432,
+				"format": "png",
 				"maxBytes": 5000000,
-				"label": "Discord (800x450 JPG)"
+				"label": "Homepage Tablet (768x432 PNG)"
+			},
+			{
+				"id": "agenda_regular",
+				"width": 1200,
+				"height": 675,
+				"format": "png",
+				"maxBytes": 5000000,
+				"label": "Speaker Spotlight (1200x675 PNG)"
 			}
 		]
 	},
