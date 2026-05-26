@@ -19,6 +19,7 @@
 	import sponsorsData from '$lib/data/sponsors.json';
 	import fixtureData from '$lib/data/event-graphic-fixtures.json';
 	import { onMount } from 'svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	type EventFixture = {
 		event: {
@@ -43,6 +44,68 @@
 		}>;
 	};
 
+	type SavedSpeaker = {
+		name?: string;
+		twitterHandle?: string;
+		blueskyHandle?: string;
+		talk?: string;
+		image?: string;
+		bio?: string;
+		talkPoints?: string[];
+		socialPlatform?: string;
+		socialHandle?: string;
+		profileImagePlatform?: string;
+		profileImageHandle?: string;
+		customImageUrl?: string;
+	};
+
+	type SavedEventData = {
+		eventNumber?: number;
+		title?: string;
+		startTime?: number;
+		speakers?: SavedSpeaker[];
+		registrationUrl?: string;
+		discordUrl?: string;
+		calendarUrl?: string;
+		logoUrl?: string;
+		youtubeUrl?: string;
+	};
+
+	type FormSpeaker = {
+		name: string;
+		socialPlatform: string;
+		socialHandle: string;
+		twitterHandle: string;
+		profileImagePlatform: string;
+		profileImageHandle: string;
+		customImageUrl: string;
+		talk: string;
+		bio: string;
+		talkPoints: string[];
+		image: string;
+		error: string;
+	};
+
+	type EventGraphicFormData = {
+		title: string;
+		eventNumber: number;
+		date: string;
+		time: string;
+		timezone: string;
+		speakers: FormSpeaker[];
+		registrationUrl: string;
+		discordUrl: string;
+		calendarUrl: string;
+		logoUrl: string;
+		youtubeUrl: string;
+	};
+
+	type PageData = {
+		eventData?: SavedEventData | null;
+	};
+
+	export let data: PageData = {};
+
 	function getLastTuesdayOfMonth() {
 		const today = new Date();
 		const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -65,34 +128,89 @@
 		.sort((a, b) => a.number - b.number);
 	let selectedFixtureKey = '';
 
-	let formData = {
-		title: 'Watch Party',
-		eventNumber: 1,
-		date: lastTuesday,
-		time: '08:00',
-		timezone: EVENT_TZ,
-		speakers: [
-			{
-				name: '',
-				socialPlatform: 'twitter',
-				socialHandle: '@',
-				twitterHandle: '@',
-				profileImagePlatform: 'twitter',
-				profileImageHandle: '',
-				customImageUrl: '',
-				talk: '',
-				bio: '',
-				talkPoints: ['', '', ''],
-				image: '',
-				error: ''
-			}
-		],
-		registrationUrl: 'https://lofi.so',
-		discordUrl: 'https://discord.gg/ZRrwZxn4rW',
-		calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-		logoUrl: '/images/logo.png',
-		youtubeUrl: ''
-	};
+	function createEmptySpeaker(): FormSpeaker {
+		return {
+			name: '',
+			socialPlatform: 'twitter',
+			socialHandle: '@',
+			twitterHandle: '@',
+			profileImagePlatform: 'twitter',
+			profileImageHandle: '',
+			customImageUrl: '',
+			talk: '',
+			bio: '',
+			talkPoints: ['', '', ''],
+			image: '',
+			error: ''
+		};
+	}
+
+	function createDefaultFormData(): EventGraphicFormData {
+		return {
+			title: 'Watch Party',
+			eventNumber: 1,
+			date: lastTuesday,
+			time: '08:00',
+			timezone: EVENT_TZ,
+			speakers: [createEmptySpeaker()],
+			registrationUrl: 'https://lofi.so',
+			discordUrl: 'https://discord.gg/ZRrwZxn4rW',
+			calendarUrl: 'https://calendar.google.com/calendar/event?action=TEMPLATE',
+			logoUrl: '/images/logo.png',
+			youtubeUrl: ''
+		};
+	}
+
+	function savedEventToFormData(eventData: SavedEventData, fallback = createDefaultFormData()): EventGraphicFormData {
+		const loaded = eventData.startTime
+			? fromUnixTime(eventData.startTime)
+			: { date: fallback.date, time: fallback.time };
+
+		return {
+			title: eventData.title || fallback.title,
+			eventNumber: eventData.eventNumber || fallback.eventNumber,
+			date: loaded.date,
+			time: loaded.time,
+			timezone: EVENT_TZ,
+			speakers: eventData.speakers?.map((s) => {
+				const hasBsky = !!s.blueskyHandle;
+				const hasTwitter = !!s.twitterHandle;
+				const socialPlatform = s.socialPlatform || (hasBsky ? 'bluesky' : hasTwitter ? 'twitter' : 'twitter');
+				const socialHandle = s.socialHandle
+					|| (socialPlatform === 'bluesky' ? s.blueskyHandle || '' : s.twitterHandle || s.blueskyHandle || '@');
+				const profileImagePlatform = s.profileImagePlatform
+					|| (socialPlatform === 'bluesky' ? 'bluesky' : 'twitter');
+				const customImageUrl = s.customImageUrl || '';
+				const customImage = profileImagePlatform === 'custom' && customImageUrl
+					? `/api/proxy-image?url=${encodeURIComponent(customImageUrl)}`
+					: '';
+
+				return {
+					name: s.name || '',
+					socialPlatform,
+					socialHandle,
+					twitterHandle: s.twitterHandle || '',
+					profileImagePlatform,
+					profileImageHandle: s.profileImageHandle || '',
+					customImageUrl,
+					talk: s.talk || '',
+					bio: s.bio || '',
+					talkPoints: [...(s.talkPoints || []), '', '', ''].slice(0, 3),
+					image: s.image || customImage,
+					error: ''
+				};
+			}) || fallback.speakers,
+			registrationUrl: eventData.registrationUrl || fallback.registrationUrl,
+			discordUrl: eventData.discordUrl || fallback.discordUrl,
+			calendarUrl: eventData.calendarUrl || fallback.calendarUrl,
+			logoUrl: eventData.logoUrl || fallback.logoUrl,
+			youtubeUrl: eventData.youtubeUrl || ''
+		};
+	}
+
+	let formData: EventGraphicFormData = data.eventData?.eventNumber
+		? savedEventToFormData(data.eventData)
+		: createDefaultFormData();
 
 	$: startTime = formData.date && formData.time
 		? toUnixTime(formData.date, formData.time, formData.timezone)
@@ -249,53 +367,16 @@
 	}
 
 	onMount(async () => {
-		updateToLastTuesday();
+		if (!data.eventData?.eventNumber) {
+			updateToLastTuesday();
+		}
 
 		try {
-			const response = await fetch('/api/latest-event');
+			const response = await fetch('/api/latest-event', { cache: 'no-store' });
 			if (response.ok) {
 				const eventData = await response.json();
 				if (eventData && eventData.eventNumber) {
-					const loaded = eventData.startTime
-						? fromUnixTime(eventData.startTime)
-						: { date: formData.date, time: '08:00' };
-					formData = {
-						title: eventData.title || 'Watch Party',
-						eventNumber: eventData.eventNumber || 1,
-						date: loaded.date,
-						time: loaded.time,
-						timezone: EVENT_TZ,
-						speakers: eventData.speakers?.map((s: any) => {
-							const hasBsky = !!s.blueskyHandle;
-							const hasTwitter = !!s.twitterHandle;
-							const socialPlatform = s.socialPlatform || (hasTwitter ? 'twitter' : hasBsky ? 'bluesky' : 'twitter');
-							const socialHandle = s.socialHandle || (hasTwitter ? s.twitterHandle : s.blueskyHandle || '@');
-							const profileImagePlatform = s.profileImagePlatform || (hasBsky && !hasTwitter ? 'bluesky' : 'twitter');
-							const customImageUrl = s.customImageUrl || '';
-							const customImage = profileImagePlatform === 'custom' && customImageUrl
-								? `/api/proxy-image?url=${encodeURIComponent(customImageUrl)}`
-								: '';
-							return {
-								name: s.name || '',
-								socialPlatform,
-								socialHandle,
-								twitterHandle: s.twitterHandle || '',
-								profileImagePlatform,
-								profileImageHandle: s.profileImageHandle || '',
-								customImageUrl,
-								talk: s.talk || '',
-								bio: s.bio || '',
-								talkPoints: s.talkPoints || ['', '', ''],
-								image: s.image || customImage,
-								error: ''
-							};
-						}) || formData.speakers,
-						registrationUrl: eventData.registrationUrl || 'https://lofi.so',
-						discordUrl: eventData.discordUrl || 'https://discord.gg/ZRrwZxn4rW',
-						calendarUrl: eventData.calendarUrl || 'https://calendar.google.com/calendar/event?action=TEMPLATE',
-						logoUrl: eventData.logoUrl || '/images/logo.png',
-						youtubeUrl: eventData.youtubeUrl || ''
-					};
+					formData = savedEventToFormData(eventData, formData);
 				}
 			}
 		} catch (error) {
@@ -514,6 +595,16 @@
 		URL.revokeObjectURL(link.href);
 	}
 
+	async function savePayloadToHomepage(payload = buildSavePayload()) {
+		const response = await fetch('/api/save-event', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(payload)
+		});
+		if (!response.ok) throw new Error('Failed to save event data');
+		await invalidateAll();
+	}
+
 	async function handleDownloadPreview(selector: string, target: EventGraphicExportTarget) {
 		const el = document.querySelector(selector) as HTMLElement;
 		if (!el) {
@@ -592,14 +683,7 @@
 	async function handleSubmit() {
 		const saved = await showAllCategories();
 		try {
-			const payload = buildSavePayload();
-			const response = await fetch('/api/save-event', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
-			});
-
-			if (!response.ok) throw new Error('Failed to save event data');
+			await savePayloadToHomepage();
 
 			const graphic = document.querySelector('#graphic');
 			if (!graphic) throw new Error('Graphic element not found');
@@ -627,14 +711,7 @@
 	async function handleGenerateSpeakerCards() {
 		const saved = await showAllCategories();
 		try {
-			const payload = buildSavePayload();
-			const response = await fetch('/api/save-event', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
-			});
-
-			if (!response.ok) throw new Error('Failed to save event data');
+			await savePayloadToHomepage();
 
 			for (let i = 0; i < formData.speakers.length; i++) {
 				const speaker = formData.speakers[i];
@@ -670,13 +747,7 @@
 		isSaving = true;
 		saveStatus = 'idle';
 		try {
-			const payload = buildSavePayload();
-			const response = await fetch('/api/save-event', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
-			});
-			if (!response.ok) throw new Error('Failed to save event data');
+			await savePayloadToHomepage();
 			saveStatus = 'saved';
 			setTimeout(() => (saveStatus = 'idle'), 3000);
 		} catch (error) {
@@ -699,13 +770,7 @@
 
 		try {
 			// Save event data first
-			const payload = buildSavePayload();
-			const saveResponse = await fetch('/api/save-event', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(payload)
-			});
-			if (!saveResponse.ok) throw new Error('Failed to save event data');
+			await savePayloadToHomepage();
 
 			const results: ExportResult[] = [];
 			const activeTargets = exportTargets.filter((t) => enabledTargets[t.id]);
