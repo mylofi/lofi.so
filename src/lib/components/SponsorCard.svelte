@@ -54,7 +54,7 @@
 						class="flex items-center justify-center rounded-2xl bg-white/10 px-10 py-6 backdrop-blur-sm"
 					>
 						<img
-							src={sponsor.logoLight}
+							src={sponsor.logoDark ?? sponsor.logoLight}
 							alt={sponsor.name}
 							class="h-auto max-h-20 w-auto max-w-[200px] object-contain"
 						/>

@@ -305,7 +305,7 @@
 										rel="noopener noreferrer"
 										class="flex items-center justify-center rounded-lg px-2 py-1.5 transition active:bg-white/10"
 									>
-										<img src={sponsor.logoLight} alt={sponsor.name} class="h-7 w-auto object-contain" />
+										<img src={sponsor.logoDark ?? sponsor.logoLight} alt={sponsor.name} class="h-7 w-auto object-contain" />
 									</a>
 								{/each}
 							</div>
@@ -333,7 +333,7 @@
 										class="flex w-full items-center justify-center rounded-lg px-2 py-1 transition hover:bg-white/5"
 									>
 										<img
-											src={sponsor.logoLight}
+											src={sponsor.logoDark ?? sponsor.logoLight}
 											alt={sponsor.name}
 											class="h-auto w-full object-contain"
 											style="max-height: clamp(18px, 3cqh, 36px); max-width: 85%;"
