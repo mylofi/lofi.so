@@ -149,6 +149,13 @@
 								"icon": "https://i.ibb.co/HL1kgQnB/electricsql.png"
 							},
 							{
+								"title": "Iroh",
+								"author": "n0, inc.",
+								"url": "https://iroh.computer/",
+								"icon": "https://iroh.computer/favicon.ico",
+								"tag": "P2P Networking"
+							},
+							{
 								"title": "PowerSync",
 								"author": "JourneyApps",
 								"url": "https://www.powersync.com",

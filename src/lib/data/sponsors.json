@@ -10,28 +10,23 @@
   "sponsors": [
 		{
 			"name": "Jazz",
-			"image": "/images/sponsors/jazz.png",
+			"image": "/images/sponsors/jazz.svg",
+			"imageDark": "/images/sponsors/jazz-dark.svg",
 			"url": "https://jazz.tools?utm_source=lofi_so",
-
 			"order": 0
 		},
 		{
-			"name": "Electric SQL",
-			"image": "/images/sponsors/electric.png",
-			"url": "https://electric-sql.com?utm_source=lofi_so",
+			"name": "Iroh",
+			"image": "/images/sponsors/iroh.svg",
+			"url": "https://iroh.computer?utm_source=lofi_so",
 			"order": 1
 		},
 		{
-			"name": "PowerSync",
-			"image": "/images/sponsors/powersync.png",
-			"url": "https://powersync.com?utm_source=lofi_so",
-			"order": 2
-		},
-		{
 			"name": "Vella.ai",
-			"image": "/images/sponsors/vella.png",
+			"image": "/images/sponsors/vella.svg",
+			"imageDark": "/images/sponsors/vella-dark.svg",
 			"url": "https://vella.ai?utm_source=lofi_so",
-			"order": 3
+			"order": 2
 		}
 	]
 }

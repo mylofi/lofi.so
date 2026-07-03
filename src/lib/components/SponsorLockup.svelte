@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { theme } from '$lib/stores/themeStore';
 	import type { EventGraphicSponsor } from '$lib/types/event-graphic';
 
 export let sponsors: EventGraphicSponsor[] = [];
@@ -7,13 +6,6 @@ export let variant: 'strip' | 'grid' | 'sidebar' = 'strip';
 export let maxVisible: number = 8;
 export let showSponsorLabel: boolean = false;
 const SIDEBAR_CARD_HEIGHT = 88;
-
-	function getSponsorImage(sponsor: EventGraphicSponsor): string {
-		if (sponsor.logoDark && $theme === 'dark') {
-			return sponsor.logoDark;
-		}
-		return sponsor.logoLight;
-	}
 
 	$: sorted = [...sponsors].sort((a, b) => a.order - b.order).slice(0, maxVisible);
 </script>
@@ -33,10 +25,17 @@ const SIDEBAR_CARD_HEIGHT = 88;
 					class="transition hover:opacity-90"
 				>
 					<img
-						src={getSponsorImage(sponsor)}
+						src={sponsor.logoLight}
 						alt={sponsor.name}
-						class="h-auto max-h-16 w-28 object-contain"
+						class="h-auto max-h-16 w-28 object-contain {sponsor.logoDark ? 'dark:hidden' : ''}"
 					/>
+					{#if sponsor.logoDark}
+						<img
+							src={sponsor.logoDark}
+							alt={sponsor.name}
+							class="hidden h-auto max-h-16 w-28 object-contain dark:block"
+						/>
+					{/if}
 				</a>
 			{/each}
 		</div>
@@ -52,19 +51,21 @@ const SIDEBAR_CARD_HEIGHT = 88;
 				class="group flex aspect-video items-center justify-center rounded-lg border border-slate-200 bg-white p-4 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
 			>
 				<img
-					src={getSponsorImage(sponsor)}
+					src={sponsor.logoLight}
 					alt={sponsor.name}
-					class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+					class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] {sponsor.logoDark
+						? 'dark:hidden'
+						: ''}"
 				/>
+				{#if sponsor.logoDark}
+					<img
+						src={sponsor.logoDark}
+						alt={sponsor.name}
+						class="hidden max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] dark:block"
+					/>
+				{/if}
 			</a>
 		{/each}
-		{#if sorted.length < 4}
-			{#each Array(4 - sorted.length) as _}
-				<div
-					class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-gray-800 dark:bg-gray-900/70"
-				></div>
-			{/each}
-		{/if}
 	</div>
 {:else if variant === 'sidebar'}
 	<!-- Vertical stack for SponsorsRail -->
@@ -75,32 +76,27 @@ const SIDEBAR_CARD_HEIGHT = 88;
 					href={sponsor.url}
 					class="group block overflow-hidden border border-slate-200/80 bg-white/95 shadow-sm backdrop-blur-sm transition-colors hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900/90 dark:hover:bg-gray-800/80"
 					class:rounded-t-xl={i === 0}
-					class:rounded-b-xl={i === sorted.length - 1 && sorted.length >= 4}
+					class:rounded-b-xl={i === sorted.length - 1}
 					style="height: {SIDEBAR_CARD_HEIGHT}px"
 				>
 					<div class="flex h-full w-full items-center justify-center p-4">
 						<img
-							src={getSponsorImage(sponsor)}
+							src={sponsor.logoLight}
 							alt={sponsor.name}
-							class="max-h-full max-w-full object-contain transition duration-300 group-hover:scale-[1.03]"
+							class="max-h-full max-w-full object-contain transition duration-300 group-hover:scale-[1.03] {sponsor.logoDark
+								? 'dark:hidden'
+								: ''}"
 						/>
+						{#if sponsor.logoDark}
+							<img
+								src={sponsor.logoDark}
+								alt={sponsor.name}
+								class="hidden max-h-full max-w-full object-contain transition duration-300 group-hover:scale-[1.03] dark:block"
+							/>
+						{/if}
 					</div>
 				</a>
 			</div>
 		{/each}
-		{#if sorted.length < 4}
-			{#each Array(4 - sorted.length) as _, i}
-				<div class="space-y-1">
-					<div
-						class="block overflow-hidden border border-dashed border-slate-200/90 bg-white/70 backdrop-blur-sm transition-colors dark:border-gray-800 dark:bg-gray-900/60"
-						class:rounded-t-xl={sorted.length === 0 && i === 0}
-						class:rounded-b-xl={i === 3 - sorted.length}
-						style="height: {SIDEBAR_CARD_HEIGHT}px"
-					>
-						<div class="flex h-full w-full items-center justify-center p-4"></div>
-					</div>
-				</div>
-			{/each}
-		{/if}
 	</div>
 {/if}
