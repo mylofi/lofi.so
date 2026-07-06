@@ -270,6 +270,12 @@
 								"icon": "https://replicache.dev/icons/favicon-32x32.png"
 							},
 							{
+								"title": "Zero",
+								"author": "Rocicorp",
+								"url": "https://zero.rocicorp.dev",
+								"icon": "https://zero.rocicorp.dev/favicon.ico"
+							},
+							{
 								"title": "Sockethub",
 								"author": "Nick Jennings",
 								"url": "http://sockethub.org",
