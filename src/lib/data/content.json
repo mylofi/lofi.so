@@ -478,6 +478,12 @@
 								"author": "Christopher Berner",
 								"url": "https://www.redb.org",
 								"icon": "https://github.com/cberner.png"
+							},
+							{
+								"title": "fjall",
+								"author": "fjall-rs",
+								"url": "https://fjall-rs.github.io/",
+								"icon": "https://fjall-rs.github.io/favicon.svg"
 							}
 						]
 					},
