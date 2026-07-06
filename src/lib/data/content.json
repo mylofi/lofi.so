@@ -472,6 +472,12 @@
 								"author": "Matt Wonlaw",
 								"url": "https://vlcn.io",
 								"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+							},
+							{
+								"title": "redb",
+								"author": "Christopher Berner",
+								"url": "https://www.redb.org",
+								"icon": "https://github.com/cberner.png"
 							}
 						]
 					},
