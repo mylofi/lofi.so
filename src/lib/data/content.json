@@ -390,6 +390,12 @@
 								"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
 							},
 							{
+								"title": "Earthstar",
+								"author": "Earthstar Project",
+								"url": "https://earthstar-project.org",
+								"icon": "https://earthstar-project.org/favicon.svg"
+							},
+							{
 								"title": "Evolu",
 								"author": "Daniel Steigerwald",
 								"url": "https://www.evolu.dev/",
