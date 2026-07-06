@@ -256,6 +256,12 @@
 								"url": "https://p2panda.org/",
 								"icon": "https://p2panda.org/assets/images/p2panda.svg"
 							},
+							{
+								"title": "Iroh",
+								"author": "n0, inc.",
+								"url": "https://iroh.computer",
+								"icon": "https://iroh.computer/favicon.ico"
+							},
 
 							{
 								"title": "Replicache",
