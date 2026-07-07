@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { theme } from '$lib/stores/themeStore';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import SponsorLockup from '$lib/components/SponsorLockup.svelte';
@@ -15,13 +14,6 @@
 		order?: number;
 	}[];
 
-	// Get the appropriate image based on current theme
-	function getSponsorImage(sponsor: typeof sponsors[0]): string {
-		if (sponsor.imageDark && $theme === 'dark') {
-			return sponsor.imageDark;
-		}
-		return sponsor.image;
-	}
 	export let variant: 'sidebar' | 'horizontal' | 'compact' = 'sidebar';
 	export let showNextEvent = true;
 	export let nextEvent: { url: string; name: string; date: string; time: string } | undefined =
@@ -82,6 +74,7 @@
 		sponsors.map((s) => ({
 			name: s.name,
 			image: s.image,
+			imageDark: s.imageDark,
 			url: s.url,
 			order: s.order
 		}))
@@ -387,19 +380,21 @@
 						class="group flex aspect-video items-center justify-center rounded-lg border border-slate-200 bg-white p-4 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
 					>
 						<img
-							src={getSponsorImage(sponsor)}
+							src={sponsor.image}
 							alt={sponsor.name}
-							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] {sponsor.imageDark
+								? 'dark:hidden'
+								: ''}"
 						/>
+						{#if sponsor.imageDark}
+							<img
+								src={sponsor.imageDark}
+								alt={sponsor.name}
+								class="hidden max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] dark:block"
+							/>
+						{/if}
 					</a>
 				{/each}
-				{#if sponsors.length < 4}
-					{#each Array(4 - sponsors.length) as _}
-						<div
-							class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4 dark:border-gray-800 dark:bg-gray-900/70"
-						></div>
-					{/each}
-				{/if}
 		</div>
 	</div>
 	{:else}
@@ -411,19 +406,21 @@
 						class="group flex aspect-video items-center justify-center rounded-lg border border-slate-200 bg-white p-3 transition-colors hover:border-primary/20 hover:bg-slate-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800"
 					>
 						<img
-							src={getSponsorImage(sponsor)}
+							src={sponsor.image}
 							alt={sponsor.name}
-							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03]"
+							class="max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] {sponsor.imageDark
+								? 'dark:hidden'
+								: ''}"
 						/>
+						{#if sponsor.imageDark}
+							<img
+								src={sponsor.imageDark}
+								alt={sponsor.name}
+								class="hidden max-h-full max-w-full object-contain transition-all duration-300 group-hover:scale-[1.03] dark:block"
+							/>
+						{/if}
 					</a>
 				{/each}
-				{#if sponsors.length < 4}
-					{#each Array(4 - sponsors.length) as _}
-						<div
-							class="flex aspect-video items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50 p-3 dark:border-gray-800 dark:bg-gray-900/70"
-						></div>
-					{/each}
-				{/if}
 		</div>
 	</div>
 {/if}

@@ -258,7 +258,7 @@
 											</div>
 										</div>
 										<span class="mt-3 inline-flex rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary dark:border-primary/30 dark:bg-primary/20">
-											{tab.label}
+											{'tag' in item ? item.tag : tab.label}
 										</span>
 									</a>
 								{/each}

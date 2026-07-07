@@ -979,6 +979,20 @@
 				"Categories": ["L", 38],
 				"Uses": null
 			}
+		},
+		{
+			"id": 84,
+			"fields": {
+				"Main_Category": 3,
+				"Title": "Iroh",
+				"slug": "iroh",
+				"author": "n0, inc.",
+				"url": "https://iroh.computer/",
+				"icon": "https://iroh.computer/favicon.ico",
+				"description": "P2P Networking: Iroh is a peer-to-peer networking library that dials public keys instead of IP addresses. Devices connect directly via hole-punching wherever possible, falling back to relays when they can't, so connections keep working as machines move between networks.",
+				"Categories": ["L", 40, 44],
+				"Uses": null
+			}
 		}
 	]
 }

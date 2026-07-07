@@ -91,6 +91,7 @@ export interface FormSpeaker {
 export interface RawSponsor {
 	name: string;
 	image: string;
+	imageDark?: string;
 	url: string;
 	order?: number;
 }

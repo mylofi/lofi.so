@@ -106,7 +106,7 @@
 				<div class="mt-4 flex items-center gap-4">
 					<span class="text-[7px] font-semibold uppercase tracking-[0.18em] text-white/25">Sponsored by</span>
 					{#each sponsors.slice(0, 4) as sponsor}
-						<img src={sponsor.logoLight} alt={sponsor.name} class="h-4 w-auto object-contain opacity-40" />
+						<img src={sponsor.logoDark ?? sponsor.logoLight} alt={sponsor.name} class="h-4 w-auto object-contain opacity-40" />
 					{/each}
 				</div>
 			{/if}

@@ -69,7 +69,7 @@ export function normalizeSponsors(raw: RawSponsor[]): EventGraphicSponsor[] {
 			order: s.order ?? i,
 			url: s.url,
 			logoLight: s.image,
-			logoDark: undefined
+			logoDark: s.imageDark
 		}))
 		.sort((a, b) => a.order - b.order);
 }
