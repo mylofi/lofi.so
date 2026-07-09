@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+					{
+                        "title": "Tagst",
+                        "author": "Tagst team",
+                        "url": "https://tagst.app/",
+                        "icon": "https://tagst.app/logo.svg",
+                        "description": "Bookmark and note manager built around tag chaining. Local-first, Privacy-first, no account required."
                     }
                 ]
             }
