@@ -263,12 +263,24 @@
 								"url": "https://p2panda.org/",
 								"icon": "https://p2panda.org/assets/images/p2panda.svg"
 							},
+							{
+								"title": "Iroh",
+								"author": "n0, inc.",
+								"url": "https://iroh.computer",
+								"icon": "https://iroh.computer/favicon.ico"
+							},
 
 							{
 								"title": "Replicache",
 								"author": "Rocicorp",
 								"url": "https://replicache.dev",
 								"icon": "https://replicache.dev/icons/favicon-32x32.png"
+							},
+							{
+								"title": "Zero",
+								"author": "Rocicorp",
+								"url": "https://zero.rocicorp.dev",
+								"icon": "https://zero.rocicorp.dev/favicon.ico"
 							},
 							{
 								"title": "Sockethub",
@@ -385,6 +397,12 @@
 								"icon": "https://raw.githubusercontent.com/dat-ecosystem/organization/main/assets/logo%20%26%20visuals%20final/logo/Dat%20Ecosystem%20-%20Logo%20Design%20-%202022%20-%2002-04.svg"
 							},
 							{
+								"title": "Earthstar",
+								"author": "Earthstar Project",
+								"url": "https://earthstar-project.org",
+								"icon": "https://earthstar-project.org/favicon.svg"
+							},
+							{
 								"title": "Evolu",
 								"author": "Daniel Steigerwald",
 								"url": "https://www.evolu.dev/",
@@ -461,6 +479,18 @@
 								"author": "Matt Wonlaw",
 								"url": "https://vlcn.io",
 								"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+							},
+							{
+								"title": "redb",
+								"author": "Christopher Berner",
+								"url": "https://www.redb.org",
+								"icon": "https://github.com/cberner.png"
+							},
+							{
+								"title": "fjall",
+								"author": "fjall-rs",
+								"url": "https://fjall-rs.github.io/",
+								"icon": "https://fjall-rs.github.io/favicon.svg"
 							}
 						]
 					},
