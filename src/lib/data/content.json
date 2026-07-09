@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Runwita",
+                        "author": "Runwita",
+                        "url": "https://runwita.com",
+                        "icon": "https://runwita.com/favicon.png",
+                        "description": "Local-first Mac app for tracking long projects and customer relationships across many meetings, emails, and notes."
                     }
                 ]
             }
