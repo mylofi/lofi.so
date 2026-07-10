@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Everscroll",
+                        "author": "Feng Xiao",
+                        "url": "https://apps.apple.com/app/apple-store/id6780132042?pt=129034027&ct=ev_outreach_010&mt=8",
+                        "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/33/20/4b/33204b23-a789-c5d9-71a9-1fad892486da/AppIcon.png/512x512bb.png",
+                        "description": "Native Mac app for local-only long screenshots, OCR text, carousel exports, and searchable PDFs."
                     }
                 ]
             }
