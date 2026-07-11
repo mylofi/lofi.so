@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "AI Language Partner",
+				"slug": "ai-language-partner",
+				"author": "duct-tape2 and contributors",
+				"url": "https://duct-tape2.github.io/ai-language-partner/demo/",
+				"icon": "https://duct-tape2.github.io/ai-language-partner/demo/favicon.ico",
+				"description": "An open-source local-first Japanese speaking practice app for Korean learners, using pre-authored dialogue banks and local STT/TTS with no runtime LLM dependency in the core conversation loop.",
+				"Categories": ["L", 37],
+				"Uses": null
+			}
 		}
 	]
 }
