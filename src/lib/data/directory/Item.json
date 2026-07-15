@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "SOP Builder",
+				"slug": "browser-sop-builder",
+				"author": "Mackanic Technologies",
+				"url": "https://max-agent-hub.github.io/browser-sop-builder/",
+				"icon": "https://max-agent-hub.github.io/browser-sop-builder/app-icon.svg",
+				"description": "Draft controlled SOPs locally in the browser and export them as Markdown. Works offline after the first visit, with no account, backend, analytics, or form-data storage.",
+				"Categories": ["L", 37],
+				"Uses": null
+			}
 		}
 	]
 }
