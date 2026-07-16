@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Brainstorm",
+                        "author": "Brainstorm team",
+                        "url": "https://getbrainstorm.online",
+                        "icon": "https://getbrainstorm.online/favicon.svg",
+                        "description": "Local-first open-source end-to-end encrypted AI-native knowledge management OS"
                     }
                 ]
             }
