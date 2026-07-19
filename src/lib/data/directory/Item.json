@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "NoteLoom",
+				"slug": "noteloom",
+				"author": "Beep",
+				"url": "https://noteloom.cc/",
+				"icon": "https://noteloom.cc/icons/icon-192.png",
+				"description": "A local-first Markdown workspace that opens a folder on your disk in the browser and reads and writes the real .md files directly, with wikilinks, backlinks, and full-text search. No upload and no account.",
+				"Categories": ["L", 2],
+				"Uses": null
+			}
 		}
 	]
 }
