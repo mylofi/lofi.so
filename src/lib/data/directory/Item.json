@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Vincent",
+				"slug": "vincent",
+				"author": "Muyeong Yun",
+				"url": "https://github.com/iisacc-Justmoong/Vincent",
+				"icon": "https://raw.githubusercontent.com/iisacc-Justmoong/Vincent/main/packaging/macos/Vincent.xcassets/AppIcon.appiconset/icon_512x512.png",
+				"description": "A private, local-first raster drawing and handwriting app for Windows that keeps working files on the user's computer.",
+				"Categories": ["L", 37, 2],
+				"Uses": null
+			}
 		}
 	]
 }
