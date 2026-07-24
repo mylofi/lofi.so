@@ -718,6 +718,13 @@
                         "icon": "https://backwater.systems/finance/images/logo.256.png"
                     },
                     {
+                        "title": "ResearchPocket",
+                        "author": "ResearchPocket contributors",
+                        "url": "https://researchpocket.github.io/",
+                        "icon": "https://researchpocket.github.io/favicon.png",
+                        "description": "A local-first, URL-first personal research library for saving, enriching, curating, searching, and privately syncing useful links without a hosted account."
+                    },
+                    {
                         "title": "BulkPicTools",
                         "author": "Genglin Zheng",
                         "url": "https://bulkpictools.com",
