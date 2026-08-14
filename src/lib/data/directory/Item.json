@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Present",
+				"slug": "present",
+				"author": "rain",
+				"url": "https://bepresent.day",
+				"icon": "https://bepresent.day/icon-512.png",
+				"description": "A quiet daily mindfulness habit: sit with a breathing timer, or a short yoga flow or meditation, then leave one line about how the day went. Local-first by default \u2014 reflections live in localStorage, every sound and narration is a bundled file played locally, and no account is needed. Optional Google sign-in for cross-device backup.",
+				"Categories": null,
+				"Uses": null
+			}
 		}
 	]
 }
