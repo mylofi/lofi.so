@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "kgai",
+                        "author": "kgai team",
+                        "url": "https://kgai.dev",
+                        "icon": "https://github.com/kgaidev.png",
+                        "description": "Local-first shared decision memory for AI dev teams. An append-only log of engineering decisions on your machine, synced through an S3 bucket you own."
                     }
                 ]
             }
