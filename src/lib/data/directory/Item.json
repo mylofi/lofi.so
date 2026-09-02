@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "BeatDesign",
+				"slug": "beatdesign",
+				"author": "BeatAPI",
+				"url": "https://github.com/BeatAPI/BeatDesign",
+				"icon": "https://github.com/BeatAPI.png?size=128",
+				"description": "An open-source, local-first AI media workbench with a Canvas, short-form video editor, shared Assets, and MCP control.",
+				"Categories": ["L", 37],
+				"Uses": null
+			}
 		}
 	]
 }
