@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Cozy",
+                        "author": "Alberto Gallego",
+                        "url": "https://cozyjournal.app",
+                        "icon": "https://cozyjournal.app/cozy.png",
+                        "description": "A journal for macOS and Windows that keeps every entry as a plain Markdown file in a folder you choose. No account, no server."
                     }
                 ]
             }
