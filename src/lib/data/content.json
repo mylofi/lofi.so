@@ -723,6 +723,12 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Orkas",
+                        "author": "Orkas-AI",
+                        "url": "https://orkas.ai/?source=dir_lofi",
+                        "icon": "https://orkas.ai/favicon.ico"
                     }
                 ]
             }
