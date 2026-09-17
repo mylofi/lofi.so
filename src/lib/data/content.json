@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "PeerLoom apps",
+                        "author": "PeerLoom",
+                        "url": "https://peerloomllc.com/",
+                        "icon": "https://peerloomllc.com/assets/icon-pearcal.png",
+                        "description": "Five open-source phone apps (calendar, lists, location sharing, parental controls, cycle tracking) with no accounts and no sync server. Devices sync directly with each other."
                     }
                 ]
             }
