@@ -993,6 +993,76 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "PearCal",
+				"slug": "pearcal",
+				"author": "PeerLoom",
+				"url": "https://peerloomllc.com/pearcal/",
+				"icon": "https://peerloomllc.com/assets/icon-pearcal.png",
+				"description": "Shared group calendars with no account and no server. Phones in a group sync directly with each other. ICS import and export.",
+				"Categories": ["L", 37, 44],
+				"Uses": [20]
+			}
+		},
+		{
+			"id": 86,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "PearCircle",
+				"slug": "pearcircle",
+				"author": "PeerLoom",
+				"url": "https://peerloomllc.com/pearcircle/",
+				"icon": "https://peerloomllc.com/assets/icon-pearcircle.png",
+				"description": "Live location sharing with family and friends, synced directly between phones with no account and no server. Geofence alerts are worked out on the device.",
+				"Categories": ["L", 37, 44],
+				"Uses": [20]
+			}
+		},
+		{
+			"id": 87,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "PearGuard",
+				"slug": "pearguard",
+				"author": "PeerLoom",
+				"url": "https://peerloomllc.com/pearguard/",
+				"icon": "https://peerloomllc.com/assets/icon-pearguard.png",
+				"description": "Parental controls with no account and no vendor server. The parent's phone sends rules straight to the child's device, which enforces them itself.",
+				"Categories": ["L", 37, 44],
+				"Uses": [20]
+			}
+		},
+		{
+			"id": 88,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "PearList",
+				"slug": "pearlist",
+				"author": "PeerLoom",
+				"url": "https://peerloomllc.com/pearlist/",
+				"icon": "https://peerloomllc.com/assets/icon-pearlist.png",
+				"description": "Shared household lists that sync directly between phones, with no account and no server.",
+				"Categories": ["L", 37, 44],
+				"Uses": [20]
+			}
+		},
+		{
+			"id": 89,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "PearPetal",
+				"slug": "pearpetal",
+				"author": "PeerLoom",
+				"url": "https://peerloomllc.com/pearpetal/",
+				"icon": "https://peerloomllc.com/assets/icon-pearpetal.png",
+				"description": "A cycle tracker that keeps your log on your own devices, with no account and no server. You choose exactly what a partner can see, and can end it at any time.",
+				"Categories": ["L", 37, 44],
+				"Uses": [20]
+			}
 		}
 	]
 }

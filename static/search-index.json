@@ -1158,6 +1158,36 @@
     "category": "Application"
   },
   {
+    "title": "PearCal",
+    "url": "/directory/apps/pearcal",
+    "excerpt": "Shared group calendars with no account and no server. Phones in a group sync directly with each other. ICS import and export.",
+    "category": "Application"
+  },
+  {
+    "title": "PearCircle",
+    "url": "/directory/apps/pearcircle",
+    "excerpt": "Live location sharing with family and friends, synced directly between phones with no account and no server. Geofence alerts are worked out on the device.",
+    "category": "Application"
+  },
+  {
+    "title": "PearGuard",
+    "url": "/directory/apps/pearguard",
+    "excerpt": "Parental controls with no account and no vendor server. The parent's phone sends rules straight to the child's device, which enforces them itself.",
+    "category": "Application"
+  },
+  {
+    "title": "PearList",
+    "url": "/directory/apps/pearlist",
+    "excerpt": "Shared household lists that sync directly between phones, with no account and no server.",
+    "category": "Application"
+  },
+  {
+    "title": "PearPetal",
+    "url": "/directory/apps/pearpetal",
+    "excerpt": "A cycle tracker that keeps your log on your own devices, with no account and no server. You choose exactly what a partner can see, and can end it at any time.",
+    "category": "Application"
+  },
+  {
     "title": "Jazz",
     "url": "https://jazz.tools?utm_source=lofi_so",
     "excerpt": "Jazz - 'Sponsor of LoFi.so'",
