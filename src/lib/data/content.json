@@ -706,6 +706,12 @@
                         "icon": "https://noeldemartin.com/logos/umai-small.svg"
                     },
                     {
+                        "title": "Vestige",
+                        "author": "Sam Valladares",
+                        "url": "https://github.com/samvallad33/vestige",
+                        "icon": "https://raw.githubusercontent.com/samvallad33/vestige/main/assets/vestige-icon.png"
+                    },
+                    {
                         "title": "Focus",
                         "author": "Noel De Martin",
                         "url": "https://focus.noeldemartin.com",
