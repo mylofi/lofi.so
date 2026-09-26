@@ -461,6 +461,14 @@
 								"author": "Matt Wonlaw",
 								"url": "https://vlcn.io",
 								"icon": "https://vlcn.io/assets/isometrics/box-only-trimmed.png"
+							},
+							{
+								"title": "Hyperconsciousness",
+								"author": "Louis Beaumont",
+								"url": "https://github.com/louis030195/hyperconsciousness",
+								"icon": "https://github.githubassets.com/favicons/favicon-dark.svg",
+								"tag": "Developer alpha",
+								"description": "Developer-alpha Rust knowledge store with encrypted, signed, append-only records, device sync and scoped, expiring MCP access for agents. Local reads and writes work without a hosted service. Requires building from source."
 							}
 						]
 					},

@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 3,
+				"Title": "Hyperconsciousness",
+				"slug": "hyperconsciousness",
+				"author": "Louis Beaumont",
+				"url": "https://github.com/louis030195/hyperconsciousness",
+				"icon": "https://github.githubassets.com/favicons/favicon-dark.svg",
+				"description": "Developer-alpha Rust knowledge store with encrypted, signed, append-only records, device sync and scoped, expiring MCP access for agents. Local reads and writes work without a hosted service. Requires building from source.",
+				"Categories": ["L", 37, 39],
+				"Uses": null
+			}
 		}
 	]
 }
