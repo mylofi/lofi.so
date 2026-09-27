@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Autorec",
+                        "author": "Moritz Laass",
+                        "url": "https://autorec.app",
+                        "icon": "https://autorec.app/autorec-icon-round.png",
+                        "description": "Desktop meeting recorder that records Zoom, Teams and Meet calls without a bot and transcribes them on-device with whisper.cpp."
                     }
                 ]
             }
