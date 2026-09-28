@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "「自听」MyListen",
+                        "author": "铁果 朱",
+                        "url": "https://mylisten.vibestation.cn/",
+                        "icon": "https://mylisten.vibestation.cn/assets/icon.webp",
+                        "description": "On-device text-to-speech for iPhone. Turn pasted text or TXT/Markdown files into a personal audio library using a bundled speech model, without an account or cloud speech service. Supports Chinese and English voices and M4A export."
                     }
                 ]
             }
