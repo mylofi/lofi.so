@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 86,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Screenpipe",
+				"slug": "screenpipe",
+				"author": "Screenpipe",
+				"url": "https://screenpipe.com",
+				"icon": "https://screenpipe.com/favicon.ico",
+				"description": "Searchable screen text and audio history stored locally by default, with recall, meeting notes, and context for AI assistants through MCP and a local API. Source-available under the Screenpipe Commercial License. Configured cloud AI, transcription, sync, and integrations can transmit context off-device.",
+				"Categories": ["L", 12],
+				"Uses": null
+			}
 		}
 	]
 }
