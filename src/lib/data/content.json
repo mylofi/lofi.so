@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Moapyo",
+                        "author": "Moapyo",
+                        "url": "https://moagraph.kr/",
+                        "icon": "https://moagraph.kr/favicon.svg",
+                        "description": "Merge UTF-8 CSV files locally in your browser, with duplicate records and conflicting IDs flagged for review. Korean interface; no account or file upload."
                     }
                 ]
             }
