@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 90,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Snug",
+				"slug": "snug",
+				"author": "Andry Orellana",
+				"url": "https://snug.andryore.dev/?c=lofi",
+				"icon": "https://snug.andryore.dev/favicon.ico",
+				"description": "Chrome extension that exports, imports and backs up bookmarks entirely on the device, in six formats. No account, no network calls, MIT licensed. It does not sync.",
+				"Categories": ["L", 37],
+				"Uses": null
+			}
 		}
 	]
 }
