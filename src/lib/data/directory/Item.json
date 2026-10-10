@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 91,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "rikdom",
+				"slug": "rikdom",
+				"author": "Rikdom contributors",
+				"url": "https://github.com/ricardocabral/rikdom",
+				"icon": "https://raw.githubusercontent.com/ricardocabral/rikdom/main/design-system/project/assets/mark.svg",
+				"description": "A local-first portfolio toolkit with a Python CLI, statement imports and static dashboards. Your data stays in plain JSON and JSONL files.",
+				"Categories": ["L", 37, 38],
+				"Uses": null
+			}
 		}
 	]
 }
