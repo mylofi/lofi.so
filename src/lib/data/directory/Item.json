@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "LocArk",
+				"slug": "locark",
+				"author": "SELFARK LTD",
+				"url": "https://locark.com/",
+				"icon": "https://www.google.com/s2/favicons?domain=locark.com&sz=128",
+				"description": "LocArk is a local-first private workspace for notes, password records, personal kanban boards, mind maps, and quick capture, with user-controlled storage and offline-capable core features.",
+				"Categories": ["L", 2, 12, 43],
+				"Uses": null
+			}
 		}
 	]
 }
