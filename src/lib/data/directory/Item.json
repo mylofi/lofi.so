@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 92,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Mentria",
+				"slug": "mentria",
+				"author": "Mentria",
+				"url": "https://mentria.ai",
+				"icon": "https://mentria.ai/assets/img/icon-192x192.png",
+				"description": "Browser app where AI models run on your own GPU. What you make is stored in the browser, it keeps working offline once a model is saved, and devices sync peer to peer with encryption. No account needed.",
+				"Categories": ["L", 42],
+				"Uses": [39]
+			}
 		}
 	]
 }
