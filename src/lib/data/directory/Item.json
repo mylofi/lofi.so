@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "LokalBot",
+				"slug": "lokalbot",
+				"author": "stevyhacker",
+				"url": "https://www.lokalbot.com/",
+				"icon": "https://www.lokalbot.com/assets/lokalbot-icon-512.png",
+				"description": "Free, open-source work-memory app for Apple Silicon Macs with local meeting transcription, notes, dictation, and search across meetings and opt-in screen memory. Keeps the library on the Mac and works offline with downloaded models. Requires macOS 15 or later.",
+				"Categories": ["L", 2, 12, 37],
+				"Uses": null
+			}
 		}
 	]
 }
