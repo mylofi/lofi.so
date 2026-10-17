@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Clause Compass (review prototype)",
+                        "author": "Flavio Studio AI",
+                        "url": "https://github.com/flavioprojectsit-hash/clause-compass",
+                        "icon": "https://raw.githubusercontent.com/flavioprojectsit-hash/clause-compass/main/demo-screen.jpg",
+                        "description": "Local CPU search for English brief passages after setup. Review prototype; Python and Node required, tested on one Windows PC."
                     }
                 ]
             }
