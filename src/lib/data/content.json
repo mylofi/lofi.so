@@ -727,7 +727,7 @@
                     {
                         "title": "Koru",
                         "author": "Koru contributors",
-                        "url": "https://www.koru.do/en",
+                        "url": "https://www.koru.do",
                         "icon": "https://www.koru.do/icon.png",
                         "description": "Local-first desktop workspace for notes, docs and files. Open source (MPL-2.0), no account required, Windows and macOS."
                     }
