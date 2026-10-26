@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 93,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Ring Habits",
+				"slug": "ring-habits",
+				"author": "Maurizio Bellini",
+				"url": "https://www.ringhabits.com/en/iphone-habit-tracker/",
+				"icon": "https://www.ringhabits.com/apple-touch-icon.png",
+				"description": "Local-first habit tracker for iPhone and the web with 100% local on-device storage — no account, no sign-up, and your habits stay on your phone (or browser localStorage). Features a 0–100 habit strength score across 6 formation stages, press-and-hold ring completion, and self-set milestone rewards.",
+				"Categories": ["L", 43],
+				"Uses": null
+			}
 		}
 	]
 }
