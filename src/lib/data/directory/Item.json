@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Shahr Muhtawa — شهر محتوى",
+				"slug": "shahr-muhtawa",
+				"author": "Jarvis Templates",
+				"url": "https://payhip.com/b/tUinI",
+				"icon": "/images/directory/shahr-muhtawa.svg",
+				"description": "Arabic/RTL offline content planner with 30 editable draft cards. One-time $7 proprietary ZIP; desktop Chromium tested. Manual JSON save/restore; no autosave, sync, or automatic posting. AI-generated code/content; no specialist human review claimed.",
+				"Categories": ["L", 43],
+				"Uses": null
+			}
 		}
 	]
 }
