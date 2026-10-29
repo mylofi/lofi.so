@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Team Tracker",
+                        "author": "Fabio Pallini",
+                        "url": "https://fmpallini.github.io/team-tracker/",
+                        "icon": "https://fmpallini.github.io/team-tracker/icon-192.png",
+                        "description": "No-account, offline-first team tracker: people, notes, action items, milestones and risks in one AES-256 encrypted file you own."
                     }
                 ]
             }
