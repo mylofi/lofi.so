@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Offline.Ltd",
+				"slug": "offline-ltd",
+				"author": "Offline.Ltd",
+				"url": "https://offline.ltd/",
+				"icon": "https://offline.ltd/apple-touch-icon.png",
+				"description": "Personalized single-file HTML tools (“Swiss Knives”) forged to your life. One purchase, one self-contained HTML file you own and run fully offline forever — no account, no cloud, no phone-home. Tools and interconnected Blades share local memory; the file ages with use (Patina).",
+				"Categories": ["L", 2, 12, 43],
+				"Uses": null
+			}
 		}
 	]
 }
