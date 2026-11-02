@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Nesso",
+				"slug": "nesso",
+				"author": "Omar Desogus & Paolo Manfredotti",
+				"url": "https://nesso.how",
+				"icon": "https://nesso.how/favicon.svg",
+				"description": "A local-first, open-source app for connecting ideas through typed relations and building understanding in a personal knowledge graph.",
+				"Categories": ["L", 12, 37],
+				"Uses": null
+			}
 		}
 	]
 }
