@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "ottline",
+                        "author": "ottline",
+                        "url": "https://ottline.app",
+                        "icon": "https://ottline.app/apple-touch-icon.png",
+                        "description": "A local-first media and book logging app. Capture movies, series, and books instantly on-device with IndexedDB/SQLite and an offline outbox—no sign-up required, with optional cross-device sync via pairing code across Web, iOS, Android, and desktop."
                     }
                 ]
             }
