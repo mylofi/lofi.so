@@ -718,6 +718,13 @@
                         "icon": "https://backwater.systems/finance/images/logo.256.png"
                     },
                     {
+                        "title": "Eirle Notes",
+                        "author": "Eirle Notes",
+                        "url": "https://eirle.me/",
+                        "icon": "https://eirle.me/brand/eirle-icon.png",
+                        "description": "Free browser notepad with local notes, checklists and sticky notes. Works offline after setup; manual diary export/import, no account or automatic cloud sync."
+                    },
+                    {
                         "title": "BulkPicTools",
                         "author": "Genglin Zheng",
                         "url": "https://bulkpictools.com",
