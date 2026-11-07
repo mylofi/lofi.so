@@ -1158,6 +1158,12 @@
     "category": "Application"
   },
   {
+    "title": "ottline",
+    "url": "/directory/apps/ottline",
+    "excerpt": "A local-first media and book logging app. Capture movies, series, and books instantly on-device with IndexedDB/SQLite and an offline outbox—no sign-up required, with optional cross-device sync via pairing code across Web, iOS, Android, and desktop.",
+    "category": "Application"
+  },
+  {
     "title": "Jazz",
     "url": "https://jazz.tools?utm_source=lofi_so",
     "excerpt": "Jazz - 'Sponsor of LoFi.so'",
