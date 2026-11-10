@@ -993,6 +993,23 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
-		}
+		},
+	    {
+	        "id": 85,
+	        "fields": {
+	            "Main_Category": 1,
+	            "Title": "Spending Log: Expense Tracker",
+	            "slug": "spending-log",
+	            "author": "PiFl Labs",
+	            "url": "https://pifl-labs.com/en/apps/pipi-spend/",
+	            "icon": "https://pifl-labs.com/assets/apps/pipi-spend/icon-0acbccb1c9dc.webp",
+	            "description": "Manual Android expense tracker with on-device records and file backup/restore, not automatic cloud sync. No account or bank linking. Free with ads and optional one-time Pro; AdMob and Firebase use online services.",
+	            "Categories": [
+	                "L",
+	                38
+	            ],
+	            "Uses": null
+	        }
+	    }
 	]
 }
