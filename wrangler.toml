@@ -6,3 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 [[kv_namespaces]]
 binding = "eventData"
 id = "a582ee811be9420d8bdc1bbeaa437fee"
+
+# Preview deployments (PR branches) use a separate namespace so testing
+# "Save to Homepage" never overwrites the live event.
+[env.preview]
+[[env.preview.kv_namespaces]]
+binding = "eventData"
+id = "e0f244255ac5482f9b8037ae2c61628c"

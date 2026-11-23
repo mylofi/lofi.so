@@ -6,6 +6,7 @@ import {
 	normalizeSponsors
 } from '$lib/utils/event-graphic-spec';
 import sponsorsData from '$lib/data/sponsors.json';
+import { persistSpeakerImage } from '$lib/server/storage';
 
 export interface EventData {
 	eventNumber: number;
@@ -55,6 +56,32 @@ function migrateEventData(raw: Record<string, unknown>): EventData {
 	};
 }
 
+/**
+ * Copy speaker photos into Neon Object Storage so the saved event never points at
+ * expiring links (e.g. Discord attachment URLs). Failures keep the original URL.
+ */
+async function persistSpeakerImages(event: EventData): Promise<EventData> {
+	const speakers = await Promise.all(
+		(event.speakers || []).map(async (speaker) => {
+			const src = speaker.image || speaker.customImageUrl || '';
+			try {
+				const stored = await persistSpeakerImage(src, event.eventNumber, speaker.name);
+				if (!stored) return speaker;
+				return {
+					...speaker,
+					image: `/api/proxy-image?url=${encodeURIComponent(stored)}`,
+					customImageUrl: stored,
+					profileImagePlatform: 'custom'
+				};
+			} catch (error) {
+				console.error(`Failed to store image for ${speaker.name}:`, error);
+				return speaker;
+			}
+		})
+	);
+	return { ...event, speakers };
+}
+
 export async function saveEvent(event: EventData) {
 	const kv = getKVBinding();
 	if (!kv) {
@@ -63,6 +90,8 @@ export async function saveEvent(event: EventData) {
 		);
 		return null;
 	}
+
+	event = await persistSpeakerImages(event);
 
 	console.log('Saving event to KV:', event);
 	// Cloudflare KV stores strings, so we stringify the object
