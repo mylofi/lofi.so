@@ -1021,6 +1021,20 @@
 				"Categories": ["L", 2, 12, 43],
 				"Uses": null
 			}
+		},
+		{
+			"id": 87,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Linger",
+				"slug": "linger",
+				"author": "Lucius Miao",
+				"url": "https://withlinger.com/",
+				"icon": "https://withlinger.com/favicon.svg",
+				"description": "A local-first design reference library for Apple Silicon Macs running macOS 14 or later. It keeps images, source links, and notes in a library on the Mac and supports project canvases and offline use after activation.",
+				"Categories": [12],
+				"Uses": null
+			}
 		}
 	]
 }
