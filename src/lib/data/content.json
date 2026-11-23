@@ -723,6 +723,13 @@
                         "url": "https://bulkpictools.com",
                         "icon": "https://bulkpictools.com/favicon.svg",
                         "description": "Privacy-first, 100% browser-side image suite for bulk processing, powered by WebAssembly."
+                    },
+                    {
+                        "title": "Asermu",
+                        "author": "Asermu",
+                        "url": "https://asermu.com",
+                        "icon": "https://asermu.com/icons/icon-192x192.png",
+                        "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
                     }
                 ]
             }
