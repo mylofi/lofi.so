@@ -993,6 +993,20 @@
 				"Categories": ["L", 40, 44],
 				"Uses": null
 			}
+		},
+		{
+			"id": 85,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Vitra",
+				"slug": "vitra",
+				"author": "Pedro Thomaz",
+				"url": "https://vitrahealth.app",
+				"icon": "https://vitrahealth.app/icon.svg",
+				"description": "Local-first desktop companion for Oura Ring owners. Imports your history through the official API and keeps it synced, and every calculation runs on your own Mac or PC. No Vitra account and no vendor cloud; full JSON, CSV and PDF export.",
+				"Categories": null,
+				"Uses": null
+			}
 		}
 	]
 }
