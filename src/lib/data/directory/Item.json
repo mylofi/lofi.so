@@ -998,7 +998,19 @@
 			"id": 85,
 			"fields": {
 				"Main_Category": 1,
-				"Title": "Offline.Ltd",
+				"Title": "Loofah",
+				"slug": "loofah",
+				"author": "Bart / Loofah contributors",
+				"url": "https://loofah.io",
+				"icon": "https://raw.githubusercontent.com/bart6114/loofah/main/apps/desktop/src-tauri/icons/stable/icon.png",
+				"description": "Loofah is a local-first Mac app for notes and meeting transcription. It transcribes audio on-device and keeps notes and transcripts as ordinary Markdown files in a filesystem vault.",
+				"Categories": ["L", 2, 12, 37],
+    },
+    {
+			"id": 86,
+			"fields": {
+				"Main_Category": 1,
+        "Title": "Offline.Ltd",
 				"slug": "offline-ltd",
 				"author": "Offline.Ltd",
 				"url": "https://offline.ltd/",
