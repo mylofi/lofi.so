@@ -37,3 +37,6 @@ output/
 /graphic-*.jpg
 .session/
 .playwright-*/
+.neon
+
+.dev.vars

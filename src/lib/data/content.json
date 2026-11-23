@@ -729,6 +729,13 @@
                         "author": "Toeverything & contributors",
                         "url": "https://affine.pro",
                         "icon": "https://affine.pro/favicon-96.png"
+                    },
+                    {
+                        "title": "Asermu",
+                        "author": "Asermu",
+                        "url": "https://asermu.com",
+                        "icon": "https://asermu.com/icons/icon-192x192.png",
+                        "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
                     }
                 ]
             }
