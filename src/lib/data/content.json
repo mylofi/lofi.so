@@ -749,6 +749,13 @@
                         "url": "https://asermu.com",
                         "icon": "https://asermu.com/icons/icon-192x192.png",
                         "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
+                    },
+                    {
+                        "title": "rikdom",
+                        "author": "Rikdom contributors",
+                        "url": "https://github.com/ricardocabral/rikdom",
+                        "icon": "https://raw.githubusercontent.com/ricardocabral/rikdom/main/design-system/project/assets/mark.svg",
+                        "description": "A local-first portfolio toolkit with a Python CLI, statement imports and static dashboards. Your data stays in plain JSON and JSONL files."
                     }
                 ]
             }
