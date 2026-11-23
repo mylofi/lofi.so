@@ -326,7 +326,7 @@
   {
     "title": "Ditto",
     "url": "/directory/projects/ditto",
-    "excerpt": "Mobile ad-hoc mesh networking and peer-to-peer data sync for your enterprise applications.",
+    "excerpt": "Edge-native sync platform with an offline-first embedded database, CRDT-powered conflict resolution, and automatic peer-to-peer mesh networking. Sync data in real time across mobile, web, desktop, IoT, and server apps over Bluetooth LE, P2P WiFi, LAN, and the cloud.",
     "category": "Library"
   },
   {
@@ -679,7 +679,7 @@
   },
   {
     "title": "Ditto",
-    "url": "https://ditto.live",
+    "url": "https://www.ditto.com",
     "excerpt": "Ditto by Ditto Live, Inc",
     "category": "External Resource"
   },

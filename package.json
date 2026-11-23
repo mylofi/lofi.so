@@ -48,6 +48,9 @@
 	},
 	"dependencies": {
 		"@google/generative-ai": "^0.22.0",
+		"@neon/config": "^1.14.6",
+		"@neon/env": "^2.1.9",
+		"aws4fetch": "^1.0.20",
 		"fuse.js": "^7.1.0",
 		"modern-screenshot": "^4.5.5",
 		"openai": "^4.86.2"
