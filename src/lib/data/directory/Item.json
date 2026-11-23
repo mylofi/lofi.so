@@ -595,10 +595,10 @@
 				"Title": "Ditto",
 				"slug": "ditto",
 				"author": "Ditto Live, Inc",
-				"url": "https://ditto.live",
+				"url": "https://www.ditto.com",
 				"icon": "https://avatars.githubusercontent.com/u/37997887?s=500&v=4",
-				"description": "Mobile ad-hoc mesh networking and peer-to-peer data sync for your enterprise applications.",
-				"Categories": ["L", 41],
+				"description": "Edge-native sync platform with an offline-first embedded database, CRDT-powered conflict resolution, and automatic peer-to-peer mesh networking. Sync data in real time across mobile, web, desktop, IoT, and server apps over Bluetooth LE, P2P WiFi, LAN, and the cloud.",
+				"Categories": ["L", 41, 39, 40, 44],
 				"Uses": null
 			}
 		},
@@ -1005,6 +1005,18 @@
 				"icon": "https://raw.githubusercontent.com/bart6114/loofah/main/apps/desktop/src-tauri/icons/stable/icon.png",
 				"description": "Loofah is a local-first Mac app for notes and meeting transcription. It transcribes audio on-device and keeps notes and transcripts as ordinary Markdown files in a filesystem vault.",
 				"Categories": ["L", 2, 12, 37],
+    },
+    {
+			"id": 86,
+			"fields": {
+				"Main_Category": 1,
+        "Title": "Offline.Ltd",
+				"slug": "offline-ltd",
+				"author": "Offline.Ltd",
+				"url": "https://offline.ltd/",
+				"icon": "https://offline.ltd/apple-touch-icon.png",
+				"description": "Personalized single-file HTML tools (“Swiss Knives”) forged to your life. One purchase, one self-contained HTML file you own and run fully offline forever — no account, no cloud, no phone-home. Tools and interconnected Blades share local memory; the file ages with use (Patina).",
+				"Categories": ["L", 2, 12, 43],
 				"Uses": null
 			}
 		}
