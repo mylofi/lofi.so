@@ -194,8 +194,8 @@
 							{
 								"title": "Ditto",
 								"author": "Ditto Live, Inc",
-								"url": "https://ditto.live",
-								"icon": "https://pbs.twimg.com/profile_images/1627424762686476288/aD-H-f2__400x400.jpg"
+								"url": "https://www.ditto.com",
+								"icon": "https://avatars.githubusercontent.com/u/37997887?s=500&v=4"
 							},
 							{
 								"title": "Dat Stack",
@@ -335,6 +335,12 @@
 								"author": "JourneyApps",
 								"url": "https://www.powersync.com",
 								"icon": "https://journeyapps.com/assets/images/powersync-logo-icon.png"
+							},
+							{
+								"title": "Ditto",
+								"author": "Ditto Live, Inc",
+								"url": "https://www.ditto.com",
+								"icon": "https://avatars.githubusercontent.com/u/37997887?s=500&v=4"
 							},
 							{
 								"title": "Dexie.js",

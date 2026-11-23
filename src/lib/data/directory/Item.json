@@ -595,10 +595,10 @@
 				"Title": "Ditto",
 				"slug": "ditto",
 				"author": "Ditto Live, Inc",
-				"url": "https://ditto.live",
+				"url": "https://www.ditto.com",
 				"icon": "https://avatars.githubusercontent.com/u/37997887?s=500&v=4",
-				"description": "Mobile ad-hoc mesh networking and peer-to-peer data sync for your enterprise applications.",
-				"Categories": ["L", 41],
+				"description": "Edge-native sync platform with an offline-first embedded database, CRDT-powered conflict resolution, and automatic peer-to-peer mesh networking. Sync data in real time across mobile, web, desktop, IoT, and server apps over Bluetooth LE, P2P WiFi, LAN, and the cloud.",
+				"Categories": ["L", 41, 39, 40, 44],
 				"Uses": null
 			}
 		},
