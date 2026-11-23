@@ -749,6 +749,13 @@
                         "url": "https://asermu.com",
                         "icon": "https://asermu.com/icons/icon-192x192.png",
                         "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
+                    },
+                    {
+                        "title": "Linger",
+                        "author": "Lucius Miao",
+                        "url": "https://withlinger.com/",
+                        "icon": "https://withlinger.com/favicon.svg",
+                        "description": "A local-first design reference library for Apple Silicon Macs running macOS 14 or later. It keeps images, source links, and notes in a library on the Mac and supports project canvases and offline use after activation."
                     }
                 ]
             }
