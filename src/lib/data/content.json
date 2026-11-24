@@ -749,6 +749,13 @@
                         "url": "https://asermu.com",
                         "icon": "https://asermu.com/icons/icon-192x192.png",
                         "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
+                    },
+                    {
+                        "title": "Weesper Neon Flow",
+                        "author": "Weesper",
+                        "url": "https://weesperneonflow.ai/en/",
+                        "icon": "https://weesperneonflow.ai/apple-touch-icon.png",
+                        "description": "Voice dictation for Mac and Windows that types into any app. Speech recognition runs on your computer, so audio stays on the device and dictation works offline."
                     }
                 ]
             }
