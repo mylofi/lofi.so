@@ -749,6 +749,13 @@
                         "url": "https://asermu.com",
                         "icon": "https://asermu.com/icons/icon-192x192.png",
                         "description": "Offline-first novel writing app with plotting and worldbuilding tools. Manuscripts are stored on-device in IndexedDB."
+                    },
+                    {
+                        "title": "SpeakCove",
+                        "author": "SpeakCove",
+                        "url": "https://speakcove.com/text-to-speech",
+                        "icon": "https://speakcove.com/app-icon.png",
+                        "description": "Reads PDF, EPUB and Word files out loud in the browser. The voices run on your device, so files are never uploaded."
                     }
                 ]
             }
