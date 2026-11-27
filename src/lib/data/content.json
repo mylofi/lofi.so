@@ -652,6 +652,12 @@
                         "icon": "https://app.bangle.io/icon-transparent_x512.png"
                     },
                     {
+                        "title": "Bentowise",
+                        "author": "FizNex LLC",
+                        "url": "https://bentowise.com/",
+                        "icon": "https://bentowise.com/wp-content/uploads/2026/08/cropped-trayIcon.png"
+                    },
+                    {
                         "title": "DXOS Composer",
                         "author": "dxos.org",
                         "url": "https://composer.space",

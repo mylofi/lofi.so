@@ -1021,6 +1021,20 @@
 				"Categories": ["L", 2, 12, 43],
 				"Uses": null
 			}
+		},
+		{
+			"id": 87,
+			"fields": {
+				"Main_Category": 1,
+				"Title": "Bentowise",
+				"slug": "bentowise",
+				"author": "FizNex LLC",
+				"url": "https://bentowise.com/",
+				"icon": "https://bentowise.com/wp-content/uploads/2026/08/cropped-trayIcon.png",
+				"description": "Arrange files, web links, images, and notes side by side on a visual research board. Bentowise saves boards locally on Windows and macOS so you can keep working offline.",
+				"Categories": ["L", 12],
+				"Uses": null
+			}
 		}
 	]
 }
