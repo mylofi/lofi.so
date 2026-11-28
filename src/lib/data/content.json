@@ -646,6 +646,13 @@
                         "icon": "https://agregore.mauve.moe/icon.svg"
                     },
                     {
+                        "title": "Anchoris",
+                        "author": "Anchoris",
+                        "url": "https://anchoris.app/",
+                        "icon": "https://anchoris.app/favicon.svg",
+                        "description": "A local-first workspace for macOS. Save web pages and excerpts as HTML with their source URLs, alongside your project notes and PDFs in a folder on your Mac."
+                    },
+                    {
                         "title": "Bangle.io",
                         "author": "Kushan Joshi",
                         "url": "https://bangle.io",
